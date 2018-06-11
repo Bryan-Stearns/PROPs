@@ -1,0 +1,339 @@
+#####    Author: Bryan Stearns, August 2017
+#   This code manages the substate in which applied operators are combined into new proposals, which are returned and chunked.
+#   To turn on associative phase learning of these compiled proposals, source props_learn_l2.soar after sourcing this.
+#
+#   Returned structures correspond to all pair-wise combinations of used pre-existing proposals.
+#   Results are to be learned as proposal chunks - they do NOT condition on the superstate operator.
+#
+#   In an ideal theoretical world, this might be an architectural process. But then the interface with rules is theoretically iffy.
+#   As it is, this process in itself is not a very Soar-like use of chunking.
+#   But PROPs is to represent an interface that unifies the kernel side with the normal agent-code side, so the dark magic is excused.
+#
+##        OPERATORS
+#   props-build-proposals                   | Initializes the local structures, and creates base combo shells for all valid combos.
+#   props-build-proposal-items              | Creates literalization structures for all needed props, and copies props from the superstate source to the buffer structures.
+#   props-build-proposal-return             | Ends the substate by copying all results from the buffer to the superstate proposals structure.
+#   
+##        STRUCTURE
+#  (<ss> ^name props-eval
+#        ^proposals (<ppls>                 | Info about proposals for evaluating instructions
+#           [^propose (<ppl>                | An individual propose structure (which triggered an instance of a propose rule)
+#                ^original true             | A flag that indicates this propose was was selected and used during evaluation
+#               [^source <p1>]]))           | If this proposal combines two others, this is one of two structures it combines
+#        ^propose-ready true)               | When present, the closing operators in the superstate can be proposed, and the ONC for the substate goes away
+#
+#  (<s>  ^name props-build-proposals        | What's in a name?
+#        ^Proposals <ppls>                  | A pointer to the superstate structure, for concise backtracing of chunk conditions and results
+#        ^proposal-buffer <pb>              | A local collection of new proposal structures, to be returned in a single decision cycle. Same format as ^Proposals.
+#        ^proposal-lits (<pl>               | {lti-name, literalization} collections for each prop used in a combo.
+#           [^item (<li>                    | A literalization record so that proposal names can be literalized in the resulting chunk
+#                ^name <name>               | The proposal name being literalized
+#                ^literalize <lit>)]        | The wme to backtrace through to literalize <name>
+#        ^has-applied << combo-1 combo-2 >> | These delay the proposal of build-proposal-return (and retraction of build-proposal-items) until build-proposal-items has had multiple application cycles
+#   
+#####
+
+
+### (ONC) BUILD SEMANTIC COMBOS OF KNOWN PROPOSALS IN SUBSTATE ###
+
+sp {prefer*props*build-proposals
+    (state <s> ^name props-eval
+               ^proposals.conds-counted > 0
+               ^operator <o1> +
+               ^operator <o2> +)
+    (<o1> ^name props-build-proposals-onc)
+    (<o2> ^name << props-result-success props-result-fail >>)
+-->
+    (<s> ^operator <o1> > <o2>)
+}
+sp {prefer*props*query*instructions
+    (state <s> ^operator <o1> +
+               ^operator <o2> +)
+    (<o1> ^name << props-query props-retrieve props-init-evaluation >>)
+    (<o2> ^name props-build-proposals-onc)
+-->
+    (<s> ^operator <o1> > <o2>)
+}
+
+sp {propose*props*substate*build-proposals
+    (state <s> ^name props-eval
+               ^operator <o1> +
+              -^prop-condition-xp
+              -^props-flag propose-ready)
+    (<o1> ^name << props-result-success props-result-fail >>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-build-proposals-onc)
+}
+
+sp {elaborate*props*build-proposals*bypass-one-fail
+    "Bypass the build substate if theres only one item due to condition failure"
+    (state <s> ^name props-eval
+               ^proposals ( <ps> ^propose <p1>) )
+    (<p1> -^original 
+           ^status fail)
+   -{(<ps> ^propose {<p2> <> <p1>})
+     (<p2> ^status
+          -^original )}
+-->
+    (<s> ^props-flag propose-ready)
+}
+sp {elaborate*props*build-proposals*finalized
+    "Bypass the build substate if the complete instruction set has been learned"
+    (state <s> ^name props-eval
+               ^proposals ( ^cond-count <ccnt> 
+                            ^act-count <acnt>
+                            ^propose <p>) )
+    (<p> ^size {> <ccnt> > <acnt>})
+-->
+    (<s> ^props-flag propose-ready)
+}
+
+
+### OPERATOR ### 
+# props-build-proposals-init
+##
+# Name the substate and initialize structures.
+# The ambiguity of the conditions keeps the resulting chunk general.
+# (Negation conditions are not backtraced through, so they are safe to use.)
+### 
+
+sp {propose*props*build-proposals*state
+    (state <s> ^superstate <ss>
+               ^impasse no-change
+               ^attribute operator
+              -^name )
+    (<ss>   ^name props-eval
+            ^operator <oo>
+            ^proposals <ppls>)
+    (<oo> -^name props-reset)    # Don't build the same time as removing
+-->
+    (<s> ^operator <o> + < )
+    (<o> ^name props-build-proposals-init
+         ^Proposals <ppls>)
+}
+sp {apply*props*build-proposals*state
+    (state <s> ^operator <o>)
+    (<o> ^name props-build-proposals-init
+         ^Proposals <ppls>)
+-->
+    (<s> ^name props-build-proposals
+         ^proposal-buffer <pb>
+         ^proposal-lits <pls>
+         ^Proposals <ppls>)
+    #(force-learn <s>)                # ENABLE BY SOURCING props_learn_l2.soar
+}
+
+# CATCH IMPROPER ONC
+sp {apply*props*build-proposals*bug-catch
+    (state <s> ^operator.name props-build-proposals-init
+               ^superstate <ss>
+               ^topstate.io.output-link <ol>
+               -^superstate.operator.name props-build-proposals-onc)
+-->
+    (write (crlf) |ERROR: Op no-change|)
+    (<ol> ^error <e>)
+    (<e> ^msg |ONC| )
+    (cmd print <ss> -d 4)
+    (interrupt)
+}
+
+
+
+### OPERATOR ### 
+# props-build-proposals-combos
+##
+# Combine the props-evaluate proposals that were applied in the superstate
+### 
+
+### BUILD THE NEW PROPOSAL STRUCTURE HEADS ###
+sp {propose*props*build-proposals*combos
+    (state <s> ^name props-build-proposals
+              -^has-applied combo-2)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-build-proposals-combos)
+}
+# LITERALIZE THE PROPOSED STRUCTURE IDS FOR THE CHUNK
+sp {apply*props*build-proposals*combos
+    "Make the head combo structure. Dont combine conds with acts or any ancestors with children."
+    (state <s> ^operator.name props-build-proposals-combos
+               ^Proposals <ppls>
+               ^proposal-lits <pls>
+               ^proposal-buffer <pb>)
+    (<ppls> ^propose (<p1> -^original true 
+                           ^size <z1>
+                           ^prop-type <type>
+                           ^name <n1>)
+            ^propose (<p2> -^original true
+                           ^size <z2>
+                           ^prop-type <type>    # <type> is only << condition action >>
+                           ^name {<n2> > <n1>}) )
+    #-{(<p1> ^prop <same>)
+    #  (<p2> ^prop <same>)}    # Commented out: Don't include this in the chunk
+-->
+    (<pb> ^propose <p3>)
+    (<p3> ^source <p1> 
+          ^source <p2> 
+          ^name (concat |-| <n1> <n2>)
+          ^size (+ <z1> <z2>) )
+    (<pls> ^item <lp>)
+    (<lp> ^name (concat |-| <n1> <n2>)
+          ^literalize (+ 1 (int <n1>) (int <n2>)))
+}
+
+sp {apply*props*build-proposals*combos*final-combo
+    "Make the final combo structure that combines conds with acts, if applicable."
+    (state <s> ^operator.name props-build-proposals-combos
+               ^Proposals <ppls>
+               ^proposal-lits <pls>
+               ^proposal-buffer <pb>)
+    (<ppls> ^cond-count <ccnt>
+            ^act-count <acnt>
+            ^propose (<p1> -^original true 
+                           ^name <n1>
+                           ^prop-type condition
+                           ^size <ccnt>)
+            ^propose (<p2> -^original true 
+                           ^name <n2>
+                           ^prop-type action
+                           ^size <acnt>) )
+-->
+    (<pb> ^propose <p3>)
+    (<p3> ^source <p1> 
+          ^source <p2> 
+          ^name (concat |-| <n1> <n2>)
+          ^size (+ <ccnt> <acnt>) )
+    (<pls> ^item <lp>)
+    (<lp> ^name (concat |-| <n1> <n2>)
+          ^literalize (+ 1 (int <n1>) (int <n2>)))
+}
+
+sp {apply*props*build*proposal*combos*applied-1
+    (state <s> ^operator.name props-build-proposals-combos
+              -^has-applied combo-1)
+-->
+    (<s> ^has-applied combo-1)
+}
+sp {apply*props*build*proposal*combos*applied-2
+    (state <s> ^operator.name props-build-proposals-combos
+               ^has-applied combo-1)
+-->
+    (<s> ^has-applied combo-2)
+}
+
+sp {apply*props*build-proposals*items*remove-rejoins
+    "Remove new proposals that have overlap in their combined elements"
+    # Remove instead of prevent creation to avoid making the superstate negation test part of the chunk
+    (state <s> ^operator.name props-build-proposals-combos
+               ^proposal-buffer <pb>)
+    (<pb> ^propose <p3>)
+    (<p3> ^source (<p1> ^prop <same>)
+          ^source (<> <p1> ^prop <same>))
+-->
+    (<pb> ^propose <p3> -)
+}
+sp {apply*props*build-proposals*items*remove-duplicates
+    "Remove new proposals that are the same as originals"
+    # Remove instead of prevent creation to avoid making the superstate negation test part of the chunk
+    (state <s> ^operator.name props-build-proposals-combos
+               ^Proposals <ppls>
+               ^proposal-buffer <pb>)
+    (<pb> ^propose <pn>)
+    (<pn> ^name <same>)
+    (<ppls> ^propose <po>)
+    (<po> ^name <same>)
+-->
+    (<pb> ^propose <pn> -)
+}
+sp {apply*props*build-proposals*items*remove-unevaluated
+    "Remove combinations of unpracticed operators"
+    # Remove instead of prevent creation to avoid making the superstate negation test part of the chunk
+    (state <s> ^operator.name props-build-proposals-combos
+               ^proposal-buffer <pb>)
+    (<pb> ^propose <pn>)
+    (<pn> -^source.status)
+-->
+    (<pb> ^propose <pn> -)
+}
+sp {apply*props*build-proposals*items*remove-subsumed
+    "Remove components of chosen proposals"
+    # Remove instead of prevent creation to avoid making the superstate negation test part of the chunk
+    (state <s> ^operator.name props-build-proposals-combos
+               ^proposal-buffer <pb>)
+    (<pb> ^propose <p1>
+          ^propose <p2>)
+    (<p2> ^source <p1>)
+-->
+    (<pb> ^propose <p1> -)
+}
+#sp {apply*props*build-proposals*items*remove-smaller
+#    "Prefer the larger of two combo uses of a PROP"
+#    (state <s> ^operator.name props-build-proposal-items
+#               ^proposal-buffer <pb>)
+#    (<pb> ^propose <p1>
+#          ^propose <p2>)
+#    (<p1> ^size <z1>
+#          ^source.prop <same>)
+#    (<p2> ^size > <z1>
+#          ^source.prop <same>)
+#   -{(<p1> ^source (<p> ^prop <pp>)        # Don't consider rejoins, removed elsewhere
+#           ^source (<> <p> ^prop <pp>))}
+#   -{(<p2> ^source (<p> ^prop <pp>)
+#           ^source (<> <p> ^prop <pp>))}
+#-->
+#    (<pb> ^propose <p1> -)
+#}
+
+
+### OPERATOR ### 
+# props-build-proposals-return
+##
+# Return the built proposal structures, tracing through the literalize structures.
+### 
+
+sp {propose*props*build-proposals*return
+    (state <s> ^name props-build-proposals
+               ^has-applied combo-2)
+-->
+    (<s> ^operator <o> + < )
+    (<o> ^name props-build-proposal-return)
+}
+
+sp {apply*props*build-proposals*return
+    (state <s> ^operator.name props-build-proposal-return
+               ^proposal-buffer.propose <p>
+               ^proposal-lits.item <li>
+               ^Proposals <ppls>)
+    (<p> ^name <name>)
+    (<li> ^name <name>
+          ^literalize )
+-->
+    (<ppls> ^propose <p>)
+}
+
+# BUG CATCHER
+sp {apply*props*build-proposals*return*bug-catch
+    (state <s> ^operator.name props-build-proposal-return
+               ^topstate.io.output-link <ol>
+               ^proposal-buffer <pb>)
+    (<pb> -^propose )
+-->
+    (write (crlf) |ERROR: No proposals to return.|)
+    (<ol> ^error <e>)
+    (<e> ^msg |BUILD-PROPOSALS EMPTY| )
+    (cmd print <s> -d 4)
+    (interrupt)
+} # This might happen if the remove rules removed everything. Not their fault, fix the stuff they're fed.
+
+
+# TELL THE SUPERSTATE THERE ARE NO MORE COMBOS TO RETURN (WITHOUT CHUNKING IT)
+sp {elaborate*props*build-proposals*done-return
+    (state <s> ^superstate <ss>
+               ^operator.name props-build-proposal-return
+               ^quiescence t)
+    (<ss> ^operator.name props-build-proposals-onc)
+-->
+    (<ss> ^props-flag propose-ready)
+}
+

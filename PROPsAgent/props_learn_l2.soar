@@ -1,0 +1,32 @@
+### SOURCE THIS TO TURN ON HIERARCHICAL CHUNKING OF ASSOCIATIVE INSTRUCTION EVALUATION PROPOSAL COMBINATIONS (that's a mouthful) ###
+# (It wouldn't make sense to have props_build_proposals.soar without learning turned on, but for the sake of the filing convention they are separate.)
+
+source props_build_proposals.soar
+
+
+## LEARN PROPOSAL COMBOS
+sp {apply*props*build-proposals*state
+    (state <s> ^operator <o>)
+    (<o> ^name props-build-proposals-init
+         ^Proposals <ppls>)
+-->
+    (<s> ^name props-build-proposals
+         ^proposal-buffer <pb>
+         ^proposal-lits <pls>
+         ^Proposals <ppls>)
+    (force-learn <s>)
+} # Always learn
+
+# LEARN THE RESULTS OF INSTRUCTION COMBO EVALUATION
+sp {elaborate*props*do*state
+    (state <s> ^superstate <ss>)
+    (<ss> ^operator (^name props-evaluate
+                     ^propose.size <size>)
+          ^rootstate <rs>)
+-->
+    (<s> ^name props-do
+         ^literalize 0
+         ^size <size>
+         ^rootstate <rs>)
+    (force-learn <s>)
+}

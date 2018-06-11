@@ -1,0 +1,76 @@
+chunk only
+chunk add-ltm-links on
+chunk confidence-threshold 1
+
+#explain all on
+#explain justifications on
+#vis color on
+
+#watch --learn 2
+#watch --learning print
+#watch --backtracing
+
+smem --set activation-mode base-level
+smem --set base-update-policy naive
+smem --set base-decay 0.5
+#smem --set base-inhibition on
+smem --set activate-on-query off
+
+smem --set spreading-continue-probability 0.95
+smem --set spreading-limit 300
+smem --set spreading-depth-limit 3
+#smem --set spreading-loop-avoidance on
+smem --set spreading on
+smem --set learning on
+
+output callbacks on
+output console on
+
+
+source lib_smem_clean.soar
+source lib_smem_prohibit_store.soar
+
+source props_fetch.soar
+source props_static.soar
+source props_instruction_init.soar
+source props_instruction_eval.soar
+source props_primitives.soar
+source props_primitive_addressing.soar
+source props_shared.soar
+#source props_build_proposals.soar        # Is sourced with props_learn_l2.soar
+#source props_condition_spread.soar       # Source this optionally on your own to enable condition spread learning
+
+
+multi-attributes condition 4
+multi-attributes action 4
+multi-attributes prop 3
+multi-attributes prop-type 2
+multi-attributes source 2
+multi-attributes prop-link 5
+multi-attributes prop-ltm 5
+multi-attributes propose 6
+
+chunk singleton state literalize constant
+chunk singleton identifier condition constant
+chunk singleton identifier action constant
+chunk singleton identifier prop identifier
+chunk singleton state const identifier
+chunk singleton identifier prop-count constant
+chunk singleton identifier name constant
+chunk singleton identifier propose identifier
+chunk singleton state props-buffer identifier
+chunk singleton operator items identifier
+chunk singleton identifier prop-type constant
+chunk singleton identifier id1 identifier
+chunk singleton identifier id2 identifier
+chunk singleton identifier attr1 constant
+chunk singleton identifier attr2 constant
+chunk singleton identifier lti-name constant
+chunk singleton state rootstate state
+chunk singleton identifier 1 constant
+chunk singleton identifier 2 constant
+chunk singleton identifier 3 constant
+chunk singleton identifier 4 constant
+
+#chunk interrupt on
+

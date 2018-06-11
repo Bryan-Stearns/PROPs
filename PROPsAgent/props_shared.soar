@@ -1,0 +1,126 @@
+#####    Author: Bryan Stearns, 2016-2018
+#   These are elaboration rules for basic structure use common across the scope of PROPs fetching and execution
+#
+#####
+
+
+### RECOGNIZE INITIAL STATE NO-CHANGE ###
+# THIS BEGINS THE PROPS FETCH AND EXECUTE PROCESSING
+sp {elaborate*props*eval*state
+    (state <s> ^impasse no-change
+               ^attribute state
+              -^superstate.name props-eval)
+-->
+    (<s> ^name props-eval
+         ^proposals <p>)
+}
+
+# CLEANUP PROPS STRUCTURES ON PROPS IMPASSE
+#sp {set*props*clean*quit*instructions
+#    :o-support
+#    (state <s> ^props-flag impasse
+#               ^props-instructions <any>)
+#-->
+#    (<s> ^props-instructions <any> -)
+#}
+
+
+### PROPAGATE MARKERS FOR VARIOUS INSTRUCTION EVALUATION STATE STACKS ###
+sp {elaborate*props*prohibit*list
+    (state <s> ^prop-prohibits <pp>
+              #-^props-static.manual-next-rule
+               ^smem.prohibit-list <pl>)
+    (<pp> ^prohibit <prbt>)
+-->
+    (<pl> ^prohibit <prbt>)
+}
+
+
+### DEFINE AND PROPAGATE THE ROOTSTATE ###
+
+sp {elaborate*props*rootstate*init-onc
+	(state <s> ^name props-eval
+			   ^superstate <ss>)
+	(<ss> ^impasse no-change
+		  ^attribute operator
+		  ^superstate <sss>)
+-->
+	(<s> ^rootstate <sss>
+         ^force-learn-onc-state <ss>)
+}
+sp {elaborate*props*rootstate*init-snc
+	(state <s> ^name props-eval
+              -^force-learn-onc-state
+			   ^superstate <ss>)
+	#(<ss> -^impasse )
+-->
+	(<s> ^rootstate <ss>)
+}
+
+sp {elaborate*topstate
+    (state <s> ^superstate nil)
+-->
+    (<s> ^topstate <s>)
+}
+sp {elaborate*rootstate*cascade
+    (state <s> ^superstate.topstate <ts>)
+-->
+    (<s> ^topstate <ts>)
+}
+
+
+sp {elaborate*props*consts    # TODO: All this does is add (<s> ^const) to the eval-state chunk.
+    (state <s> ^props-instructions.const <q>
+               -^const <> <q>)
+-->
+    (<s> ^const <q>)
+}
+
+# BLINK ON INSTRUCTION FAIL #
+sp {elaborate*props*failure*blink
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^rootstate <rs>
+               ^topstate.io.output-link <ol>
+               ^superstate <ss>)
+    (<ss> ^operator.name << props-result-fail props-result-success >>) 
+-->
+    #(<rs> ^operator <o> + > !)
+    #(<o> ^name props-fetch-reset)
+    (write (cmd print <ss> -d 4))
+    (write (cmd preferences <ss> operator --names))
+    (<ol> ^error <e>)
+    (<e> ^msg |RESULT NOT RETURNING| )
+    (interrupt)
+}
+
+# DEBUGGING
+sp {catch*props*op-tie
+    (state <s> ^impasse tie
+               ^superstate <ss>
+               ^topstate.io.output-link <ol>)
+-->
+    (write (cmd print <ss> -d 4))
+    (write (cmd preferences <ss> operator --names))
+    (<ol> ^error <e>)
+    (<e> ^msg |TIE| )
+    (interrupt)
+}
+
+sp {catch*props*do-onc
+    (state <s> ^impasse no-change
+               ^attribute state
+               ^superstate <ss>
+               ^topstate.io.output-link <ol>)
+    (<ss> ^superstate <sss>
+          ^impasse no-change
+          ^attribute operator)
+    (<sss> ^operator.name props-do)
+-->
+    (write (cmd print <ss> -d 4))
+    (write (cmd preferences <ss> operator --names))
+    (write (cmd matches))
+    (<ol> ^error <e>)
+    (<e> ^msg |PROPS-DO ONC| )
+    (interrupt)
+}

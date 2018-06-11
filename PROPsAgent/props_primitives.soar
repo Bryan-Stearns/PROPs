@@ -1,0 +1,897 @@
+#####    Author: Bryan Stearns, 2016-2018
+#   These are the rules for carrying out the actual primitive operators, as instances of the props-do operator.
+#
+##      OPERATORS
+#   props-do                                | The operator for passing conditions and buffering actions
+#   props-result-success                    | The operator for flushing buffered actions and ending the fetch/execute process
+#
+##      PRIMARY STRUCTURES
+#  (<s> ^name props-do
+#       ^rootstate <rs>                     | The pointer to the superstate that the learned rule should fire in
+#       ^superstate <ss>                    | The props-eval state
+#
+#       ^operator (<o>                      | A PROP
+#           ^name props-do
+#           ^proposal <ppl>                 | The <ss> props-evaluate operator's proposal
+#           ^prop-eval-data (<d>            | The evaluation data record for the prop being evaluated
+#               ^prop <prop>)               | The original LTM instruction corresponding to this PROP
+#           ^prop (<p>                      | A *copy* of the <prop> referenced in the original instructions, modified in this substate
+#               ^status << success fail >>  | The created result from evaluating this PROP
+#              [^prop-type <type>]          | One of << condition action >> or also any of the specific condition/action types
+#               ^id1 <id1>                  | The first arg's id of the id:attr pair. Usually needs creation through addressing.
+#               ^id2 <id2>                  | The second arg's id of the id:attr pair. Usually needs creation through addressing.
+#               ^attr1 <attr1>              | The first arg's attr of the id:attr pair
+#               ^attr2 <attr2>              | The second arg's attr of the id:attr pair
+#              [^ops (<ops>                 | Info on an operator reference within the prop's args, such as for binary preference action
+#                   ^op <op>                | The operator object being referenced
+#                   ^op-target <opt>)]      | Either of << attr1 attr2 >>, for which arg this operator reference applies to
+#               ^intermediate true)))       | A flag that marks a PROP action for building an intermediate object prior to buffer flushing
+#
+# (<ss> ^name props-eval
+#       ^props-buffer (<bff>                | The collection of actions to be flushed to the rootstate at the end of instruction evaluation
+#           ^action <prop>)                 | A prop instruction element that describes the action ready to be flushed
+#       ^props-flag staging                 | A flag that triggers buffered actions that build intermediate objects prior to flushing
+#       ^props-flag flushing                | A flag that triggers the final flushing of buffered action by firing those action apply rules
+#
+#       ^operator (<oo>                     
+#           ^name props-result-success
+#          [^item (<i>                      | Another copy of the buffered action, but passed through a final stage of literalization for backtracing
+#               ^action <prop>              | The original PROP
+#               ^id1 <id1>                  | The first arg's id of the id:attr pair, passed through literalization.
+#               ^id2 <id2>                  | The second arg's id of the id:attr pair, passed through literalization.
+#               ^attr1 <attr1>              | The first arg's attr of the id:attr pair, passed through literalization.
+#               ^attr2 <attr2>              | The second arg's attr of the id:attr pair, passed through literalization.
+#              [^ops <ops>])]))             | Info on an operator reference within the prop's args, such as for binary preference action
+#
+#####
+
+
+### OPERATOR ### 
+# props-do
+##
+# The operator for an individual PROP.
+# Each PROP requires a certain number of id:attr arguments.
+# If any of the id or attr elements for an arg are missing, an op no-change will lead to props_primitive_addressing.soar behavior.
+# Each PROP condition is evaluated with two rules, one for detecting TRUE and another for FALSE.
+# Each PROP action is evaluated with a single rule that detects all args are present, and passes the PROP to the action buffer. 
+### 
+
+sp {apply*props*do*generic*fail*arg1
+    "Return a generic failure whenever a required WME does not exist."
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^literalize)
+    (<prop> -^prop-type negation   # SPECIAL CASE
+            -^prop-type existence  # SPECIAL CASE (REDUNDANT)
+             ^prop-type condition  # TODO: Would mess with operator actions; should be unnecessary
+             ^id1 <id1>
+             ^attr1 <attr1>)
+   -(<id1> ^<attr1> )
+-->
+    (<prop> ^status fail)
+    (write (crlf) | *** FAILED | <prop> |, CAN'T FIND: | <id1> | ^| <attr1> | *** | )
+}
+sp {apply*props*do*generic*fail*arg2
+    "Return a generic failure whenever a required WME does not exist."
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>)
+    (<prop> ^prop-type condition
+            ^id2 <id2>
+            ^attr2 <attr2>)
+    -(<id2> ^<attr2> )
+-->
+    (<prop> ^status fail)
+    (write (crlf) | *** FAILED | <prop> |, CAN'T FIND: | <id2> | ^| <attr2> | *** | )
+}
+
+### APPLY PRIMITIVE CONDITIONS ###
+
+# COMPARE EQUALITY
+sp {apply*props*do*eq
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type equality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*eq*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type equality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val1>)
+    (<id2> ^<attr2> {<> <val1> <val2>})
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE INEQUALITY
+sp {apply*props*do*neq
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type inequality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val1>)
+    (<id2> ^<attr2> {<> <val1> <val2>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*neq*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type inequality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE TYPE-EQUALITY
+sp {apply*props*do*teq
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type type-equality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val1>)
+    (<id2> ^<attr2> {<val2> <=> <val1>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*teq*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type type-equality
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id1> ^<attr1> <val1>)
+    -(<id2> ^<attr2> {<val2> <=> <val1>})
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE LESS-THAN
+sp {apply*props*do*less*than
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type less-than
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    (<id1> ^<attr1> {<val1> < <val2>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*less*than*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type less-than
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    -(<id1> ^<attr1> {<val1> < <val2>})    # Could say >=, but for multiple wmes this is more accurate, and shortens unnecessary backtracing
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE GREATER-THAN
+sp {apply*props*do*greater*than
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type greater-than
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    (<id1> ^<attr1> {<val1> > <val2>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*greater*than*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type greater-than
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    -(<id1> ^<attr1> {<val1> > <val2>})
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE LESS-EQUAL
+sp {apply*props*do*less*equal
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type less-equal
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    (<id1> ^<attr1> {<val1> <= <val2>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*less*equal*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type less-equal
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    -(<id1> ^<attr1> {<val1> <= <val2>})
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE GREATER-EQUAL
+sp {apply*props*do*greater*equal
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type greater-equal
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    (<id1> ^<attr1> {<val1> >= <val2>})
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*greater*equal*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type greater-equal
+            ^attr1 <attr1>
+            ^attr2 <attr2>
+            ^id1 <id1>
+            ^id2 <id2>)
+    # Compare:
+    (<id2> ^<attr2> <val2>)
+    -(<id1> ^<attr1> {<val1> >= <val2>})
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE NEGATION
+sp {apply*props*do*negation
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type negation
+            ^attr1 <attr1>
+            ^id1 <id1>)
+    # Compare:
+    (<id1> -^<attr1> <val>)
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*negation*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type negation
+            ^attr1 <attr1>
+            ^id1 <id1>)
+    # Compare:
+    (<id1> ^<attr1> <val>)
+-->
+    (<prop> ^status fail)
+}
+
+# COMPARE EXISTENCE
+sp {apply*props*do*existence
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type existence
+            ^attr1 <attr1>
+            ^id1 <id1>)
+    # Compare:
+    (<id1> ^<attr1> <val>)
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*existence*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type existence
+            ^attr1 <attr1>
+            ^id1 <id1>)
+    # Compare:
+    (<id1> -^<attr1> <val>)
+-->
+    (<prop> ^status fail)
+}
+
+
+
+### APPLY PRIMITIVE ACTIONS ###
+
+# ADD
+sp {apply*props*do*add
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type add
+        -^prop-type acceptable    # (not an augmentation addition to an operator proposal)
+         ^attr1 <attr1>           #       These are placed here for satisfying the pattern of conditions
+         ^attr2 <attr2>           #       Actions need their own literalization. Attaching <l> is needed though.
+         ^id1 <id1>
+         ^id2 <id2>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^id1 <id1>
+            ^id2 <id2>)
+}
+
+# REMOVE
+sp {apply*props*do*remove
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type remove
+         ^attr1 <attr1>
+         ^id1 <id1>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^id1 <id1>)
+}
+
+# OPERATOR ACCEPTABLE
+sp {apply*props*do*acceptable
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type acceptable
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^ops <ops>
+            ^id1 <id1>)
+}
+
+# OPERATOR INDIFFERENT
+sp {apply*props*do*indifferent
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type indifferent
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^ops <ops>
+            ^id1 <id1>
+            ^prop-type indifferent)    # No complaints if this prop-type gets stored again...
+}
+
+# OPERATOR BETTER
+sp {apply*props*do*better
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type better
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^ops <ops>
+            ^id1 <id1>
+            ^id2 <id2>)
+}
+
+# OPERATOR WORSE
+sp {apply*props*do*worse
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type worse
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^ops <ops>
+            ^id1 <id1>
+            ^id2 <id2>)
+}
+
+# OPERATOR BEST
+sp {apply*props*do*best
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type best
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^id1 <id1>
+            ^ops <ops>)
+}
+
+# OPERATOR WORST
+sp {apply*props*do*worst
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type worst
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^id1 <id1>
+            ^ops <ops>)
+}
+
+# OPERATOR REQUIRE
+sp {apply*props*do*require
+    (state <s> ^operator <o>
+               ^superstate.props-buffer <bff>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^prop-eval-data.prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<p> ^prop-type require
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^ops <ops>)
+-->
+    (<bff> ^action <prop>)
+    (<p> ^status success)
+    (<prop> ^id1 <id1>
+            ^ops <ops>)
+}
+
+
+
+### OPERATOR ### 
+# props-result-success
+##
+# This operator flushes the action buffer and through those results theoretically ends the original SNC impasse that triggered PROPs practice.
+# All buffered actions must happen in parallel in the same elaboration cycle.
+# Otherwise, flushing an individual action could wipe the substate before the remaining actions are flushed.
+# If actions build an object to return rather than independent WMEs, that object must be built in an intermediate step before the full flush. 
+### 
+
+# APPLY ACTION ADD/COPY FOR BUILDING INTERMEDIATE STRUCTURES
+sp {apply*props*success*action*add*new*staging
+    (state <s> ^operator <o>
+               ^props-flag staging
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (<prop> ^prop-type add 
+                         ^intermediate) 
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id2> ^<attr2> <val>)                # The value being copied
+    -(<id1> ^<attr1> {<old> <> <val>})    # No existing value in this 'slot'
+-->
+    (<id1> ^<attr1> <val> +)
+    (<prop> ^staged success)
+}
+
+# APPLY ACTION ADD/COPY FOR RETURNING
+sp {apply*props*success*action*add*new
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (^prop-type add
+                 -^intermediate)
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id1> -^props-agnostic-add )
+    (<id2> ^<attr2> <val>)                # The value being copied
+    -(<id1> ^<attr1> {<old> <> <val>})    # No existing value in this 'slot'
+-->
+    (<id1> ^<attr1> <val> +)
+    (<ins> ^props-result success)
+}
+# (AUTOMATICALLY REPLACE AN EXISTING WME WITH THE SAME ADDRESS)
+sp {apply*props*success*action*add*replace        # TODO: Might be unstable to chunk - ought to leave to the programmer?
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (^prop-type add
+                 -^intermediate)
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id1> -^props-agnostic-add )
+    (<id2> ^<attr2> <val>)               # The value being copied
+    (<id1> ^<attr1> {<old> <> <val>})    # An existing value in this 'slot'
+-->
+    (<id1> ^<attr1> <old> -             # Remove the old value, replace it with the new one
+           ^<attr1> <val> +)
+    (<ins> ^props-result success)
+}
+# (The props-agnostic-add flag can be placed onto task-related structures to indicate for PROPs that task-related rules will take care of removing duplicate child addresses.)
+sp {apply*props*success*action*add*agnostic # TODO: This is a hacky fix for the above TODO
+    "If in the list of ignores, dont test existing values."
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (^prop-type add
+                 -^intermediate)
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id1> ^props-agnostic-add )
+    (<id2> ^<attr2> <val>)               # The value being copied
+-->
+    (<id1> ^<attr1> <val> +)
+    (<ins> ^props-result success)
+}
+
+# APPLY ACTION REMOVE
+sp {apply*props*success*action*remove
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (^prop-type remove
+                 -^intermediate)
+         ^attr1 <attr1>
+         ^id1 <id1>
+         ^literalize)
+    (<id1> ^<attr1> <val>)    # The value being removed
+-->
+    (<id1> ^<attr1> <val> -)
+    (<ins> ^props-result success)
+}
+
+
+# APPLY OPERATOR PROPOSE/ACCEPTABLE
+sp {apply*props*success*action*acceptable
+    (state <s> ^operator <o> 
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type acceptable
+                 -^intermediate)
+         ^id1 <id1>
+         ^ops <ops>)
+    (<ops> ^op <o1>
+           ^op-target attr1)
+    (<ins> ^name <name>)
+    (<o1> ^name <op-name>)
+    -{(<o> ^item <ii>)
+      (<ii> ^action.prop-type << indifferent better worse require >>
+            ^id1 <id1>
+            ^ops.op.name <op-name>)}        # Don't create new proposal if another preference will do so 
+-->
+    (<id1> ^operator <o1> +)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR INDIFFERENT
+sp {apply*props*success*action*indifferent
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type acceptable
+                 -^intermediate)
+         ^id1 <id1>
+         ^ops <ops>)
+    (<ins> ^name <name>)
+    (<ops> ^op <o1>
+           ^op-target attr1)
+-->
+    (<id1> ^operator <o1> + =)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR BETTER
+sp {apply*props*success*action*better
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type better
+                 -^intermediate)
+         ^id1 <id1>
+         ^id2 <id2>
+         ^ops <ops1>
+         ^ops <ops2>)
+    (<ins> ^name <name>)
+    (<ops1> ^op <op1>
+            ^op-target attr1)
+    (<ops2> ^op <op2>
+            ^op-target attr2)
+    (<id1> ^operator <op1> +)
+    (<id2> ^operator <op2> +)
+-->
+    (<id1> ^operator <op1> > <op2>)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR WORSE
+sp {apply*props*success*action*worse
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type worse
+                 -^intermediate)
+         ^id1 <id1>
+         ^id2 <id2>
+         ^ops <ops1>
+         ^ops <ops2>)
+    (<ins> ^name <name>)
+    (<ops1> ^op <op1>
+            ^op-target attr1)
+    (<ops2> ^op <op2>
+            ^op-target attr2)
+    (<id1> ^operator <op1> +)
+    (<id2> ^operator <op2> +)
+-->
+    (<id1> ^operator <op1> < <op2>)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR BEST
+sp {apply*props*success*action*best
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type better
+                 -^intermediate)
+         ^id1 <id1>
+        -^attr2
+         ^ops <ops>)
+    (<ins> ^name <name>)
+    (<ops>  ^op <op1>
+            ^op-target attr1)
+-->
+    (<id1> ^operator <op1> + >)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR WORST
+sp {apply*props*success*action*worst
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type worse
+                 -^intermediate)
+         ^id1 <id1>
+         -^attr2
+         ^ops <ops>)
+    (<ins> ^name <name>)
+    (<ops>  ^op <op1>
+            ^op-target attr1)
+-->
+    (<id1> ^operator <op1> + <)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}
+
+# APPLY OPERATOR REQUIRE
+sp {apply*props*success*action*require
+    (state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-buffer <bff>
+               ^props-instructions <ins>)
+    (<o> ^name props-result-success
+         ^rootstate <rs>
+         ^item <i>)
+    (<i> ^action (^prop-type require
+                 -^intermediate)
+         ^id1 <id1>
+         ^ops <ops>)
+    (<ins> ^name <name>)
+    (<ops>  ^op <op1>
+            ^op-target attr1)
+-->
+    (<id1> ^operator <op1> + !)
+    (<ins> ^props-result success)
+    (<rs> ^props-active-rule <name>)
+}

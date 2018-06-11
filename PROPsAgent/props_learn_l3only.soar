@@ -1,0 +1,28 @@
+### SOURCE THIS TO CHUNK THE WHOLE INSTRUCTION SET THE FIRST TIME IT IS EVALUATED (SKIPPING THE ASSOCIATIVE PHASE) ###
+sp {apply*props*force-learn*all*d1
+    "Learn the production: when the evalstate is directly under the rootstate."
+    (state <s> ^operator.name props-result-success
+               ^proposals <ppls>
+              -^force-learn-onc-state )
+-->
+    (write (crlf) | *** LEARNING ALL - STATE | <s> |***| )
+    (force-learn <s>)
+	#(interrupt)
+}
+sp {apply*props*force-learn*all*d2
+    "Learn the production: when the evalstate is depth 2 under the rootstate."
+    (state <s> ^operator.name props-result-success
+               ^proposals <ppls>
+               ^force-learn-onc-state <state>)
+-->
+    (write (crlf) | *** LEARNING ALL - STATE | <state> |***| )
+    (force-learn <state>)
+	#(interrupt)
+}
+sp {elaborate*props*build-proposals*finalized
+    "Bypass the build-proposals substate"
+    (state <s> ^operator.name props-init-evaluation
+              -^props-flag propose-ready)
+-->
+    (<s> ^props-flag propose-ready)
+}

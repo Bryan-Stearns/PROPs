@@ -1,0 +1,65 @@
+#####	Author: Bryan Stearns, June 2016
+# Establish general removal of spent SMEM commands
+# Cleans: Retrieve, Query, Store, Depth
+# Optional: Prohibit (commented out - prohibits may be desired to persist across cycles)
+#####
+
+#TODO: only in props-eval and instruction states
+
+sp {set*clean*retrieves
+    :o-support
+    (state <s> ^name << props-eval instruction props-combine-search sub-props >>
+				^smem <smem>)
+	(<smem>		^command <sc>
+                ^result.<< success failure >> <cue>)
+    (<sc> ^retrieve <q>)
+-->
+    (<sc> ^retrieve <q> -)
+    #(write |clearing retrieve | <q> (crlf))
+}
+sp {set*clean*queries
+    :o-support
+    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+				^smem <smem>)
+	(<smem>		^command <sc>
+                ^result.<< success failure >> <cue>)
+    (<sc> ^query <q>)
+-->
+    (<sc> ^query <q> -)
+    #(write |clearing query | <q> (crlf))
+}
+sp {set*clean*stores
+    :o-support
+    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+				^smem <smem>)
+	(<smem>	^command <sc>
+            ^result.<< success failure >> <cue>)
+    (<sc> ^store <cue>)
+-->
+    (<sc> ^store <cue> -)
+    #(write |clearing store | <cue> (crlf))
+}
+
+sp {set*clean*query*depth
+    :o-support
+    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+				^smem <smem>)
+	(<smem>		^command <sc>
+				^result.<< success failure >> <cue>)
+    (<sc> ^depth <d>)
+-->
+    (<sc> ^depth <d> -)
+    #(write |clearing depth | <d> (crlf))
+}
+
+#sp {set*clean*query*prohibits
+#   :o-support
+#   (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+#				^smem <smem>)
+#	(<smem>		^command <sc>
+#               ^result.<< success failure >> <cue>)
+#   (<sc> ^prohibit <lti>)
+#-->
+#   (<sc> ^prohibit <lti> -)
+#   #(write |clearing prohibit | <lti> (crlf))
+#}

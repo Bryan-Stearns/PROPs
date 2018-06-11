@@ -1,0 +1,60 @@
+#####
+# Demonstrates operator proposals and memory addressing
+#####
+
+# ADD EITHER A SHORT OR LONG CHAIN OF WORKING MEMORY ELEMENTS IF NONE EXIST
+pp {propose*add*thing
+	const1 demo						# The first values "const1" and "op2", etc. are arbitrary labels, and the second values are the literal constants being used.
+	op2 add-short
+	op3 add-long
+	--
+	s.name = const1					# The state keyword "s" is always the root of memory addresses. In Soar language, this condition is "(state <s> ^name |demo|)".
+	-s.thing						# In Soar language, this conditions is "-(<s> ^thing )"
+-->
+	s.op2 +							# An operator is proposed by name (op2=="add-short") rather than by memory path (s.operator....)
+	s.op2 =							# Acceptable (+) and Indifferent (=) preferences are added separately
+	s.op3 +
+	s.op3 =
+}
+pp {apply*short
+	const1 demo
+	const2 add-short
+	--
+	# Conditions
+	s.name = const1
+	s.operator.name = const2		# Once an operator has been selected it is unique. Therefore it can be referenced by memory path. (s.operator....)
+-->
+	s.thing = s.A.B					# Since s.A and s.A.B do not exist yet, they will be created when this action is performed
+}
+pp {apply*long
+	const1 demo
+	const2 add-long
+	--
+	# Conditions
+	s.name = const1
+	s.operator.name = const2
+-->
+	s.thing = s.A.B.C.D
+}
+
+# REMOVE THE CHAIN OF MEMORY ELEMENTS IF ONE EXISTS
+pp {propose*remove*thing
+	const1 demo
+	op remove-thing
+	--
+	s.name = const1
+	s.thing
+-->
+	s.op >							# A simple best preference also suffices to propose the operator
+}
+pp {apply*remove*thing
+	const1 demo
+	const2 remove-thing
+	--
+	# Conditions
+	s.name = const1
+	s.operator.name = const2
+-->
+	s.thing -
+}
+

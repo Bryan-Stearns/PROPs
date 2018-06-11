@@ -1,0 +1,335 @@
+#####    Author: Bryan Stearns, 2017-2018
+#   This code controls the process of learning chunks for conditions, creating links to SMEM that cause spread.
+#   To omit this learning, simply do not source this file.
+#   Because this file modifies the code of other operators to enable this functionality, source this file after props_fetch & props_instruction code.
+#   A big contributor to the structure of this code is the need to pass results back to rootstate from either SNCs or ONCs.
+#   Results need to be passed back incrementally across substates rather than straight to the root, or else the chunks don't include SMEM links correctly.
+#   (There are a different number of substates to pass across depending on whether the topstate impasse was an SNC or an ONC.)
+#
+##        OPERATORS (nothing new, just tagging onto existing ones from other files)
+#  (props-query)                            | The query process is modified to use spread-based recall first and fall back on declaratively controlled recall
+#  (props-evaluate)                         | The spread structures are created and returned during this operator
+#  (props-result-success)                   | Force-learn is modified for this operator
+#   
+##        STRUCTURE
+#  (<s>  ^name props-eval                   | Mostly all in the main eval state
+#        ^roostate <rs>                     | The original state that impassed to cause PROPs code to take action
+#        ^force-learn-onc-state <state>     | If this exists, then the rootstate impasse was an op no-change, and the ONC substate is <state>
+#        ^props-instructions (<ins>         | The active instructions
+#            ^name <iname>                  | Instructions' name
+#            ^spread-source <isrc>          | The intermediate object in the SMEM spread structure ("Knowledge of skill condition structure" in (Stearns & Laird, 2018) Fig 3), to be linked to in ONC chunks
+#            ^cond-spread-source <csrc>)    | A specific condition object in SMEM ("Knowledge of matched conditions" in (Stearns & Laird, 2018) Fig 3), to be linked to in the chunk
+#       [^prop-condition-xp-staged (<xnew>  | The intermediate structure made after props-evaluate for specific condition
+#            ^condition (<cr>               | The main condition to link and return
+#                ^name <cname>))            | For the object to cause spread, it needs at least one attribute, so we'll use the name (useful for debugging)
+#            ^instruction (<ir>             | A copy of <ins> with only the name for simplicity
+#                ^name <iname>)             | The name
+#            ^prop <prop>                   | If an ONC result, for testing if this condition tests for "^operator"
+#            ^status success)]              | Created at the start, but removed if determined that the staged structure should not be returned to the rootstate to avoid duplicate chunks
+#
+# (<ss>  ^prop-condition-xp-staged (<xonc>  | If an ONC result, another intermediate structure between props-eval and the rootstate
+#            ^condition-name <cname>        | The name to use when creating the final structure (which will match the props-eval version)
+#            ^instruction-name <iname>      | "
+#            ^condition-num (@ <csrc>)      | The arg to use in the (link-stm-to-ltm) RHS function to connect to the condition SMEM object
+#            ^instruction-num (@ <isrc>)    | The arg to use in the (link-stm-to-ltm) RHS function to connect to the instruction SMEM object
+#            ^o-supported <oname>)          | The operator name that the instructed rule applies
+#####
+
+# TWEAK QUERIES TO USE FREE RECALL BEFORE CUED RECALL IF A MANUAL IS PRESENT (overwrites from props_fetch.soar)
+sp {apply*props*query*free-manual
+    "Dont use manual during the first recall"
+    (state <s> ^operator.name props-query
+              -^props-flag has-failed-instructions
+               ^props-static.manual-next-rule <name>
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 4)                        # Retrieve down to constants
+    (<q>    ^prop-type |instruction|)
+}
+sp {apply*props*query*manual
+    (state <s> ^operator.name props-query
+               ^props-flag has-failed-instructions
+               ^props-static.manual-next-rule <name>
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 4)                        # Retrieve down to constants
+    (<q>    ^prop-type |instruction|
+            ^name <name>)
+    (write |   * CUED RECALL FOR | <name> | * | )
+}
+
+# ONLY INCREMENT THE MANUAL SEQUENCE FOR CUED RECALL (overwrites from props_static.soar)
+sp {propose*props*manual*next-rule
+    (state <s> ^props-instructions <ins>
+               ^props-flag has-failed-instructions  # Only increment if just used cued recall due to failing a free recall
+              -^props-flag incremented-manual-seq
+               ^props-static <ps>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-manual-next-rule)
+}
+
+# CREATE SPREAD-TRIGGER ELABORATIONS FOR SUCCESSFUL CONDITIONS (new)
+sp {elaborate*props*spread-result*intermediate*snc
+    (state <s> ^name props-eval
+              -^force-learn-onc-state
+               ^props-instructions <ins>
+               ^prop-eval-data <d>)
+    (<ins> ^name <iname>
+           ^spread-source <isrc>
+           ^cond-spread-source <csrc>)
+    (<csrc> ^name <cname>)
+    (<d> ^prop <prop>
+         ^status success)
+    (<prop> ^prop-type condition
+            ^lti-name <cname>
+           -^prop-type negation)
+-->
+    (<s> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition <cr>
+            ^instruction <ir>
+            ^status success)
+    (<cr> ^name <cname>)
+    (<ir> ^name <iname>)
+    (link-stm-to-ltm <cr> (@ <csrc>))
+}
+sp {elaborate*props*spread-result*intermediate*onc
+    (state <s> ^name props-eval
+               ^force-learn-onc-state
+               ^props-instructions <ins>
+               ^prop-eval-data <d>)
+    (<ins> ^spread-source <isrc>
+           ^cond-spread-source <csrc>)
+    (<csrc> ^name <cname>)
+    (<d> ^prop <prop>
+         ^status success)
+    (<prop> ^prop-type condition
+           -^prop-type negation
+            ^lti-name <cname>)
+-->
+    (<s> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition <csrc>
+            ^instruction <isrc>
+            ^status success
+            ^prop <prop>)
+}
+# For negation condition PROPs, add initial positive test so chunk syntax can be valid
+sp {elaborate*props*spread-result*intermediate*snc*negation-test
+    (state <s> ^name props-eval
+              -^force-learn-onc-state
+               ^rootstate.type state
+               ^props-instructions <ins>
+               ^prop-eval-data <d>)
+    (<ins> ^name <iname>
+           ^spread-source <isrc>
+           ^cond-spread-source <csrc>)
+    (<csrc> ^name <cname>)
+    (<d> ^prop <prop>
+         ^status success)
+    (<prop> ^prop-type condition
+            ^lti-name <cname>
+            ^prop-type negation)
+-->
+    (<s> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition <cr>
+            ^instruction <ir>
+            ^status success)
+    (<cr> ^name <cname>)
+    (<ir> ^name <iname>)
+    (link-stm-to-ltm <cr> (@ <csrc>))
+    #(link-stm-to-ltm <ir> (@ <isrc>))
+}
+sp {elaborate*props*spread-result*intermediate*onc*negation-test
+    (state <s> ^name props-eval
+               ^force-learn-onc-state
+               ^rootstate.type state
+               ^props-instructions <ins>
+               ^prop-eval-data <d>)
+    (<ins> ^spread-source <isrc>
+           ^cond-spread-source <csrc>)
+    (<csrc> ^name <cname>)
+    (<d> ^prop <prop>
+         ^status success)
+    (<prop> ^prop-type condition
+            ^lti-name <cname>
+            ^prop-type negation)
+-->
+    (<s> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition <csrc>
+            ^instruction <isrc>
+            ^status success
+            ^prop <prop>)
+}
+
+# Remove the success marker from the staged structures if they should not be returned further due to already having been chunked previously.
+sp {elaborate*props*remove-redundant-intermediate*snc
+    (state <s> ^name props-eval
+               ^prop-condition-xp-staged <x>
+               ^rootstate <rs>)
+    (<x> ^condition.name <cname>
+         ^instruction.name <sname>)
+    (<rs> ^prop-condition-xp <rx>)
+    (<rx> ^condition.name <cname>
+          ^instruction.name <sname>)
+-->
+    (<x> ^status success -)
+}
+sp {elaborate*props*remove-redundant-intermediate*onc
+    (state <s> ^name props-eval
+               ^prop-condition-xp-staged <x>
+               ^rootstate <rs>)
+    (<x> ^condition-name <cname>
+         ^instruction-name <sname>)
+    (<rs> ^prop-condition-xp <rx>)
+    (<rx> ^condition.name <cname>
+          ^instruction.name <sname>)
+-->
+    (<x> ^status success -)
+}
+
+# Learn chunks returned from the state just below the rootstate, which varies depending on the type of rootstate impasse.
+sp {elaborate*props*spread-result*force-learn*snc
+    (state <s> ^name props-eval
+               ^superstate <ss>
+               ^prop-condition-xp-staged <x>
+              -^force-learn-onc-state)
+-->
+    (force-learn <s>)
+}
+sp {elaborate*props*spread-result*force-learn*onc
+    (state <s> ^name props-eval
+               ^prop-condition-xp-staged <x>
+               ^force-learn-onc-state <state>)
+-->
+    (force-learn <state>)
+}
+
+# Turn off chunking after we turned it on above, if it's supposed to be off.
+# (This use of dont-learn doesn't work in vanilla Soar, though it really should. I modified the kernel for it.)
+sp {apply*props*dont-learn*snc
+    (state <s> ^operator.name props-result-success
+               ^proposals <ppls>
+              -^force-learn-onc-state )
+-->
+    (write (crlf) | *** NOT LEARNING STATE | <s> |***| )
+    (dont-learn <s>)
+}
+sp {apply*props*dont-learn*onc
+    (state <s> ^operator.name props-result-success
+               ^proposals <ppls>
+               ^force-learn-onc-state <state>)
+-->
+    (write (crlf) | *** NOT LEARNING STATE | <state> |***| )
+    (dont-learn <state>)
+}
+
+
+sp {apply*props*spread-result*snc
+    (state <s> ^operator <o> 
+              -^force-learn-onc-state
+               ^rootstate <rs>
+               ^prop-condition-xp-staged <x>)
+    (<o> ^name props-evaluate)
+    (<x> ^status success )    # Roundabout test that rootstate doesn't already have this chunk
+-->
+    (<s> ^prop-condition-xp-staged <x> -)
+    (<rs> ^prop-condition-xp <x>)
+}
+sp {apply*props*spread-result*onc
+    (state <s> ^operator <o> 
+               ^force-learn-onc-state <ss>
+               ^prop-condition-xp-staged <x>)
+    (<o> ^name props-evaluate)
+    (<x> ^condition (<csrc> ^name <cname>)
+         ^instruction (<isrc> ^name <iname>)
+         ^prop <prop>
+         ^status success)
+    (<prop> -^sub1-link.chain-attr operator)
+-->
+    (<s> ^prop-condition-xp-staged <x> -)
+    (<ss> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition-name <cname>
+            ^instruction-name <iname>
+            ^condition-num (@ <csrc>)
+            ^instruction-num (@ <isrc>) )
+}
+sp {apply*props*spread-result*onc*o-supported
+    "Return extra augmentation if this condition tests the rootstate operator"
+    (state <s> ^operator <o> 
+               ^force-learn-onc-state <ss>
+               ^prop-condition-xp-staged <x>
+               ^const.<const-slot> <oname>)
+    (<o> ^name props-evaluate)
+    (<x> ^condition (<csrc> ^name <cname>)
+         ^instruction (<isrc> ^name <iname>)
+         ^prop <prop>
+         ^status success)
+    (<prop> ^sub1-link.chain-attr operator
+            ^attr2 <const-slot>)
+-->
+    (<s> ^prop-condition-xp-staged <x> -)
+    (<ss> ^prop-condition-xp-staged <xnew>)
+    (<xnew> ^condition-name <cname>
+            ^instruction-name <iname>
+            ^condition-num (@ <csrc>)
+            ^instruction-num (@ <isrc>)
+            ^o-supported <oname>)
+}
+
+
+# Return spread-result from nameless intermediate onc state.
+# First make a copy of prop-condition-xp-staged, called prop-condition-xp-staged-2, with the right format
+# Then return prop-condition-xp-staged-2.
+sp {elaborate*props*spread-result*onc*copy
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^superstate <ss>
+               ^prop-condition-xp-staged <x>)
+    (<x> ^condition-name <cname>
+         ^instruction-name <iname>
+         ^condition-num <cnum>
+         ^instruction-num <inum>
+        -^o-supported)
+-->
+    (<s> ^prop-condition-xp-staged2 <xnew>)
+    (<xnew> ^condition <cr>
+            ^instruction <ir>
+            ^status success)
+    (<cr> ^name <cname>)
+    (<ir> ^name <iname>)
+    (link-stm-to-ltm <cr> <cnum>)
+    #(link-stm-to-ltm <ir> <inum>)
+}
+sp {elaborate*props*spread-result*onc*copy*o-supported
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^superstate <ss>
+               ^prop-condition-xp-staged <x>)
+    (<x> ^condition-name <cname>
+         ^instruction-name <iname>
+         ^condition-num <cnum>
+         ^instruction-num <inum>
+         ^o-supported <oname>)
+-->
+    (<s> ^prop-condition-xp-staged2 <xnew>)
+    (<xnew> ^condition <cr>
+            ^instruction <ir>
+            ^status success
+            ^o-supported <oname>)
+    (<cr> ^name <cname>)
+    (<ir> ^name <iname>)
+    (link-stm-to-ltm <cr> <cnum>)
+    (link-stm-to-ltm <ir> <inum>)
+}
+sp {elaborate*props*spread-result*onc*return
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^superstate <ss>
+               ^prop-condition-xp-staged2 <x>)
+-->
+    (<ss> ^prop-condition-xp <x>)
+} 
+
+

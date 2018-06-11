@@ -1,0 +1,29 @@
+chunk only
+chunk add-ltm-links on
+chunk confidence-threshold 1
+
+#explain all on
+#explain justifications on
+#vis color on
+
+#watch --learn 2
+#watch --learning print
+#watch --backtracing
+
+smem --set activation-mode base-level
+smem --set base-update-policy naive
+smem --set base-decay 0.5
+#smem --set base-inhibition on
+smem --set activate-on-query off
+
+smem --set spreading-continue-probability 0.95
+smem --set spreading-limit 300
+smem --set spreading-depth-limit 3
+#smem --set spreading-loop-avoidance on
+smem --set spreading on
+smem --set learning on
+
+
+output callbacks on
+output console on
+

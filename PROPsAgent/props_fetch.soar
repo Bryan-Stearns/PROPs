@@ -1,0 +1,236 @@
+#####    Author: Bryan Stearns, 2016-2018
+#   Respond to a generic state no-change impasse by beginning fetch and execute of PROPs instructions.
+#   This code manages the fetch process as the outer loop of the PROPs system.
+#
+##        OPERATORS
+#   props-query
+#   props-retrieve
+#   props-reset
+#
+##      PRIMARY STRUCTURES
+#  (<s> ^name props-eval
+#       ^rootstate <rs>                     | The pointer to the superstate that the learned rule should fire in
+#       ^props-instructions <ins>           | The declarative instructions corresponding to a rule that will be practiced
+#       ^prop-prohibits (<ps>               | The set of instruction symbols that should be prohibited from being fetched
+#          [^prohibit <prbt>])              | An individual instruction symbol
+#       ^props-static (<x>                  | The LTM of deliberate fetch sequences and the current place in a sequence
+#           ^manual-next-rule <name>)       | The unique string name of the instructions to be queried next
+#       ^props-flag has-failed-instructions | A flag that indicates a first attempt at fetching failed to retrieve useable instructions
+#       ^props-fetch-reset <pfr>            | A flag that triggers the props-reset operator. (The value indicates the rule that created the flag.)
+#       
+#####
+
+
+### OPERATOR ### 
+# props-query
+##
+# This operator queries SMEM for instructions. This is the "instruction fetch".
+# The query can be either free (for any instructions) or cued (retrieve instructions with the given name).
+# Additional query rules can modify behavior to always do free recall followed by cued recall by sourcing props_condition_spread.soar.
+### 
+
+
+# PULL INSTRUCTIONS ON STATE NO-CHANGE AFTER THE STATIC STRUCT HAS BEEN LOADED
+sp {propose*props*begin
+    (state <s> ^name props-eval
+              -^props-instructions)
+-->
+    (<s> ^operator <o> + <)
+    (<o> ^name props-query)
+}
+
+# DO A FREE RECALL WHENEVER THERE ARE NO CUES TO USE
+sp {apply*props*query
+    (state <s> ^operator.name props-query
+              -^props-static.manual-next-rule <name>
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 4)                        # Retrieve down to constants
+    (<q>    ^prop-type |instruction|)
+}
+# DO A CUED RECALL IF A FREE RECALL HAS ALREADY FAILED (AFTER THE RECALLED INSTRUCTIONS WERE EVALUATED)
+sp {apply*props*query*manual
+    (state <s> ^operator.name props-query
+               #^props-flag has-failed-instructions   # Enabled by sourcing props_condition_spread.soar
+               ^props-static.manual-next-rule <name>
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 4)                        # Retrieve down to constants
+    (<q>    ^prop-type |instruction|
+            ^name <name>)
+    (write |   * CUED RECALL FOR | <name> | * | )
+}
+
+# CLEAN ANY INVALID SPREAD SOURCES BEFORE THE QUERY TAKES EFFECT
+sp {apply*props*query*remove-expired-spreaders
+    "Remove rootstate spread structures that were created with o-support and are no longer valid"
+    (state <s> ^operator.name props-query
+               ^rootstate <rs>)
+    (<rs> ^prop-condition-xp (<rx> ^o-supported <oname>)
+         -^operator.name <oname>)
+-->
+    (<rs> ^prop-condition-xp <rx> -)
+}
+
+sp {apply*props*query*init-prohibits
+    "Add the prohibit structure at the start of query cycles if needed"
+    (state <s> ^operator.name props-query
+                -^prop-prohibits)
+-->
+    (<s> ^prop-prohibits <ps>)
+}
+sp {elaborate*props*query*apply-rule
+    "Narrow the query type if searching for an apply rule"
+    (state <s> ^smem.command.query <q>
+               ^force-learn-onc-state)
+    (<q> ^prop-type |instruction|
+        -^name )  # Don't conflict with manual sequencing
+-->
+    (<q> ^flag |o-supported|)
+}
+
+
+# QUIT IF NO MORE INSTRUCTIONS TO TRY 
+# (The impasse flag does nothing here; it is a signal for the rootstate to use if it wants. Interrupting is the main thing here.)
+sp {propose*props*search*lhs*quit
+    (state <s>  ^operator.name props-query
+                ^props-static <ps>
+                ^smem.result.failure <cue>
+                ^rootstate <rs>)
+    (<ps> -^manual-next-rule)
+    -(<rs> ^props-fetch-reset <> search*lhs*quit)
+-->
+    (<rs>   ^props-flag impasse)
+    # TODO: remove any other props-related structures at this time - if any?
+    (write (crlf) | *** NO MORE INSTRUCTIONS TO TRY - YOU'VE REACHED A PROPER STATE NO-CHANGE *** | )
+    (interrupt)
+}
+sp {propose*props*search*lhs*quit*manual-error
+    (state <s>  ^operator.name props-query
+                ^props-static <ps>
+                ^smem.result.failure <cue>
+                ^rootstate <rs>)
+    (<ps> ^manual-next-rule)
+    -(<rs> ^props-fetch-reset <> search*lhs*quit)
+-->
+    (<rs>   ^props-flag impasse)
+    (write (crlf) | *** ERROR: Depleted instruction sequence without any matches! *** | )
+    (interrupt)
+}
+
+
+### OPERATOR ### 
+# props-retrieve
+##
+# Pull the results of the query.
+### 
+
+# RECEIVE INSTRUCTION RESULTS
+sp {propose*props*retrieve
+    (state <s>  ^smem <smem>
+               -^name << props-do props-sub >> )         # TODO: This prevents responding to impasses in the instruction eval process. Okay?
+    (<smem> ^result.retrieved <ins>
+            ^command.query.prop-type |instruction|)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-retrieve
+         ^instructions <ins>)
+}
+sp {apply*props*retrieve
+    (state <s> ^operator <o>
+                ^smem.command <scmd>)
+    (<o> ^name props-retrieve
+         ^instructions <lti>)
+    (<lti> ^name <name>)
+-->
+    (<s> ^props-instructions <lti>)
+    (write (crlf) |     RETRIEVED | <lti> | - | <name> )
+}
+
+
+### OPERATOR ### 
+# props-reset
+##
+# This is the reset called internally after a failed execution.
+# It removes the evaluation structures so that processing (and backtracing) starts over with fetch.
+### 
+
+sp {propose*props*reset
+    (state <s> ^name props-eval
+               ^props-fetch-reset <blink>)
+-->
+    (<s> ^operator <o> + > !)
+    (<o> ^name props-reset)
+}
+
+# CLEAR THE MAIN STRUCTURES
+sp {apply*props*reset
+    (state <s> ^operator.name props-reset
+               ^props-instructions <ins>
+               ^props-static <ps>
+               ^props-fetch-reset <blink>)
+-->
+    (<s> ^props-instructions <ins> -
+         ^props-static <ps> -
+         ^props-fetch-reset <blink> -
+         ^props-flag has-failed-instructions )  # Mark that at least one fail has occurred
+}
+# IF THIS RESET WAS CALLED DURING MANUAL-SEQUENCING PRIOR TO FETCH, THERE ARE NO INSTRUCTIONS TO RESET
+sp {apply*props*reset*query-failed
+    (state <s> ^operator.name props-reset
+              -^props-instructions <ins>
+               ^props-static <ps>
+               ^props-fetch-reset <blink>)
+-->
+    (<s> ^props-static <ps> -
+         ^props-fetch-reset <blink> -
+         ^props-flag has-failed-instructions )
+}
+# CLEAR THE ACTION BUFFER IF IT EXISTS
+sp {apply*props*reset*inits    # TODO: this ^literalize probably could be refactored away
+    "Reset the items created in init-evaluation separately. (That operator can be skipped.)"
+    (state <s> ^operator.name props-reset
+               ^literalize <l>
+               ^props-buffer <pb>)
+-->
+    (<s> ^literalize <l> -
+         ^props-buffer <pb> -)
+}
+# CLEAR ANY COUNTING STRUCTURES FROM INSTRUCTION EXECUTION
+sp {apply*props*reset*propose-struct
+    (state <s> ^operator.name props-reset
+               ^proposals <p>)
+    (<p> ^cond-count <ccnt>
+         ^conds-counted <ccntd>
+         ^act-count <acnt>
+         ^acts-counted <acntd>)
+-->
+    (<p> ^cond-count <ccnt> -
+         ^conds-counted <ccntd> -
+         ^act-count <acnt> -
+         ^acts-counted <acntd> -)
+}
+# CLEAR ANY PROPOSE STRUCTURES
+sp {apply*props*reset*proposes
+    (state <s> ^operator.name props-reset
+               ^proposals <p>)
+    (<p> ^propose <pps>)
+-->
+    (<p> ^propose <pps> -)
+}
+# CLEAR ANY EVALUATION STATUS METADATA
+sp {apply*props*reset*flags
+    (state <s> ^operator.name props-reset
+               ^props-flag <flag>)
+-->
+    (<s> ^props-flag <flag> -)
+}
+# CLEAR ANY SPREAD RESULTS THAT WERE STAGED PRIOR TO BEING RETURNED TO THE ROOTSTATE
+sp {apply*props*reset*spread-results
+    (state <s> ^operator.name props-reset
+               ^prop-condition-xp <x>)
+-->
+    (<s> ^prop-condition-xp <x> -)
+}

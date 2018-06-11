@@ -1,0 +1,386 @@
+#####    Author: Bryan Stearns, 2016-2018
+#   This code manages the static data object kept in SMEM that tracks fetch sequence data and prohibits.
+#   Loading the static object is the first step in the PROPs fetch and execute process.
+#   Removing the static object from WM resets that process.
+#
+##      OPERATORS
+#   props-load-static
+#   props-retrieve-static
+#   props-reset-task
+#   props-reset-sequence
+#   props-reset-sequence-store
+#   props-reset-sequence-complete
+#   props-manual-next-rule
+#  (props-success)
+#
+##      PRIMARY STRUCTURES
+#  (<s> ^name props-eval
+#       ^props-instructions <ins>           | The declarative instructions corresponding to a rule that will be practiced 
+#       ^prop-prohibits (<ps>               | The set of instruction symbols that should be prohibited from being fetched
+#          [^prohibit <prbt>])              | An individual instruction symbol
+#       ^props-static (<x>                  | The LTM of deliberate fetch sequences and the current place in a sequence
+#           ^manual-next-rule <name>        | The unique string name of the instructions to be queried next
+#           ^current-task <task>            | The name of the current task, cached from the input-link to avoid rete bugs
+#           ^prev <prev>                    | The previous node in the active fetch sequence linked list
+#           ^next <next>)                   | The next node in the active fetch sequence linked list
+#       ^props-flag incremented-manual-seq) | A flag that marks that the fetch sequence has been iterated over once this cycle
+#####
+
+
+### OPERATOR ### 
+# props-load-static
+##
+# Recall info needed to support the PROPs processing 
+### 
+
+sp {propose*props*eval*query*static
+    "Load the static struct to begin the fetch process"    # The struct includes prohibits needed during fetching
+    (state <s> ^name props-eval
+              -^smem.result.<< retrieved failure >>
+              -^props-static)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-load-static)
+}
+sp {propose*props*eval*query*static*reset        # TODO: Is this used anymore?
+    (state <s> ^name props-eval
+               ^smem.result.failure <q>
+              -^props-static)
+    (<q> ^prop-type instruction)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-load-static)
+}
+sp {apply*props*eval*query*static
+    (state <s> ^operator.name props-load-static
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 3)    # For retrieving props-static.next.next, to increment that linked list pointer
+    (<q> ^props-static props-static)
+}
+
+
+### OPERATOR ### 
+# props-retrieve-static
+##
+# Pull the query result
+### 
+
+sp {propose*props*eval*retrieve*static
+    (state <s> ^name props-eval
+              -^props-static
+               ^smem.result.<< success failure >> <q>)
+    (<q> ^props-static props-static)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-retrieve-static)
+}
+
+# DO THE REGULAR PULL
+sp {apply*props*eval*retrieve*static*success
+    (state <s> ^operator <o>
+               ^smem.result.retrieved <x>)
+    (<o> ^name props-retrieve-static)
+-->
+    (<s> ^props-static <x>)
+}
+sp {apply*props*eval*retrieve*static*failure
+    (state <s> ^operator <o>
+               ^smem.result.failure)
+    (<o> ^name props-retrieve-static)
+-->
+    (<s> ^props-static |none|)
+}
+
+# INIT THE MANUAL SEQUENCE, IF NEEDED, TO INITIALIZE THE STATIC STRUCT
+sp {apply*props*eval*retrieve*static*init-manual
+    (state <s> ^operator <o>
+                ^topstate.io.input-link.task-sequence-name <taskname>
+                ^smem (^command <scmd> ^result.retrieved <x>))
+    (<o> ^name props-retrieve-static)
+    (<x> -^manual-next-rule
+         -^next
+          ^<taskname> <seq>)
+    (<seq> ^name <name>
+           ^next <top>)
+-->
+    (<x> ^manual-next-rule <name>
+         ^current-task <taskname>
+         ^prev <seq>
+         ^next <top>)
+    (<scmd> ^store <x>)
+    (write (crlf) |*** USING TASK SEQUENCE: | <taskname> | ***| (crlf) )
+}
+
+
+### OPERATOR ### 
+# props-reset-task
+##
+# This is the reset called externally after a completed task, via the reset-manual-sequence flag.
+# It loads the static structure and clears any info specific to the task that was just completed.
+# This is needed whenever a task has been fully proceduralized, such that the internal reset never gets called after the final operator.
+# The external task running doesn't know when that happens, so it should just trigger this after any task completes.
+# In order to simplify isolating this reset process from other code, it is done in a substate.
+### 
+
+sp {propose*props*reset-task
+    "This operator will ONC to trigger the reset substate"
+    (state <s> ^props-flag reset-manual-sequence)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-reset-task)
+}
+
+# QUERY FOR THE STATIC STRUCT
+sp {propose*props*reset-task*load-static
+    "Load the static struct in the substate so it can be reset"
+    (state <s> ^superstate.operator.name props-reset-task
+              -^smem.result.retrieved
+              -^complete
+              -^props-static)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-reset-sequence-load-static)
+}
+sp {apply*props*reset-task*load-static
+    (state <s> ^operator.name props-reset-sequence-load-static
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 1)    # Get the components of counts and prohibits
+    (<q> ^props-static props-static)
+    (<s> ^name props-reset-sequence)
+}
+
+# PULL THE QUERIED STATIC STRUCT
+sp {propose*props*reset-task*retrieve-static
+    (state <s> ^name props-reset-sequence
+              -^props-static
+               ^smem.result.retrieved <x>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-reset-sequence-retrieve-static
+         ^static <x>)
+}
+sp {apply*props*reset-task*retrieve-static
+    (state <s> ^operator <o>)
+    (<o> ^name props-reset-sequence-retrieve-static
+         ^static <x>)
+-->
+    (<s> ^props-static <x>)
+}
+sp {propose*props*reset-task*nonexistant
+    "If for some reason there is no static struct, the reset is complete. That was easy!"
+    (state <s> ^name props-reset-sequence
+                ^smem.result.failure)
+-->
+    (<s> ^operator <o> + > !)
+    (<o> ^name props-reset-sequence-complete)
+}
+
+# RESET AND SAVE THE STATIC STRUCT
+sp {propose*props*reset-task*store
+    (state <s> ^name props-reset-sequence
+                ^props-static <x>)
+    (<x> ^manual-next-rule <rulename>
+        ^next <top>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-reset-sequence-store)
+}
+sp {apply*props*reset-task*store
+    (state <s> ^operator.name props-reset-sequence-store
+                ^props-static <x>
+                ^smem.command <scmd>)
+    (<x> ^manual-next-rule <rulename>
+         ^current-task <task>
+         ^prev <prev>
+         ^next <top>)
+-->
+    (<scmd> ^store <x>)
+    (<x> ^manual-next-rule <rulename> -
+         ^current-task <task> -
+         ^prev <prev> -
+         ^next <top> -)
+}
+
+# COMPLETE BY REMOVING THE FLAG THAT TRIGGERED THE RESET
+sp {propose*props*reset-task*complete
+    (state <s> ^name props-reset-sequence
+                ^props-static <x>)
+    (<x> -^manual-next-rule)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-reset-sequence-complete)
+}
+
+sp {apply*props*reset-task*complete
+    (state <s> ^operator.name props-reset-sequence-complete
+                ^superstate <ss>)
+    (<ss> ^props-flag reset-manual-sequence)
+-->
+    (<ss> ^props-flag reset-manual-sequence -)
+}
+
+
+### OPERATOR ### 
+# props-manual-next-rule
+##
+# This operator increments the current position in the manual sequence.
+# This occurs after instructions have been fetched, so that the incrementation prepares for the next fetch.
+### 
+
+sp {prefer*props*manual-sequencing
+    (state <s> ^operator <o1> +
+               ^operator <o2> +)
+    (<o1> ^name props-manual-next-rule)
+    (<o2> ^name props-result-fail)
+-->
+    (<s> ^operator <o1> > <o2>)
+}
+
+sp {propose*props*manual*next-rule
+    (state <s> ^props-instructions <ins>
+               #^props-flag has-failed-instructions  # Enable by sourcing props_spread_conds.soar
+              -^props-flag incremented-manual-seq
+               ^props-static <ps>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-manual-next-rule)
+}
+sp {propose*props*manual*next-rule*prohibited
+    "If the next rule is already known to be invalid, increment before fetching."
+    (state <s>  ^name props-eval
+               -^props-flag incremented-manual-seq        # TODO: Should this be only done after has-failed-instructions?
+               -^props-instructions
+                ^prop-prohibits.prohibit.name <name>
+                ^props-static <ps>)
+    (<ps> ^manual-next-rule <name>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-manual-next-rule
+         ^extra-advance true)
+}
+
+# GENERIC APPLY: INCREMENT THE SEQUENCE POINTER
+sp {apply*props*manual*next-rule*normal
+    (state <s> ^operator.name props-manual-next-rule
+               #^topstate.io.input-link.task-sequence-name <task>        # This eventually causes a hang sometimes for some reason when the input link updates
+               ^smem.command <scmd>
+               ^props-static <ps>)
+    (<ps> ^manual-next-rule <name>
+          ^current-task <task>
+          ^prev <prev>
+          ^next <top>)
+    (<top> ^next <next>
+           ^name <newname>)
+-->
+    (<ps> ^manual-next-rule <name> -
+          ^manual-next-rule <newname>
+          ^prev <prev> -
+          ^prev <top>
+          ^next <top> -
+          ^next <next>)
+    (<scmd> ^store <ps>)
+    (write |   * NEXT: | <newname> (crlf))
+}
+# RESET MANUAL INSTRUCTION SEQUENCE IF REACHED THE END OF THE LIST
+sp {apply*props*manual*next-rule*clear
+    (state <s> ^operator.name props-manual-next-rule
+               ^smem.command <scmd>
+               ^props-static <ps>)
+    (<ps> ^manual-next-rule <name>
+          ^current-task <task>
+          ^prev <prev>
+          ^next nil)
+-->
+    (<s> ^props-flag incremented-manual-seq)
+    (<ps> ^manual-next-rule <name> -
+          ^current-task <task> -
+          ^prev <prev> -
+          ^next nil -)
+    (<scmd> ^store <ps>)
+    (write (crlf) |   * MANUAL INSTRUCTION SEQUENCE CLEARED! * | (crlf))
+}
+# NOTE ONCE THIS OPERATOR HAS OCCURRED - THIS RETRACTS THE OPERATOR
+sp {apply*props*manual*next-rule*incremented
+    "Wait to give the done flag until known that the rule is applicable."
+    (state <s> ^operator <o>)
+    (<o> ^name props-manual-next-rule
+        -^extra-advance true)    # Don't prevent further incrementing sequence unless was incremented _after_ instruction recall
+-->
+    (<s> ^props-flag incremented-manual-seq)
+}
+# IF INCREMENTING BEFORE FETCHING, THERE WILL BE ANOTHER INCREMENT AFTER FETCHING. RE-QUERY THE SEQENCE STRUCTURE TO THE RIGHT DEPTH.
+sp {apply*props*manual*next-rule*reset
+    "Re-retrieve props-static after incrementing the manual, so enough depth is retrieved."
+    (state <s> ^operator <o>)
+    (<o> ^name props-manual-next-rule
+         ^extra-advance true)  
+-->
+    (<s> ^props-fetch-reset |manual-next-rule|)
+}
+
+sp {apply*props*manual*next-rule*clear-prohibits
+    "Remove any prohibits, they will interfere with the store command."
+    (state <s> ^operator.name props-manual-next-rule    # TODO: Is that right? Aren't those prohibits i-supported?
+               ^smem.command <scmd>)
+    (<scmd> ^prohibit <pbt>)
+-->
+    (<scmd> ^prohibit <pbt> -)
+}
+
+### SAVE A LINK FROM INSTRUCTIONS TO THE POSITION IN THE MANUAL SEQUENCE ###
+# Technically a props-result-success apply rule, for props_instruction_eval.soar, but the processing is more related to the static struct.
+sp {apply*props*success*next-rule*save-seq-link
+    "Store a link to the manual sequence position on first retrieval. Assumes first retrieval is correct."
+    (state <s> ^operator.name props-result-success
+               ^props-flag has-failed-instructions # Don't save if the sequence hasn't been properly updated this round (bad save data)
+               ^smem.command <scmd>
+               ^props-static <ps>
+               ^props-instructions <ins>)
+    (<ps> ^prev <item>
+          ^current-task <task>
+          ^next <> nil)
+    (<item> ^name <name>)
+    -{(<ins> ^in-sequence <sl>)
+      (<sl> ^seq-name <task>)}
+-->
+    (<ins> ^in-sequence <seq>)
+    (<seq> ^seq-name <task>
+           ^seq-link <item>)
+    (<scmd> ^store <ins>
+            ^store <seq>)
+    (write (crlf) |   * SAVING SEQ-LINK: | <task> |, | <name> | * |) 
+}
+# IF CORRECT INSTRUCTIONS WERE FOUND USING FREE RECALL, UPDATE THE SEQUENCE POINTER IF POSSIBLE
+sp {apply*props*success*next-rule*update
+    "If a sequence pointer is known with these instructions, use that instead of incrementing."
+    (state <s> ^operator.name props-result-success
+              -^props-flag has-failed-instructions
+               ^props-instructions <ins>
+               ^smem.command <scmd>
+               ^props-static <ps>)
+    (<ins> ^in-sequence <in1>)
+    (<in1> ^seq-name <task>
+          ^seq-link <curr>)
+    -{(<ins> ^in-sequence {<in2> <> <in1>})
+      (<in2> ^seq-name <task>)}
+    (<ps> ^prev <previtem>
+          ^manual-next-rule <name>
+          ^current-task <task>
+          ^next <top>)
+    (<curr> ^next <newprev>
+            ^name {<newname> <> <name>})
+    (<newprev> ^next <next>)
+-->
+    (<ps> ^manual-next-rule <name> -
+        ^manual-next-rule <newname>
+        ^next <top> -
+        ^next <newprev>
+        ^prev <previtem> -
+        ^prev <newprev>)
+    (<scmd> ^store <ps>)
+    (write |   * UPDATING | <task> | MANUAL POS TO | <newname> | *| (crlf)) 
+}

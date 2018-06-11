@@ -1,0 +1,46 @@
+##### 
+# Basic demo for running test agent with PROPs
+#####
+
+pushd "PROPsAgent"
+source _firstload_props.soar
+source props_learn_l2.soar
+source props_learn_l3.soar
+source props_learn_conds.soar
+popd
+
+pushd "instructions/demos"
+source demo_add-remove_PROPs.soar
+popd
+
+
+chunk confidence-threshold 2		# Set the chunking threshold parameter
+
+
+### INIT THE AGENT WITH WHATEVER YOU LIKE ###
+# PROPs will take over whever there's a state no-change impasse
+sp {propose*demo*init
+	(state <s>	^superstate nil
+				-^name )
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name init-demo)
+}
+sp {apply*demo*init
+	(state <s> ^operator.name init-demo)
+-->
+	(<s> ^name demo)
+}
+
+
+### SWITCH TO SECONDARY BEHAVIOR IN CASE OF LACK OF APPLICABLE PROPS INSTRUCTIONS ###
+# (In this case, just halt)
+sp {propose*demo*instruction*search*backup
+	(state <s>	^name demo
+				^props-flag impasse)
+-->
+	(write (crlf) |    Well, well, well. I see I've run out of instructions. Goodnight.| (crlf) )
+	(halt)
+}
+
+
