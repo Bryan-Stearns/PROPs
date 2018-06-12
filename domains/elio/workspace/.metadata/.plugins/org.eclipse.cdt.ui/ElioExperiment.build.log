@@ -1,0 +1,12 @@
+13:36:02 **** Incremental Build of configuration Debug for project ElioExperiment ****
+make all 
+Building file: ../src/ElioExperiment.cpp
+Invoking: Cross G++ Compiler
+g++ -std=c++0x -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/ElioExperiment.d" -MT"src/ElioExperiment.o" -o "src/ElioExperiment.o" "../src/ElioExperiment.cpp"
+../src/ElioExperiment.cpp:11:19: fatal error: conio.h: No such file or directory
+compilation terminated.
+src/subdir.mk:18: recipe for target 'src/ElioExperiment.o' failed
+make: *** [src/ElioExperiment.o] Error 1
+
+13:36:03 Build Finished (took 63ms)
+

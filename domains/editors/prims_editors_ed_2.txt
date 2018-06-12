@@ -1,0 +1,413 @@
+run
+source {/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Editors/prims_editors_agent.soar}******************************************************************************************************************************************
+Total: 138 productions sourced.
+source {/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Editors/lib_actr_interface.soar}learning is now on
+******************************
+Total: 30 productions sourced.
+source {/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Editors/smem_editors.soar}Knowledge added to semantic memory.
+Total: 0 productions sourced.
+     1: O: O1 (buffer-init)
+INITTED
+
+***TASK SET TO ed ***
+     2: O: N2 (editors-ed-init-start)
+Say1: read-instruction
+Read: "insert-word" "pers" "muskieten" "two"
+Say1: read-instruction
+     3: O: N3 (editors-ed-init-find-goal)
+Say1: read-screen
+Read: "word" "Geestelijk" "nil" "one"
+Say1: read-screen
+     4: O: N4 (editors-ed-line-strategy-test)
+Read: "word" "Geestelijk" "nil" "one"
+Say1: read-screen
+     5: O: N6 (editors-ed-line-strategy-enter)
+Read: "word" "Geestelijk" "nil" "one"
+Say1: read-screen
+     6: O: N9 (editors-ed-find-line-next)
+Say1: enter
+Read: "word" "Rowling" "nil" "two"
+Say1: enter
+     7: O: N11 (editors-ed-find-line-re-read)
+Say1: read-instruction
+Read: "insert-word" "pers" "muskieten" "two"
+Say1: read-instruction
+     8: O: N12 (editors-ed-find-task-word-for-insert)
+Say1: read-screen
+Read: "word" "Rowling" "nil" "two"
+Say1: read-screen
+     9: O: N14 (editors-ed-find-task-word-next)
+Say1: move-attention-right
+Read: "word" "laat" "nil" "two"
+Say1: move-attention-right
+    10: O: N15 (editors-ed-find-task-word-next)
+Read: "word" "de" "nil" "two"
+Say1: move-attention-right
+    11: O: N16 (editors-ed-find-task-word-next)
+Read: "word" "pers" "nil" "two"
+Say1: move-attention-right
+    12: O: N17 (editors-ed-find-task-word-read)
+Say1: read-instruction
+Read: "insert-word" "pers" "muskieten" "two"
+Say1: read-instruction
+    13: O: N19 (editors-ed-word-action-insert)
+Say3: muskieten
+Say2: pers
+Say1: insert-ed
+Say3: muskieten
+Say2: pers
+Read: "word" "Rowling" "nil" "two"
+Say1: insert-ed
+Say3: muskieten
+Say2: pers
+    14: O: N20 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: muskieten
+Say2: pers
+Read: "replace-line" "fans mochten een blik op de inhoud werpen onder voorwaarde van strikte geheimhouding" "fans hadden de gelegenheid om alvast een kijkje te nemen" "three"
+Say1: next-instruction
+Say3: muskieten
+Say2: pers
+    15: O: N22 (editors-ed-init-find-goal)
+Say1: read-screen
+Say3: muskieten
+Say2: pers
+Read: "word" "Rowling" "nil" "two"
+Say1: read-screen
+Say3: muskieten
+Say2: pers
+    16: O: N23 (editors-ed-line-strategy-test)
+Read: "word" "Rowling" "nil" "two"
+Say1: read-screen
+Say3: muskieten
+Say2: pers
+    17: O: N25 (editors-ed-line-strategy-enter)
+Read: "word" "Rowling" "nil" "two"
+Say1: read-screen
+Say3: muskieten
+Say2: pers
+    18: O: N28 (editors-ed-find-line-next)
+Say1: enter
+Say3: muskieten
+Say2: pers
+Read: "word" "fans" "nil" "three"
+Say1: enter
+Say3: muskieten
+Say2: pers
+    19: O: N30 (editors-ed-find-line-re-read)
+Say1: read-instruction
+Say3: muskieten
+Say2: pers
+Read: "replace-line" "fans mochten een blik op de inhoud werpen onder voorwaarde van strikte geheimhouding" "fans hadden de gelegenheid om alvast een kijkje te nemen" "three"
+Say1: read-instruction
+Say3: muskieten
+Say2: pers
+    20: O: N31 (editors-ed-find-task-line-replace)
+Say1: period-c
+Say3: muskieten
+Say2: pers
+Read: "word" "eol" "nil" "three"
+Say1: period-c
+Say3: muskieten
+Say2: pers
+    21: O: N32 (editors-ed-find-task-line-type)
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Say1: type-text
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "word" "fans" "nil" "three"
+Say1: type-text
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    22: O: N34 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "replace-word" "medi" "media" "eight"
+Say1: next-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    23: O: N36 (editors-ed-init-find-goal)
+Say1: read-screen
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "word" "fans" "nil" "three"
+Say1: read-screen
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    24: O: N37 (editors-ed-line-strategy-enter)
+Read: "word" "fans" "nil" "three"
+Say1: read-screen
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    25: O: N39 (editors-ed-find-line-next)
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "word" "Ondertussen" "nil" "four"
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    26: O: N41 (editors-ed-find-line-re-next)
+Read: "word" "nu" "nil" "five"
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    27: O: N44 (editors-ed-find-line-re-next)
+Read: "word" "van" "nil" "six"
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    28: O: N47 (editors-ed-find-line-re-next)
+Read: "word" "site" "nil" "seven"
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    29: O: N50 (editors-ed-find-line-re-next)
+Read: "word" "ebooks" "nil" "eight"
+Say1: enter
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    30: O: N53 (editors-ed-find-line-re-read)
+Say1: read-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "replace-word" "medi" "media" "eight"
+Say1: read-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    31: O: N54 (editors-ed-find-task-word-for-replace)
+Say1: read-screen
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "word" "ebooks" "nil" "eight"
+Say1: read-screen
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    32: O: N56 (editors-ed-find-task-word-next)
+Say1: move-attention-right
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "word" "en" "nil" "eight"
+Say1: move-attention-right
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    33: O: N57 (editors-ed-find-task-word-next)
+Read: "word" "sociale" "nil" "eight"
+Say1: move-attention-right
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    34: O: N58 (editors-ed-find-task-word-next)
+Read: "word" "medi" "nil" "eight"
+Say1: move-attention-right
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    35: O: N59 (editors-ed-find-task-word-read)
+Say1: read-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+Read: "replace-word" "medi" "media" "eight"
+Say1: read-instruction
+Say3: muskieten
+Say2: fans hadden de gelegenheid om alvast een kijkje te nemen
+    36: O: N61 (editors-ed-word-action-replace)
+Say3: media
+Say2: medi
+Say1: substitute-ed
+Say3: media
+Say2: medi
+Read: "word" "ebooks" "nil" "eight"
+Say1: substitute-ed
+Say3: media
+Say2: medi
+    37: O: N62 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: media
+Say2: medi
+Read: "delete-word" "eindelijk" "" "fourteen"
+Say1: next-instruction
+Say3: media
+Say2: medi
+    38: O: N64 (editors-ed-init-find-goal)
+Say1: read-screen
+Say3: media
+Say2: medi
+Read: "word" "ebooks" "nil" "eight"
+Say1: read-screen
+Say3: media
+Say2: medi
+    39: O: N65 (editors-ed-line-strategy-test)
+Read: "word" "ebooks" "nil" "eight"
+Say1: read-screen
+Say3: media
+Say2: medi
+    40: O: N66 (editors-ed-line-strategy-pcmd)
+Say2: fourteen
+Say1: number-p
+Say3: media
+Say2: fourteen
+Read: "word" "film" "nil" "fourteen"
+Say1: number-p
+Say3: media
+Say2: fourteen
+    41: O: N67 (editors-ed-find-line-read)
+Say1: read-instruction
+Say3: media
+Say2: fourteen
+Read: "delete-word" "eindelijk" "" "fourteen"
+Say1: read-instruction
+Say3: media
+Say2: fourteen
+    42: O: N69 (editors-ed-find-task-word-for-delete)
+Say1: read-screen
+Say3: media
+Say2: fourteen
+Read: "word" "film" "nil" "fourteen"
+Say1: read-screen
+Say3: media
+Say2: fourteen
+    43: O: N71 (editors-ed-find-task-word-next)
+Say1: move-attention-right
+Say3: media
+Say2: fourteen
+Read: "word" "eindelijk" "nil" "fourteen"
+Say1: move-attention-right
+Say3: media
+Say2: fourteen
+    44: O: N72 (editors-ed-find-task-word-read)
+Say1: read-instruction
+Say3: media
+Say2: fourteen
+Read: "delete-word" "eindelijk" "" "fourteen"
+Say1: read-instruction
+Say3: media
+Say2: fourteen
+    45: O: N74 (editors-ed-word-action-delete)
+Say3: 
+Say2: eindelijk
+Say1: substitute-ed
+Say3: 
+Say2: eindelijk
+Read: "word" "film" "nil" "fourteen"
+Say1: substitute-ed
+Say3: 
+Say2: eindelijk
+    46: O: N75 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: 
+Say2: eindelijk
+Read: "delete-line" "We all know what happened in the end but" "" "sixteen"
+Say1: next-instruction
+Say3: 
+Say2: eindelijk
+    47: O: N77 (editors-ed-init-find-goal)
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+Read: "word" "film" "nil" "fourteen"
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+    48: O: N78 (editors-ed-line-strategy-test)
+Read: "word" "film" "nil" "fourteen"
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+    49: O: N80 (editors-ed-line-strategy-enter)
+Read: "word" "film" "nil" "fourteen"
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+    50: O: N83 (editors-ed-find-line-next)
+Say1: enter
+Say3: 
+Say2: eindelijk
+Read: "word" "of" "nil" "fifteen"
+Say1: enter
+Say3: 
+Say2: eindelijk
+    51: O: N85 (editors-ed-find-line-re-next)
+Read: "word" "We" "nil" "sixteen"
+Say1: enter
+Say3: 
+Say2: eindelijk
+    52: O: N88 (editors-ed-find-line-re-read)
+Say1: read-instruction
+Say3: 
+Say2: eindelijk
+Read: "delete-line" "We all know what happened in the end but" "" "sixteen"
+Say1: read-instruction
+Say3: 
+Say2: eindelijk
+    53: O: N89 (editors-ed-find-task-line-delete)
+Say1: period-d
+Say3: 
+Say2: eindelijk
+Read: "word" "Of" "nil" "sixteen"
+Say1: period-d
+Say3: 
+Say2: eindelijk
+    54: O: N90 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: 
+Say2: eindelijk
+Read: "insert-line" "kassucces De spanning is daarom groot dit jaar" "succes Het zal Roling waarschijnlijk een worst wezen" "seventeen"
+Say1: next-instruction
+Say3: 
+Say2: eindelijk
+    55: O: N92 (editors-ed-init-find-goal)
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+Read: "word" "Of" "nil" "sixteen"
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+    56: O: N93 (editors-ed-line-strategy-enter)
+Read: "word" "Of" "nil" "sixteen"
+Say1: read-screen
+Say3: 
+Say2: eindelijk
+    57: O: N95 (editors-ed-find-line-next)
+Say1: enter
+Say3: 
+Say2: eindelijk
+Read: "word" "kassucces" "nil" "seventeen"
+Say1: enter
+Say3: 
+Say2: eindelijk
+    58: O: N97 (editors-ed-find-line-re-read)
+Say1: read-instruction
+Say3: 
+Say2: eindelijk
+Read: "insert-line" "kassucces De spanning is daarom groot dit jaar" "succes Het zal Roling waarschijnlijk een worst wezen" "seventeen"
+Say1: read-instruction
+Say3: 
+Say2: eindelijk
+    59: O: N98 (editors-ed-find-task-line-insert)
+Say1: period-a
+Say3: 
+Say2: eindelijk
+Read: "word" "eol" "nil" "seventeen"
+Say1: period-a
+Say3: 
+Say2: eindelijk
+    60: O: N99 (editors-ed-find-task-line-type)
+Say2: succes Het zal Roling waarschijnlijk een worst wezen
+Say1: type-text
+Say3: 
+Say2: succes Het zal Roling waarschijnlijk een worst wezen
+Read: "word" "succes" "nil" "seventeen"
+Say1: type-text
+Say3: 
+Say2: succes Het zal Roling waarschijnlijk een worst wezen
+    61: O: N101 (editors-ed-word-action-next)
+Say1: next-instruction
+Say3: 
+Say2: succes Het zal Roling waarschijnlijk een worst wezen
+Read: "end" "end2" "end3" "end4"
+Say1: next-instruction
+Say3: 
+Say2: succes Het zal Roling waarschijnlijk een worst wezen
+    62: O: N103 (editors-ed-finish)
+

@@ -1,0 +1,657 @@
+
+### MANUAL PROPS RULE SEQUENCING ###
+
+# HACK FOR PROCEDURE-C: SHOULD ALREADY BE LEARNED BY THE TIME C ROLLS AROUND
+sp {chunk*apply*props*success*action*add*replace*OpNoChange*t9421-1*b
+    :chunk
+    (state <s1>  ^operator <o1> ^RT <r1> ^WM <w1> ^G <g1>)
+    (<o1>  ^name elio-index1-div-marine-finish)
+    (<r1>  ^slot4 <c1>)
+    (<w1>  ^slot2 { <> <c1> <old> })
+    -->
+    (<w1>  ^slot2 <old> -)
+    (<w1>  ^slot2 <c1> +)
+}
+
+#		PROCEDURE-A: (training)					[ops: 7 max: 2,10]
+#	solid-lime-diff		(component)				[ops: 5 max: 3,5]
+#	greater-algae		(component)				[ops: 6 max: 3,4]
+#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]
+#	mean-toxin			(component)				[ops: 5 max: 3,3]
+#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]
+#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]
+#												[total: 33 comp: 16 intg: 14]
+
+#		PROCEDURE-B: (transferred component)	[ops: 7 max: 2,9]
+#	mean-toxin			(component)				[ops: 5 max: 3,3]
+#	solid-lime-diff		(component)				[ops: 5 max: 3,5]
+#	greater-algae		(component)				[ops: 6 max: 3,4]
+#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]
+#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]
+#	index1-plus-index2	(integrative)			[ops: 3 max: 2,4]
+#												[total: 33 comp: 19 intg: 14]
+#												[comp-transfer: 16/19 intg-transfer: 0/14]
+
+#		PROCEDURE-C: (transferred integrative)	[ops: 7 max: 2,9]
+#	triple-lime			(component)				[ops: 5 max: 3,4]
+#	lesser-evil			(component)				[ops: 8 max: 3,8]
+#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]
+#	solid-div-lime		(component)				[ops: 4 max: 3,3]
+#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]
+#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]
+#												[total: 34 comp: 20 intg: 14]
+#												[comp-transfer: 0/20 intg-transfer: 10/14]
+
+#		PROCEDURE-D: (control)					[ops: 7 max: 2,9]
+#	triple-lime			(component)				[ops: 5 max: 3,4]
+#	lesser-evil			(component)				[ops: 8 max: 3,8]
+#	solid-div-lime		(component)				[ops: 4 max: 3,3]
+#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]
+#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]
+#	index1-plus-index2	(integrative)			[ops: 3 max: 2,4]
+#												[total: 34 comp: 20 intg: 14]
+#												[comp-transfer: 0/20 intg-transfer: 0/14]
+
+
+# ELIO - PROCEDURES A-D #
+smem --add {
+(<1> 	^props-static props-static
+		^procedure-a <R1>
+		^procedure-b <R2>
+		^procedure-c <R3>
+		^procedure-d <R4>)
+(<R1> ^name propose*elio*procedure-A*step-1
+	^next <A1>)
+(<R2> ^name propose*elio*procedure-b*start
+	^next <B1>)
+(<R3> ^name propose*elio*procedure-c*start
+	^next <C1>)
+(<R4> ^name propose*elio*procedure-d*start
+	^next <D1>)
+
+# PROCEDURE A
+(<A1> ^name apply*elio*procedure-A*step-1
+	^next <A2>)
+	
+(<A2> ^name propose*elio*solid-lime-diff*step-1
+	^next <A3>)
+(<A3> ^name apply*elio*solid-lime-diff*step-1
+	^next <A4>)
+(<A4> ^name propose*elio*solid-lime-diff*step-2
+	^next <A5>)
+(<A5> ^name apply*elio*solid-lime-diff*step-2
+	^next <A6>)
+(<A6> ^name propose*elio*solid-lime-diff*diff
+	^next <A7>)
+(<A7> ^name apply*elio*solid-lime-diff*diff
+	^next <A8>)
+(<A8> ^name propose*elio*solid-lime-diff*mult
+	^next <A9>)
+(<A9> ^name apply*elio*solid-lime-diff*mult
+	^next <A10>)
+(<A10> ^name propose*elio*solid-lime-diff*finish
+	^next <A11>)
+(<A11> ^name apply*elio*solid-lime-diff*finish
+	^next <A12>)
+
+(<A12> ^name propose*elio*procedure-A*step-2
+	^next <A13>)
+(<A13> ^name apply*elio*procedure-A*step-2
+	^next <A14>)
+
+(<A14> ^name propose*elio*greater-algae*start
+	^next <A15>)
+(<A15> ^name apply*elio*greater-algae*start
+	^next <A16>)
+(<A16> ^name propose*elio*greater-algae*div-2
+	^next <A17>)
+(<A17> ^name apply*elio*greater-algae*div-2
+	^next <A18>)
+(<A18> ^name propose*elio*greater-algae*read-solid
+	^next <A19>)
+(<A19> ^name apply*elio*greater-algae*read-solid
+	^next <A20>)
+(<A20> ^name propose*elio*greater-algae*div-3
+	^next <A21>)
+(<A21> ^name apply*elio*greater-algae*div-3
+	^next <A22>)
+(<A22> ^name propose*elio*greater-algae*greater
+	^next <A23>)
+(<A23> ^name apply*elio*greater-algae*greater
+	^next <A24>)
+(<A24> ^name propose*elio*greater-algae*finish
+	^next <A25>)
+(<A25> ^name apply*elio*greater-algae*finish
+	^next <A26>)
+
+(<A26> ^name propose*elio*procedure-A*step-3
+	^next <A27>)
+(<A27> ^name apply*elio*procedure-A*step-3
+	^next <A28>)
+
+(<A28> ^name propose*elio*part-plus-mineral*start
+	^next <A29>)
+(<A29> ^name apply*elio*part-plus-mineral*start
+	^next <A30>)
+(<A30> ^name propose*elio*part-plus-mineral*add
+	^next <A31>)
+(<A31> ^name apply*elio*part-plus-mineral*add
+	^next <A32>)
+(<A32> ^name propose*elio*part-plus-mineral*finish
+	^next <A33>)
+(<A33> ^name apply*elio*part-plus-mineral*finish
+	^next <A34>)
+
+(<A34> ^name propose*elio*procedure-A*step-4
+	^next <A35>)
+(<A35> ^name apply*elio*procedure-A*step-4
+	^next <A36>)
+	
+(<A36> ^name propose*elio*mean-toxin*start
+	^next <A37>)
+(<A37> ^name apply*elio*mean-toxin*start
+	^next <A38>)
+(<A38> ^name propose*elio*mean-toxin*toxinmin
+	^next <A39>)
+(<A39> ^name apply*elio*mean-toxin*toxinmin
+	^next <A40>)
+(<A40> ^name propose*elio*mean-toxin*add
+	^next <A41>)
+(<A41> ^name apply*elio*mean-toxin*add
+	^next <A42>)
+(<A42> ^name propose*elio*mean-toxin*divide
+	^next <A43>)
+(<A43> ^name apply*elio*mean-toxin*divide
+	^next <A44>)
+(<A44> ^name propose*elio*mean-toxin*finish
+	^next <A45>)
+(<A45> ^name apply*elio*mean-toxin*finish
+	^next <A46>)
+
+(<A46> ^name propose*elio*procedure-A*step-5
+	^next <A47>)
+(<A47> ^name apply*elio*procedure-A*step-5
+	^next <A48>)
+
+(<A48> ^name propose*elio*index1-div-marine*start
+	^next <A49>)
+(<A49> ^name apply*elio*index1-div-marine*start
+	^next <A50>)
+(<A50> ^name propose*elio*index1-div-marine*next
+	^next <A51>)
+(<A51> ^name apply*elio*index1-div-marine*next
+	^next <A52>)
+(<A52> ^name propose*elio*index1-div-marine*divide
+	^next <A53>)
+(<A53> ^name apply*elio*index1-div-marine*divide
+	^next <A54>)
+(<A54> ^name propose*elio*index1-div-marine*finish
+	^next <A55>)
+(<A55> ^name apply*elio*index1-div-marine*finish
+	^next <A56>)
+
+(<A56> ^name propose*elio*procedure-A*step-6
+	^next <A57>)
+(<A57> ^name apply*elio*procedure-A*step-6
+	^next <A58>)
+	
+(<A58> ^name propose*elio*index2-min-mineral*start
+	^next <A59>)
+(<A59> ^name apply*elio*index2-min-mineral*start
+	^next <A60>)
+(<A60> ^name propose*elio*index2-min-mineral*subtract
+	^next <A61>)
+(<A61> ^name apply*elio*index2-min-mineral*subtract
+	^next <A62>)
+(<A62> ^name propose*elio*index2-min-mineral*finish
+	^next <A63>)
+(<A63> ^name apply*elio*index2-min-mineral*finish
+	^next <A64>)
+
+(<A64> ^name propose*elio*procedure-A*step-7
+	^next <A65>)
+(<A65> ^name apply*elio*procedure-A*step-7
+	^next nil)
+
+# PROCEDURE B
+(<B1> ^name apply*elio*procedure-b*start
+	^next <B2>)
+	
+(<B2> ^name propose*elio*mean-toxin*start
+	^next <B3>)
+(<B3> ^name apply*elio*mean-toxin*start
+	^next <B4>)
+(<B4> ^name propose*elio*mean-toxin*toxinmin
+	^next <B5>)
+(<B5> ^name apply*elio*mean-toxin*toxinmin
+	^next <B6>)
+(<B6> ^name propose*elio*mean-toxin*add
+	^next <B7>)
+(<B7> ^name apply*elio*mean-toxin*add
+	^next <B8>)
+(<B8> ^name propose*elio*mean-toxin*divide
+	^next <B9>)
+(<B9> ^name apply*elio*mean-toxin*divide
+	^next <B10>)
+(<B10> ^name propose*elio*mean-toxin*finish
+	^next <B11>)
+(<B11> ^name apply*elio*mean-toxin*finish
+	^next <B12>)
+
+(<B12> ^name propose*elio*procedure-b*step-2
+	^next <B13>)
+(<B13> ^name apply*elio*procedure-b*step-2
+	^next <B14>)
+
+(<B14> ^name propose*elio*solid-lime-diff*step-1
+	^next <B15>)
+(<B15> ^name apply*elio*solid-lime-diff*step-1
+	^next <B16>)
+(<B16> ^name propose*elio*solid-lime-diff*step-2
+	^next <B17>)
+(<B17> ^name apply*elio*solid-lime-diff*step-2
+	^next <B18>)
+(<B18> ^name propose*elio*solid-lime-diff*diff
+	^next <B19>)
+(<B19> ^name apply*elio*solid-lime-diff*diff
+	^next <B20>)
+(<B20> ^name propose*elio*solid-lime-diff*mult
+	^next <B21>)
+(<B21> ^name apply*elio*solid-lime-diff*mult
+	^next <B22>)
+(<B22> ^name propose*elio*solid-lime-diff*finish
+	^next <B23>)
+(<B23> ^name apply*elio*solid-lime-diff*finish
+	^next <B24>)
+
+(<B24> ^name propose*elio*procedure-b*step-3
+	^next <B25>)
+(<B25> ^name apply*elio*procedure-b*step-3
+	^next <B26>)
+
+(<B26> ^name propose*elio*greater-algae*start
+	^next <B27>)
+(<B27> ^name apply*elio*greater-algae*start
+	^next <B28>)
+(<B28> ^name propose*elio*greater-algae*div-2
+	^next <B29>)
+(<B29> ^name apply*elio*greater-algae*div-2
+	^next <B30>)
+(<B30> ^name propose*elio*greater-algae*read-solid
+	^next <B31>)
+(<B31> ^name apply*elio*greater-algae*read-solid
+	^next <B32>)
+(<B32> ^name propose*elio*greater-algae*div-3
+	^next <B33>)
+(<B33> ^name apply*elio*greater-algae*div-3
+	^next <B34>)
+(<B34> ^name propose*elio*greater-algae*greater
+	^next <B35>)
+(<B35> ^name apply*elio*greater-algae*greater
+	^next <B36>)
+(<B36> ^name propose*elio*greater-algae*finish
+	^next <B37>)
+(<B37> ^name apply*elio*greater-algae*finish
+	^next <B38>)
+
+(<B38> ^name propose*elio*procedure-b*step-4
+	^next <B39>)
+(<B39> ^name apply*elio*procedure-b*step-4
+	^next <B40>)
+
+(<B40> ^name propose*elio*mineral-div-marine*start
+	^next <B41>)
+(<B41> ^name apply*elio*mineral-div-marine*start
+	^next <B42>)
+(<B42> ^name propose*elio*mineral-div-marine*skip
+	^next <B43>)
+(<B43> ^name apply*elio*mineral-div-marine*skip
+	^next <B44>)
+(<B44> ^name propose*elio*mineral-div-marine*divide
+	^next <B45>)
+(<B45> ^name apply*elio*mineral-div-marine*divide
+	^next <B46>)
+(<B46> ^name propose*elio*mineral-div-marine*finish
+	^next <B47>)
+(<B47> ^name apply*elio*mineral-div-marine*finish
+	^next <B48>)
+
+(<B48> ^name propose*elio*procedure-b*step-5
+	^next <B49>)
+(<B49> ^name apply*elio*procedure-b*step-5
+	^next <B50>)
+
+(<B50> ^name propose*elio*part-mult-index1*start
+	^next <B51>)
+(<B51> ^name apply*elio*part-mult-index1*start
+	^next <B52>)
+(<B52> ^name propose*elio*part-mult-index1*mult
+	^next <B53>)
+(<B53> ^name apply*elio*part-mult-index1*mult
+	^next <B54>)
+(<B54> ^name propose*elio*part-mult-index1*finish
+	^next <B55>)
+(<B55> ^name apply*elio*part-mult-index1*finish
+	^next <B56>)
+
+(<B56> ^name propose*elio*procedure-b*step-6
+	^next <B57>)
+(<B57> ^name apply*elio*procedure-b*step-6
+	^next <B58>)
+	
+(<B58> ^name propose*elio*index1-plus-index2*start
+	^next <B59>)
+(<B59> ^name apply*elio*index1-plus-index2*start
+	^next <B60>)
+(<B60> ^name propose*elio*index1-plus-index2*add
+	^next <B61>)
+(<B61> ^name apply*elio*index1-plus-index2*add
+	^next <B62>)
+(<B62> ^name propose*elio*index1-plus-index2*finish
+	^next <B63>)
+(<B63> ^name apply*elio*index1-plus-index2*finish
+	^next <B64>)
+
+(<B64> ^name propose*elio*procedure-b*finish
+	^next <B65>)
+(<B65> ^name apply*elio*procedure-b*finish
+	^next nil)
+
+# PROCEDURE C
+(<C1> ^name apply*elio*procedure-c*start
+	^next <C2>)
+	
+(<C2> ^name propose*elio*triple-lime*start
+	^next <C3>)
+(<C3> ^name apply*elio*triple-lime*start
+	^next <C4>)
+(<C4> ^name propose*elio*triple-lime*mult
+	^next <C5>)
+(<C5> ^name apply*elio*triple-lime*mult
+	^next <C6>)
+(<C6> ^name propose*elio*triple-lime*read
+	^next <C7>)
+(<C7> ^name apply*elio*triple-lime*read
+	^next <C8>)
+(<C8> ^name propose*elio*triple-lime*add
+	^next <C9>)
+(<C9> ^name apply*elio*triple-lime*add
+	^next <C10>)
+(<C10> ^name propose*elio*triple-lime*finish
+	^next <C11>)
+(<C11> ^name apply*elio*triple-lime*finish
+	^next <C12>)
+
+(<C12> ^name propose*elio*procedure-c*step-2
+	^next <C13>)
+(<C13> ^name apply*elio*procedure-c*step-2
+	^next <C14>)
+
+(<C14> ^name propose*elio*lesser-evil*read-solid
+	^next <C15>)
+(<C15> ^name apply*elio*lesser-evil*read-solid
+	^next <C16>)
+(<C16> ^name propose*elio*lesser-evil*read-lime1
+	^next <C17>)
+(<C17> ^name apply*elio*lesser-evil*read-lime1
+	^next <C18>)
+(<C18> ^name propose*elio*lesser-evil*add-lime1
+	^next <C19>)
+(<C19> ^name apply*elio*lesser-evil*add-lime1
+	^next <C20>)
+(<C20> ^name propose*elio*lesser-evil*read-algae
+	^next <C21>)
+(<C21> ^name apply*elio*lesser-evil*read-algae
+	^next <C22>)
+(<C22> ^name propose*elio*lesser-evil*read-toxin3
+	^next <C23>)
+(<C23> ^name apply*elio*lesser-evil*read-toxin3
+	^next <C24>)
+(<C24> ^name propose*elio*lesser-evil*toxin3
+	^next <C25>)
+(<C25> ^name apply*elio*lesser-evil*toxin3
+	^next <C26>)
+(<C26> ^name propose*elio*lesser-evil*read-intermediate
+	^next <C27>)
+(<C27> ^name apply*elio*lesser-evil*read-intermediate
+	^next <C28>)
+(<C28> ^name propose*elio*lesser-evil*greater-than-false
+	^next <C29>)
+(<C29> ^name apply*elio*lesser-evil*greater-than-false
+	^next <C30>)
+
+(<C30> ^name propose*elio*procedure-c*step-3
+	^next <C31>)
+(<C31> ^name apply*elio*procedure-c*step-3
+	^next <C32>)
+
+(<C32> ^name propose*elio*part-plus-mineral*start
+	^next <C33>)
+(<C33> ^name apply*elio*part-plus-mineral*start
+	^next <C34>)
+(<C34> ^name propose*elio*part-plus-mineral*add
+	^next <C35>)
+(<C35> ^name apply*elio*part-plus-mineral*add
+	^next <C36>)
+(<C36> ^name propose*elio*part-plus-mineral*finish
+	^next <C37>)
+(<C37> ^name apply*elio*part-plus-mineral*finish
+	^next <C38>)
+
+(<C38> ^name propose*elio*procedure-c*step-4
+	^next <C39>)
+(<C39> ^name apply*elio*procedure-c*step-4
+	^next <C40>)
+
+(<C40> ^name propose*elio*solid-div-lime*read-solid
+	^next <C41>)
+(<C41> ^name apply*elio*solid-div-lime*read-solid
+	^next <C42>)
+(<C42> ^name propose*elio*solid-div-lime*read-lime1
+	^next <C43>)
+(<C43> ^name apply*elio*solid-div-lime*read-lime1
+	^next <C44>)
+(<C44> ^name propose*elio*solid-div-lime*div-lime1
+	^next <C45>)
+(<C45> ^name apply*elio*solid-div-lime*div-lime1
+	^next <C46>)
+(<C46> ^name propose*elio*solid-div-lime*finish
+	^next <C47>)
+(<C47> ^name apply*elio*solid-div-lime*finish
+	^next <C48>)
+
+(<C48> ^name propose*elio*procedure-c*step-5
+	^next <C49>)
+(<C49> ^name apply*elio*procedure-c*step-5
+	^next <C50>)
+
+(<C50> ^name propose*elio*index1-div-marine*start
+	^next <C51>)
+(<C51> ^name apply*elio*index1-div-marine*start
+	^next <C52>)
+(<C52> ^name propose*elio*index1-div-marine*next
+	^next <C53>)
+(<C53> ^name apply*elio*index1-div-marine*next
+	^next <C54>)
+(<C54> ^name propose*elio*index1-div-marine*divide
+	^next <C55>)
+(<C55> ^name apply*elio*index1-div-marine*divide
+	^next <C56>)
+(<C56> ^name propose*elio*index1-div-marine*finish
+	^next <C57>)
+(<C57> ^name apply*elio*index1-div-marine*finish
+	^next <C58>)
+
+(<C58> ^name propose*elio*procedure-c*step-6
+	^next <C59>)
+(<C59> ^name apply*elio*procedure-c*step-6
+	^next <C60>)
+	
+(<C60> ^name propose*elio*index2-min-mineral*start
+	^next <C61>)
+(<C61> ^name apply*elio*index2-min-mineral*start
+	^next <C62>)
+(<C62> ^name propose*elio*index2-min-mineral*subtract
+	^next <C63>)
+(<C63> ^name apply*elio*index2-min-mineral*subtract
+	^next <C64>)
+(<C64> ^name propose*elio*index2-min-mineral*finish
+	^next <C65>)
+(<C65> ^name apply*elio*index2-min-mineral*finish
+	^next <C66>)
+
+(<C66> ^name propose*elio*procedure-c*step-7
+	^next <C67>)
+(<C67> ^name apply*elio*procedure-c*step-7
+	^next nil)
+
+# PROCEDURE D
+(<D1> ^name apply*elio*procedure-d*start
+	^next <D2>)
+	
+(<D2> ^name propose*elio*triple-lime*start
+	^next <D3>)
+(<D3> ^name apply*elio*triple-lime*start
+	^next <D4>)
+(<D4> ^name propose*elio*triple-lime*mult
+	^next <D5>)
+(<D5> ^name apply*elio*triple-lime*mult
+	^next <D6>)
+(<D6> ^name propose*elio*triple-lime*read
+	^next <D7>)
+(<D7> ^name apply*elio*triple-lime*read
+	^next <D8>)
+(<D8> ^name propose*elio*triple-lime*add
+	^next <D9>)
+(<D9> ^name apply*elio*triple-lime*add
+	^next <D10>)
+(<D10> ^name propose*elio*triple-lime*finish
+	^next <D11>)
+(<D11> ^name apply*elio*triple-lime*finish
+	^next <D12>)
+
+(<D12> ^name propose*elio*procedure-d*step-2
+	^next <D13>)
+(<D13> ^name apply*elio*procedure-d*step-2
+	^next <D14>)
+
+(<D14> ^name propose*elio*lesser-evil*read-solid
+	^next <D15>)
+(<D15> ^name apply*elio*lesser-evil*read-solid
+	^next <D16>)
+(<D16> ^name propose*elio*lesser-evil*read-lime1
+	^next <D17>)
+(<D17> ^name apply*elio*lesser-evil*read-lime1
+	^next <D18>)
+(<D18> ^name propose*elio*lesser-evil*add-lime1
+	^next <D19>)
+(<D19> ^name apply*elio*lesser-evil*add-lime1
+	^next <D20>)
+(<D20> ^name propose*elio*lesser-evil*read-algae
+	^next <D21>)
+(<D21> ^name apply*elio*lesser-evil*read-algae
+	^next <D22>)
+(<D22> ^name propose*elio*lesser-evil*read-toxin3
+	^next <D23>)
+(<D23> ^name apply*elio*lesser-evil*read-toxin3
+	^next <D24>)
+(<D24> ^name propose*elio*lesser-evil*toxin3
+	^next <D25>)
+(<D25> ^name apply*elio*lesser-evil*toxin3
+	^next <D26>)
+(<D26> ^name propose*elio*lesser-evil*read-intermediate
+	^next <D27>)
+(<D27> ^name apply*elio*lesser-evil*read-intermediate
+	^next <D28>)
+(<D28> ^name propose*elio*lesser-evil*greater-than-false
+	^next <D29>)
+(<D29> ^name apply*elio*lesser-evil*greater-than-false
+	^next <D30>)
+
+(<D30> ^name propose*elio*procedure-d*step-3
+	^next <D31>)
+(<D31> ^name apply*elio*procedure-d*step-3
+	^next <D32>)
+
+(<D32> ^name propose*elio*solid-div-lime*read-solid
+	^next <D33>)
+(<D33> ^name apply*elio*solid-div-lime*read-solid
+	^next <D34>)
+(<D34> ^name propose*elio*solid-div-lime*read-lime1
+	^next <D35>)
+(<D35> ^name apply*elio*solid-div-lime*read-lime1
+	^next <D36>)
+(<D36> ^name propose*elio*solid-div-lime*div-lime1
+	^next <D37>)
+(<D37> ^name apply*elio*solid-div-lime*div-lime1
+	^next <D38>)
+(<D38> ^name propose*elio*solid-div-lime*finish
+	^next <D39>)
+(<D39> ^name apply*elio*solid-div-lime*finish
+	^next <D40>)
+
+(<D40> ^name propose*elio*procedure-d*step-4
+	^next <D41>)
+(<D41> ^name apply*elio*procedure-d*step-4
+	^next <D42>)
+
+(<D42> ^name propose*elio*mineral-div-marine*start
+	^next <D43>)
+(<D43> ^name apply*elio*mineral-div-marine*start
+	^next <D44>)
+(<D44> ^name propose*elio*mineral-div-marine*skip
+	^next <D45>)
+(<D45> ^name apply*elio*mineral-div-marine*skip
+	^next <D46>)
+(<D46> ^name propose*elio*mineral-div-marine*divide
+	^next <D47>)
+(<D47> ^name apply*elio*mineral-div-marine*divide
+	^next <D48>)
+(<D48> ^name propose*elio*mineral-div-marine*finish
+	^next <D49>)
+(<D49> ^name apply*elio*mineral-div-marine*finish
+	^next <D50>)
+
+(<D50> ^name propose*elio*procedure-d*step-5
+	^next <D51>)
+(<D51> ^name apply*elio*procedure-d*step-5
+	^next <D52>)
+
+(<D52> ^name propose*elio*part-mult-index1*start
+	^next <D53>)
+(<D53> ^name apply*elio*part-mult-index1*start
+	^next <D54>)
+(<D54> ^name propose*elio*part-mult-index1*mult
+	^next <D55>)
+(<D55> ^name apply*elio*part-mult-index1*mult
+	^next <D56>)
+(<D56> ^name propose*elio*part-mult-index1*finish
+	^next <D57>)
+(<D57> ^name apply*elio*part-mult-index1*finish
+	^next <D58>)
+
+(<D58> ^name propose*elio*procedure-d*step-6
+	^next <D59>)
+(<D59> ^name apply*elio*procedure-d*step-6
+	^next <D60>)
+	
+(<D60> ^name propose*elio*index1-plus-index2*start
+	^next <D61>)
+(<D61> ^name apply*elio*index1-plus-index2*start
+	^next <D62>)
+(<D62> ^name propose*elio*index1-plus-index2*add
+	^next <D63>)
+(<D63> ^name apply*elio*index1-plus-index2*add
+	^next <D64>)
+(<D64> ^name propose*elio*index1-plus-index2*finish
+	^next <D65>)
+(<D65> ^name apply*elio*index1-plus-index2*finish
+	^next <D66>)
+
+(<D66> ^name propose*elio*procedure-d*step-7
+	^next <D67>)
+(<D67> ^name apply*elio*procedure-d*step-7
+	^next nil)
+
+# Having ^next nil means clear the manual-next-rule/top structures, so others can be sourced.
+}

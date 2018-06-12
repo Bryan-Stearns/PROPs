@@ -1,0 +1,50 @@
+package edu.umich.eecs.soar.props.elio;
+
+import java.util.Arrays;
+
+import sml.Agent;
+import sml.Agent.PrintEventInterface;
+import sml.Kernel;
+
+public class SMLClient {
+	
+	public static final PrintEventInterface myPrinter =	new	PrintEventInterface() {
+		public void	printEventHandler(int eventID, Object data,	Agent agent, String	message) {
+			System.out.println("Soar said: <" + message	+ ">");
+		}
+	};
+	
+	public static void main(String[] args) {
+		
+		Kernel kernel = Kernel.CreateKernelInNewThread();
+		kernel.SetAutoCommit(false);
+
+		
+		//agent.RegisterForPrintEvent(smlPrintEventId.smlEVENT_PRINT, myPrinter, null);
+
+		////System.out.println(agent.ExecuteCommandLine("print -a"));
+		ElioWorld world = new ElioWorld(kernel);
+		
+		world.doLevelThresholdSweep("elio_props_scu", 8);
+		//world.doThresholdExperiment("elio_props_reset", 8);
+		//world.setOutputFile("elio_props_l123_t3.dat");
+		//world.doExperiment(1,50);
+		//world.doElioSingles(8);
+		//world.doElioTight(8, 50, Arrays.asList(1/*2, 5, 10, 25, 50*/), Arrays.asList(12/*1, 2, 4, 8, 16*/));
+		//world.doElioTight(8, 200, Arrays.asList(32, 64, 80));
+		//world.doElio(1);
+		
+		//world.runTest(2);
+		//world.runTest(1, -1, "procedure-a");
+		//world.runTest(1, -1, "procedure-b");
+		//world.runTest(1, -1, "procedure-c");
+		//world.runTest(1, -1, "procedure-d");
+		//world.runQueryTest(300);
+		
+		//world.runDebug();
+			
+		
+		kernel.Shutdown();
+	}
+
+}

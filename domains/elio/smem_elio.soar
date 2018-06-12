@@ -1,0 +1,30 @@
+# SUPPLEMENTAL SMEM DECLARATIVE MEMORIES FOR ELIO TASK
+
+smem --add {
+ (<a1> ^isa fact ^slot1 subtract ^slot2 9 ^slot3 5 ^slot4 4)
+ (<a2> ^isa fact ^slot1 mult ^slot2 6 ^slot3 4 ^slot4 24)
+ (<a3> ^isa fact ^slot1 div ^slot2 2 ^slot3 2 ^slot4 1)
+ (<a4> ^isa fact ^slot1 div ^slot2 6 ^slot3 3 ^slot4 2)
+ (<a5> ^isa fact ^slot1 greater-of ^slot2 1 ^slot3 2 ^slot4 2)
+ (<a6> ^isa fact ^slot1 add ^slot2 24 ^slot3 2 ^slot4 26)
+ (<a7> ^isa fact ^slot1 add ^slot2 8 ^slot3 2 ^slot4 10)
+ (<a8> ^isa fact ^slot1 div ^slot2 10 ^slot3 2 ^slot4 5)
+ (<a9> ^isa fact ^slot1 div ^slot2 26 ^slot3 5 ^slot4 5)
+ (<a10> ^isa fact ^slot1 subtract ^slot2 5 ^slot3 2 ^slot4 3)
+ (<a11> ^isa fact ^slot1 div ^slot2 24 ^slot3 2 ^slot4 12)
+ (<a12> ^isa fact ^slot1 mult ^slot2 5 ^slot3 12 ^slot4 60)
+ (<a13> ^isa fact ^slot1 add ^slot2 60 ^slot3 12 ^slot4 72)
+ (<a14> ^isa fact ^slot1 mult ^slot2 1 ^slot3 3 ^slot4 3)
+ (<a15> ^isa fact ^slot1 add ^slot2 3 ^slot3 2 ^slot4 5)
+ (<a16> ^isa fact ^slot1 add ^slot2 6 ^slot3 3 ^slot4 9)
+ (<a17> ^isa fact ^slot1 add ^slot2 2 ^slot3 7 ^slot4 9)
+ (<a18> ^isa fact ^slot1 greater-than ^slot2 9 ^slot3 9 ^slot4 false)
+ (<a19> ^isa fact ^slot1 add ^slot2 5 ^slot3 9 ^slot4 14)
+ (<a20> ^isa fact ^slot1 div ^slot2 6 ^slot3 3 ^slot4 2)
+ (<a21> ^isa fact ^slot1 div ^slot2 14 ^slot3 2 ^slot4 7)
+ (<a22> ^isa fact ^slot1 subtract ^slot2 7 ^slot3 9 ^slot4 -2)
+ (<a23> ^isa fact ^slot1 div ^slot2 9 ^slot3 2 ^slot4 4)
+ (<a24> ^isa fact ^slot1 mult ^slot2 5 ^slot3 4 ^slot4 20)
+ (<a25> ^isa fact ^slot1 add ^slot2 20 ^slot3 4 ^slot4 24)
+}
+

@@ -1,0 +1,57 @@
+package edu.umich.eecs.soar.props.elio;
+
+import java.util.Arrays;
+
+import sml.Agent;
+import sml.Agent.PrintEventInterface;
+import sml.Kernel;
+
+public class SMLClient {
+	
+	public static final PrintEventInterface myPrinter =	new	PrintEventInterface() {
+		public void	printEventHandler(int eventID, Object data,	Agent agent, String	message) {
+			System.out.println("Soar said: <" + message	+ ">");
+		}
+	};
+	
+	public static void main(String[] args) {
+		final boolean DEBUG = true;
+		final String agentName = "ElioAgent";
+		
+		Kernel kernel = Kernel.CreateKernelInNewThread();
+		kernel.SetAutoCommit(false);
+
+		
+		//agent.RegisterForPrintEvent(smlPrintEventId.smlEVENT_PRINT, myPrinter, null);
+
+		////System.out.println(agent.ExecuteCommandLine("print -a"));
+		ElioWorld world = new ElioWorld(kernel);
+		world.doThresholdExperiment("elio_props_reset", 50);
+		//world.doExperiment(8);
+		//world.doElioSingles(8);
+		//world.doElioTight(8, 50, Arrays.asList(2, 4, 8, 16));
+		//world.doElioTight(8, 200, Arrays.asList(32, 64, 80));
+		
+		//System.out.println(agent.ExecuteCommandLine("matches apply*elio*init"));
+		//agent.RunSelf(3);
+
+		//world.runTest(50, -550);
+		//world.runDebug();
+		
+		//agent.ExecuteCommandLine("watch 5");
+		//agent.ExecuteCommandLine("watch --learn 2");
+		//agent.ExecuteCommandLine("save agent "+ TEMP_AGENT_FILENAME + ".soar");
+
+		//agent.ExecuteCommandLine("matches -w apply*elio*index1-div-marine*next");
+		//agent.ExecuteCommandLine("p s1 -d 3");
+
+		/*world.clearOutputFile();
+			for (int i=0; i<NUM_SAMPLES; ++i)
+				world.doElio();
+		 */
+			
+		
+		kernel.Shutdown();
+	}
+
+}

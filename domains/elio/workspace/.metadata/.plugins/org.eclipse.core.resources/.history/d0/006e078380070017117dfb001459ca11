@@ -1,0 +1,489 @@
+package edu.umich.eecs.soar.props.elio;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import sml.Identifier;
+import sml.Kernel;
+import sml.Kernel.UpdateEventInterface;
+import sml.WMElement;
+import sml.smlUpdateEventId;
+import sml.Agent;
+import sml.Agent.OutputEventInterface;
+import edu.umich.soar.debugger.SWTApplication;
+
+//import sml.Agent.RunEventInterface;
+//import sml.smlRunEventId;
+
+public class ElioWorld implements UpdateEventInterface/*, OutputEventInterface*/ {
+	private static final boolean USING_FESTUS = true;
+	private static final boolean USING_PROPS = true;
+	private static String PROJ_DIR;
+	private static String PROPS_DIR;
+	
+	private static final String AGENT_NAME = "ElioAgent";
+	private static int agent_num = 0,
+						current_sample = 0,
+						currentPropsThreshold = 1,
+						lastDC = 0;
+	final protected String CMD_SAY = "say",
+							CMD_FINISH = "finish",
+							CMD_INSTR_NEXT = "props-command";
+	final String TEMP_AGENT_FILENAME = "ElioTempSavedAgent";
+	protected String outFileName = "elio_props.dat",
+					currentTaskName;
+	private Identifier input_link,
+						output_link;
+	private Kernel kernel;
+	private Agent agent = null;
+	private WMElement in1, 
+					  in2,
+					  inTask;
+					  //inManual;
+
+	private ETask etask;
+	private List<Result> results;
+	
+	
+	// We'll use the same numbers on the screen over and over again. The model will not notice.
+	private static final Map<String, Integer> inputs;
+	static {
+		Map<String, Integer> aMap = new HashMap<String, Integer>();
+		aMap.put("solid", 6);
+		aMap.put("algae", 2);
+		aMap.put("lime1", 3);
+		aMap.put("lime2", 5);
+		aMap.put("lime3", 1);
+		aMap.put("lime4", 9);
+		aMap.put("limemax", 2);
+		aMap.put("limemin", 1);
+		aMap.put("toxin1", 4);
+		aMap.put("toxin2", 8);
+		aMap.put("toxin3", 7);
+		aMap.put("toxin4", 2);
+		aMap.put("toxinmin", 2);
+		aMap.put("toxinmax", 8);
+		inputs = Collections.unmodifiableMap(aMap);
+	}
+
+	
+	ElioWorld(Kernel kernel) {
+		if (USING_FESTUS) {
+			// Bryan's office computer
+			PROJ_DIR = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Elio/";
+			PROPS_DIR = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PROPs Project/";
+		}
+		else {
+			// Bryan's laptop
+			PROJ_DIR = "/Users/Bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Elio/";  
+			PROPS_DIR = "/Users/Bryan/Dropbox/UM_misc/Soar/Research/PROPs/PROPs Project/"; 
+		}
+		
+		this.kernel = kernel;
+		this.kernel.RegisterForUpdateEvent(smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES, this, this);
+		
+		createAgent();
+		
+	}
+	
+	private void createAgent() {
+		if (agent != null) {
+			kernel.DestroyAgent(agent);
+		}
+		
+		agent = kernel.CreateAgent(AGENT_NAME + (agent_num++));
+		
+		input_link = agent.GetInputLink();
+		output_link = agent.GetOutputLink();
+		in1 = null;
+		in2 = null;
+		inTask = null;
+		//inManual = null;
+		
+		//this.agent.AddOutputHandler(CMD_SAY, this, null);
+		
+
+		// Load the agent files
+		if (USING_PROPS) {
+			agent.LoadProductions(PROPS_DIR + "load_config_props.soar");			// props library
+			agent.LoadProductions(PROPS_DIR + "props_set_threshold" + currentPropsThreshold + ".soar");
+			
+			agent.LoadProductions(PROJ_DIR + "prims_elio01_agent_smem.soar");		// elio props instructions
+			agent.LoadProductions(PROJ_DIR + "prims_elio_procedures_smem.soar");	// manual instruction sequences for tasks A-D
+
+		}
+		else {
+			agent.LoadProductions(PROJ_DIR + "prims_elio01_agent.soar");			// elio agent to be learned (for testing)
+		}
+		
+		agent.LoadProductions(PROJ_DIR + "lib_actr_interface.soar");		// actr memory interface
+		agent.LoadProductions(PROJ_DIR + "smem_elio.soar");					// smem memory used by elio agent
+		
+		etask = new ETask(1,1,current_sample);
+		results = new ArrayList<Result>();
+		
+		lastDC = 0;
+	}
+	
+	public void setOutputFile(String filename) {
+		outFileName = filename;
+	}
+	
+	public void initTask(String task) {
+		currentTaskName = task;
+		
+		// Clear input if any
+		if (in1 != null)
+			in1.DestroyWME();
+		if (in2 != null)
+			in2.DestroyWME();
+		if (inTask != null)
+			inTask.DestroyWME();
+		
+		// Clear results
+		results.clear();
+		// Init task
+		etask.init();
+		inTask = input_link.CreateStringWME("task", task);
+		agent.Commit();
+	}
+	
+	public void initManualSequence(String task) {
+		String s;
+		if (task != null)
+			s = task.toLowerCase();
+		else
+			s = currentTaskName;
+		
+		if (s.compareTo("procedure-a") == 0) {
+			agent.LoadProductions(PROJ_DIR + "prims_elio_procedureA_smem.soar");
+		}
+		else if (s.compareTo("procedure-b") == 0) {
+			agent.LoadProductions(PROJ_DIR + "prims_elio_procedureB_smem.soar");
+		}
+		else if (s.compareTo("procedure-c") == 0) {
+			agent.LoadProductions(PROJ_DIR + "prims_elio_procedureC_smem.soar");
+		}
+		else if (s.compareTo("procedure-d") == 0) {
+			agent.LoadProductions(PROJ_DIR + "prims_elio_procedureD_smem.soar");
+		}
+	}
+	
+	public void runTest(int trials, int steps) {
+		outFileName = "elio_props_test.dat";
+		clearOutputFile();
+		initTask("procedure-a");
+		//initManualSequence(null);
+		
+		agent.ExecuteCommandLine("watch 0");
+		//agent.ExecuteCommandLine("save percepts -o ElioPercepts.spr -f");
+		//agent.ExecuteCommandLine("save agent ElioInitSavedAgent.soar");
+		
+		List<Integer> dcCounts = new ArrayList<Integer>();
+		
+		for (int i=0; i<trials; ++i) {
+			if (steps <= 0) {
+				//agent.RunSelfForever();		// until receiving the finish command
+				agent.RunSelfForever();
+				dcCounts.add(agent.GetDecisionCycleCounter());
+			}
+			else {
+				agent.ExecuteCommandLine("watch 1");
+				//agent.ExecuteCommandLine("watch --learn 1");
+				agent.RunSelf(steps);
+				//agent.ExecuteCommandLine("p <s> -d 3");
+				//agent.ExecuteCommandLine("watch --learn 2");
+				//agent.ExecuteCommandLine("p -fc");
+			}
+
+		}
+
+		//printResults("procedure-a");
+		//agent.ExecuteCommandLine("save agent "+ TEMP_AGENT_FILENAME + "2.soar");
+		/*
+		int prev = dcCounts.get(0);
+		System.out.print(prev);
+		for (int i = 1; i < trials; ++i) {
+			System.out.print("->" + (dcCounts.get(i)-prev));
+			prev = dcCounts.get(i);
+		}
+		System.out.println();*/
+	}
+	
+	public void runDebug() {
+		initTask("procedure-c");
+		//initManualSequence("procedure-a");
+		
+		//agent.ExecuteCommandLine("output console off");
+		//System.out.println("Spawn Debugger: " + agent.SpawnDebugger(kernel.GetListenerPort()));
+		
+		try {
+			SWTApplication swtApp = new SWTApplication();
+			swtApp.startApp(new String[]{"-remote"});
+
+			agent.KillDebugger();
+			System.exit(0); // is there a better way to get the Soar thread to stop? 
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void doThresholdExperiment(String exp_name, int samples) {
+		List<Integer> procedureTrials = new ArrayList<>(Arrays.asList(/*2, 5, 10, 20, 30, 40, */50));
+		// NOTE: These integers must correspond to valid filename affixes:
+		List<Integer> thresholds = new ArrayList<>(Arrays.asList(1/*2, 4, 8, 16, 32, 64, 80, 128*/));
+		
+		// For each parameter combination
+		for (int l : procedureTrials) {
+			for (int i : thresholds) {
+				currentPropsThreshold = i;
+				setOutputFile(exp_name + "_t" + i + "l" + l + ".dat");
+				doExperiment(samples, l);
+			}
+		}
+		
+		/*String unusedRules = agent.ExecuteCommandLine("production firing-counts 0");
+		try {
+			PrintWriter writer;
+			writer = new PrintWriter("unusedRules.txt");
+			writer.print(unusedRules);
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}*/
+	}
+	
+	public void doExperiment(int samples, int trials) {
+		clearOutputFile();
+		for (int i=0; i<samples; ++i) {
+			current_sample = i;
+			doElio(trials);
+		}
+		System.out.println("\nDONE!");
+	}
+	
+	public void doElio(int num_trials) {
+		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-b", "procedure-c", "procedure-d"));
+
+		// Alternate 50 trials of procedure-A with 50 trials of one of the others
+		//final int NUM_TRIALS = 50;
+		for (String task : tasks) {
+			createAgent();
+			initTask("procedure-a");
+			//initManualSequence("procedure-a");
+			for (int i=0; i<num_trials; ++i) {
+				//agent.RunSelf(200);
+				agent.RunSelfForever();	// Run until receiving the finish command
+			}
+			printResults("procedure-a");
+
+			initTask(task);
+			//initManualSequence(task);
+			for (int i=0; i<num_trials; ++i) {
+				//agent.RunSelf(100);
+				agent.RunSelfForever();	// Run until receiving the finish command
+			}
+			printResults(task.toUpperCase());
+		}
+
+	}
+	
+	public void doElioTight(int samples, int repeats, List<Integer> thresholds) {
+		// NOTE: Threshold integers must correspond to valid filename affixes:
+
+		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-b", "procedure-c", "procedure-d"));
+
+		// Alternate procedure-A with one of the others, for a given number of trials
+		// For each parameter combination
+		for (int t : thresholds) {
+			currentPropsThreshold = t;
+
+			for (int j=0; j<tasks.size(); ++j) {
+				setOutputFile("elio_props_tight" + "_t" + t + "l" + repeats + ".dat");
+				for (int s=0; s<samples; ++s) {
+					createAgent();
+					for (int i=0; i<repeats; ++i) {
+						initTask("procedure-a");
+						agent.RunSelfForever();	// Run until receiving the finish command
+						printResults("procedure-a");
+
+						initTask(tasks.get(j));
+						agent.RunSelfForever();	// Run until receiving the finish command
+						printResults(tasks.get(j).toUpperCase());
+					}
+				}
+			}
+		}
+
+	}
+	
+	// Do each procedure individually
+	public void doElioSingles(int samples) {
+		List<Integer> procedureTrials = new ArrayList<>(Arrays.asList(100));
+		// NOTE: These integers must correspond to valid filename affixes:
+		List<Integer> thresholds = new ArrayList<>(Arrays.asList(/*2, 4, 8, 16, */32/*, 64*/));
+
+		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-a", "procedure-b", "procedure-c", "procedure-d"));
+		// For each parameter combination
+		for (int l : procedureTrials) {
+			for (int t : thresholds) {
+				currentPropsThreshold = t;
+				for (int j=0; j<tasks.size(); ++j) {
+					setOutputFile("elio_props_proc" + (char)('A'+j) + "_t" + t + "l" + l + ".dat");
+					for (int s=0; s<samples; ++s) {
+						createAgent();
+						initTask(tasks.get(j));
+						for (int k=0; k<l; ++k) {
+							agent.RunSelfForever();	// Run until receiving the finish command
+						}
+						printResults(tasks.get(j).toUpperCase());
+					}
+				}
+			}
+		}
+		System.out.println("DONE!");
+		
+	}
+
+	// Clear the output file if it already exists
+	public boolean clearOutputFile() {
+		try {
+			PrintWriter writer;
+			writer = new PrintWriter(outFileName);
+			writer.print("");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public void printResults(String task) {
+		try(FileWriter fw = new FileWriter(outFileName, true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw))
+		{
+			for (Result r : results) {
+				out.println(task + "\t" + r.toString());
+			}
+		}
+		catch (IOException e) {
+			System.err.println("ERROR: Unable to append to file '" + outFileName + "'");
+		}
+	}
+	
+	@Override
+	public void updateEventHandler(int arg0, Object data, Kernel kernel, int arg3) {
+		
+		int C = agent.GetNumberCommands();
+		if (C <= 0) {
+			return;
+		}
+		
+		// Clear old input
+		if (in1 != null) {
+			in1.DestroyWME();
+			in1 = null;
+		}
+		if (in2 != null) {
+			in2.DestroyWME();
+			in2 = null;
+		}
+		
+		boolean stopAgent = false;
+		for (int c = 0; c < C; ++c) {
+			final Identifier id = agent.GetCommand(c);
+
+			if (id != null) {
+
+				int nChildren = id.GetNumberChildren();
+				
+				/*if (id.GetCommandName().compareTo(CMD_INSTR_NEXT) == 0 && manualRuleInd < ruleSequence.size()) {
+					if (inManual != null) {
+						inManual.DestroyWME();
+						inManual = null;
+					}
+					
+					String ruleName = ruleSequence.get(manualRuleInd++);
+					inManual = input_link.CreateStringWME("props-manual-next-rule", ruleName);
+				}
+				// Handle Elio commands
+				else */if (id.GetCommandName().compareTo(CMD_SAY) == 0 && nChildren == 2) {
+					// Get the output
+					String val1 = id.GetParameterValue("out1");
+					String val2 = id.GetParameterValue("out2");
+
+					// Generate the corresponding input
+					int input2;
+					if (val1.compareTo("read") == 0) {
+						// TODO: Latency for min/max?
+						input2 = inputs.get(val2);
+						in1 = input_link.CreateStringWME("in1", val2);
+						in2 = input_link.CreateIntWME("in2", input2);
+					}
+					else if (val1.compareTo("enter") == 0) {
+						// (Inputs already destroyed, leave it that way)
+						// Get the current number of chunks
+						int chunkCount = agent.ExecuteCommandLine("p -c").split("\n").length;
+						// Store the result
+						int DC = agent.GetDecisionCycleCounter();
+						results.add(new Result(etask, val2, DC - lastDC, chunkCount));
+						lastDC = DC;
+						// Start next task
+						etask.line++;
+						etask.start = System.nanoTime();
+						System.out.println("# Enter " + val2 + " #");
+					}
+
+					id.AddStatusComplete();
+
+					//System.out.println(val1 + " " + val2);
+				}
+				else if (id.GetCommandName().compareTo(CMD_FINISH) == 0) {
+					stopAgent = true;
+				}
+				else {
+					id.AddStatusError();
+				}
+
+			}
+		}
+		
+
+		if (stopAgent) {
+			agent.StopSelf();
+			//agent.InitSoar();
+
+			//initManualSequence(null);	// null arg means just use the current task name
+
+			// Reset for next trial
+			etask.line = 1;
+			etask.trial++;
+			etask.start = System.nanoTime();
+		}
+		
+		agent.Commit();
+
+	}
+
+	/*@Override
+	public void runEventHandler(int eventID, Object data, Agent agent, int phase) {
+		// TODO Auto-generated method stub
+
+	}*/
+
+}

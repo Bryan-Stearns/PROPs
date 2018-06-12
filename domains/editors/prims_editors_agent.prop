@@ -1,0 +1,1531 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'editors.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+pp {propose*editors*ed*init*start
+	const1 editors-ed-init-start
+	const2 ed
+	const3 nil
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*init*start
+	const1 editors-ed-init-start
+	const2 one
+	const3 read-instruction
+	const4 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.AC.action.out1 = const3
+	s.G.Gcontrol = const4
+}
+pp {propose*editors*ed*init*find*goal
+	const1 editors-ed-init-find-goal
+	const2 ed
+	const3 find-goal
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in1 <> const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*init*find*goal
+	const1 editors-ed-init-find-goal
+	const2 line-strategy
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot2 = s.io.input-link.in4
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*ed*line*strategy*test
+	const1 editors-ed-line-strategy-test
+	const2 ed
+	const3 line-strategy
+	const4 nil
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*line*strategy*test
+	const1 editors-ed-line-strategy-test
+	const2 diff-3-fact
+	--
+	s.operator.name == const1
+-->
+	s.Q.slot1 = const2
+	s.Q.slot2 = s.WM.slot1
+	s.Q.slot3 = s.WM.slot2
+}
+pp {propose*editors*ed*line*strategy*enter
+	const1 editors-ed-line-strategy-enter
+	const2 ed
+	const3 line-strategy
+	const4 success
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*line*strategy*enter
+	const1 editors-ed-line-strategy-enter
+	const2 find-line
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.G.clear-rt = const1
+}
+pp {propose*editors*ed*line*strategy*pcmd
+	const1 editors-ed-line-strategy-pcmd
+	const2 ed
+	const3 line-strategy
+	const4 error
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*line*strategy*pcmd
+	const1 editors-ed-line-strategy-pcmd
+	const2 number-p
+	const3 find-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.WM.slot2
+	s.WM.slot1 = s.WM.slot2
+	s.G.Gcontrol = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*ed*find*line*next
+	const1 editors-ed-find-line-next
+	const2 ed
+	const3 nil
+	const4 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot1 <> s.WM.slot2
+	s.RT.slot3 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*line*next
+	const1 editors-ed-find-line-next
+	const2 enter
+	const3 count-fact
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.Q.slot1 = const3
+	s.Q.slot2 = s.WM.slot1
+}
+pp {propose*editors*ed*find*line*read
+	const1 editors-ed-find-line-read
+	const2 ed
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot1 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*line*read
+	const1 editors-ed-find-line-read
+	const2 find-task
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*ed*find*line*re*next
+	const1 editors-ed-find-line-re-next
+	const2 ed
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot2 <> s.RT.slot3
+	s.RT.slot2 == s.WM.slot1
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*line*re*next
+	const1 editors-ed-find-line-re-next
+	const2 enter
+	const3 count-fact
+	const4 nil
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.AC.action.out1 = const2
+	s.Q.slot1 = const3
+	s.Q.slot2 = s.RT.slot3
+	s.Q.slot3 = const4
+}
+pp {propose*editors*ed*find*line*re*read
+	const1 editors-ed-find-line-re-read
+	const2 ed
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot2 == s.RT.slot3
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*line*re*read
+	const1 editors-ed-find-line-re-read
+	const2 find-task
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*ed*find*task*word*for*replace
+	const1 editors-ed-find-task-word-for-replace
+	const2 ed
+	const3 replace-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*word*for*replace
+	const1 editors-ed-find-task-word-for-replace
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*ed*find*task*word*for*delete
+	const1 editors-ed-find-task-word-for-delete
+	const2 ed
+	const3 delete-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*word*for*delete
+	const1 editors-ed-find-task-word-for-delete
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*ed*find*task*word*for*insert
+	const1 editors-ed-find-task-word-for-insert
+	const2 ed
+	const3 insert-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*word*for*insert
+	const1 editors-ed-find-task-word-for-insert
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*ed*find*task*word*next
+	const1 editors-ed-find-task-word-next
+	const2 ed
+	const3 word
+	const4 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.io.input-link.in2 <> s.WM.slot2
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*word*next
+	const1 editors-ed-find-task-word-next
+	const2 move-attention-right
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*ed*find*task*word*read
+	const1 editors-ed-find-task-word-read
+	const2 ed
+	const3 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in2 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*word*read
+	const1 editors-ed-find-task-word-read
+	const2 word-action
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*ed*word*action*replace
+	const1 editors-ed-word-action-replace
+	const2 ed
+	const3 replace-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*word*action*replace
+	const1 editors-ed-word-action-replace
+	const2 substitute-ed
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*ed*word*action*delete
+	const1 editors-ed-word-action-delete
+	const2 ed
+	const3 delete-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*word*action*delete
+	const1 editors-ed-word-action-delete
+	const2 substitute-ed
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*ed*word*action*insert
+	const1 editors-ed-word-action-insert
+	const2 ed
+	const3 insert-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*word*action*insert
+	const1 editors-ed-word-action-insert
+	const2 insert-ed
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*ed*word*action*next
+	const1 editors-ed-word-action-next
+	const2 ed
+	const3 word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*word*action*next
+	const1 editors-ed-word-action-next
+	const2 next-instruction
+	const3 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*ed*find*task*line*delete
+	const1 editors-ed-find-task-line-delete
+	const2 ed
+	const3 delete-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*line*delete
+	const1 editors-ed-find-task-line-delete
+	const2 period-d
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*ed*find*task*line*insert
+	const1 editors-ed-find-task-line-insert
+	const2 ed
+	const3 insert-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*line*insert
+	const1 editors-ed-find-task-line-insert
+	const2 period-a
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*ed*find*task*line*replace
+	const1 editors-ed-find-task-line-replace
+	const2 ed
+	const3 replace-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*line*replace
+	const1 editors-ed-find-task-line-replace
+	const2 period-c
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*ed*find*task*line*type
+	const1 editors-ed-find-task-line-type
+	const2 ed
+	const3 type-line
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*find*task*line*type
+	const1 editors-ed-find-task-line-type
+	const2 type-text
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.WM.slot2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*ed*finish
+	const1 editors-ed-finish
+	const2 ed
+	const3 nil
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol <> const3
+	s.io.input-link.in1 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*ed*finish
+	const1 editors-ed-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+}
+pp {propose*editors*edt*init*start
+	const1 editors-edt-init-start
+	const2 edt
+	const3 nil
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*init*start
+	const1 editors-edt-init-start
+	const2 one
+	const3 read-instruction
+	const4 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.AC.action.out1 = const3
+	s.G.Gcontrol = const4
+}
+pp {propose*editors*edt*init*find*goal
+	const1 editors-edt-init-find-goal
+	const2 edt
+	const3 find-goal
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in1 <> const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*init*find*goal
+	const1 editors-edt-init-find-goal
+	const2 line-strategy
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot2 = s.io.input-link.in4
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*edt*line*strategy*test
+	const1 editors-edt-line-strategy-test
+	const2 edt
+	const3 line-strategy
+	const4 nil
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*test
+	const1 editors-edt-line-strategy-test
+	const2 diff-3-fact
+	--
+	s.operator.name == const1
+-->
+	s.Q.slot1 = const2
+	s.Q.slot2 = s.WM.slot1
+	s.Q.slot3 = s.WM.slot2
+}
+pp {propose*editors*edt*line*strategy*enter
+	const1 editors-edt-line-strategy-enter
+	const2 edt
+	const3 line-strategy
+	const4 success
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*enter
+	const1 editors-edt-line-strategy-enter
+	const2 find-line
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.G.clear-rt = const1
+}
+pp {propose*editors*edt*line*strategy*read*instruction
+	const1 editors-edt-line-strategy-read-instruction
+	const2 edt
+	const3 line-strategy
+	const4 error
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.RT.result == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*read*instruction
+	const1 editors-edt-line-strategy-read-instruction
+	const2 read-instruction
+	const3 word-strategy
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*edt*line*strategy*look
+	const1 editors-edt-line-strategy-look
+	const2 edt
+	const3 word-strategy
+	const4 single-word
+	const5 word
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in1 <> const4
+	s.io.input-link.in1 <> const5
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*look
+	const1 editors-edt-line-strategy-look
+	const2 focus-on-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*edt*line*strategy*t*word
+	const1 editors-edt-line-strategy-t-word
+	const2 edt
+	const3 word-strategy
+	const4 long
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in3 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*t*word
+	const1 editors-edt-line-strategy-t-word
+	const2 t-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+}
+pp {propose*editors*edt*line*strategy*next
+	const1 editors-edt-line-strategy-next
+	const2 edt
+	const3 word-strategy
+	const4 short
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in3 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*next
+	const1 editors-edt-line-strategy-next
+	const2 focus-on-next-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*edt*line*strategy*find*destination
+	const1 editors-edt-line-strategy-find-destination
+	const2 edt
+	const3 word-strategy
+	const4 word
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in1 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*line*strategy*find*destination
+	const1 editors-edt-line-strategy-find-destination
+	const2 find-line
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot1 = s.io.input-link.in4
+}
+pp {propose*editors*edt*find*line*next
+	const1 editors-edt-find-line-next
+	const2 edt
+	const3 nil
+	const4 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot1 <> s.WM.slot2
+	s.RT.slot3 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*line*next
+	const1 editors-edt-find-line-next
+	const2 enter
+	const3 count-fact
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.Q.slot1 = const3
+	s.Q.slot2 = s.WM.slot1
+}
+pp {propose*editors*edt*find*line*read
+	const1 editors-edt-find-line-read
+	const2 edt
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot1 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*line*read
+	const1 editors-edt-find-line-read
+	const2 find-task
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*edt*find*line*re*next
+	const1 editors-edt-find-line-re-next
+	const2 edt
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot2 <> s.RT.slot3
+	s.RT.slot2 == s.WM.slot1
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*line*re*next
+	const1 editors-edt-find-line-re-next
+	const2 enter
+	const3 count-fact
+	const4 nil
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.AC.action.out1 = const2
+	s.Q.slot1 = const3
+	s.Q.slot2 = s.RT.slot3
+	s.Q.slot3 = const4
+}
+pp {propose*editors*edt*find*line*re*read
+	const1 editors-edt-find-line-re-read
+	const2 edt
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.WM.slot2 == s.RT.slot3
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*line*re*read
+	const1 editors-edt-find-line-re-read
+	const2 find-task
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*edt*find*task*word*for*replace
+	const1 editors-edt-find-task-word-for-replace
+	const2 edt
+	const3 replace-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*word*for*replace
+	const1 editors-edt-find-task-word-for-replace
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*edt*find*task*word*for*delete
+	const1 editors-edt-find-task-word-for-delete
+	const2 edt
+	const3 delete-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*word*for*delete
+	const1 editors-edt-find-task-word-for-delete
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*edt*find*task*word*for*insert
+	const1 editors-edt-find-task-word-for-insert
+	const2 edt
+	const3 insert-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*word*for*insert
+	const1 editors-edt-find-task-word-for-insert
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*editors*edt*find*task*word*next
+	const1 editors-edt-find-task-word-next
+	const2 edt
+	const3 word
+	const4 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.io.input-link.in2 <> s.WM.slot2
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*word*next
+	const1 editors-edt-find-task-word-next
+	const2 move-attention-right
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*edt*find*task*word*read
+	const1 editors-edt-find-task-word-read
+	const2 edt
+	const3 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in2 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*word*read
+	const1 editors-edt-find-task-word-read
+	const2 word-action
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*edt*word*action*replace
+	const1 editors-edt-word-action-replace
+	const2 edt
+	const3 replace-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*word*action*replace
+	const1 editors-edt-word-action-replace
+	const2 substitute-edt
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*edt*word*action*delete
+	const1 editors-edt-word-action-delete
+	const2 edt
+	const3 delete-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*word*action*delete
+	const1 editors-edt-word-action-delete
+	const2 substitute-edt
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*edt*word*action*insert
+	const1 editors-edt-word-action-insert
+	const2 edt
+	const3 insert-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*word*action*insert
+	const1 editors-edt-word-action-insert
+	const2 insert-edt
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in2
+	s.AC.action.out3 = s.io.input-link.in3
+}
+pp {propose*editors*edt*word*action*next
+	const1 editors-edt-word-action-next
+	const2 edt
+	const3 word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*word*action*next
+	const1 editors-edt-word-action-next
+	const2 next-instruction
+	const3 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*edt*find*task*line*delete
+	const1 editors-edt-find-task-line-delete
+	const2 edt
+	const3 delete-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*line*delete
+	const1 editors-edt-find-task-line-delete
+	const2 d
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*edt*find*task*line*insert
+	const1 editors-edt-find-task-line-insert
+	const2 edt
+	const3 insert-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*line*insert
+	const1 editors-edt-find-task-line-insert
+	const2 i
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*edt*find*task*line*replace
+	const1 editors-edt-find-task-line-replace
+	const2 edt
+	const3 replace-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*line*replace
+	const1 editors-edt-find-task-line-replace
+	const2 r
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*edt*find*task*line*type
+	const1 editors-edt-find-task-line-type
+	const2 edt
+	const3 type-line
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*find*task*line*type
+	const1 editors-edt-find-task-line-type
+	const2 type-text
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.WM.slot2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*edt*finish
+	const1 editors-edt-finish
+	const2 edt
+	const3 nil
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol <> const3
+	s.io.input-link.in1 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*edt*finish
+	const1 editors-edt-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+}
+pp {propose*editors*emacs*init*start
+	const1 editors-emacs-init-start
+	const2 emacs
+	const3 nil
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*init*start
+	const1 editors-emacs-init-start
+	const2 read-instruction
+	const3 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*init*find*goal
+	const1 editors-emacs-init-find-goal
+	const2 emacs
+	const3 find-goal
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+	s.io.input-link.in1 <> const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*init*find*goal
+	const1 editors-emacs-init-find-goal
+	const2 find-line
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot2 = s.io.input-link.in4
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*find*line*next
+	const1 editors-emacs-find-line-next
+	const2 emacs
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in4 <> s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*line*next
+	const1 editors-emacs-find-line-next
+	const2 control-n
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*emacs*find*line*read
+	const1 editors-emacs-find-line-read
+	const2 emacs
+	const3 find-line
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in4 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*line*read
+	const1 editors-emacs-find-line-read
+	const2 find-task
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*find*task*word*for*replace
+	const1 editors-emacs-find-task-word-for-replace
+	const2 emacs
+	const3 replace-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*word*for*replace
+	const1 editors-emacs-find-task-word-for-replace
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*find*task*word*for*delete
+	const1 editors-emacs-find-task-word-for-delete
+	const2 emacs
+	const3 delete-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*word*for*delete
+	const1 editors-emacs-find-task-word-for-delete
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*find*task*word*for*insert
+	const1 editors-emacs-find-task-word-for-insert
+	const2 emacs
+	const3 insert-word
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*word*for*insert
+	const1 editors-emacs-find-task-word-for-insert
+	const2 find-word
+	const3 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.WM.slot2 = s.io.input-link.in2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*find*task*word*next
+	const1 editors-emacs-find-task-word-next
+	const2 emacs
+	const3 word
+	const4 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.io.input-link.in2 <> s.WM.slot2
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*word*next
+	const1 editors-emacs-find-task-word-next
+	const2 esc-f
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*emacs*find*task*word*read
+	const1 editors-emacs-find-task-word-read
+	const2 emacs
+	const3 find-word
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in2 == s.WM.slot2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*word*read
+	const1 editors-emacs-find-task-word-read
+	const2 word-action
+	const3 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.out1 = const3
+}
+pp {propose*editors*emacs*word*action*replace
+	const1 editors-emacs-word-action-replace
+	const2 emacs
+	const3 replace-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*word*action*replace
+	const1 editors-emacs-word-action-replace
+	const2 esc-d
+	const3 still-type
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*word*action*delete
+	const1 editors-emacs-word-action-delete
+	const2 emacs
+	const3 delete-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*word*action*delete
+	const1 editors-emacs-word-action-delete
+	const2 esc-d
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+}
+pp {propose*editors*emacs*word*action*insert
+	const1 editors-emacs-word-action-insert
+	const2 emacs
+	const3 insert-word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*word*action*insert
+	const1 editors-emacs-word-action-insert
+	const2 type-text
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in3
+}
+pp {propose*editors*emacs*word*action*post*insert
+	const1 editors-emacs-word-action-post-insert
+	const2 emacs
+	const3 still-type
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*word*action*post*insert
+	const1 editors-emacs-word-action-post-insert
+	const2 type-text
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.WM.slot2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*word*action*next
+	const1 editors-emacs-word-action-next
+	const2 emacs
+	const3 word
+	const4 word-action
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*word*action*next
+	const1 editors-emacs-word-action-next
+	const2 next-instruction
+	const3 find-goal
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*find*task*line*delete
+	const1 editors-emacs-find-task-line-delete
+	const2 emacs
+	const3 delete-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*line*delete
+	const1 editors-emacs-find-task-line-delete
+	const2 control-k-twice
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*find*task*line*insert
+	const1 editors-emacs-find-task-line-insert
+	const2 emacs
+	const3 insert-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*line*insert
+	const1 editors-emacs-find-task-line-insert
+	const2 type-text-enter
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*find*task*line*replace
+	const1 editors-emacs-find-task-line-replace
+	const2 emacs
+	const3 replace-line
+	const4 find-task
+	--
+	s.G.Gtask == const2
+	s.io.input-link.in1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*line*replace
+	const1 editors-emacs-find-task-line-replace
+	const2 control-k
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.WM.slot2 = s.io.input-link.in3
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*find*task*line*type
+	const1 editors-emacs-find-task-line-type
+	const2 emacs
+	const3 type-line
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*find*task*line*type
+	const1 editors-emacs-find-task-line-type
+	const2 type-text
+	const3 word-action
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.out1 = const2
+	s.AC.action.out2 = s.WM.slot2
+	s.G.Gcontrol = const3
+}
+pp {propose*editors*emacs*finish
+	const1 editors-emacs-finish
+	const2 emacs
+	const3 nil
+	const4 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol <> const3
+	s.io.input-link.in1 == const4
+-->
+	s.const1 +
+}
+pp {apply*editors*emacs*finish
+	const1 editors-emacs-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+}
