@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename Java project &apos;PROPsEnvironment&apos; to &apos;PROPsInterface&apos;&#x0A;- Original element: &apos;PROPsEnvironment&apos;&#x0A;- Renamed element: &apos;PROPsEnvironment&apos;&#x0A;- Update references to refactored element" description="Rename Java project &apos;PROPsEnvironment&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=PROPsEnvironment" name="PROPsInterface" references="true" stamp="1528920772669" version="1.0"/>
-</session>
