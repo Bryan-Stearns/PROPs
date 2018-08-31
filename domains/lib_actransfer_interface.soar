@@ -1,0 +1,392 @@
+#####	Author: Bryan Stearns, 2018
+# Manage a buffer system in Soar working memory similar to Actransfer's, allowing use of PRIMs instructions
+# Working memory has:
+# <s> 	^G				# Goal buffer
+#			^Gtask		#   If set to "finish", then reset the buffers
+#			^clear-rt	#   If this exists, then clear the RT buffer results
+#		^WM				# Working memory buffer
+#			^slot[1,2,3,...]
+#		^NW				# NewWM buffer
+#			^wm			#   An individual newwm command (a new declarative 'chunk' to replace current WM contents)
+#		^Q				# Query buffer
+#			^query		#   An individual query command for smem
+#			^wm-query	#   A query for an past declarative WM 'chunk' (object), still stored in working memory within the pointer network
+#			^retrieve	#   A retrieve command for a specific WM 'chunk' (object), still stored in working memory
+#		^RT				# Where Q results are placed
+#		^AC				# The action buffer
+#			^action		#   An individual action command
+#		^V				# The input (visual) buffer
+#			^Vlabel
+#			^Vvalue
+#####
+
+smem --set learning on
+
+chunk singleton state G identifier
+chunk singleton state V identifier
+chunk singleton state WM identifier
+chunk singleton identifier slot3 identifier
+chunk singleton identifier slot4 identifier
+chunk singleton state NW identifier
+chunk singleton state RT identifier
+chunk singleton state Q identifier
+chunk singleton state AC identifier
+
+
+# Buffer Init #
+sp {propose*elio*init
+	(state <s> ^superstate nil
+				-^WM)
+-->
+	(<s> ^operator <o> + >)
+	(<o> ^name buffer-init)
+}
+sp {apply*elio*init
+	(state <s> ^operator.name buffer-init
+				#^smem.command <scmd>
+				^io.output-link <ol>)
+-->
+	(<s> 	^G <g>		# control
+			^V <v>		# input
+			^WM <w>		# variables
+			^NW <n>		# newWM
+			^RT <r>		# retrieval results
+			^Q <q>		# retrieval queries
+			^AC <a>)	# actions
+	(<a> ^props-agnostic-add true)	# Learned actions which add to AC don't test for or replace existing values
+	(<q> ^props-agnostic-add true)
+	(write (crlf) INITTED (crlf))
+}
+
+# FINISH #
+# Custom for Soar - don't include as a PROP instruction set #
+sp {lib*actr*propose*finish
+	(state <s> ^G.Gtask finish)
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name actransfer-finish)
+}
+sp {lib*actr*apply*finish
+	(state <s> ^operator.name actransfer-finish
+				^G <g>
+				^WM <w>
+				^AC <a>
+				^RT <r>)
+-->
+	# Reset buffers
+	(<s> ^G <g> -
+		^G <g2> 
+		^WM <w> -
+		^WM <w2>
+		^AC <a> -
+		^AC <a2>)
+	# Prompt to reset manual sequence
+	(<s> ^props-flag reset-manual-sequence)
+	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
+}
+#sp {lib*actr*apply*finish*remove-actions
+#	(state <s> ^operator.name actransfer-finish
+#				^AC (<ac> ^action <a>))
+#-->
+#	(<ac> ^action <a> -)
+#}
+
+sp {lib*actr*elaborate*finish
+	(state <s> ^G.Gtask finish
+				^io.output-link <ol>)
+-->
+	# Proclaim finitude
+	(<ol> ^finish <f>)
+	(<f> ^finish true)
+}
+
+#### SWITCH TO SECONDARY BEHAVIOR IN CASE OF LACK OF PROPS INSTRUCTIONS ####
+# (IN THIS CASE, HALTING)
+sp {lib*actr*instruction*search*impasse
+	(state <s>	^WM 
+				^props-flag impasse)
+-->
+	(write |    Well, well, well. I see I've run out of instructions. Goodnight.| (crlf) )
+	(halt)
+}
+
+
+#### TASK-SPECIFIC: TRANSFER INPUT TO VISUAL ####
+sp {lib*actr*elaborate*visual*in
+	(state <s> ^V <v>
+				^io.input-link <il>)
+	(<il> ^in1 <i1>
+		^in2 <i2>)
+-->
+	(<v> ^Vlabel <i1>
+		^Vvalue <i2>)
+	(write (crlf) |Read: "| <i1> |" "| <i2> |"|)
+}
+
+
+
+# TRANSFER INPUT TO TASK SPECIFICATION
+sp {lib*actr*elaborate*input*task
+	(state <s> ^io.input-link <il>
+			   ^G <g>)
+	(<il> ^task <task>)
+	(<g> -^Gtask finish)
+-->
+	(<g> ^Gtask <task>)
+	(write (crlf) |*** TASK SET TO | <task> | ***| )
+}
+
+# DEBUG PRINT OUTPUT: Assuming action slots follow certain format
+sp {lib*actr*elaborate*action*output-1
+	(state <s> ^AC.action <a>
+				^io.output-link <ol>)
+	(<a> ^out1 <o1>
+		-^out2 <o2>)
+-->
+	(<ol> ^say <a>)
+	(write (crlf) |Say: | <o1> (crlf) )
+}
+sp {lib*actr*elaborate*action*output-2
+	(state <s> ^AC.action <a>
+				^io.output-link <ol>)
+	(<a> ^out1 <o1>
+		^out2 <o2>)
+-->
+	(<ol> ^say <a>)
+	(write (crlf) |Say: | <o1> | | <o2> (crlf) )
+}
+
+
+sp {lib*actr*set*clean*output
+	:o-support
+	(state <s> ^io.output-link <ol>
+				^AC <a>)
+	(<ol> ^say <os>)
+	(<a> ^action <os>)
+	(<os> ^status complete)
+-->
+	(<a> ^action <os> -)
+}
+
+
+# RESPOND TO WM-QUERY COMMANDS BY SEARCHING FOR THE APPROPRIATE RETRIEVAL
+sp {lib*actr*set*wm-query*search
+	(state <s> ^Q <q>)
+	(<q> ^wm-query <wmq>)
+	(<wmq> ^root.WMnext <cand>)
+	-{(<wmq> ^{<attr> <> root <> result} <val>)
+	  (<cand> -^<attr> <val>)}				# It is not the case that the query has an attribute value that the candidate does not have
+-->
+	(<wmq> ^result <cand>)
+}
+sp {lib*actr*set*wm-query*return-result
+	:o-support
+	(state <s> ^Q <q>
+				^RT {<rt> <> <res>})
+	(<q> ^wm-query <wmq>)
+	-{(<q> ^<< query retrieve wm-query >> <> <wmq>)}		# Don't replace until the old cmd has been removed - else it would then trigger this rule before removal
+	(<wmq> ^result <res>
+			-^result <> <res>)
+-->
+	(<s> ^RT <rt> -
+		^RT <res>)
+	#(write (crlf) |*** WM-QUERY: | <res> )
+}
+
+# RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
+sp {lib*actr*set*retrieval
+	:o-support
+	(state <s> ^Q <q>
+				^RT <rt>)
+	(<q> ^retrieve {<r> <> <rt>})
+	-{(<q> ^<< query retrieve wm-query >> <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
+-->
+	(<s> ^RT <rt> -
+		^RT <r>)
+	#(write (crlf) |*** WM-RETRIEVE: | <r> )
+}
+
+
+# PROCESS NEW SMEM COMMANDS AND DC-STAMP THEM
+sp {lib*actr*set*smem-command*stamp
+	:o-support
+	(state <s> ^Q <q>)
+	(<q> ^{<attr> << query retrieve wm-query >>} <cmd>)
+	-{(<q> ^stamp <st>)
+	  (<st> ^command <cmd>)}
+-->
+	(<q> ^stamp <stnew>)
+	(<stnew> ^command <cmd>
+			^dc (dc))
+}
+
+# TRANSFER QUERIES TO SMEM
+sp {lib*actr*elaborate*query*transfer
+	"Treat a query as a query if it has augmentations."
+	(state <s> ^Q.query <q>
+				^smem.command <scmd>)
+	(<scmd> -^store )
+	(<q> ^<attr> <any>)
+-->
+	(<scmd> ^query <q>)
+}
+
+# TRANSFER QUERY RESULTS FROM SMEM
+sp {lib*actr*elaborate*query*collect
+	(state <s> ^smem.result.retrieved <sret>
+				^RT <r>)
+	(<sret> ^<slot> <val>)
+-->
+	(<r> ^<slot> <val> )
+}
+
+# REMOVE OLD QUERIES WHEN NEW ONES ARISE
+sp {lib*actr*set*replace-query
+	"If there is a command newer than a query, based on the dc-stamp, then remove the old query"
+	:o-support
+	(state <s> ^Q <q>
+				^RT <rt>)
+	(<q> ^{<attr1> << query retrieve wm-query >>} <q1>
+		^query {<q2> <> <q1>}
+		^stamp <st1>
+		^stamp <st2>)
+	(<st1> ^command <q1>
+			^dc <dc1>)
+	(<st2> ^command <q2>
+			^dc < <dc1>)
+-->
+	(<q> ^query <q2> -
+		^stamp <st2> -)
+	(<s> ^RT <rt> -
+		^RT <rtnew>)
+}
+sp {lib*actr*set*replace-retrieve*query
+	"If there is a query newer than a retrieve, based on the dc-stamp, then remove the old one and clear RT"
+	:o-support
+	(state <s> ^Q <q>
+				^RT <rt>)
+	(<q> ^query <q1>
+		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
+		^stamp <st1>
+		^stamp <st2>)
+	(<st1> ^command <q1>
+			^dc <dc1>)
+	(<st2> ^command <q2>
+			^dc < <dc1>)
+-->
+	(<q> ^<attr> <q2> -
+		^stamp <st2> -)
+	(<s> ^RT <rt> -
+		^RT <rtnew>)
+}
+sp {lib*actr*set*replace-retrieve*retrieve
+	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
+	:o-support
+	(state <s> ^Q <q>)
+	(<q> ^<< retrieve wm-query >> <q1>
+		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
+		^stamp <st1>
+		^stamp <st2>)
+	(<st1> ^command <q1>
+			^dc <dc1>)
+	(<st2> ^command <q2>
+			^dc < <dc1>)
+-->
+	(<q> ^<attr> <q2> -
+		^stamp <st2> -)
+}
+
+sp {lib*actr*elaborate*query*success
+	(state <s> ^smem <smem>
+			^RT <r>)
+	(<r> ^<any> )
+-->
+	(<smem> ^rt-result success)
+}
+sp {lib*actr*elaborate*query*failure*error
+	(state <s> ^smem <smem>
+			^RT <r>)
+	(<smem> ^result.failure
+			^command.query.<any>)
+-->
+	(<smem> ^rt-result error)
+}
+
+
+
+# CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
+sp {lib*actr*apply*query*clear
+	:o-support
+	(state <s> ^G <g>
+			^Q <q>
+			^RT <rt>)
+	(<q> ^query <qry>
+		^stamp <st>)
+	(<st> ^command <qry>)
+	(<g> ^clear-rt <any>)
+-->
+	(<q> ^query <qry> -
+		^stamp <st> -)
+	(<s> ^RT <rt> -
+		^RT <rnew>)
+	(<g> ^clear-rt <any> -)
+}
+sp {lib*actr*apply*retrieve*clear
+	:o-support
+	(state <s> ^G <g>
+			^Q <q>
+			^RT <rt>)
+	(<q> ^{<attr> << retrieve wm-query >>} <rt>
+		^stamp <st>)
+	(<st> ^command <rt>)
+	(<g> ^clear-rt <any>)
+-->
+	(<q> ^<attr> <rt> -
+		^stamp <st> -)
+	(<s> ^RT <rt> -
+		^RT <rnew>)
+	(<g> ^clear-rt <any> -)
+}
+sp {lib*actr*apply*smem-command*clear-empty
+	:o-support
+	(state <s> ^G <g>
+			^Q <q>)
+	(<q> -^<< query retrieve wm-query >> <qry>)
+	(<g> ^clear-rt <any>)
+-->
+	(<g> ^clear-rt <any> -)
+}
+
+
+# NEWWM #
+sp {lib*actr*set*newwm*swap
+	:o-support
+	(state <s> ^NW <n>
+				#^smem.command <scmd>
+				^WM <w>)
+	(<n> ^wm <nw>)
+-->
+	(<s> ^WM <w> -
+		^WM <nw>)
+	(<w> ^WMnext <nw>)	# Save the forward pointer, rather than the Actransfer-esque backwards pointer
+	(<n> ^wm <nw> -)
+	#(write (crlf) |*** WM-STORE: | <w> )
+}
+sp {lib*actr*set*update-wmnext*add
+	:o-support
+	(state <s> ^WM <w>)
+	(<w> ^WMprev <wmp>)
+	(<wmp> -^WMnext <w>)
+-->
+	(<wmp> ^WMnext <w>)
+}
+sp {lib*actr*set*update-wmnext*remove		# (Never fires apparently)
+	:o-support
+	(state <s> ^WM <w>)
+	(<w> ^WMnext <wmn>)
+	(<wmn> -^WMprev <w>)
+-->
+	(<w> ^WMnext <wmn> -)
+}
+
+

@@ -114,6 +114,7 @@ std::string actransfer_operator_parser::nextToken(std::stringstream &ss) {
 bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions)
 {
 	// TODO: Make automatic using "(add-instr"
+	const int wmprev_ind = 2;	// starting from 0
 	const std::map<std::string, std::string> condSlotRefs = {
 			{"Gcontrol","s.G.Gcontrol"},
 			{"Gtop","s.G.Gtop"},
@@ -128,7 +129,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			{"WMid", "s.WM"},
 			{"WMatt", "s.WM.slot1"},
 			{"WMvalue", "s.WM.slot2"},
-			{"WMprev", "s.WM.slot3"},
+			{"WMprev", "s.WM.WMprev"},
+			{"WMnext", "s.WM.WMnext"},
 			{"WMcurline", "s.WM.slot1"},
 			{"WMsearch-goal", "s.WM.slot2"},
 			{"RTtype", "s.RT.slot1"},
@@ -137,14 +139,16 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			{"RTans", "s.RT.slot4"},
 			{"RTatt", "s.RT.slot1"},
 			{"RTvalue", "s.RT.slot2"},
-			{"RTprev", "s.RT.slot3"},
-			{"RT1", "s.RT.result"},
+			{"RTprev", "s.RT.WMprev"},
+			{"RTnext", "s.RT.WMnext"},
+			{"RT1", "s.smem.rt-result"},
 			{"RTcount-fact", "s.RT.slot1"},
 			{"RTfirst", "s.RT.slot2"},
 			{"RTsecond", "s.RT.slot3"},
 			{"RTdiff-3-fact", "s.RT.slot1"},
 			{"RTnum1", "s.RT.slot2"},
-			{"RTnum2", "s.RT.slot3"}
+			{"RTnum2", "s.RT.slot3"},
+			{"RTid", "s.RT"}
 	};
 	const std::map<std::string, std::string> actSlotRefs = {
 			{"Gcontrol","s.G.Gcontrol"},
@@ -154,31 +158,32 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			{"WMid", "s.WM"},
 			{"WMatt", "s.WM.slot1"},
 			{"WMvalue", "s.WM.slot2"},
-			{"WMprev", "s.WM.slot3"},
+			{"WMprev", "s.WM.WMprev"},
 			{"WMcurline", "s.WM.slot1"},
 			{"WMsearch-goal", "s.WM.slot2"},
-			{"RTtype", "s.Q.slot1"},
-			{"RTarg1", "s.Q.slot2"},
-			{"RTarg2", "s.Q.slot3"},
-			{"RTans", "s.Q.slot4"},
-			{"RTatt", "s.Q.slot1"},
-			{"RTvalue", "s.Q.slot2"},
-			{"RTprev", "s.Q.slot3"},
-			//{"RT1", "s.Q.slot1"},
-			{"RTcount-fact", "s.Q.slot1"},
-			{"RTfirst", "s.Q.slot2"},
-			{"RTsecond", "s.Q.slot3"},
-			{"RTdiff-3-fact", "s.Q.slot1"},
-			{"RTnum1", "s.Q.slot2"},
-			{"RTnum2", "s.Q.slot3"},
-			{"AC1", "s.AC.action.out1"}
+			{"RTtype", "s.Q.query.slot1"},
+			{"RTarg1", "s.Q.query.slot2"},
+			{"RTarg2", "s.Q.query.slot3"},
+			{"RTans", "s.Q.query.slot4"},
+			{"RTatt", "s.Q.query.slot1"},
+			{"RTvalue", "s.Q.query.slot2"},
+			{"RTprev", "s.Q.query.WMprev"},
+			//{"RT1", "s.Q.query.slot1"},
+			{"RTcount-fact", "s.Q.query.slot1"},
+			{"RTfirst", "s.Q.query.slot2"},
+			{"RTsecond", "s.Q.query.slot3"},
+			{"RTdiff-3-fact", "s.Q.query.slot1"},
+			{"RTnum1", "s.Q.query.slot2"},
+			{"RTnum2", "s.Q.query.slot3"},
+			{"AC1", "s.AC.action.out1"},
+			{"RTid", "s.Q.retrieve"}
 	};
 
 	// Special case negation conditions
-	const std::vector<std::string> specNegs = {"s.V.Vlabel", "s.V.Vvalue"/*, "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"*/};
+	//const std::vector<std::string> specNegs = {"s.V.Vlabel", "s.V.Vvalue"/*, "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"*/};
 
 	// Special case clear-rt conditions
-	const std::vector<std::string> specClears = {"s.RT.result", "s.RT.slot1", "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"};
+	//const std::vector<std::string> specClears = {"s.RT.result", "s.RT.slot1", "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"};
 	Primitive clearAction("","","");
 
 	// Read first task name
@@ -219,34 +224,31 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	condConsts.push_back(currTaskName);
 
 	// Read conditions until finding closing parenthesis
-	while (sToken.compare(")")) {
+	while (sToken.compare(")") != 0) {
 		std::string p1;
 		std::string p2;
 		std::string op;
 
 		auto it = condSlotRefs.find(sToken);
-		if (it != condSlotRefs.end()) {
-			p1 = it->second;
-		}
-		else {
+		if (it == condSlotRefs.end()) {
 			printParseError("Unrecognized condition token '" + sToken + "'");
 			throw;
 		}
 
-		sToken  = nextToken(ss);	// read op ("=" or "<>");
-		if (!sToken.compare("<>"))
-			op = "<>";
-		else
+		// Get path to of first arg
+		p1 = it->second;
+
+		// Read op ("=" or "<>");
+		op = nextToken(ss);
+		if (op.compare("<>") != 0)
 			op = "==";
 
 		// Read arg2
 		sToken = nextToken(ss);
 
-		//if (!sToken.compare ("error"))
-		//	sToken = "nil";
 
 		// Check special negation/existence cases
-		if (!sToken.compare("nil") && std::find(specNegs.begin(), specNegs.end(), p1) != specNegs.end() )
+		if (!sToken.compare("nil") /*&& std::find(specNegs.begin(), specNegs.end(), p1) != specNegs.end()*/ )
 		{
 			if (!op.compare("==")) {
 				// Negation test (== nil)
@@ -274,7 +276,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		conditions.push_back(Primitive(op, p1, p2));
 
 		// Check RT test conditions, indicating need to clear RT after reading
-		if (sToken.compare("nil") && sToken.compare("error") && std::find(specClears.begin(), specClears.end(), p1) != specClears.end() ) {
+		if (/*sToken.compare("nil") && sToken.compare("error") && std::find(specClears.begin(), specClears.end(), p1) != specClears.end()*/
+				!p1.compare(0,5, "s.RT.") ) {
 			clearAction = (Primitive("=", "s.G.clear-rt", "const1"));
 		}
 
@@ -296,58 +299,112 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	sToken = nextToken(ss);	// read first condition reference
 
 	bool usedAC = false;	// Whether we've added a special "AC.action <a>" action
+	bool usedQ = false;		// Whether we've added a special "Q.query <q>" action
+	bool usedNW = false;	// Whether we've added a special "NW.wm <q>" action
+	std::string specialRT = "";	// If not "", replace a query with a retrieve for the referenced slot
+
+	// Define buffer collections (buffer in the act-r sense)
+	std::vector<std::string> src_bufferIDs = {
+			{"s.RT"},
+			{"s.WM"},
+			//{"RTid", {"s.RT.slot4.slot1", "s.RT.slot4.slot2", "s.RT.slot4.slot3", "s.RT.slot4.slot4"}},    // This is hacky specific for Elio.
+			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
+			{"s.G.Gtop"}
+	};
+	std::map<std::string, std::vector<std::string>> dst_buffers = {
+			{"AC", {"s.AC.action.out1", "s.AC.action.out2", "s.AC.action.out3"}},
+			{"RT", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
+			{"RTid", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
+			//{"RTprev", {"s.RT.slot4.slot1", "s.RT.slot4.slot2", "s.RT.slot4.slot3", "s.RT.slot4.slot4"}},  // This is hacky specific for Elio.
+			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
+			{"newWM", {"s.NW.wm.slot1", "s.NW.wm.slot2", "s.NW.wm.slot3", "s.NW.wm.slot4"}},
+			{"Gtop", {"s.G.Gtop.slot1", "s.G.Gtop.slot2", "s.G.Gtop.slot3", "s.G.Gtop.slot4"}}
+	};
 
 	while (sToken.compare(")")) {
-		// Check for group action
-		if (!sToken.compare("(")) {
-			// Define buffer collections (buffer in the act-r sense)
-			std::map<std::string, std::vector<std::string>> buffers = {
-					{"AC", {"s.AC.action.out1", "s.AC.action.out2", "s.AC.action.out3"}},
-					{"RT", {"s.Q.slot1", "s.Q.slot2", "s.Q.slot3", "s.Q.slot4"}},
-					{"newWM", {"s.NW.slot1", "s.NW.slot2", "s.NW.slot3", "s.NW.slot4"}},
-					//{"RTid", {"s.RT.slot1", "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"}},
-					{"Gtop", {"s.G.Gtop.slot1", "s.G.Gtop.slot2", "s.G.Gtop.slot3", "s.G.Gtop.slot4"}}
-			};
+		// Check for group action (e.g., (div RTvalue WMvalue) -> RT)
+		if (!sToken.compare("(")) { // || src_buffers.find(sToken) != src_buffers.end()) {
 
 			// Get source list
 			auto sources = std::vector<std::string>();
-			sToken = nextToken(ss);
 			std::string pRef, op, buff;
 
-			while (sToken.compare(")")) {
-				auto it = condSlotRefs.find(sToken);
-				if (it != condSlotRefs.end()) {
-					pRef = it->second;
+			//if (src_buffers.find(sToken) == src_buffers.end()) {
+				sToken = nextToken(ss); // read first item
+
+				while (sToken.compare(")")) {
+					// Add each item within the ()'s to the source list
+					auto it = condSlotRefs.find(sToken);
+					if (it != condSlotRefs.end()) {
+						if (sToken.compare("RTid") == 0) {
+							// Special case: If (? ? RTid) -> RT, replace RT with RT.WMnext
+							specialRT = it->second;
+						}
+						pRef = it->second;
+					}
+					else {
+						// (should only happen for constants)
+						pRef = sToken;
+						/*if (!pRef.compare("?"))
+							pRef = "nil";*/
+						if (pRef.compare("?") != 0)
+							actConsts.push_back(pRef);
+					}
+					sources.push_back(pRef);
+					sToken = nextToken(ss);
 				}
-				else {
-					// (should only happen for constants)
-					pRef = sToken;
-					if (!pRef.compare("?"))
-						pRef = "nil";
-					actConsts.push_back(pRef);
+			/*}
+			else {
+				// Use the buffer id to infer the source list
+				for (std::string next : src_buffers.at(sToken)) {
+					sources.push_back(next);
 				}
-				sources.push_back(pRef);
-				sToken = nextToken(ss);
-			}
+			}*/
 
 			nextToken(ss);	// read "->"
 			op = "=";
 			// Read destination buffer
 			buff = nextToken(ss);
-			if (buffers.find(buff) == buffers.end()) {
+			if (dst_buffers.find(buff) == dst_buffers.end()) {
 				std::cout << "ERROR: Unexpected target buffer '" + buff + "' for group value assignment." << std::endl;
 				throw;
 			}
-			auto buffList = buffers.at(buff);
+
+			auto buffList = dst_buffers.at(buff);
 
 			// Check for use of queries - if so, don't clear-rt
 			if (!buff.compare("RT"))
 				clearAction.path1 = "";
 
+			// Check for the special case of backtracing a pointer ((? ? WMid) -> RTid)
+			if (buff.compare("RT") == 0 && specialRT.compare("") != 0) {
+				// Add the id attribute being queried
+				actions.push_back(Primitive("=","s.Q.wm-query.root",specialRT));
+				// Add any extra attributes the id should have
+				for (size_t i=0; i<sources.size(); ++i) {
+					if (sources.at(i).compare(specialRT) == 0 || sources.at(i).compare("?") == 0)
+						continue;
+					actions.push_back(Primitive("=","s.Q.wm-query.slot"+toString(i+1),sources.at(i)));
+				}
+				// Read token for next iteration
+				sToken = nextToken(ss);
+				continue;
+			}
+
 			// Check for need for action that creates an AC action cluster
 			if (!usedAC && !buff.compare("AC")) {
 				actions.push_back(Primitive("+","s.AC.action",""));
 				usedAC = true;
+			}
+			// Check for need for query that creates an Q query cluster
+			if (!usedQ && !buff.compare("RT")) {
+				actions.push_back(Primitive("+","s.Q.query",""));
+				usedQ = true;
+			}
+			// Check for a newWM wm cluster
+			if (!usedQ && !buff.compare("newWM")) {
+				actions.push_back(Primitive("+","s.NW.wm",""));
+				usedNW = true;
 			}
 
 			// Add action for each corresponding source->dest pair
@@ -356,13 +413,25 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 						dst;
 				if (!src.compare("?"))
 					continue;
-				try {
+
+				// If this is making a newWM, check for the WMprev value if any
+				if (i == wmprev_ind && buff.compare("newWM") == 0 && std::find(src_bufferIDs.begin(), src_bufferIDs.end(), src) != src_bufferIDs.end()) {
+					dst = "s.NW.wm.WMprev";
+				}
+				else try {
 					dst = buffList.at(i);
 				} catch (...) {
 					printParseError("Too many values sent to buffer!", true);
 					throw;
 				}	// If this fails, it's either a bad instruction or the buffers map is bad.
-				actions.push_back(Primitive(op, dst, src));
+
+
+				if (!src.compare("nil")) {
+					actions.push_back(Primitive("-", dst, ""));		// Remove WME rather than set to nil
+				}
+				else {
+					actions.push_back(Primitive(op, dst, src));
+				}
 			}
 		}
 		else {
@@ -393,6 +462,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				// Check for use of queries - if so, don't clear-rt
 				if (!p2.compare(0,4,"s.Q."))
 					clearAction.path1 = "";
+				else if (!p2.compare("s.G.Gtask"))
+					clearAction = (Primitive("=", "s.G.clear-rt", "const1"));
 			}
 			else {
 				printParseError("Unrecognized action token '" + sToken + "'");
@@ -403,6 +474,16 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			if (!usedAC && (!p1.compare(0,5, "s.AC.") || !p2.compare(0,5, "s.AC."))) {
 				actions.push_back(Primitive("+","s.AC.action",""));
 				usedAC = true;
+			}
+			// Check for need for action that creates an Q query cluster
+			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q."))) {
+				actions.push_back(Primitive("+","s.Q.query",""));
+				usedQ = true;
+			}
+			// Check for a newWM cluster
+			if (!usedNW && (!p1.compare(0,5, "s.NW.") || !p2.compare(0,5, "s.NW."))) {
+				actions.push_back(Primitive("+","s.NW.wm",""));
+				usedNW = true;
 			}
 
 			actions.push_back(Primitive(op, p2, p1));
@@ -565,7 +646,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 			retval[a.path1] = id1;
 			retRefs.push_back("<s> ^operator " + id1);*/
 		}
-		else if (!a.path1.compare("s.AC") || !p11.compare(0,11, "s.AC.action")) {
+		else if (!a.path1.compare("s.AC") || !p11.compare(0,11, "s.AC.action")
+				|| !a.path1.compare("s.Q") || !p11.compare(0,9, "s.Q.query")) {
 			/*if (!retval.count("s.AC.action")) {
 				retval["a"] = "<a>";
 				retRefs.push_back("state <s> ^AC.action <a>");
@@ -585,6 +667,14 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 				retval[p11] = id1;
 
 				retRefs.push_back("state <s> ^" + p11.substr(2) + " " + id1);
+			}
+		}
+		else if (!p11.compare("s")) {
+			if (!retval.count(p11)) {
+				id1 = "<c" + toString(idnum++) + ">";
+				retval[p11] = id1;
+
+				retRefs.push_back("state <s> ^" + p12.substr(2) + " " + id1);
 			}
 		}
 		/*else if () {
@@ -623,7 +713,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 			}
 		}
 		// Add action to remove the old value
-		if (a.path1.compare(0,10, "s.operator") && a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare("s.G.clear-rt")) {
+		if (a.path1.compare(0,10, "s.operator") && a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,3, "s.Q") && a.path1.compare("s.G.clear-rt")) {
 			// Add reference to the old value
 			id2 = "<c" + toString(idnum++) + ">";
 			retRefs.push_back(retval.at(p11) + " ^" + p12 + " " + id2);
@@ -731,14 +821,14 @@ void actransfer_operator_parser::buildPropOperator(std::string &proposeRule, std
 
 	// *** PROPOSE RULE ***
 	currRuleName = "propose*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opActions = {Primitive("+", "s", "const1")};
 	buildPropCode(proposeRule, currRuleName, condConsts, conditions, opActions);
 
 	// *** APPLY RULE ***
 	currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", "const1")};
 	buildPropCode(applyRule, currRuleName, actConsts, opConds, actions);
@@ -758,14 +848,14 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 
 	// *** PROPOSE RULE ***
 	currRuleName = "propose*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opActions = {Primitive("+", "s.operator", ""), Primitive("+", "s.operator.name", opName)};
 	buildSoarCode(proposeRule, currRuleName, conditions, opActions);
 
 	// *** APPLY RULE ***
 	currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", opName)};
 	buildSoarCode(applyRule, currRuleName, opConds, actions);

@@ -1,53 +1,41 @@
 
 ### MANUAL PROPS RULE SEQUENCING ###
 
-# HACK FOR PROCEDURE-C: SHOULD ALREADY BE LEARNED BY THE TIME C ROLLS AROUND
-sp {chunk*apply*props*success*action*add*replace*OpNoChange*t9421-1*b
-    :chunk
-    (state <s1>  ^operator <o1> ^RT <r1> ^WM <w1> ^G <g1>)
-    (<o1>  ^name elio-index1-div-marine-finish)
-    (<r1>  ^slot4 <c1>)
-    (<w1>  ^slot2 { <> <c1> <old> })
-    -->
-    (<w1>  ^slot2 <old> -)
-    (<w1>  ^slot2 <c1> +)
-}
-
-#		PROCEDURE-A: (training)					[ops: 7 max: 2,10]
-#	solid-lime-diff		(component)				[ops: 5 max: 3,5]
-#	greater-algae		(component)				[ops: 6 max: 3,4]
-#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]
-#	mean-toxin			(component)				[ops: 5 max: 3,3]
-#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]
-#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]
+#		procedure-A: (training)					[ops: 7 max: 2,10]
+#	solid-lime-diff		(component)				[ops: 5 max: 3,5]		particlate =	solid*(lime4-lime2)				6*(9-5)			= 24
+#	greater-algae		(component)				[ops: 6 max: 3,4]		mineral =		max(algea/2, solid/3)			max(2/2,6/3)	= 2
+#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]		index1 =		particulate+mineral				24+2			= 26
+#	mean-toxin			(component)				[ops: 5 max: 3,3]		marine =		(toxinmax+toxinmin)/2			(2+8)/2			= 5
+#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]		index2 =		index1/marine					26/5			= 5
+#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]		overall =		index2-mineral					5-2				= 3
 #												[total: 33 comp: 16 intg: 14]
 
-#		PROCEDURE-B: (transferred component)	[ops: 7 max: 2,9]
-#	mean-toxin			(component)				[ops: 5 max: 3,3]
-#	solid-lime-diff		(component)				[ops: 5 max: 3,5]
-#	greater-algae		(component)				[ops: 6 max: 3,4]
-#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]
-#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]
+#		PROCEDURE-B: (transferred component)	[ops: 7 max: 2,9]		particulate =	(toxinmax+toxinmin)/2			(8+2)/2			= 5
+#	mean-toxin			(component)				[ops: 5 max: 3,3]		mineral =		solid*(lime4-lime2)				6*(9-5)			= 24
+#	solid-lime-diff		(component)				[ops: 5 max: 3,5]		marine =		max(algea/2,solid/3)			max(2/2,6/3)	= 2
+#	greater-algae		(component)				[ops: 6 max: 3,4]		index1 =		mineral/marine					24/2			= 12
+#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]		index2 =		particulate*index1				5*12			= 60
+#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]		overall =		index2+index1					60+12			= 72
 #	index1-plus-index2	(integrative)			[ops: 3 max: 2,4]
 #												[total: 33 comp: 19 intg: 14]
 #												[comp-transfer: 16/19 intg-transfer: 0/14]
 
 #		PROCEDURE-C: (transferred integrative)	[ops: 7 max: 2,9]
-#	triple-lime			(component)				[ops: 5 max: 3,4]
-#	lesser-evil			(component)				[ops: 8 max: 3,8]
-#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]
-#	solid-div-lime		(component)				[ops: 4 max: 3,3]
-#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]
-#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]
+#	triple-lime			(component)				[ops: 5 max: 3,4]		particulate =	(limemin*3)+algae				(1*3)+2)		= 5
+#	lesser-evil			(component)				[ops: 8 max: 3,8]		mineral =		min(solid+lime1,algae+toxin3)	min(6+3,2+7)	= 9
+#	part-plus-mineral	(integrative)			[ops: 3 max: 2,5]		index1 =		particulate+mineral				5+6				= 14
+#	solid-div-lime		(component)				[ops: 4 max: 3,3]		marine =		solid/lime1						6/3				= 2
+#	index1-div-marine	(integrative)			[ops: 4 max: 2,4]		index2 =		index1/marine					14/2			= 7
+#	index2-min-mineral	(integrative)			[ops: 3 max: 3,5]		overall =		index2-mineral					7-9				= -2
 #												[total: 34 comp: 20 intg: 14]
 #												[comp-transfer: 0/20 intg-transfer: 10/14]
 
-#		PROCEDURE-D: (control)					[ops: 7 max: 2,9]
-#	triple-lime			(component)				[ops: 5 max: 3,4]
-#	lesser-evil			(component)				[ops: 8 max: 3,8]
-#	solid-div-lime		(component)				[ops: 4 max: 3,3]
-#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]
-#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]
+#		PROCEDURE-D: (control)					[ops: 7 max: 2,9]		particulate =	(limemin*3)+algae				(1*3)+2)		= 5
+#	triple-lime			(component)				[ops: 5 max: 3,4]		mineral =		min(solid+lime1,algae+toxin3)	min(6+3,2+7)	= 9
+#	lesser-evil			(component)				[ops: 8 max: 3,8]		marine =		solid/lime1						6/3				= 2
+#	solid-div-lime		(component)				[ops: 4 max: 3,3]		index1 =		mineral/marine					9/2				= 4
+#	mineral-div-marine	(integrative)			[ops: 4 max: 2,4]		index2 =		particulate*index1				5*4				= 20
+#	part-mult-index1	(integrative)			[ops: 3 max: 2,9]		overall =		index2+index1					20+4			= 24
 #	index1-plus-index2	(integrative)			[ops: 3 max: 2,4]
 #												[total: 34 comp: 20 intg: 14]
 #												[comp-transfer: 0/20 intg-transfer: 0/14]
@@ -60,7 +48,7 @@ smem --add {
 		^procedure-b <R2>
 		^procedure-c <R3>
 		^procedure-d <R4>)
-(<R1> ^name propose*elio*procedure-A*step-1
+(<R1> ^name propose*elio*procedure-a*step-1
 	^next <A1>)
 (<R2> ^name propose*elio*procedure-b*start
 	^next <B1>)
@@ -70,7 +58,7 @@ smem --add {
 	^next <D1>)
 
 # PROCEDURE A
-(<A1> ^name apply*elio*procedure-A*step-1
+(<A1> ^name apply*elio*procedure-a*step-1
 	^next <A2>)
 	
 (<A2> ^name propose*elio*solid-lime-diff*step-1
@@ -94,9 +82,9 @@ smem --add {
 (<A11> ^name apply*elio*solid-lime-diff*finish
 	^next <A12>)
 
-(<A12> ^name propose*elio*procedure-A*step-2
+(<A12> ^name propose*elio*procedure-a*step-2
 	^next <A13>)
-(<A13> ^name apply*elio*procedure-A*step-2
+(<A13> ^name apply*elio*procedure-a*step-2
 	^next <A14>)
 
 (<A14> ^name propose*elio*greater-algae*start
@@ -124,9 +112,9 @@ smem --add {
 (<A25> ^name apply*elio*greater-algae*finish
 	^next <A26>)
 
-(<A26> ^name propose*elio*procedure-A*step-3
+(<A26> ^name propose*elio*procedure-a*step-3
 	^next <A27>)
-(<A27> ^name apply*elio*procedure-A*step-3
+(<A27> ^name apply*elio*procedure-a*step-3
 	^next <A28>)
 
 (<A28> ^name propose*elio*part-plus-mineral*start
@@ -142,9 +130,9 @@ smem --add {
 (<A33> ^name apply*elio*part-plus-mineral*finish
 	^next <A34>)
 
-(<A34> ^name propose*elio*procedure-A*step-4
+(<A34> ^name propose*elio*procedure-a*step-4
 	^next <A35>)
-(<A35> ^name apply*elio*procedure-A*step-4
+(<A35> ^name apply*elio*procedure-a*step-4
 	^next <A36>)
 	
 (<A36> ^name propose*elio*mean-toxin*start
@@ -168,9 +156,9 @@ smem --add {
 (<A45> ^name apply*elio*mean-toxin*finish
 	^next <A46>)
 
-(<A46> ^name propose*elio*procedure-A*step-5
+(<A46> ^name propose*elio*procedure-a*step-5
 	^next <A47>)
-(<A47> ^name apply*elio*procedure-A*step-5
+(<A47> ^name apply*elio*procedure-a*step-5
 	^next <A48>)
 
 (<A48> ^name propose*elio*index1-div-marine*start
@@ -190,9 +178,9 @@ smem --add {
 (<A55> ^name apply*elio*index1-div-marine*finish
 	^next <A56>)
 
-(<A56> ^name propose*elio*procedure-A*step-6
+(<A56> ^name propose*elio*procedure-a*step-6
 	^next <A57>)
-(<A57> ^name apply*elio*procedure-A*step-6
+(<A57> ^name apply*elio*procedure-a*step-6
 	^next <A58>)
 	
 (<A58> ^name propose*elio*index2-min-mineral*start
@@ -208,9 +196,9 @@ smem --add {
 (<A63> ^name apply*elio*index2-min-mineral*finish
 	^next <A64>)
 
-(<A64> ^name propose*elio*procedure-A*step-7
+(<A64> ^name propose*elio*procedure-a*step-7
 	^next <A65>)
-(<A65> ^name apply*elio*procedure-A*step-7
+(<A65> ^name apply*elio*procedure-a*step-7
 	^next nil)
 
 # PROCEDURE B
@@ -406,6 +394,10 @@ smem --add {
 (<C22> ^name propose*elio*lesser-evil*read-toxin3
 	^next <C23>)
 (<C23> ^name apply*elio*lesser-evil*read-toxin3
+	^next <C23a>)
+(<C23a> ^name propose*elio*lesser-evil*add-toxin3
+	^next <C23b>)
+(<C23b> ^name apply*elio*lesser-evil*add-toxin3
 	^next <C24>)
 (<C24> ^name propose*elio*lesser-evil*toxin3
 	^next <C25>)
@@ -554,6 +546,10 @@ smem --add {
 (<D22> ^name propose*elio*lesser-evil*read-toxin3
 	^next <D23>)
 (<D23> ^name apply*elio*lesser-evil*read-toxin3
+	^next <D23a>)
+(<D23a> ^name propose*elio*lesser-evil*add-toxin3
+	^next <D23b>)
+(<D23b> ^name apply*elio*lesser-evil*add-toxin3
 	^next <D24>)
 (<D24> ^name propose*elio*lesser-evil*toxin3
 	^next <D25>)

@@ -1,0 +1,3359 @@
+sp {chunk*elaborate*props*spread-result*onc*return*t44661-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-7)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-7 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-7)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1)
+    (link-stm-to-ltm <c1> 5)
+}
+
+sp {chunk*apply*props*spread-result*snc*t44622-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index1-plus-index2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-7)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 18)
+}
+
+sp {chunk*apply*props*spread-result*snc*t44615-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-7)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 15)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t44239-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-6)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-6 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-6)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 21)
+    (link-stm-to-ltm <c1> 24)
+}
+
+sp {chunk*apply*props*spread-result*snc*t44200-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-6)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 31)
+}
+
+sp {chunk*apply*props*spread-result*snc*t44193-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 part-mult-index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-6)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 33)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t43794-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-5)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-5 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-5)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 35)
+    (link-stm-to-ltm <c1> 38)
+}
+
+sp {chunk*apply*props*spread-result*snc*t43755-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-5)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 43)
+}
+
+sp {chunk*apply*props*spread-result*snc*t43748-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-5)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 45)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t43270-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-4)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-4 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-4)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 47)
+    (link-stm-to-ltm <c1> 50)
+}
+
+sp {chunk*apply*props*spread-result*snc*t43231-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-4)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 55)
+}
+
+sp {chunk*apply*props*spread-result*snc*t43224-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-4)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 57)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t42714-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 59)
+    (link-stm-to-ltm <c1> 62)
+}
+
+sp {chunk*apply*props*spread-result*snc*t42675-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-3)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 70)
+}
+
+sp {chunk*apply*props*spread-result*snc*t42668-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 68)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t41531-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-step-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-step-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*step-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 72)
+    (link-stm-to-ltm <c1> 75)
+}
+
+sp {chunk*apply*props*spread-result*snc*t41492-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 80)
+}
+
+sp {chunk*apply*props*spread-result*snc*t41485-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-d*step-2)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 82)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t40869-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-d-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-d-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-d*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 84)
+    (link-stm-to-ltm <c1> 87)
+}
+
+sp {chunk*apply*props*spread-result*snc*t40830-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gtop <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-d*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 98)
+}
+
+sp {chunk*apply*props*spread-result*snc*t40823-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask procedure-d)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-d)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-d*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 95)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t30513-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-7)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-7 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-7)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 100)
+    (link-stm-to-ltm <c1> 103)
+}
+
+sp {chunk*apply*props*spread-result*snc*t30474-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index2-min-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-7)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 110)
+}
+
+sp {chunk*apply*props*spread-result*snc*t30467-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-7)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 108)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t30091-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-6)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-6 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-6)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 112)
+    (link-stm-to-ltm <c1> 115)
+}
+
+sp {chunk*apply*props*spread-result*snc*t30052-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-6)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 120)
+}
+
+sp {chunk*apply*props*spread-result*snc*t30045-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-6)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 122)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t29575-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-5)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-5 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-5)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 124)
+    (link-stm-to-ltm <c1> 127)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29536-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-5)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 134)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29529-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-5)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 132)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t29449-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-div-lime-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-div-lime-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-div-lime*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 184)
+    (link-stm-to-ltm <c1> 187)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29410-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 195)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29403-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 div)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 198)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t29323-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-div-lime-div-lime1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-div-lime-div-lime1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-div-lime*div-lime1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 200)
+    (link-stm-to-ltm <c1> 203)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29284-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 lime1)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*solid-div-lime*div-lime1)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 217)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29276-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*div-lime1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 211)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29269-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*div-lime1)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 214)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t29194-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-div-lime-read-lime1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-div-lime-read-lime1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-div-lime*read-lime1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 219)
+    (link-stm-to-ltm <c1> 222)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29155-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 solid)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*solid-div-lime*read-lime1)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 231)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29147-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*read-lime1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 229)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t29083-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-div-lime-read-solid)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-div-lime-read-solid ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-div-lime*read-solid)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 233)
+    (link-stm-to-ltm <c1> 236)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29044-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-div-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-div-lime*read-solid)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 241)
+}
+
+sp {chunk*apply*props*spread-result*snc*t29037-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*solid-div-lime*read-solid)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 244)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28954-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-4)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-4 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-4)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 136)
+    (link-stm-to-ltm <c1> 139)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28915-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 part-plus-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-4)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 146)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28908-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-4)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 144)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28505-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 148)
+    (link-stm-to-ltm <c1> 151)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28466-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 156)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28459-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-3)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 158)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28379-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-greater-than-false)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-greater-than-false ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*greater-than-false)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 246)
+    (link-stm-to-ltm <c1> 249)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28340-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot4 false)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*greater-than-false)
+    (<c1> ^name _P48)
+    (link-stm-to-ltm <c1> 262)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28333-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 greater-than)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*greater-than-false)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 259)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28326-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*greater-than-false)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 257)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28237-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-read-intermediate)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-read-intermediate ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*read-intermediate)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 282)
+    (link-stm-to-ltm <c1> 285)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28198-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 intermediate)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-intermediate)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 296)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28191-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-intermediate)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 294)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28140-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-toxin3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-toxin3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*toxin3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 298)
+    (link-stm-to-ltm <c1> 301)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28101-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*toxin3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 309)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28094-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*toxin3)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 311)
+}
+
+sp {chunk*apply*props*spread-result*snc*t28087-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 toxin3)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*toxin3)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 314)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t28013-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-add-toxin3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-add-toxin3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*add-toxin3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 316)
+    (link-stm-to-ltm <c1> 319)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27974-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 toxin3)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*add-toxin3)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 328)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27966-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*add-toxin3)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 326)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27959-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*add-toxin3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 324)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27891-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-read-toxin3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-read-toxin3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*read-toxin3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 330)
+    (link-stm-to-ltm <c1> 333)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27852-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 algae)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*read-toxin3)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 340)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27844-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-toxin3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 338)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27747-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-read-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-read-algae ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*read-algae)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 342)
+    (link-stm-to-ltm <c1> 345)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27708-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 lime1)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*read-algae)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 356)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27700-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-algae)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 352)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27693-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-algae)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 354)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27628-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-add-lime1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-add-lime1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*add-lime1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 358)
+    (link-stm-to-ltm <c1> 361)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27589-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*add-lime1)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 368)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27582-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 lime1)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*add-lime1)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 370)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27574-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*add-lime1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 366)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27514-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-read-lime1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-read-lime1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*read-lime1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 372)
+    (link-stm-to-ltm <c1> 375)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27475-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 solid)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*lesser-evil*read-lime1)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 382)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27467-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-lime1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 380)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27403-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-lesser-evil-read-solid)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-lesser-evil-read-solid ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*lesser-evil*read-solid)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 384)
+    (link-stm-to-ltm <c1> 387)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27364-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask lesser-evil)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*lesser-evil*read-solid)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 392)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27357-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*lesser-evil*read-solid)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 394)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27274-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-step-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-step-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*step-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 160)
+    (link-stm-to-ltm <c1> 163)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27235-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-2)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 170)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27228-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-c*step-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 168)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27156-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-triple-lime-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-triple-lime-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*triple-lime*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 396)
+    (link-stm-to-ltm <c1> 399)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27117-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 404)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27110-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 406)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t27037-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-triple-lime-add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-triple-lime-add ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*elio*triple-lime*add)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 408)
+    (link-stm-to-ltm <c1> 411)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26998-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*add)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 416)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26991-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 algae)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*triple-lime*add)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 420)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26983-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*add)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 418)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t26902-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-triple-lime-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-triple-lime-read ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*elio*triple-lime*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 422)
+    (link-stm-to-ltm <c1> 425)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26863-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 limemin)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*triple-lime*read)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 435)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26855-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 430)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26848-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot4 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*read)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 433)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t26786-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-triple-lime-mult)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-triple-lime-mult ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*elio*triple-lime*mult)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 437)
+    (link-stm-to-ltm <c1> 440)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26747-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*mult)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 447)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26740-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*mult)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 449)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26733-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 limemin)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*triple-lime*mult)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 451)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t26682-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-triple-lime-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-triple-lime-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*triple-lime*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 453)
+    (link-stm-to-ltm <c1> 456)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26643-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*triple-lime*start)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 463)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26635-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask triple-lime)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*triple-lime*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 461)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t26573-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-c-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-c-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-c*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 172)
+    (link-stm-to-ltm <c1> 175)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26534-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gtop <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-c*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 182)
+}
+
+sp {chunk*apply*props*spread-result*snc*t26527-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask procedure-c)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-c)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-c*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 180)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16356-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 465)
+    (link-stm-to-ltm <c1> 468)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16317-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 473)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16310-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index1-plus-index2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*finish)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 475)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16237-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-plus-index2-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-plus-index2-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-plus-index2*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 549)
+    (link-stm-to-ltm <c1> 552)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16198-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 559)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16191-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-plus-index2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 557)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16120-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-plus-index2-add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-plus-index2-add ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-plus-index2*add)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 561)
+    (link-stm-to-ltm <c1> 564)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16081-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-plus-index2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*add)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 569)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16074-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*add)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 571)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16033-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-plus-index2-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-plus-index2-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-plus-index2*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 573)
+    (link-stm-to-ltm <c1> 576)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15994-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-plus-index2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 582)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15987-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-plus-index2*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 584)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15906-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-step-6)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-step-6 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*step-6)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 477)
+    (link-stm-to-ltm <c1> 480)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15867-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 part-mult-index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-6)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 487)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15860-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-6)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 485)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15802-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-mult-index1-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-mult-index1-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-mult-index1*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 586)
+    (link-stm-to-ltm <c1> 589)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15763-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 mult)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 596)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15756-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-mult-index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 594)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15669-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-mult-index1-mult)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-mult-index1-mult ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-mult-index1*mult)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 598)
+    (link-stm-to-ltm <c1> 601)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15630-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 particulate)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*mult)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 613)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15623-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-mult-index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*mult)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 611)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15582-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-mult-index1-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-mult-index1-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-mult-index1*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 615)
+    (link-stm-to-ltm <c1> 618)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15543-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 625)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15536-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-mult-index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-mult-index1*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 623)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15455-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-step-5)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-step-5 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*step-5)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 489)
+    (link-stm-to-ltm <c1> 492)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15416-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-5)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 497)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15409-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-5)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 499)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15344-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mineral-div-marine-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mineral-div-marine-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mineral-div-marine*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 627)
+    (link-stm-to-ltm <c1> 630)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15305-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 div)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 637)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15298-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 635)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15227-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mineral-div-marine-divide)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mineral-div-marine-divide ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mineral-div-marine*divide)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 639)
+    (link-stm-to-ltm <c1> 642)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15188-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*divide)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 649)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15181-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*divide)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 647)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15132-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mineral-div-marine-skip)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mineral-div-marine-skip ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mineral-div-marine*skip)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 651)
+    (link-stm-to-ltm <c1> 654)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15093-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*skip)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 665)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15086-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 particulate)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*skip)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 667)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15038-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mineral-div-marine-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mineral-div-marine-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mineral-div-marine*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 669)
+    (link-stm-to-ltm <c1> 672)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14999-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mineral-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 677)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14992-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mineral-div-marine*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 679)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t14919-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-step-4)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-step-4 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*step-4)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 501)
+    (link-stm-to-ltm <c1> 504)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14880-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-4)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 509)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14873-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-4)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 511)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t14107-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-step-3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-step-3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*step-3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 513)
+    (link-stm-to-ltm <c1> 516)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14068-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 521)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14061-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-3)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 523)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t13398-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-step-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-step-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*step-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 525)
+    (link-stm-to-ltm <c1> 528)
+}
+
+sp {chunk*apply*props*spread-result*snc*t13359-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 533)
+}
+
+sp {chunk*apply*props*spread-result*snc*t13352-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-b*step-2)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 535)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t12731-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-b-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-b-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-b*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 537)
+    (link-stm-to-ltm <c1> 540)
+}
+
+sp {chunk*apply*props*spread-result*snc*t12692-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gtop <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-b*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 547)
+}
+
+sp {chunk*apply*props*spread-result*snc*t12685-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask procedure-b)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-b)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-b*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 545)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3697-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-7)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-7 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-7)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1074)
+    (link-stm-to-ltm <c1> 1077)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3658-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-7)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1083)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3651-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index2-min-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-7)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1085)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3586-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index2-min-mineral-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index2-min-mineral-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index2-min-mineral*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 681)
+    (link-stm-to-ltm <c1> 684)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3547-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 subtract)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 691)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3540-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index2-min-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 689)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3469-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index2-min-mineral-subtract)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index2-min-mineral-subtract ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index2-min-mineral*subtract)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 693)
+    (link-stm-to-ltm <c1> 696)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3430-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index2-min-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*subtract)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 704)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3423-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*subtract)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 706)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3382-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index2-min-mineral-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index2-min-mineral-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index2-min-mineral*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 708)
+    (link-stm-to-ltm <c1> 711)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3343-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index2-min-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 716)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3336-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index2-min-mineral*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 718)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3255-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-6)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-6 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-6)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1087)
+    (link-stm-to-ltm <c1> 1090)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3216-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-6)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1097)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3209-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-6)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1095)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3144-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-div-marine-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-div-marine-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-div-marine*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 720)
+    (link-stm-to-ltm <c1> 723)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3105-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 728)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3098-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 div)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 730)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3027-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-div-marine-divide)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-div-marine-divide ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-div-marine*divide)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 732)
+    (link-stm-to-ltm <c1> 735)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2988-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*divide)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 740)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2981-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 index1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*divide)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 742)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2940-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-div-marine-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-div-marine-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-div-marine*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 744)
+    (link-stm-to-ltm <c1> 747)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2901-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 755)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2894-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*next)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 757)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2853-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-index1-div-marine-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-index1-div-marine-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*index1-div-marine*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 759)
+    (link-stm-to-ltm <c1> 762)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2814-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask index1-div-marine)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 767)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2807-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*index1-div-marine*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 769)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2734-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-5)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-5 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-5)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1099)
+    (link-stm-to-ltm <c1> 1102)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2695-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-5)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1109)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2688-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-5)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1107)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2623-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mean-toxin-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mean-toxin-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mean-toxin*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 771)
+    (link-stm-to-ltm <c1> 774)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2584-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 779)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2577-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 div)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 781)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2516-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mean-toxin-divide)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mean-toxin-divide ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mean-toxin*divide)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 783)
+    (link-stm-to-ltm <c1> 786)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2477-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*divide)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 797)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2470-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*divide)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 795)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2405-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mean-toxin-add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mean-toxin-add ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*elio*mean-toxin*add)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 799)
+    (link-stm-to-ltm <c1> 802)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2366-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 toxinmin)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*mean-toxin*add)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 811)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2358-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*add)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 807)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2351-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*add)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 809)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2291-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mean-toxin-toxinmin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mean-toxin-toxinmin ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*mean-toxin*toxinmin)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 813)
+    (link-stm-to-ltm <c1> 816)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2252-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*toxinmin)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 821)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2245-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 toxinmax)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*mean-toxin*toxinmin)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 823)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2187-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-mean-toxin-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-mean-toxin-start ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*elio*mean-toxin*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 825)
+    (link-stm-to-ltm <c1> 828)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2148-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*mean-toxin*start)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 835)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2140-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask mean-toxin)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*mean-toxin*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 833)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2050-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-4)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-4 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-4)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1111)
+    (link-stm-to-ltm <c1> 1114)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2011-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 part-plus-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-4)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1121)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2004-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-4)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1119)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1919-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-plus-mineral-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-plus-mineral-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-plus-mineral*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 837)
+    (link-stm-to-ltm <c1> 840)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1880-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 854)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1873-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-plus-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 852)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1802-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-plus-mineral-add)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-plus-mineral-add ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-plus-mineral*add)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 856)
+    (link-stm-to-ltm <c1> 859)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1763-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 particulate)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*add)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 872)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1756-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-plus-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*add)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 870)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1715-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-part-plus-mineral-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-part-plus-mineral-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*part-plus-mineral*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 874)
+    (link-stm-to-ltm <c1> 877)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1676-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask part-plus-mineral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 884)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1669-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*part-plus-mineral*start)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 886)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1596-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1123)
+    (link-stm-to-ltm <c1> 1126)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1557-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1131)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1550-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-3)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1133)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1485-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 888)
+    (link-stm-to-ltm <c1> 891)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1446-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 896)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1439-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 greater-of)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 898)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1375-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-greater)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-greater ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*greater)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 900)
+    (link-stm-to-ltm <c1> 903)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1336-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*greater)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 909)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1329-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 div)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*greater)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 911)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1322-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 solid)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*greater-algae*greater)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 913)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1244-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-div-3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-div-3 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*div-3)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 915)
+    (link-stm-to-ltm <c1> 918)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1205-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 solid)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*greater-algae*div-3)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 927)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1197-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*div-3)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 923)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1190-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*div-3)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 925)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1109-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-read-solid)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-read-solid ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*read-solid)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 929)
+    (link-stm-to-ltm <c1> 932)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1070-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot4 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*read-solid)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 939)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1063-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*read-solid)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 937)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1056-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 algae)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*greater-algae*read-solid)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 942)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t993-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-div-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-div-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*div-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 944)
+    (link-stm-to-ltm <c1> 947)
+}
+
+sp {chunk*apply*props*spread-result*snc*t954-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 algae)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*greater-algae*div-2)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 958)
+}
+
+sp {chunk*apply*props*spread-result*snc*t946-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*div-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 954)
+}
+
+sp {chunk*apply*props*spread-result*snc*t939-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*div-2)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 956)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t890-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-greater-algae-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-greater-algae-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*greater-algae*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 960)
+    (link-stm-to-ltm <c1> 963)
+}
+
+sp {chunk*apply*props*spread-result*snc*t851-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask greater-algae)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*greater-algae*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 968)
+}
+
+sp {chunk*apply*props*spread-result*snc*t844-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*greater-algae*start)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 970)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t753-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1135)
+    (link-stm-to-ltm <c1> 1138)
+}
+
+sp {chunk*apply*props*spread-result*snc*t714-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-2)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1154)
+}
+
+sp {chunk*apply*props*spread-result*snc*t707-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*procedure-a*step-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1152)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t642-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-lime-diff-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-lime-diff-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-lime-diff*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 972)
+    (link-stm-to-ltm <c1> 975)
+}
+
+sp {chunk*apply*props*spread-result*snc*t603-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 985)
+}
+
+sp {chunk*apply*props*spread-result*snc*t596-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 mult)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*finish)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 987)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t531-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-lime-diff-mult)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-lime-diff-mult ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-lime-diff*mult)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 989)
+    (link-stm-to-ltm <c1> 992)
+}
+
+sp {chunk*apply*props*spread-result*snc*t492-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 solid)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*solid-lime-diff*mult)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 1009)
+}
+
+sp {chunk*apply*props*spread-result*snc*t484-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*mult)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1004)
+}
+
+sp {chunk*apply*props*spread-result*snc*t477-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot1 subtract)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*mult)
+    (<c1> ^name _P26)
+    (link-stm-to-ltm <c1> 1006)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t393-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-lime-diff-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-lime-diff-diff ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-lime-diff*diff)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1013)
+    (link-stm-to-ltm <c1> 1016)
+}
+
+sp {chunk*apply*props*spread-result*snc*t354-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*diff)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1034)
+}
+
+sp {chunk*apply*props*spread-result*snc*t347-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 lime2)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*solid-lime-diff*diff)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 1039)
+}
+
+sp {chunk*apply*props*spread-result*snc*t339-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*diff)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 1036)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t271-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-lime-diff-step-2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-lime-diff-step-2 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-lime-diff*step-2)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1041)
+    (link-stm-to-ltm <c1> 1044)
+}
+
+sp {chunk*apply*props*spread-result*snc*t232-1
+    :chunk
+    (state <s1> ^io <i1> -^props-agnostic-add <p2>)
+    (<i1> -^props-agnostic-add <p1> ^input-link <i2>)
+    (<i2> ^in1 lime4)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*solid-lime-diff*step-2)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 1054)
+}
+
+sp {chunk*apply*props*spread-result*snc*t224-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*step-2)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1052)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t174-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-solid-lime-diff-step-1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-solid-lime-diff-step-1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*solid-lime-diff*step-1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1058)
+    (link-stm-to-ltm <c1> 1061)
+}
+
+sp {chunk*apply*props*spread-result*snc*t135-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask solid-lime-diff)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*elio*solid-lime-diff*step-1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1068)
+}
+
+sp {chunk*apply*props*spread-result*snc*t128-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^io <i1>)
+    (<i1> -^props-agnostic-add <p2> ^input-link <i2>)
+    (<i2> -^in1 <i3>)
+    -->
+    (<s1> ^prop-condition-xp <p3>)
+    (<p3> ^status success ^instruction <i4> ^condition <c1>)
+    (<i4> ^name propose*elio*solid-lime-diff*step-1)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 1070)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t46-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name elio-procedure-a-step-1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported elio-procedure-a-step-1 ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*elio*procedure-a*step-1)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1157)
+    (link-stm-to-ltm <c1> 1160)
+}
+
+sp {chunk*apply*props*spread-result*snc*t22-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gtop <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-a*step-1)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 1174)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask procedure-a)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name procedure-a)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*elio*procedure-a*step-1)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1171)
+}
+
+
