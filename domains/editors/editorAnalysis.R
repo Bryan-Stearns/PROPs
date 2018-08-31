@@ -6,24 +6,24 @@ pwid <- 4
 pht <- 3
 
 # Plot of the model data
-LOAD_VERBOSE <- TRUE
 PLOT_SOURCE <- "PROPS"    # "PROPS", "PRIMS", "HUMAN"
 PLOT_VAR <- "time"          # "time", "DC", "RT", "retrievals", "avg_rt", "DCtime"
 PLOT_EXTRAS <- TRUE
+
 PLOT_L1 <- TRUE           # The case where chunks were pre-included for memory reference tracing (false) or not (true)
 PLOT_L2 <- TRUE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
 PLOT_L3 <- TRUE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
 PLOT_SPREADING <- TRUE    # The case where instructions (can be) recalled according to activation and condition spread
 PLOT_MANUAL <- TRUE       # The case where a manual-sequence of instructions is used
 PLOT_LC <- TRUE          # The case where chunks that trigger condition spreading are to be learned (true) or pre-loaded (false)
-PLOT_OVERHEADS <- FALSE
-PLOT_FAILS <- TRUE        # The case where failed instructions are included (true) or removed (false)
-DC_MODE <- paste("",            # "" = count smem+props+build+return; "1" = props+build+return; "2" = props
-                 ifelse(PLOT_FAILS, "", "nf"), sep="")
+PLOT_SEQLINK <- FALSE    # The case where the agent learns links back from instructions to manual-sequences (buggy)
 
-outpath <- "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Editors/results/"
+if (!PLOT_SPREADING) {
+  PLOT_LC <- FALSE       # Let the setting above only refer to whether LC is active *given* that spreading is on
+}
+dirpath <- "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/"
 T <- c("48")
-sample = "_s12"
+sample = "_s2"
 
 # This is the aggregate data from the experiment
 dat.ededemacs <- c(115, 54, 44, 42, 43, 28)
@@ -33,13 +33,11 @@ dat.edtedemacs <- c(214, 87, 46, 37, 41, 26)
 dat.emacsemacsemacs <- c(77, 37, 29, 23, 23, 21)
 
 if (PLOT_SOURCE == "HUMAN") {
-
-  
   
   # Plot the data
   
   #x11(width=pwid,height=pht)
-  #png(paste(outpath, "fig_human_editors_all.png", sep=""), width=pwid,height=pht, units="in",res=300)
+  #png(paste(dirpath, "fig_human_editors_all.png", sep=""), width=pwid,height=pht, units="in",res=300)
   #par(lwd=2)
   #plot(1:6,dat.ededemacs,ylim=c(0,100),xlab="Day",ylab="Seconds/correct operation",type="b",pch=2)
   #abline(v=2.5,lty=3,lwd=1)
@@ -53,8 +51,8 @@ if (PLOT_SOURCE == "HUMAN") {
   
   # Data plot, but now split into three panels
   
-  #x11(width=pwid,height=pht)
-  # png(paste(outpath, "fig_human_editors_plain.png", sep=""), width=pwid,height=pht, units="in",res=300)
+  # ED-ED-EMACS, EDT-EDT-EMACS, EMACS-EMACS-EMACS
+  # png(paste(dirpath, "fig_human_editors_plain.png", sep=""), width=pwid,height=pht, units="in",res=300)
   # #par(mfrow=c(2,1))
   # par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)
   # plot(1:6,dat.ededemacs,ylim=c(0,100),xlab="Day",ylab="Seconds/correct operation",type="b",pch=2, main="Human")
@@ -67,8 +65,9 @@ if (PLOT_SOURCE == "HUMAN") {
   # legend(2.9,99,legend=c("edt-edt-emacs","ed-ed-emacs","emacs-emacs-emacs"),lty=1,pch=c(4,2,1),bg="white", pt.cex=1, cex=0.9)
   # dev.off()
   # 
+  # EDT-ED-EMACS, ED-ED-EMACS
   # #x11(width=pwid,height=pht)
-  # png(paste(outpath, "fig_human_editors_edted.png", sep=""), width=pwid,height=pht, units="in",res=300)
+  # png(paste(dirpath, "fig_human_editors_edted.png", sep=""), width=pwid,height=pht, units="in",res=300)
   # par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)
   # plot(1:6,dat.ededemacs,ylim=c(0,100),type="b",pch=2,xlab="Day",ylab="Seconds/correct operation", main="Human")
   # abline(v=2.5,lty=3,lwd=1)
@@ -77,8 +76,8 @@ if (PLOT_SOURCE == "HUMAN") {
   # legend(3,99,legend=c("edt-ed-emacs","ed-ed-emacs"),pch=2,lty=c(3,1),bg="white", pt.cex=1, cex=1)
   # dev.off()
   
-  #x11(width=pwid,height=pht)
-  png(paste(outpath, "fig_human_editors_ededt.png", sep=""), width=pwid,height=pht, units="in",res=300)
+  # ED-EDT-EMACS, EDT-EDT-EMACS
+  png(paste(dirpath, "fig_human_editors_ededt.png", sep=""), width=pwid,height=pht, units="in",res=300)
   par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)
   plot(1:6,dat.edtedtemacs,ylim=c(0,100),type="b",pch=4,xlab="Day",ylab="Seconds/correct operation", main="Human")
   abline(v=2.5,lty=3,lwd=1)
@@ -101,27 +100,20 @@ if (PLOT_SOURCE == "HUMAN") {
   for (t in T) {
     
     graphname = ifelse(PLOT_SOURCE=="PRIMS", "", 
-                       paste("_", ifelse(PLOT_SPREADING, "scu_", ""), "l", 
-                      ifelse(PLOT_L3 && !PLOT_L2, 
-                             paste(ifelse(PLOT_LC, "c", ""), "3only", sep=""),
-                             paste(ifelse(PLOT_LC, "c", ""), ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), ifelse(PLOT_MANUAL, "m", ""), sep="")), 
-                      "_t", t, sample, sep=""))
+                       paste("_l", ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
+                             ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(PLOT_LC, "c", ""), ifelse(PLOT_SEQLINK, "q", ""), 
+                            "_t", t, sample, sep=""))
     
-    filepath <- ifelse(PLOT_SOURCE=="PRIMS", "/home/bryan/Actransfer/supplemental/Actransfer distribution/Editors/MyResults/editor_out2_X.dat",
-                       ifelse(LOAD_VERBOSE,
-                              paste("/home/bryan/Documents/Research/PRIMsDuplications/Editors/verbose_editors_props", graphname,"_X1pr",DC_MODE,".dat", sep=""),
-                              paste("/home/bryan/Documents/Research/PRIMsDuplications/Editors/verbose_editors_props", graphname,".dat", sep=""))
-    )
+    filepath <- ifelse(PLOT_SOURCE=="PRIMS", paste(dirpath,"editor_out2_X.dat",sep=""),
+                              paste(dirpath,"verbose_editors_props",graphname,"_X.dat", sep="")
+                      )
     
     # Read in the model results
     dat <- read.table(filepath)
-    if (!LOAD_VERBOSE) {
-      names(dat) <- c("condition","day","editor","trial","type","ll","mt","time")
-    } else if (PLOT_SOURCE=="PRIMS") {
+    if (PLOT_SOURCE=="PRIMS") {
       dat <- data.frame(dat[1:13],lapply(dat[9],(function(x) x*0.05)))
       names(dat) <- c("condition","day","editor","trial","type","ll","mt","time", "DC","learned","runs","retrievals","avg_rt","DCtime")
     } else {
-      #dat <- data.frame(dat[1:12],lapply(c(dat[9],dat[11]),(function(x) x[1]+x[2])))  # Calculate total time as latency + ST (ST is 50ms*DCs+ltm_time)
       dat <- data.frame(dat[1:13], dat[9] + dat[11])
       dat <- data.frame(dat[1:14],lapply(dat[10],(function(x) x*0.05)))
       names(dat) <- c("condition","day","editor","trial","type","ll","mt","RT","latency","DC","ST","retrievals","fails","time","DCtime")
@@ -130,7 +122,6 @@ if (PLOT_SOURCE == "HUMAN") {
                               ,list(condition,day),mean))
     
     # Plot the model
-    
     if (PLOT_VAR=="time") {
       y_range <- c(0,100)
       y_label <- "Seconds/correct operation"
@@ -154,7 +145,7 @@ if (PLOT_SOURCE == "HUMAN") {
     legend_y <- 1.0*y_range[2]
     legend_x <- 3.3
     legend_scale <- 1
-    savename <- paste(outpath, ifelse(PLOT_SOURCE=="PRIMS", "fig1_prims_editors_", "fig1_props_editors_PR"), switch(PLOT_VAR,"time"="ST","DC"="DC","retrievals"="RS","avg_rt"="ART","RT"="RT","DCtime"="DCT"), graphname, sep="")
+    savename <- paste(dirpath, ifelse(PLOT_SOURCE=="PRIMS", "fig_prims_editors_", "fig_props_editors_"), switch(PLOT_VAR,"time"="ST","DC"="DC","retrievals"="RS","avg_rt"="ART","RT"="RT","DCtime"="DCT"), graphname, sep="")
     
     #x11(width=pwid,height=pht)
     #par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)
@@ -195,45 +186,16 @@ if (PLOT_SOURCE == "HUMAN") {
     
     pCh <- ifelse(PLOT_SOURCE=="PRIMS",3, 
                   ifelse(PLOT_SPREADING,2,1))
-    #x11(width=6,height=6)
     png(paste(savename,"_ededt.png",sep=""), width=pwid,height=pht, units="in",res=300)
     par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)
     plot(1:6,dat.m["EDT-EDT-EMACS",],ylim=y_range,type="b",pch=pCh,xlab="Day",ylab=y_label,cex.axis=1,col="black")
     abline(v=2.5,lty=3,lwd=1)
     abline(v=4.5,lty=3,lwd=1)
     lines(dat.m["ED-EDT-EMACS",],type="b",pch=pCh,lty=2)
-    #lines(dat.ededtemacs,type="b",pch=3,lty=2,col="gray70")
-    
-    #lines(dat.m["ED-EDT-EMACS",],type="b",pch=pCh,lty=2)
     
     legend(legend_x,legend_y,legend=c("edt-edt-emacs","ed-edt-emacs"),pch=c(pCh,pCh),lty=c(1,3),bg="white", pt.cex=1, cex=legend_scale,col=c("black","black"))
     title(maintxt, line=0.3)
     dev.off()
   }
   
-  # Calculate transfer
-  
-  # Global transfer
-  model.ed2edt <- transfer(dat.m["EDT-EDT-EMACS",1],dat.m["EDT-EDT-EMACS",3],dat.m["ED-EDT-EMACS",3])
-  model.edt2ed <- transfer(dat.m["ED-ED-EMACS",1],dat.m["ED-ED-EMACS",3],dat.m["EDT-ED-EMACS",3])
-  model.line2emacs <- transfer(dat.m["EMACS-EMACS-EMACS",1],dat.m["EMACS-EMACS-EMACS",5],(dat.m["ED-ED-EMACS",5]+dat.m["EDT-ED-EMACS",5]+dat.m["ED-EDT-EMACS",5]+dat.m["EDT-EDT-EMACS",5])/4)
-  
-  # Transfer split in LL phase and MT phase
-  
-  dat.mll <- with(dat,tapply(ll,list(condition,day),mean))
-  #model.ed2edt <- 
-  transfer(dat.mll["EDT-EDT-EMACS",1],dat.mll["EDT-EDT-EMACS",3],dat.mll["ED-EDT-EMACS",3])
-  #model.edt2ed <- 
-  transfer(dat.mll["ED-ED-EMACS",1],dat.mll["ED-ED-EMACS",3],dat.mll["EDT-ED-EMACS",3])
-  #model.line2emacs <- 
-  transfer(dat.mll["EMACS-EMACS-EMACS",1],dat.mll["EMACS-EMACS-EMACS",5],(dat.mll["ED-ED-EMACS",5]+dat.mll["EDT-ED-EMACS",5]+dat.mll["ED-EDT-EMACS",5]+dat.mll["EDT-EDT-EMACS",5])/4)
-  
-  dat.mmt <- with(dat,tapply(mt,list(condition,day),mean))
-  #model.ed2edt <- 
-  transfer(dat.mmt["EDT-EDT-EMACS",1],dat.mmt["EDT-EDT-EMACS",3],dat.mmt["ED-EDT-EMACS",3])
-  #model.edt2ed <- 
-  transfer(dat.mmt["ED-ED-EMACS",1],dat.mmt["ED-ED-EMACS",3],dat.mmt["EDT-ED-EMACS",3])
-  #model.line2emacs <- 
-  transfer(dat.mmt["EMACS-EMACS-EMACS",1],dat.mmt["EMACS-EMACS-EMACS",5],(dat.mmt["ED-ED-EMACS",5]+dat.mmt["EDT-ED-EMACS",5]+dat.mmt["ED-EDT-EMACS",5]+dat.mmt["EDT-EDT-EMACS",5])/4)
-
 }

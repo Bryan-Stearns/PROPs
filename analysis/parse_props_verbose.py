@@ -87,9 +87,8 @@ def convertData(path, timepath, domain, actions):
                 fail_count = 0
                 lastSuccessDC = 0
                 lastSuccessTime = 0.0
-                if DECAY_RETRIEVALS == "pr":
-                    PRIM_TIME = float(actrfile.readline().split()[-1])
-                    LTM_TIME = PRIM_TIME - (DC_TIME * 4.0)
+                PRIM_TIME = float(actrfile.readline().split()[-1])
+                LTM_TIME = PRIM_TIME - (DC_TIME * 4.0)
         # Notice change in procedure
         elif echoInd >= 0 and len(rows) > 0:
             if not printing:
@@ -124,11 +123,10 @@ def convertData(path, timepath, domain, actions):
 
 
 def main():
-    #pathdir = 'C:\cygwin64\home\Bryan\'
-    #pathdir = '/home/bryan/Dropbox/UM_misc/Soar/Research/'
-    pathdir = '/home/bryan/Documents/Research/PRIMsDuplications/Editors/'
-    conv_types = ['scu_lc123m']
-    samples = ['_s12']
+    #pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/'
+    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/'
+    conv_types = ['l123smc','l12smc']
+    samples = ['2']
     
     T = ['48']
     
@@ -138,8 +136,8 @@ def main():
     for ctype in conv_types:
         for t in T:
             for sample in samples:
-                convertData(pathdir + 'verbose_' + domain + '_props_' + ctype + '_t' + t + sample + '.dat', 
-                            "/home/bryan/Actransfer/supplemental/Actransfer distribution/Editors/MyResults/editor_out2_X.dat",
+                convertData(pathdir + 'verbose_' + domain + '_props_' + ctype + '_t' + t + '_s' + sample + '.dat', 
+                            "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/editor_out2_X.dat",
                             domain, actions)
     
 

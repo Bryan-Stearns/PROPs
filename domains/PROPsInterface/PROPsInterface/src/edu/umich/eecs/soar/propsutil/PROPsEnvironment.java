@@ -48,7 +48,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	
 	protected int numAgentInputs = 3,
 				  numAgentOutputs = 3;
-	private ArrayList<WMElement> inputs;
+	private ArrayList<WMElement> inputWMEs;
+	private ArrayList<String> inputs;
 	private ArrayList<String> outputs;
 
 
@@ -57,8 +58,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 
 	//abstract protected void user_initEnvironment();
 	abstract protected void user_createAgent();
-	abstract protected void user_initTask(String task, String taskSeqName);
 	abstract protected void user_doExperiment();
+	abstract protected void user_agentStart();
+	abstract protected void user_agentStop();
 	abstract protected void user_outputListener(List<String> outputs);
 	abstract protected void user_errorListener(String err);
 	
@@ -70,10 +72,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		userAgentFiles = new ArrayList<String>();
 		reports = new ArrayList<String>();
 		
-		inputs = new ArrayList<WMElement>(numAgentInputs);
+		inputWMEs = new ArrayList<WMElement>(numAgentInputs);
+		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
-		currentLearnMode = new LearnConfig(false, true, false, true, true, true);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
+		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
 		
 		//user_initEnvironment();
 		//   User needs to set: 
@@ -91,6 +94,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			}
 			agent.LoadProductions(proj_dir + agent_condchunk_file);
 		}
+		
+		if (mode.seqs()) {
+			agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
+		}
+		
 		if (mode.learnsAutos() && !mode.learnsAddresses() && !mode.learnsProposals()) {
 			agent.LoadProductions(props_dir + "props_learn_l3only.soar");
 			return;
@@ -121,12 +129,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		agent.SetBlinkIfNoChange(false);
 		agentError = false;
 		
+		// Reset IO
 		input_link = agent.GetInputLink();
-		for (int i=0; i<inputs.size(); ++i) {
-			inputs.set(i, null);
-		}
 		inTask = null;
 		inTaskSeqName = null;
+		
+		setIOSize(numAgentInputs, numAgentOutputs);
+
 		
 		if (props_dir == "") {
 			throw new Exception("ERROR: User did not provide the PROPS directory!");
@@ -219,17 +228,21 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		numAgentInputs = inputSize;
 		numAgentOutputs = outputSize;
 		
-		for (int i=0; i<inputs.size(); ++i) {
-			WMElement in = inputs.get(i);
+		for (int i=0; i<inputWMEs.size(); ++i) {
+			WMElement in = inputWMEs.get(i);
 			if (in != null) {
 				in.DestroyWME();
-				inputs.set(i, null);
+				inputWMEs.set(i, null);
 			}
 		}
 		
-		inputs = new ArrayList<WMElement>(numAgentInputs);
+		inputWMEs = new ArrayList<WMElement>(numAgentInputs);
+		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
+		for (int i=0; i<numAgentInputs; ++i) {
+			inputWMEs.add(null);
+		}
 		for (int i=0; i<numAgentInputs; ++i) {
 			inputs.add(null);
 		}
@@ -238,27 +251,95 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 	}
 	
+	public String getInput(int slot) {
+		if (slot < 0 || slot >= numAgentInputs)
+			return null;
+		return inputs.get(slot);
+	}
 	
+	public List<String> getPerception() {
+		return inputs;
+	}
+
 	public void setInput(int slot, String input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
 		
-		if (inputs.get(slot) != null) {
-			inputs.get(slot).DestroyWME();
+		// Establish the given data on the input link
+		WMElement in = inputWMEs.get(slot);
+		if (in != null) {
+			in.DestroyWME();
 		}
-		inputs.set(slot, input_link.CreateStringWME("in" + (slot+1), input));
+		if (input != null && !input.equals("")) {
+			inputWMEs.set(slot, input_link.CreateStringWME("in" + (slot+1), input));
+		}
+		else {
+			inputWMEs.set(slot, null);
+		}
+		
+		// Save for later internally
+		inputs.set(slot, input);
+	}
+	public void setInput(int slot, int input) throws Exception {
+		if (slot < 0 || slot >= numAgentInputs) {
+			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
+		}
+		
+		// Establish the given data on the input link
+		WMElement in = inputWMEs.get(slot);
+		if (in != null) {
+			in.DestroyWME();
+		}
+		inputWMEs.set(slot, input_link.CreateIntWME("in" + (slot+1), input));
+		
+		// Save for later internally
+		inputs.set(slot, Integer.toString(input));
+	}
+	public void setInput(int slot, double input) throws Exception {
+		if (slot < 0 || slot >= numAgentInputs) {
+			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
+		}
+		
+		// Establish the given data on the input link
+		WMElement in = inputWMEs.get(slot);
+		if (in != null) {
+			in.DestroyWME();
+		}
+		inputWMEs.set(slot, input_link.CreateFloatWME("in" + (slot+1), input));
+		
+		// Save for later internally
+		inputs.set(slot, Double.toString(input));
 	}
 	
-	public void initTask(String task, String taskSeqName) {
-		// Clear input if any
-		for (int i=0; i<inputs.size(); ++i) {
-			WMElement in = inputs.get(i);
-			if (in != null) {
-				in.DestroyWME();
-				inputs.set(i, null);
+	public void clearPerception() {
+		for (int i=0; i<inputWMEs.size(); ++i) {
+			try {
+				setInput(i, null);
+			} catch (Exception e) {
+				e.printStackTrace();	// Shouldn't happen
 			}
 		}
+	}
+	
+	public void setPerception(List<String> perception) {
+		int lim = numAgentInputs;
+		if (perception.size() < numAgentInputs)
+			lim = perception.size();
+		
+		for (int i=0; i<lim; ++i) {
+			try {
+				this.setInput(i,perception.get(i));
+			} catch (Exception e) {
+				System.err.println("Indexing error when setting perception.");
+			}
+		}
+	}
+	
+	public void setTask(String task, String taskSeqName) {
+		// Clear input if any
+		//clearPerception();
+		// Reset task commands
 		if (inTask != null) {
 			if (!inTask.GetValueAsString().equals(task)) {
 				inTask.DestroyWME();
@@ -278,7 +359,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskSeqName);
 		
 		// Init task
-		user_initTask(task, taskSeqName);
+		//user_initTask(task, taskSeqName);
 
 	}
 
@@ -333,7 +414,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			return;
 		}
 		clearOutputFile();
-		initTask(task, taskSeq);
+		setTask(task, taskSeq);
+
+		user_agentStart();
 		
 		try {
 			SWTApplication swtApp = new SWTApplication();
@@ -350,18 +433,24 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	}
 	
 	public void runAgent(int steps) {
+		user_agentStart();
 		agent.RunSelf(steps);   // Run for the given number of decision cycles
 	}
 	public void runAgent() {
+		user_agentStart();
 		agent.RunSelfForever(); // Run until receiving the finish command
 	}
+	
+	public void continueAgent() {
+		agent.RunSelfForever();
+	}
 
-	public void runExperiments(String exp_name, int samples, List<LearnConfig> trials) {
+	public void runExperiments(String exp_name, int samples, List<LearnConfig> modes) {
 		// For each parameter combination
-		for (LearnConfig l : trials) {
-			currentLearnMode = l;
+		for (LearnConfig m : modes) {
+			currentLearnMode = m;
 				
-			setOutputFile(exp_name + "_l" + l + "_s" + samples + ".dat");
+			setOutputFile(exp_name + "_l" + m + "_s" + samples + ".dat");
 			clearOutputFile();
 
 			for (int i=0; i<samples; ++i) {
@@ -372,7 +461,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			if (verbose)
 				agent.ExecuteCommandLine("clog -c");
 				
-			System.out.println("\nCOMPLETED MODE " + l);
+			System.out.println("\nCOMPLETED MODE " + m);
 		}
 	}
 	
@@ -395,6 +484,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		for (int c = 0; c < C; ++c) {
 			final Identifier id = agent.GetCommand(c);
 			if (id != null && id.IsJustAdded()) {
+				int nChildren = id.GetNumberChildren();
+				if (nChildren != numAgentOutputs)
+					return;
 				
 				// Handle agent-reported errors
 				if (id.GetCommandName().compareTo(CMD_ERROR) == 0) {
@@ -416,7 +508,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					}
 				}
 				// Handle Soar agent commands
-				else if (id.GetCommandName().compareTo(CMD_SAY) == 0) {
+				else if (id.GetCommandName().compareTo(CMD_SAY) == 0
+						&& nChildren == numAgentOutputs) {
 
 					// Get the output
 					for (int i=0; i<numAgentOutputs; ++i) {
@@ -442,23 +535,19 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					id.AddStatusError();
 				}
 				
-				id.AddStatusComplete();
+				if (!(id.GetCommandName().compareTo(CMD_SAY) == 0
+						&& nChildren != numAgentOutputs))
+					id.AddStatusComplete();
 			}
 		}
 
 		if (stopAgent) {
 			// Clear old input
-			for (int i=0; i<inputs.size(); ++i) {
-				WMElement in = inputs.get(i);
-				if (in != null) {
-					in.DestroyWME();
-					inputs.set(i, null);
-				}
-			}
+			clearPerception();
 			agent.StopSelf();
 			
 			// Reset for next trial
-			user_initTask("", "");
+			user_agentStop();
 			
 		}
 	}

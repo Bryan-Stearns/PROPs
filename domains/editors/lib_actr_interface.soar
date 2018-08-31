@@ -1,12 +1,11 @@
 #####	Author: Bryan Stearns, December 2016
-# Interface an ACT-R-buffer-simulating working memory with SMEM.
+# Interface an Actransfer-buffer-simulating working memory with SMEM.
 # Working memory has:
 # <s> 	^RT		# Receptacle for results
 #		^Q		# Query commands
 #			^slot1
 #			^slot2
 #			^slot...
-# Any successful queries fill 
 #####
 
 smem --set learning on
@@ -21,14 +20,6 @@ chunk singleton state RT identifier
 chunk singleton state Q identifier
 chunk singleton state AC identifier
 
-#sp {elio*hack*prefer*greater-algae*div-2
-#	(state <s> ^operator <o1> +
-#				^operator <o2> +)
-#	(<o1> ^name elio-greater-algae-div-2)
-#	(<o2> ^name elio-greater-algae-read-solid)
-#-->
-#	(<s> ^operator <o1> > <o2>)
-#}
 
 # Buffer Init #
 sp {propose*elio*init
@@ -50,30 +41,21 @@ sp {apply*elio*init
 			^RT <r>		# retrieval
 			^Q <q>		# retrieval queries
 			^AC <a>)	# actions
-	(<g> #^Gtask nil
-		^Gcontrol nil
-		^Gtop nil
-		#^il-task nil	# cache of Gtask commanded on input-link
-		^Gparent nil)
+	(<g> ^Gcontrol nil
+		 ^Gtop nil
+		 ^Gparent nil)
 	(<w> ^slot1 nil
-		^slot2 nil
-		^slot3 nil
-		^slot4 nil)
+		 ^slot2 nil
+		 ^slot3 nil
+		 ^slot4 nil)
 	(<a> ^props-agnostic-add true)	# Learned actions which add to AC don't test for existing values
-	#(<a> ^ACout1 nil
-	#	^ACout2 nil
-	#	^ACout3 nil)
-	#(<r> ^slot1 nil
-	#	^slot2 nil
-	#	^slot3 nil)
-		#^slot4 nil)		# Slot4 is the answer slot, only existing when there is a result
 	(<scmd> ^query <qq>)	# This agent code only causes queries, so have static query structure
 	(write (crlf) INITTED (crlf))
 	# Query and Action don't need to be given empty values
 }
 
 # FINISH #
-# Custom for Soar - don't include as a PROP instruction set ##
+# Custom for Soar - don't include as a PROP instruction set #
 sp {lib*actr*propose*finish
 	(state <s> ^G.Gtask finish)
 -->
@@ -89,15 +71,11 @@ sp {lib*actr*apply*finish
 	(<g> ^Gcontrol <gcontrol>
 		^Gtask finish
 		^Gtop <gtop>
-		#^il-task <iltask>
 		^Gparent <gparent>)
 	(<w> ^slot1 <w1>
 		^slot2 <w2>
 		^slot3 <w3>
 		^slot4 <w4>)
-	#(<a> ^ACout1 <a1>
-	#	^ACout2 <a2>
-	#	^ACout3 <a3>)
 	(<r> ^slot1 <r1>
 		^slot2 <r2>
 		^slot3 <r3>)
@@ -106,12 +84,10 @@ sp {lib*actr*apply*finish
 	(<g> ^Gcontrol <gcontrol> -
 		^Gtask finish -
 		^Gtop <gtop> -
-		#^il-task <iltask> -
 		^Gparent <gparent> -
 		^Gcontrol nil
 		#^Gtask nil
 		^Gtop nil
-		#^il-task nil
 		^Gparent nil)
 	# Reset WM
 	(<w> ^slot1 <w1> -
@@ -122,17 +98,6 @@ sp {lib*actr*apply*finish
 		^slot2 nil
 		^slot3 nil
 		^slot4 nil)
-	# Reset AC
-	#(<a> ^ACout1 <a1> -
-	#	^ACout2 <a2> -
-	#	^ACout3 <a3> -
-	#	^ACout1 nil
-	#	^ACout2 nil
-	#	^ACout3 nil)
-	# Reset RT
-	#(<r> ^slot1 <r1> -
-	#	^slot2 <r2> -
-	#	^slot3 <r3> -)
 	# Prompt to reset manual sequence
 	(<s> ^props-flag reset-manual-sequence)
 	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
@@ -164,144 +129,8 @@ sp {lib*actr*instruction*search*impasse
 	(halt)
 }
 
-# TRANSFER INPUT TO TASK SPECIFICATION
-sp {lib*actr*elaborate*input*task
-	(state <s> ^io.input-link <il>
-			   ^G <g>)
-	(<il> ^task <task>)
-	(<g> -^Gtask finish)
--->
-	(<g> ^Gtask <task>)
-	(write (crlf) |*** TASK SET TO | <task> | ***| )
-}
 
-# TRANSFER ACTION TO OUTPUT
-#sp {lib*actr*set*nil*output*1
-#	(state <s> ^operator
-#				^AC <a>)
-#	(<a> -^ACout1)
-#-->
-#	(<a> ^ACout1 nil)
-#}
-#sp {lib*actr*set*nil*output*2
-#	(state <s> ^operator
-#				^AC <a>)
-#	(<a> -^ACout2)
-#-->
-#	(<a> ^ACout2 nil)
-#}
-#sp {lib*actr*set*nil*output*3
-#	(state <s>  ^operator
-#				^AC <a>)
-#	(<a> -^ACout3)
-#-->
-#	(<a> ^ACout3 nil)
-#}
-sp {lib*actr*elaborate*action*output
-	(state <s> ^AC.action <a>
-				^io.output-link <ol>)
-	(<a> ^out1 <o1> )
-	#(<ol> -^say.status complete)
--->
-	(<ol> ^say <a>)
-	#(<a> ^out1 <o1>)
-	#(<a> ^ACout1 <o1> -)  # Sometimes this line doesn't take effect for some reason. (And it's not added the same loop elsewhere.)
-	#(<a> ^ACout1 nil)
-	(write (crlf) |Say: | <o1> (crlf) )
-}
-#sp {lib*actr*elaborate*action*output2
-#	(state <s> ^AC <a>
-#				^io.output-link <ol>)
-#	(<a> ^ACout2 {<o2> <> nil})
-#	(<ol> ^say <p>)
-#-->
-#	(<p> ^out2 <o2>)
-#	#(<a> ^ACout2 <o2> -)
-#	#(<a> ^ACout2 nil)
-#	(write (crlf) |Say2: | <o2> )
-#}
-#sp {lib*actr*elaborate*action*output3
-#	(state <s> ^AC <a>
-#				^io.output-link <ol>)
-#	(<a> ^ACout3 {<o3> <> nil})
-#	(<ol> ^say <p>)
-#-->
-#	(<p> ^out3 <o3>)
-#	#(<a> ^ACout3 <o3> -)
-#	#(<a> ^ACout3 nil)
-#	(write (crlf) |Say3: | <o3> )
-#}
-
-# ONLY CLEAN "ENTER" COMMANDS - OTHERS CAN STAY; DUPLICATE ENTER COMMANDS NEED TO BE UNIQUE THOUGH
-# (Other commands might not have out2 & out3)
-#sp {lib*actr*set*clean*output
-#	:o-support
-#	(state <s> ^io.output-link <ol>
-#				^AC <a>)
-#	(<ol> ^say <os>)
-#	(<os> ^out1 |next-instruction|
-#		^out2 <os2>
-#		^out3 <os3>
-#		^status complete)
-#	(<a> ^ACout1 |next-instruction|
-#		^ACout2 <os2>
-#		^ACout3 <os3>)
-#-->
-#	(<ol> ^say <os> -)
-#	(<a> ^ACout1 |next-instruction| -
-#		^ACout2 <os2> -
-#		^ACout2 <os3> -)
-#	#(write (crlf) |Clean: next-instruction | <os2>)
-#}
-# Failsafe clean, for when AC cleaning above doesn't take effect for some reason
-#sp {lib*actr*set*clean*ACouts*failsafe
-#	:o-support
-#	(state <s> ^AC <a>)
-#	(<a> ^{<attr> << ACout1 ACout2 ACout3 >>} {<o1> <> nil}
-#         ^<attr> nil)
-#-->
-#	(<a> ^<attr> <o1> -) 
-#}
-
-sp {lib*actr*set*clean*output1
-	:o-support
-	(state <s> ^io.output-link <ol>
-				^AC <a>)
-	(<ol> ^say <os>)
-	(<a> ^action <os>)
-	(<os> ^status complete)
--->
-	#(<ol> ^say <os> -)
-	(<a> ^action <os> -)
-	#(write (crlf) |Clean: | <os1>)
-}
-#sp {lib*actr*set*clean*output2
-#	:o-support
-#	(state <s> ^io.output-link <ol>
-#				^AC <a>)
-#	(<ol> ^say <os>)
-#	(<os> ^out2 <os2>
-#		^status complete)
-#	(<a> ^ACout2 <os2>)
-#-->
-#	(<a> ^ACout2 <os2> -)
-#	#(write (crlf) |Clean: | <os2>)
-#}
-#sp {lib*actr*set*clean*output3
-#	:o-support
-#	(state <s> ^io.output-link <ol>
-#				^AC <a>)
-#	(<ol> ^say <os>)
-#	(<os> ^out3 <os3>
-#		^status complete)
-#	(<a> ^ACout3 <os3>)
-#-->
-#	(<a> ^ACout3 <os3> -)
-#	#(write (crlf) |Clean: | <os3>)
-#}
-
-
-# TRANSFER INPUT TO VISUAL
+#### TASK-SPECIFIC: TRANSFER INPUT TO VISUAL ####
 sp {lib*actr*elaborate*visual*in
 	(state <s> ^V <v>
 				^io.input-link <il>)
@@ -318,19 +147,52 @@ sp {lib*actr*elaborate*visual*in
 }
 
 
+
+# TRANSFER INPUT TO TASK SPECIFICATION
+sp {lib*actr*elaborate*input*task
+	(state <s> ^io.input-link <il>
+			   ^G <g>)
+	(<il> ^task <task>)
+	(<g> -^Gtask finish)
+-->
+	(<g> ^Gtask <task>)
+	(write (crlf) |*** TASK SET TO | <task> | ***| )
+}
+
+sp {lib*actr*elaborate*action*output
+	(state <s> ^AC.action <a>
+				^io.output-link <ol>)
+	(<a> ^out1 <o1> )
+-->
+	(<ol> ^say <a>)
+	(write (crlf) |Say: | <o1> (crlf) )
+}
+
+
+sp {lib*actr*set*clean*output
+	:o-support
+	(state <s> ^io.output-link <ol>
+				^AC <a>)
+	(<ol> ^say <os>)
+	(<a> ^action <os>)
+	(<os> ^status complete)
+-->
+	(<a> ^action <os> -)
+}
+
+
+
 # TRANSFER QUERIES TO SMEM
 sp {lib*actr*elaborate*query*transfer
 	(state <s> ^RT <r>
 				^smem.command.query <q>)
 	(<r> ^<attr> {<val> <> nil <> error <> success})
 -->
-	#(write (crlf) |Query: | <r1> | | <r2> | | <r3> )
 	(<q> ^<attr> <val>)
 }
 
 # TRANSFER QUERY RESULTS FROM SMEM
 sp {lib*actr*elaborate*query*collect
-	#:o-support
 	(state <s> ^smem.result.retrieved <sret>
 				^RT <r>)
 	(<sret> ^{<slot> <> |isa|} <val>)
@@ -373,26 +235,7 @@ sp {lib*actr*elaborate*query*failure*error
 -->
 	(<r> ^result error)
 }
-#sp {lib*actr*elaborate*query*failure*error*nils
-#	:o-support
-#	(state <s> ^smem <smem>
-#			^RT <r>)
-#	(<r> ^slot1 error
-#		^{<slot> <> slot1} {<val> <> error <> nil})
-#-->
-#	(<r> ^<slot> <val> -
-#		^<slot> nil)
-#}
-#sp {lib*actr*elaborate*query*failure*error*nils-1
-#	:o-support
-#	(state <s> ^smem <smem>
-#			^RT <r>)
-#	(<r> ^slot1 error
-#		^slot1 {<val> <> error <> nil})
-#-->
-#	(<r> ^slot1 <val> -
-#		^slot1 nil)
-#}
+
 sp {lib*actr*elaborate*query*failure*nil
 	(state <s> ^smem <smem>
 			^RT <r>)
@@ -439,9 +282,7 @@ sp {lib*actr*apply*query*collect*clean					# FIXME: Replacing with o-supported n
 	(<g> ^clear-rt <any>)
 -->
 	(<r> ^<slot> <val> -)
-	#	^<slot> nil)
 	(<g> ^clear-rt <any> -)
-	#(write (crlf) |CLEAN Q!| (crlf))
 }
 sp {lib*actr*apply*query*collect*clean*nonil
 	:o-support
@@ -453,7 +294,6 @@ sp {lib*actr*apply*query*collect*clean*nonil
 -->
 	(<r> ^<slot> <val> -)
 	(<g> ^clear-rt <any> -)
-	#(write (crlf) |CLEAN Q!| (crlf))
 }
 sp {lib*actr*apply*query*collect*clean*nonil*all
 	:o-support

@@ -1,28 +1,23 @@
 package edu.umich.eecs.soar.props.editors;
 
-import sml.Agent;
-import sml.Agent.PrintEventInterface;
-import sml.Kernel;
+import java.util.ArrayList;
+
+import edu.umich.eecs.soar.propsutil.LearnConfig;
 
 public class SMLClient {
 	
-	public static final PrintEventInterface myPrinter =	new	PrintEventInterface() {
-		public void	printEventHandler(int eventID, Object data,	Agent agent, String	message) {
-			System.out.println("Soar said: <" + message	+ ">");
-		}
-	};
-	
 	public static void main(String[] args) {
 		
-		Kernel kernel = Kernel.CreateKernelInNewThread();
-		kernel.SetAutoCommit(false);
+		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
+		expList.add(new LearnConfig("12scm", 48));
+		expList.add(new LearnConfig("123scm", 48));
 
-		EditorsWorld world = new EditorsWorld(kernel);
-		world.doLevelThresholdSweep("editors_props",12);
-
-		//world.runDebug();
+		EditorsWorld world = new EditorsWorld();
+		world.runExperiments("editors_props", 2, expList);
 		
-		kernel.Shutdown();
+		//world.setConfig(new LearnConfig("scm123", 2));
+		//world.runEditorsDebug("ed",2);
+		
 	}
 
 }

@@ -139,7 +139,7 @@
 	(case action
 	  (get-property 
            (if (= (mod (strooptask-count *sttask*) 2) 0)
-               (setf (strooptask-type *sttask*) 'congruent
+             (setf (strooptask-type *sttask*) 'congruent
                      (strooptask-answer *sttask*) 'red-concept
                      *perception* '(rred red-color red-word))
              (setf (strooptask-type *sttask*) 'incongruent
@@ -147,8 +147,9 @@
                    *perception* '(rblue red-color blue-word)))
            (when (eq h1 'color-property) (setf *perception* (list 'rblue (second *perception*))))  ;;; If we ask for color specifically leave out the distractor
            (setf latency 0.2)) 
-	  (say (setf latency 0.2)
-              (let ((correct (equal h1 (strooptask-answer *sttask*))))
+	  (say 
+        (setf latency 0.2)
+        (let ((correct (equal h1 (strooptask-answer *sttask*))))
                 (trigger-reward (if correct (task-reward *task*) 0))
                 (push (list (1+ (strooptask-count *sttask*))(+ (mp-time) 0.2 (- (strooptask-starttime *sttask*))) (strooptask-type *sttask*) correct) *results*))
 	    (let ((new-percept (if (> (incf (strooptask-count *sttask*)) (strooptask-numtrials *sttask*)) '(last)

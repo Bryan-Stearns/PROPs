@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="sml.jar"/>
 	<classpathentry kind="lib" path="/home/bryan/Soar/development/Soar/out/java/soar-debugger.jar"/>
+	<classpathentry kind="lib" path="/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/PROPsInterface.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -19,32 +19,32 @@ sp {elaborate*lib*prohibit*list*commands
     (state <s> ^smem <smem>)
     (<smem> ^prohibit-list.prohibit <p>
             ^command <scmd>)
-    (<scmd> -^store
-            -^pre-store)
+    (<scmd> -^store)
+#            -^pre-store)
 -->
     (<scmd> ^prohibit <p>)
 }
 
 # USE PRE-STORE AS A WAY TO INTERJECT STORE COMMANDS DURING PROHIBITS
-sp {elaborate*lib*prestore*ready
-    (state <s> ^smem <smem>)
-    (<smem> ^command.pre-store)
--->
-    (<smem> ^pre-store-ready true)
-}
+#sp {elaborate*lib*prestore*ready
+#    (state <s> ^smem <smem>)
+#    (<smem> ^command.pre-store)
+#-->
+#    (<smem> ^pre-store-ready true)
+#}
 
-sp {propose*lib*store*prestore
-    (state <s> ^smem.pre-store-ready)
--->
-    (<s> ^operator <o> + !)
-    (<o> ^name lib-auto-smem-pre-store)
-}
-sp {apply*lib*store*prestore
-    (state <s> ^operator.name lib-auto-smem-pre-store
-               ^smem.command <scmd>)
-    (<scmd> ^pre-store <ps>)
--->
-    (<scmd> ^store <ps>
-            ^pre-store <ps> -)
-}
+#sp {propose*lib*store*prestore
+#    (state <s> ^smem.pre-store-ready)
+#-->
+#    (<s> ^operator <o> + !)
+#    (<o> ^name lib-auto-smem-pre-store)
+#}
+#sp {apply*lib*store*prestore
+#    (state <s> ^operator.name lib-auto-smem-pre-store
+#               ^smem.command <scmd>)
+#    (<scmd> ^pre-store <ps>)
+#-->
+#    (<scmd> ^store <ps>
+#            ^pre-store <ps> -)
+#}
 

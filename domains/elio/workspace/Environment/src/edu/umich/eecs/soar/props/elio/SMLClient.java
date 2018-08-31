@@ -1,30 +1,21 @@
 package edu.umich.eecs.soar.props.elio;
 
-import sml.Agent;
-import sml.Agent.PrintEventInterface;
-import sml.Kernel;
+import java.util.ArrayList;
+
+import edu.umich.eecs.soar.propsutil.LearnConfig;
 
 public class SMLClient {
 	
-	public static final PrintEventInterface myPrinter =	new	PrintEventInterface() {
-		public void	printEventHandler(int eventID, Object data,	Agent agent, String	message) {
-			System.out.println("Soar said: <" + message	+ ">");
-		}
-	};
-	
 	public static void main(String[] args) {
 		
-		Kernel kernel = Kernel.CreateKernelInNewThread();
-		kernel.SetAutoCommit(false);
+		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
+		expList.add(new LearnConfig("12m", 10));
+		expList.add(new LearnConfig("123m", 10));
 
-		ElioWorld world = new ElioWorld(kernel);
+		ElioWorld world = new ElioWorld();
+		//world.runExperiments("elio_props", 2, expList);
+		world.runDebug("procedure-a","procedure-a");
 		
-		world.doLevelThresholdSweep("test_elio_props", 2);
-		
-		//world.runDebug();
-			
-		
-		kernel.Shutdown();
 	}
 
 }
