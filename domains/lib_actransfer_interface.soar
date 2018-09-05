@@ -80,6 +80,7 @@ sp {lib*actr*apply*finish
 		^WM <w2>
 		^AC <a> -
 		^AC <a2>)
+	(<a2> ^props-agnostic-add true)
 	# Prompt to reset manual sequence
 	(<s> ^props-flag reset-manual-sequence)
 	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )

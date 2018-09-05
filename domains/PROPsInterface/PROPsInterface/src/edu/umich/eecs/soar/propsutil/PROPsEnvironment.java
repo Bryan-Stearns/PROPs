@@ -21,6 +21,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	private boolean verbose = true;
 	private boolean save_percepts = false;
 	private boolean testing = false;
+	private boolean running = false;
 	protected boolean agentError = false;
 	private String proj_dir = "";
 	private String props_dir = "";
@@ -37,6 +38,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					agent_instruction_file = "",
 					agent_fetchseq_file = "",
 					agent_genericsoar_file = "";
+	protected String taskName = "TEST",
+					 taskSequenceName = "TEST";
 	
 	protected LearnConfig currentLearnMode;
 	
@@ -76,7 +79,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
-		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
+		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
 		
 		//user_initEnvironment();
 		//   User needs to set: 
@@ -93,6 +96,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 				throw new Exception("ERROR: User did not provide the condition chunk file!");
 			}
 			agent.LoadProductions(proj_dir + agent_condchunk_file);
+		}
+		
+		if (mode.learnsAddressChunks()) {
+			// Learn addressing chunks only (and save them for later sourcing)
+			agent.LoadProductions(props_dir + "props_learn_l1.soar");
+			return;
 		}
 		
 		if (mode.seqs()) {
@@ -135,6 +144,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		inTaskSeqName = null;
 		
 		setIOSize(numAgentInputs, numAgentOutputs);
+		running = false;
 
 		
 		if (props_dir == "") {
@@ -339,6 +349,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	public void setTask(String task, String taskSeqName) {
 		// Clear input if any
 		//clearPerception();
+		
 		// Reset task commands
 		if (inTask != null) {
 			if (!inTask.GetValueAsString().equals(task)) {
@@ -349,6 +360,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 		else 
 			inTask = input_link.CreateStringWME("task", task);
+		
 		if (inTaskSeqName != null) {
 			if (!inTaskSeqName.GetValueAsString().equals(taskSeqName)) {
 				inTaskSeqName.DestroyWME();
@@ -358,9 +370,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		else
 			inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskSeqName);
 		
-		// Init task
-		//user_initTask(task, taskSeqName);
-
+		this.taskName = task;
+		this.taskSequenceName = taskSeqName;
 	}
 
 
@@ -404,9 +415,16 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 	}
 	
-	public void runDebug(String task, String taskSeq) {
+	public void runDebug(String task, String taskSeq, int threshold, String learnMode) {
 		testing = true;
-		setOutputFile(task + "_" + taskSeq + "_debug_out.txt");
+		currentLearnMode.set(learnMode);
+		currentLearnMode.setChunkThreshold(threshold);
+		
+		if (task.compareTo(taskSeq) != 0)
+			setOutputFile(task + "_" + taskSeq + "_debug_out.txt");
+		else
+			setOutputFile(task + "_debug_out.txt");
+		
 		try {
 			initAgent();
 		} catch (Exception e1) {
@@ -433,16 +451,88 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	}
 	
 	public void runAgent(int steps) {
-		user_agentStart();
+		if (!running) {
+			user_agentStart();
+			running = true;
+		}
 		agent.RunSelf(steps);   // Run for the given number of decision cycles
 	}
 	public void runAgent() {
-		user_agentStart();
+		if (!running) {
+			user_agentStart();
+			running = true;
+		}
 		agent.RunSelfForever(); // Run until receiving the finish command
 	}
 	
-	public void continueAgent() {
-		agent.RunSelfForever();
+
+	public void makeSpreadingChunks(String taskName, List<String> seqNames, String fname) {
+		testing = true;
+		outFileName = "make_chunks.txt";
+		currentLearnMode.set(true, false, false, true, true, false, false, false);
+		currentLearnMode.setChunkThreshold(1);
+		
+		makeChunkingRuns(taskName, seqNames, fname);
+		testing = false;
+	}
+	public void makeAddressingChunks(String taskName, List<String> seqNames, String fname) {
+		testing = true;
+		outFileName = "make_chunks.txt";
+		currentLearnMode.set(false, false, false, false, false, true, false, true);
+		currentLearnMode.setChunkThreshold(1);
+		
+		makeChunkingRuns(taskName, seqNames, fname);
+		testing = false;
+	}
+	
+	public void makeChunkingRuns(String taskName, List<String> taskSeqs, String fname) {
+
+		try {
+			initAgent();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return;
+		}
+		clearOutputFile();
+
+		user_agentStart();
+		
+		int chunksDelta = 0,
+			chunksCurr = 0,
+			chunksPrev = 0;
+		int cont = currentLearnMode.getChunkThreshold() + 2;
+		
+		for (String task : taskSeqs) {
+			setTask(taskName, task);
+			
+			while (cont > 0) {
+				agent.RunSelfForever();
+				
+				if (chunksCurr == 0 || chunksPrev == 0)
+					continue;
+				// Check how many chunks were learned this past run
+				chunksPrev = chunksCurr;
+				chunksCurr = agent.ExecuteCommandLine("p -c").split("\n").length;
+				chunksDelta = chunksCurr - chunksPrev;
+				
+				if (chunksDelta == 0)
+					cont--;
+				else
+					cont = currentLearnMode.getChunkThreshold() + 2;
+			}
+			cont = currentLearnMode.getChunkThreshold() + 1;
+		}
+		
+		// Save chunks
+		try(FileWriter fw = new FileWriter(fname, false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw))
+		{
+			out.println(agent.ExecuteCommandLine("p -fc"));
+		}
+		catch (IOException e) {
+			System.err.println("ERROR: Unable to write to file '" + fname + "'");
+		}
 	}
 
 	public void runExperiments(String exp_name, int samples, List<LearnConfig> modes) {
@@ -477,6 +567,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			return;
 		}
 		
+		// Clear old input
+		clearPerception();
+		
 		// Note the availability of this function for reporting:  int DC = agent.GetDecisionCycleCounter();
 		// Seemed broken when tried to use it before. Can't ignore impasse DCs in any case.
 
@@ -485,8 +578,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			final Identifier id = agent.GetCommand(c);
 			if (id != null && id.IsJustAdded()) {
 				int nChildren = id.GetNumberChildren();
-				if (nChildren != numAgentOutputs)
-					return;
+				//if (nChildren != numAgentOutputs)
+					//return;
 				
 				// Handle agent-reported errors
 				if (id.GetCommandName().compareTo(CMD_ERROR) == 0) {

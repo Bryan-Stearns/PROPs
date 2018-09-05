@@ -49,11 +49,16 @@ public class ElioWorld extends PROPsEnvironment {
 		this.setPropsDir(props_dir);
 		this.setProjDir(proj_dir);
 		
-		this.setCondChunkFile("prims_elio02_condspread_chunks.soar");
-		this.setAddressChunkFile("prims_elio01_L1-chunks.soar");
+		/*this.setCondChunkFile("elio_agent_condspread-chunks.soar");
+		this.setAddressChunkFile("elio_agent_L1-chunks.soar");
+		this.setFetchSeqFile("elio_agent_fetch-procedures.soar");
+		this.setInstructionsFile("elio_agent_instructions.soar");//"prims_elio01_agent_smem.soar");
+		this.setSoarAgentFile("elio_agent.soar");*/
+		this.setCondChunkFile("prims_elio02_condspread-chunks.soar");
+		this.setAddressChunkFile("prims_elio02_L1-chunks.soar");
 		this.setFetchSeqFile("prims_elio_procedures_smem.soar");
 		this.setInstructionsFile("test_elio_agent_PROP.soar");//"prims_elio01_agent_smem.soar");
-		this.setSoarAgentFile("prims_elio01_agent.soar");
+		this.setSoarAgentFile("test_elio_agent.soar");
 		
 		this.setIOSize(2, 2);
 		
@@ -64,9 +69,9 @@ public class ElioWorld extends PROPsEnvironment {
 		etask = new ETask("", 1,1,0);
 	}
 	
-	
 	@Override
 	protected void user_createAgent() {
+		lastDC = 0;
 	}
 
 	@Override
@@ -94,7 +99,7 @@ public class ElioWorld extends PROPsEnvironment {
 			int DC = agent.GetDecisionCycleCounter();
 			//results.add(new Result(etask, val2, DC - lastDC, chunkCount));
 			this.addReport(String.format("%1$s \t%2$d \t%3$d \t%4$.3f \t%5$s \t%6$d \t%7$d",
-					"TEST", etask.trial, etask.line, (System.nanoTime() - etask.start)/1000000000.0, val2, (DC - lastDC), chunkCount, etask.sample));
+					this.taskName.toUpperCase(), etask.trial, etask.line, (System.nanoTime() - etask.start)/1000000000.0, val2, (DC - lastDC), chunkCount, etask.sample));
 			
 			lastDC = DC;
 			// Start next task
@@ -122,20 +127,17 @@ public class ElioWorld extends PROPsEnvironment {
 	@Override
 	protected void user_doExperiment() {
 		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-b", "procedure-c", "procedure-d"));
-		int NUM_TRIALS = 1;
+		int NUM_TRIALS = 50;
 		
-		try {
-			this.initAgent();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 		etask.sample = current_sample++;
 		lastDC = 0;
 		
 		// Alternate NUM_TRIALS trials of procedure-A with NUM_TRIALS trials of each of the others
 		for (String task : tasks) {
-
+	
+			try {this.initAgent();} catch (Exception e) {e.printStackTrace();}
+			
 			this.setTask("procedure-a", "procedure-a");
 			etask.init("procedure-a");
 			for (int i=0; i<NUM_TRIALS; ++i) {
@@ -145,8 +147,9 @@ public class ElioWorld extends PROPsEnvironment {
 			this.setTask(task, task);
 			etask.init(task);
 			for (int i=0; i<NUM_TRIALS; ++i) {
-				this.continueAgent();
+				this.runAgent();
 			}
+			
 			this.printReports();
 			
 		}
