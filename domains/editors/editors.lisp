@@ -424,7 +424,7 @@
   ;; Initialize: start in line 1, intialize the Gcontrol, read the first instruction and determine the first target line
   ;~ init
   ;~~ start
-  (ins :condition (Gcontrol = nil) :action (one -> WMcurline   read-instruction -> AC1  find-goal -> Gcontrol) :description "Start at line 1, read the next instruction")
+  (ins :condition (Gcontrol = nil) :action (one -> WMcurline nil -> WMsearch-goal  read-instruction -> AC1  find-goal -> Gcontrol) :description "Start at line 1, read the next instruction")
   ;~~ find-goal
   (ins :condition (Gcontrol = find-goal Vtype <> end) :action (Vline -> WMsearch-goal line-strategy -> Gcontrol read-screen -> AC1) :description "Look at the screen to determine where to go")
   
@@ -499,7 +499,7 @@
   ;; Initialize: start in line 1, intialize the Gcontrol, read the first instruction and determine the first target line
   ;~ init
   ;~~ start
-  (ins :condition (Gcontrol = nil) :action (one -> WMcurline   read-instruction -> AC1  find-goal -> Gcontrol) :description "Start at line 1, read the next instruction")
+  (ins :condition (Gcontrol = nil) :action (one -> WMcurline nil -> WMsearch-goal   read-instruction -> AC1  find-goal -> Gcontrol) :description "Start at line 1, read the next instruction")
   ;~~ find-goal
   (ins :condition (Gcontrol = find-goal Vtype <> end) :action (Vline -> WMsearch-goal line-strategy -> Gcontrol read-screen -> AC1) :description "Look at the screen to determine where to go")
   
@@ -516,7 +516,7 @@
   ;~~ t-word
   (ins :condition (Gcontrol = word-strategy  Vword2 = long) :action ((t-word Vword1) -> AC) :description "If it is a long word, then do the t command to search it")
   ;~~ next
-  (ins :condition (Gcontrol = word-strategy  Vword2 = short) :action (focus-on-next-word -> AC1) :description "If it is a short word, then look at the next word")
+  (ins :condition (Gcontrol = word-strategy  Vword2 = short Vword1 <> nil) :action (focus-on-next-word -> AC1) :description "If it is a short word, then look at the next word")
   ;~~ find-destination
   (ins :condition (Gcontrol = word-strategy Vtype = word) :action (find-line -> Gcontrol Vline -> WMcurline) :description "We are done with the move, but need to check we're actually there")
   
@@ -580,7 +580,7 @@
   ;; Initialize: intialize the Gcontrol, read the first instruction and determine the first target line
   ;~ init
   ;~~ start
-  (ins :condition (Gcontrol = nil) :action (read-instruction -> AC1  find-goal -> Gcontrol) :description "Read the first instruction")
+  (ins :condition (Gcontrol = nil) :action (read-instruction -> AC1 nil -> WMsearch-goal find-goal -> Gcontrol) :description "Read the first instruction")
   ;~~ find-goal
   (ins :condition (Gcontrol = find-goal Vtype <> end) :action (Vline -> WMsearch-goal find-line -> Gcontrol read-screen -> AC1) :description "Look at the screen to determine where to go")
   

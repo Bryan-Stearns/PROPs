@@ -6,7 +6,7 @@
 sp {propose*editors*ed*init*start
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask ed)
-	(<c1> ^Gcontrol nil)
+	(<c1> -^Gcontrol )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-init-start)
@@ -15,21 +15,24 @@ sp {apply*editors*ed*init*start
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot1 <c3>)
-	(state <s> ^AC <c4>)
-	(state <s> ^G <c5>)
-	(<c5> ^Gcontrol <c6>)
+	(<c2> ^slot2 <c4>)
+	(state <s> ^AC <c5>)
+	(state <s> ^G <c6>)
+	(<c6> ^Gcontrol <c7>)
 	(<c1> ^name editors-ed-init-start)
 	-->
 	(<c2> ^slot1 one)
-	(<c4> ^action <n1>)
+	(<c2> ^slot2 nil)
+	(<c5> ^action <n1>)
 	(<n1> ^out1 read-instruction)
-	(<c5> ^Gcontrol find-goal)
+	(<c6> ^Gcontrol find-goal)
 	(<c2> ^slot1 <c3> -)
-	(<c5> ^Gcontrol <c6> -)
+	(<c2> ^slot2 <c4> -)
+	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*ed*init*find*goal
+sp {propose*editors*ed*init*find-goal
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c1> ^Gcontrol find-goal)
 	(<c2> ^in1 <> end)
@@ -37,10 +40,10 @@ sp {propose*editors*ed*init*find*goal
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-init-find-goal)
 }
-sp {apply*editors*ed*init*find*goal
+sp {apply*editors*ed*init*find-goal
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in4 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^G <c6>)
@@ -55,17 +58,17 @@ sp {apply*editors*ed*init*find*goal
 	(<c2> ^slot2 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*ed*line*strategy*test
+sp {propose*editors*ed*line-strategy*test
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask ed)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result nil)
+	(<c2> -^rt-result )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-line-strategy-test)
 }
-sp {apply*editors*ed*line*strategy*test
+sp {apply*editors*ed*line-strategy*test
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
@@ -73,21 +76,22 @@ sp {apply*editors*ed*line*strategy*test
 	(<c3> ^slot2 <c5>)
 	(<c1> ^name editors-ed-line-strategy-test)
 	-->
-	(<c2> ^slot1 diff-3-fact)
-	(<c2> ^slot2 <c4>)
-	(<c2> ^slot3 <c5>)
+	(<c2> ^query <n1>)
+	(<n1> ^slot1 diff-3-fact)
+	(<n1> ^slot2 <c4>)
+	(<n1> ^slot3 <c5>)
 }
-sp {propose*editors*ed*line*strategy*enter
+sp {propose*editors*ed*line-strategy*enter
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask ed)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result success)
+	(<c2> ^rt-result success)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-line-strategy-enter)
 }
-sp {apply*editors*ed*line*strategy*enter
+sp {apply*editors*ed*line-strategy*enter
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -97,17 +101,17 @@ sp {apply*editors*ed*line*strategy*enter
 	(<c2> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*ed*line*strategy*pcmd
+sp {propose*editors*ed*line-strategy*pcmd
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask ed)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result error)
+	(<c2> ^rt-result error)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-line-strategy-pcmd)
 }
-sp {apply*editors*ed*line*strategy*pcmd
+sp {apply*editors*ed*line-strategy*pcmd
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
@@ -126,20 +130,20 @@ sp {apply*editors*ed*line*strategy*pcmd
 	(<c3> ^slot1 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*ed*find*line*next
+sp {propose*editors*ed*find-line*next
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot2 <c3>)
 	(state <s> ^RT <c4>)
 	(<c1> ^Gtask ed)
 	(<c2> ^slot1 <> <c3>)
-	(<c4> ^slot3 nil)
+	(<c4> -^slot3 )
 	(<c1> ^Gcontrol find-line)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-line-next)
 }
-sp {apply*editors*ed*find*line*next
+sp {apply*editors*ed*find-line*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^Q <c3>)
@@ -149,10 +153,11 @@ sp {apply*editors*ed*find*line*next
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^out1 enter)
-	(<c3> ^slot1 count-fact)
-	(<c3> ^slot2 <c5>)
+	(<c3> ^query <n2>)
+	(<n2> ^slot1 count-fact)
+	(<n2> ^slot2 <c5>)
 }
-sp {propose*editors*ed*find*line*read
+sp {propose*editors*ed*find-line*read
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot2 <c3>)
@@ -163,7 +168,7 @@ sp {propose*editors*ed*find*line*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-line-read)
 }
-sp {apply*editors*ed*find*line*read
+sp {apply*editors*ed*find-line*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -175,7 +180,7 @@ sp {apply*editors*ed*find*line*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*ed*find*line*re*next
+sp {propose*editors*ed*find-line*re-next
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -189,7 +194,7 @@ sp {propose*editors*ed*find*line*re*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-line-re-next)
 }
-sp {apply*editors*ed*find*line*re*next
+sp {apply*editors*ed*find-line*re-next
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -202,12 +207,13 @@ sp {apply*editors*ed*find*line*re*next
 	(<c2> ^slot1 <c4>)
 	(<c6> ^action <n1>)
 	(<n1> ^out1 enter)
-	(<c7> ^slot1 count-fact)
-	(<c7> ^slot2 <c4>)
-	(<c7> ^slot3 nil)
+	(<c7> ^query <n2>)
+	(<n2> ^slot1 count-fact)
+	(<n2> ^slot2 <c4>)
+	(<n2> ^slot3 <n3>)
 	(<c2> ^slot1 <c5> -)
 }
-sp {propose*editors*ed*find*line*re*read
+sp {propose*editors*ed*find-line*re-read
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -219,7 +225,7 @@ sp {propose*editors*ed*find*line*re*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-line-re-read)
 }
-sp {apply*editors*ed*find*line*re*read
+sp {apply*editors*ed*find-line*re-read
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -237,9 +243,9 @@ sp {apply*editors*ed*find*line*re*read
 	(<c2> ^slot1 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*ed*find*task*word*for*replace
+sp {propose*editors*ed*find-task-word*for-replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol find-task)
@@ -247,12 +253,12 @@ sp {propose*editors*ed*find*task*word*for*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-word-for-replace)
 }
-sp {apply*editors*ed*find*task*word*for*replace
+sp {apply*editors*ed*find-task-word*for-replace
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -266,9 +272,9 @@ sp {apply*editors*ed*find*task*word*for*replace
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*ed*find*task*word*for*delete
+sp {propose*editors*ed*find-task-word*for-delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol find-task)
@@ -276,12 +282,12 @@ sp {propose*editors*ed*find*task*word*for*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-word-for-delete)
 }
-sp {apply*editors*ed*find*task*word*for*delete
+sp {apply*editors*ed*find-task-word*for-delete
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -295,9 +301,9 @@ sp {apply*editors*ed*find*task*word*for*delete
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*ed*find*task*word*for*insert
+sp {propose*editors*ed*find-task-word*for-insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol find-task)
@@ -305,12 +311,12 @@ sp {propose*editors*ed*find*task*word*for*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-word-for-insert)
 }
-sp {apply*editors*ed*find*task*word*for*insert
+sp {apply*editors*ed*find-task-word*for-insert
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -324,9 +330,9 @@ sp {apply*editors*ed*find*task*word*for*insert
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*ed*find*task*word*next
+sp {propose*editors*ed*find-task-word*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask ed)
@@ -337,7 +343,7 @@ sp {propose*editors*ed*find*task*word*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-word-next)
 }
-sp {apply*editors*ed*find*task*word*next
+sp {apply*editors*ed*find-task-word*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-ed-find-task-word-next)
@@ -345,9 +351,9 @@ sp {apply*editors*ed*find*task*word*next
 	(<c2> ^action <n1>)
 	(<n1> ^out1 move-attention-right)
 }
-sp {propose*editors*ed*find*task*word*read
+sp {propose*editors*ed*find-task-word*read
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask ed)
@@ -357,7 +363,7 @@ sp {propose*editors*ed*find*task*word*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-word-read)
 }
-sp {apply*editors*ed*find*task*word*read
+sp {apply*editors*ed*find-task-word*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -369,9 +375,9 @@ sp {apply*editors*ed*find*task*word*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*ed*word*action*replace
+sp {propose*editors*ed*word-action*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol word-action)
@@ -379,10 +385,10 @@ sp {propose*editors*ed*word*action*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-word-action-replace)
 }
-sp {apply*editors*ed*word*action*replace
+sp {apply*editors*ed*word-action*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-ed-word-action-replace)
@@ -392,9 +398,9 @@ sp {apply*editors*ed*word*action*replace
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*ed*word*action*delete
+sp {propose*editors*ed*word-action*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol word-action)
@@ -402,10 +408,10 @@ sp {propose*editors*ed*word*action*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-word-action-delete)
 }
-sp {apply*editors*ed*word*action*delete
+sp {apply*editors*ed*word-action*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-ed-word-action-delete)
@@ -415,9 +421,9 @@ sp {apply*editors*ed*word*action*delete
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*ed*word*action*insert
+sp {propose*editors*ed*word-action*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol word-action)
@@ -425,10 +431,10 @@ sp {propose*editors*ed*word*action*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-word-action-insert)
 }
-sp {apply*editors*ed*word*action*insert
+sp {apply*editors*ed*word-action*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-ed-word-action-insert)
@@ -438,9 +444,9 @@ sp {apply*editors*ed*word*action*insert
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*ed*word*action*next
+sp {propose*editors*ed*word-action*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 word)
 	(<c1> ^Gcontrol word-action)
@@ -448,7 +454,7 @@ sp {propose*editors*ed*word*action*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-word-action-next)
 }
-sp {apply*editors*ed*word*action*next
+sp {apply*editors*ed*word-action*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -460,9 +466,9 @@ sp {apply*editors*ed*word*action*next
 	(<c3> ^Gcontrol find-goal)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*ed*find*task*line*delete
+sp {propose*editors*ed*find-task-line*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 delete-line)
 	(<c1> ^Gcontrol find-task)
@@ -470,7 +476,7 @@ sp {propose*editors*ed*find*task*line*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-line-delete)
 }
-sp {apply*editors*ed*find*task*line*delete
+sp {apply*editors*ed*find-task-line*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -482,9 +488,9 @@ sp {apply*editors*ed*find*task*line*delete
 	(<c3> ^Gcontrol word-action)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*ed*find*task*line*insert
+sp {propose*editors*ed*find-task-line*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 insert-line)
 	(<c1> ^Gcontrol find-task)
@@ -492,11 +498,11 @@ sp {propose*editors*ed*find*task*line*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-line-insert)
 }
-sp {apply*editors*ed*find*task*line*insert
+sp {apply*editors*ed*find-task-line*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -510,9 +516,9 @@ sp {apply*editors*ed*find*task*line*insert
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*ed*find*task*line*replace
+sp {propose*editors*ed*find-task-line*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
 	(<c2> ^in1 replace-line)
 	(<c1> ^Gcontrol find-task)
@@ -520,11 +526,11 @@ sp {propose*editors*ed*find*task*line*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-line-replace)
 }
-sp {apply*editors*ed*find*task*line*replace
+sp {apply*editors*ed*find-task-line*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -538,7 +544,7 @@ sp {apply*editors*ed*find*task*line*replace
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*ed*find*task*line*type
+sp {propose*editors*ed*find-task-line*type
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask ed)
 	(<c1> ^Gcontrol type-line)
@@ -546,7 +552,7 @@ sp {propose*editors*ed*find*task*line*type
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-ed-find-task-line-type)
 }
-sp {apply*editors*ed*find*task*line*type
+sp {apply*editors*ed*find-task-line*type
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
@@ -563,9 +569,9 @@ sp {apply*editors*ed*find*task*line*type
 }
 sp {propose*editors*ed*finish
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask ed)
-	(<c1> ^Gcontrol <> nil)
+	(<c1> ^Gcontrol )
 	(<c2> ^in1 end)
 	-->
 	(<s> ^operator <n1>)
@@ -578,12 +584,13 @@ sp {apply*editors*ed*finish
 	(<c1> ^name editors-ed-finish)
 	-->
 	(<c2> ^Gtask finish)
+	(<c2> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }
 sp {propose*editors*edt*init*start
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask edt)
-	(<c1> ^Gcontrol nil)
+	(<c1> -^Gcontrol )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-init-start)
@@ -592,21 +599,24 @@ sp {apply*editors*edt*init*start
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot1 <c3>)
-	(state <s> ^AC <c4>)
-	(state <s> ^G <c5>)
-	(<c5> ^Gcontrol <c6>)
+	(<c2> ^slot2 <c4>)
+	(state <s> ^AC <c5>)
+	(state <s> ^G <c6>)
+	(<c6> ^Gcontrol <c7>)
 	(<c1> ^name editors-edt-init-start)
 	-->
 	(<c2> ^slot1 one)
-	(<c4> ^action <n1>)
+	(<c2> ^slot2 nil)
+	(<c5> ^action <n1>)
 	(<n1> ^out1 read-instruction)
-	(<c5> ^Gcontrol find-goal)
+	(<c6> ^Gcontrol find-goal)
 	(<c2> ^slot1 <c3> -)
-	(<c5> ^Gcontrol <c6> -)
+	(<c2> ^slot2 <c4> -)
+	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*edt*init*find*goal
+sp {propose*editors*edt*init*find-goal
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol find-goal)
 	(<c2> ^in1 <> end)
@@ -614,10 +624,10 @@ sp {propose*editors*edt*init*find*goal
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-init-find-goal)
 }
-sp {apply*editors*edt*init*find*goal
+sp {apply*editors*edt*init*find-goal
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in4 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^G <c6>)
@@ -632,17 +642,17 @@ sp {apply*editors*edt*init*find*goal
 	(<c2> ^slot2 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*edt*line*strategy*test
+sp {propose*editors*edt*line-strategy*test
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result nil)
+	(<c2> -^rt-result )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-test)
 }
-sp {apply*editors*edt*line*strategy*test
+sp {apply*editors*edt*line-strategy*test
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
@@ -650,21 +660,22 @@ sp {apply*editors*edt*line*strategy*test
 	(<c3> ^slot2 <c5>)
 	(<c1> ^name editors-edt-line-strategy-test)
 	-->
-	(<c2> ^slot1 diff-3-fact)
-	(<c2> ^slot2 <c4>)
-	(<c2> ^slot3 <c5>)
+	(<c2> ^query <n1>)
+	(<n1> ^slot1 diff-3-fact)
+	(<n1> ^slot2 <c4>)
+	(<n1> ^slot3 <c5>)
 }
-sp {propose*editors*edt*line*strategy*enter
+sp {propose*editors*edt*line-strategy*enter
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result success)
+	(<c2> ^rt-result success)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-enter)
 }
-sp {apply*editors*edt*line*strategy*enter
+sp {apply*editors*edt*line-strategy*enter
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -674,17 +685,17 @@ sp {apply*editors*edt*line*strategy*enter
 	(<c2> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*edt*line*strategy*read*instruction
+sp {propose*editors*edt*line-strategy*read-instruction
 	(state <s> ^G <c1>)
-	(state <s> ^RT <c2>)
+	(state <s> ^smem <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol line-strategy)
-	(<c2> ^result error)
+	(<c2> ^rt-result error)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-read-instruction)
 }
-sp {apply*editors*edt*line*strategy*read*instruction
+sp {apply*editors*edt*line-strategy*read-instruction
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -697,9 +708,9 @@ sp {apply*editors*edt*line*strategy*read*instruction
 	(<c3> ^clear-rt const1)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*edt*line*strategy*look
+sp {propose*editors*edt*line-strategy*look
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol word-strategy)
 	(<c2> ^in1 <> single-word)
@@ -708,7 +719,7 @@ sp {propose*editors*edt*line*strategy*look
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-look)
 }
-sp {apply*editors*edt*line*strategy*look
+sp {apply*editors*edt*line-strategy*look
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-edt-line-strategy-look)
@@ -716,9 +727,9 @@ sp {apply*editors*edt*line*strategy*look
 	(<c2> ^action <n1>)
 	(<n1> ^out1 focus-on-word)
 }
-sp {propose*editors*edt*line*strategy*t*word
+sp {propose*editors*edt*line-strategy*t-word
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol word-strategy)
 	(<c2> ^in3 long)
@@ -726,10 +737,10 @@ sp {propose*editors*edt*line*strategy*t*word
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-t-word)
 }
-sp {apply*editors*edt*line*strategy*t*word
+sp {apply*editors*edt*line-strategy*t-word
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c1> ^name editors-edt-line-strategy-t-word)
 	-->
@@ -737,17 +748,18 @@ sp {apply*editors*edt*line*strategy*t*word
 	(<n1> ^out1 t-word)
 	(<n1> ^out2 <c4>)
 }
-sp {propose*editors*edt*line*strategy*next
+sp {propose*editors*edt*line-strategy*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol word-strategy)
 	(<c2> ^in3 short)
+	(<c2> ^in2 )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-next)
 }
-sp {apply*editors*edt*line*strategy*next
+sp {apply*editors*edt*line-strategy*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-edt-line-strategy-next)
@@ -755,9 +767,9 @@ sp {apply*editors*edt*line*strategy*next
 	(<c2> ^action <n1>)
 	(<n1> ^out1 focus-on-next-word)
 }
-sp {propose*editors*edt*line*strategy*find*destination
+sp {propose*editors*edt*line-strategy*find-destination
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol word-strategy)
 	(<c2> ^in1 word)
@@ -765,12 +777,12 @@ sp {propose*editors*edt*line*strategy*find*destination
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-line-strategy-find-destination)
 }
-sp {apply*editors*edt*line*strategy*find*destination
+sp {apply*editors*edt*line-strategy*find-destination
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in4 <c6>)
 	(<c4> ^slot1 <c7>)
 	(<c1> ^name editors-edt-line-strategy-find-destination)
@@ -780,20 +792,20 @@ sp {apply*editors*edt*line*strategy*find*destination
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot1 <c7> -)
 }
-sp {propose*editors*edt*find*line*next
+sp {propose*editors*edt*find-line*next
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot2 <c3>)
 	(state <s> ^RT <c4>)
 	(<c1> ^Gtask edt)
 	(<c2> ^slot1 <> <c3>)
-	(<c4> ^slot3 nil)
+	(<c4> -^slot3 )
 	(<c1> ^Gcontrol find-line)
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-line-next)
 }
-sp {apply*editors*edt*find*line*next
+sp {apply*editors*edt*find-line*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^Q <c3>)
@@ -803,10 +815,11 @@ sp {apply*editors*edt*find*line*next
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^out1 enter)
-	(<c3> ^slot1 count-fact)
-	(<c3> ^slot2 <c5>)
+	(<c3> ^query <n2>)
+	(<n2> ^slot1 count-fact)
+	(<n2> ^slot2 <c5>)
 }
-sp {propose*editors*edt*find*line*read
+sp {propose*editors*edt*find-line*read
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(<c2> ^slot2 <c3>)
@@ -817,7 +830,7 @@ sp {propose*editors*edt*find*line*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-line-read)
 }
-sp {apply*editors*edt*find*line*read
+sp {apply*editors*edt*find-line*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -829,7 +842,7 @@ sp {apply*editors*edt*find*line*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*edt*find*line*re*next
+sp {propose*editors*edt*find-line*re-next
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -843,7 +856,7 @@ sp {propose*editors*edt*find*line*re*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-line-re-next)
 }
-sp {apply*editors*edt*find*line*re*next
+sp {apply*editors*edt*find-line*re-next
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -856,12 +869,13 @@ sp {apply*editors*edt*find*line*re*next
 	(<c2> ^slot1 <c4>)
 	(<c6> ^action <n1>)
 	(<n1> ^out1 enter)
-	(<c7> ^slot1 count-fact)
-	(<c7> ^slot2 <c4>)
-	(<c7> ^slot3 nil)
+	(<c7> ^query <n2>)
+	(<n2> ^slot1 count-fact)
+	(<n2> ^slot2 <c4>)
+	(<n2> ^slot3 <n3>)
 	(<c2> ^slot1 <c5> -)
 }
-sp {propose*editors*edt*find*line*re*read
+sp {propose*editors*edt*find-line*re-read
 	(state <s> ^G <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -873,7 +887,7 @@ sp {propose*editors*edt*find*line*re*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-line-re-read)
 }
-sp {apply*editors*edt*find*line*re*read
+sp {apply*editors*edt*find-line*re-read
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
 	(state <s> ^RT <c3>)
@@ -891,9 +905,9 @@ sp {apply*editors*edt*find*line*re*read
 	(<c2> ^slot1 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*edt*find*task*word*for*replace
+sp {propose*editors*edt*find-task-word*for-replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol find-task)
@@ -901,12 +915,12 @@ sp {propose*editors*edt*find*task*word*for*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-word-for-replace)
 }
-sp {apply*editors*edt*find*task*word*for*replace
+sp {apply*editors*edt*find-task-word*for-replace
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -920,9 +934,9 @@ sp {apply*editors*edt*find*task*word*for*replace
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*edt*find*task*word*for*delete
+sp {propose*editors*edt*find-task-word*for-delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol find-task)
@@ -930,12 +944,12 @@ sp {propose*editors*edt*find*task*word*for*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-word-for-delete)
 }
-sp {apply*editors*edt*find*task*word*for*delete
+sp {apply*editors*edt*find-task-word*for-delete
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -949,9 +963,9 @@ sp {apply*editors*edt*find*task*word*for*delete
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*edt*find*task*word*for*insert
+sp {propose*editors*edt*find-task-word*for-insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol find-task)
@@ -959,12 +973,12 @@ sp {propose*editors*edt*find*task*word*for*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-word-for-insert)
 }
-sp {apply*editors*edt*find*task*word*for*insert
+sp {apply*editors*edt*find-task-word*for-insert
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -978,9 +992,9 @@ sp {apply*editors*edt*find*task*word*for*insert
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*edt*find*task*word*next
+sp {propose*editors*edt*find-task-word*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask edt)
@@ -991,7 +1005,7 @@ sp {propose*editors*edt*find*task*word*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-word-next)
 }
-sp {apply*editors*edt*find*task*word*next
+sp {apply*editors*edt*find-task-word*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-edt-find-task-word-next)
@@ -999,9 +1013,9 @@ sp {apply*editors*edt*find*task*word*next
 	(<c2> ^action <n1>)
 	(<n1> ^out1 move-attention-right)
 }
-sp {propose*editors*edt*find*task*word*read
+sp {propose*editors*edt*find-task-word*read
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask edt)
@@ -1011,7 +1025,7 @@ sp {propose*editors*edt*find*task*word*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-word-read)
 }
-sp {apply*editors*edt*find*task*word*read
+sp {apply*editors*edt*find-task-word*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -1023,9 +1037,9 @@ sp {apply*editors*edt*find*task*word*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*edt*word*action*replace
+sp {propose*editors*edt*word-action*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol word-action)
@@ -1033,10 +1047,10 @@ sp {propose*editors*edt*word*action*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-word-action-replace)
 }
-sp {apply*editors*edt*word*action*replace
+sp {apply*editors*edt*word-action*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-edt-word-action-replace)
@@ -1046,9 +1060,9 @@ sp {apply*editors*edt*word*action*replace
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*edt*word*action*delete
+sp {propose*editors*edt*word-action*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol word-action)
@@ -1056,10 +1070,10 @@ sp {propose*editors*edt*word*action*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-word-action-delete)
 }
-sp {apply*editors*edt*word*action*delete
+sp {apply*editors*edt*word-action*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-edt-word-action-delete)
@@ -1069,9 +1083,9 @@ sp {apply*editors*edt*word*action*delete
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*edt*word*action*insert
+sp {propose*editors*edt*word-action*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol word-action)
@@ -1079,10 +1093,10 @@ sp {propose*editors*edt*word*action*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-word-action-insert)
 }
-sp {apply*editors*edt*word*action*insert
+sp {apply*editors*edt*word-action*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c3> ^in3 <c5>)
 	(<c1> ^name editors-edt-word-action-insert)
@@ -1092,9 +1106,9 @@ sp {apply*editors*edt*word*action*insert
 	(<n1> ^out2 <c4>)
 	(<n1> ^out3 <c5>)
 }
-sp {propose*editors*edt*word*action*next
+sp {propose*editors*edt*word-action*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 word)
 	(<c1> ^Gcontrol word-action)
@@ -1102,7 +1116,7 @@ sp {propose*editors*edt*word*action*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-word-action-next)
 }
-sp {apply*editors*edt*word*action*next
+sp {apply*editors*edt*word-action*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -1114,9 +1128,9 @@ sp {apply*editors*edt*word*action*next
 	(<c3> ^Gcontrol find-goal)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*edt*find*task*line*delete
+sp {propose*editors*edt*find-task-line*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 delete-line)
 	(<c1> ^Gcontrol find-task)
@@ -1124,7 +1138,7 @@ sp {propose*editors*edt*find*task*line*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-line-delete)
 }
-sp {apply*editors*edt*find*task*line*delete
+sp {apply*editors*edt*find-task-line*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -1136,9 +1150,9 @@ sp {apply*editors*edt*find*task*line*delete
 	(<c3> ^Gcontrol word-action)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*edt*find*task*line*insert
+sp {propose*editors*edt*find-task-line*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 insert-line)
 	(<c1> ^Gcontrol find-task)
@@ -1146,11 +1160,11 @@ sp {propose*editors*edt*find*task*line*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-line-insert)
 }
-sp {apply*editors*edt*find*task*line*insert
+sp {apply*editors*edt*find-task-line*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -1164,9 +1178,9 @@ sp {apply*editors*edt*find*task*line*insert
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*edt*find*task*line*replace
+sp {propose*editors*edt*find-task-line*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
 	(<c2> ^in1 replace-line)
 	(<c1> ^Gcontrol find-task)
@@ -1174,11 +1188,11 @@ sp {propose*editors*edt*find*task*line*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-line-replace)
 }
-sp {apply*editors*edt*find*task*line*replace
+sp {apply*editors*edt*find-task-line*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -1192,7 +1206,7 @@ sp {apply*editors*edt*find*task*line*replace
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*edt*find*task*line*type
+sp {propose*editors*edt*find-task-line*type
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask edt)
 	(<c1> ^Gcontrol type-line)
@@ -1200,7 +1214,7 @@ sp {propose*editors*edt*find*task*line*type
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-edt-find-task-line-type)
 }
-sp {apply*editors*edt*find*task*line*type
+sp {apply*editors*edt*find-task-line*type
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
@@ -1217,9 +1231,9 @@ sp {apply*editors*edt*find*task*line*type
 }
 sp {propose*editors*edt*finish
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask edt)
-	(<c1> ^Gcontrol <> nil)
+	(<c1> ^Gcontrol )
 	(<c2> ^in1 end)
 	-->
 	(<s> ^operator <n1>)
@@ -1232,12 +1246,13 @@ sp {apply*editors*edt*finish
 	(<c1> ^name editors-edt-finish)
 	-->
 	(<c2> ^Gtask finish)
+	(<c2> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }
 sp {propose*editors*emacs*init*start
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask emacs)
-	(<c1> ^Gcontrol nil)
+	(<c1> -^Gcontrol )
 	-->
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-init-start)
@@ -1245,18 +1260,22 @@ sp {propose*editors*emacs*init*start
 sp {apply*editors*emacs*init*start
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^G <c3>)
-	(<c3> ^Gcontrol <c4>)
+	(state <s> ^WM <c3>)
+	(<c3> ^slot2 <c4>)
+	(state <s> ^G <c5>)
+	(<c5> ^Gcontrol <c6>)
 	(<c1> ^name editors-emacs-init-start)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^out1 read-instruction)
-	(<c3> ^Gcontrol find-goal)
-	(<c3> ^Gcontrol <c4> -)
+	(<c3> ^slot2 nil)
+	(<c5> ^Gcontrol find-goal)
+	(<c3> ^slot2 <c4> -)
+	(<c5> ^Gcontrol <c6> -)
 }
-sp {propose*editors*emacs*init*find*goal
+sp {propose*editors*emacs*init*find-goal
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c1> ^Gcontrol find-goal)
 	(<c2> ^in1 <> end)
@@ -1264,10 +1283,10 @@ sp {propose*editors*emacs*init*find*goal
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-init-find-goal)
 }
-sp {apply*editors*emacs*init*find*goal
+sp {apply*editors*emacs*init*find-goal
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in4 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^G <c6>)
@@ -1282,9 +1301,9 @@ sp {apply*editors*emacs*init*find*goal
 	(<c2> ^slot2 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
-sp {propose*editors*emacs*find*line*next
+sp {propose*editors*emacs*find-line*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask emacs)
@@ -1294,7 +1313,7 @@ sp {propose*editors*emacs*find*line*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-line-next)
 }
-sp {apply*editors*emacs*find*line*next
+sp {apply*editors*emacs*find-line*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-emacs-find-line-next)
@@ -1302,9 +1321,9 @@ sp {apply*editors*emacs*find*line*next
 	(<c2> ^action <n1>)
 	(<n1> ^out1 control-n)
 }
-sp {propose*editors*emacs*find*line*read
+sp {propose*editors*emacs*find-line*read
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask emacs)
@@ -1314,7 +1333,7 @@ sp {propose*editors*emacs*find*line*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-line-read)
 }
-sp {apply*editors*emacs*find*line*read
+sp {apply*editors*emacs*find-line*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -1326,9 +1345,9 @@ sp {apply*editors*emacs*find*line*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*emacs*find*task*word*for*replace
+sp {propose*editors*emacs*find-task-word*for-replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol find-task)
@@ -1336,12 +1355,12 @@ sp {propose*editors*emacs*find*task*word*for*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-word-for-replace)
 }
-sp {apply*editors*emacs*find*task*word*for*replace
+sp {apply*editors*emacs*find-task-word*for-replace
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -1354,9 +1373,9 @@ sp {apply*editors*emacs*find*task*word*for*replace
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*emacs*find*task*word*for*delete
+sp {propose*editors*emacs*find-task-word*for-delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol find-task)
@@ -1364,12 +1383,12 @@ sp {propose*editors*emacs*find*task*word*for*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-word-for-delete)
 }
-sp {apply*editors*emacs*find*task*word*for*delete
+sp {apply*editors*emacs*find-task-word*for-delete
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -1382,9 +1401,9 @@ sp {apply*editors*emacs*find*task*word*for*delete
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*emacs*find*task*word*for*insert
+sp {propose*editors*emacs*find-task-word*for-insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol find-task)
@@ -1392,12 +1411,12 @@ sp {propose*editors*emacs*find*task*word*for*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-word-for-insert)
 }
-sp {apply*editors*emacs*find*task*word*for*insert
+sp {apply*editors*emacs*find-task-word*for-insert
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(state <s> ^WM <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
@@ -1410,9 +1429,9 @@ sp {apply*editors*emacs*find*task*word*for*insert
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
-sp {propose*editors*emacs*find*task*word*next
+sp {propose*editors*emacs*find-task-word*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask emacs)
@@ -1423,7 +1442,7 @@ sp {propose*editors*emacs*find*task*word*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-word-next)
 }
-sp {apply*editors*emacs*find*task*word*next
+sp {apply*editors*emacs*find-task-word*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-emacs-find-task-word-next)
@@ -1431,9 +1450,9 @@ sp {apply*editors*emacs*find*task*word*next
 	(<c2> ^action <n1>)
 	(<n1> ^out1 esc-f)
 }
-sp {propose*editors*emacs*find*task*word*read
+sp {propose*editors*emacs*find-task-word*read
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
 	(<c1> ^Gtask emacs)
@@ -1443,7 +1462,7 @@ sp {propose*editors*emacs*find*task*word*read
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-word-read)
 }
-sp {apply*editors*emacs*find*task*word*read
+sp {apply*editors*emacs*find-task-word*read
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
@@ -1455,9 +1474,9 @@ sp {apply*editors*emacs*find*task*word*read
 	(<n1> ^out1 read-instruction)
 	(<c2> ^Gcontrol <c3> -)
 }
-sp {propose*editors*emacs*word*action*replace
+sp {propose*editors*emacs*word-action*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 replace-word)
 	(<c1> ^Gcontrol word-action)
@@ -1465,11 +1484,11 @@ sp {propose*editors*emacs*word*action*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-word-action-replace)
 }
-sp {apply*editors*emacs*word*action*replace
+sp {apply*editors*emacs*word-action*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -1483,9 +1502,9 @@ sp {apply*editors*emacs*word*action*replace
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*emacs*word*action*delete
+sp {propose*editors*emacs*word-action*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 delete-word)
 	(<c1> ^Gcontrol word-action)
@@ -1493,7 +1512,7 @@ sp {propose*editors*emacs*word*action*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-word-action-delete)
 }
-sp {apply*editors*emacs*word*action*delete
+sp {apply*editors*emacs*word-action*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(<c1> ^name editors-emacs-word-action-delete)
@@ -1501,9 +1520,9 @@ sp {apply*editors*emacs*word*action*delete
 	(<c2> ^action <n1>)
 	(<n1> ^out1 esc-d)
 }
-sp {propose*editors*emacs*word*action*insert
+sp {propose*editors*emacs*word-action*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 insert-word)
 	(<c1> ^Gcontrol word-action)
@@ -1511,10 +1530,10 @@ sp {propose*editors*emacs*word*action*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-word-action-insert)
 }
-sp {apply*editors*emacs*word*action*insert
+sp {apply*editors*emacs*word-action*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in3 <c4>)
 	(<c1> ^name editors-emacs-word-action-insert)
 	-->
@@ -1522,7 +1541,7 @@ sp {apply*editors*emacs*word*action*insert
 	(<n1> ^out1 type-text)
 	(<n1> ^out2 <c4>)
 }
-sp {propose*editors*emacs*word*action*post*insert
+sp {propose*editors*emacs*word-action*post-insert
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask emacs)
 	(<c1> ^Gcontrol still-type)
@@ -1530,7 +1549,7 @@ sp {propose*editors*emacs*word*action*post*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-word-action-post-insert)
 }
-sp {apply*editors*emacs*word*action*post*insert
+sp {apply*editors*emacs*word-action*post-insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
@@ -1545,9 +1564,9 @@ sp {apply*editors*emacs*word*action*post*insert
 	(<c5> ^Gcontrol word-action)
 	(<c5> ^Gcontrol <c6> -)
 }
-sp {propose*editors*emacs*word*action*next
+sp {propose*editors*emacs*word-action*next
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 word)
 	(<c1> ^Gcontrol word-action)
@@ -1555,7 +1574,7 @@ sp {propose*editors*emacs*word*action*next
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-word-action-next)
 }
-sp {apply*editors*emacs*word*action*next
+sp {apply*editors*emacs*word-action*next
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -1567,9 +1586,9 @@ sp {apply*editors*emacs*word*action*next
 	(<c3> ^Gcontrol find-goal)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*emacs*find*task*line*delete
+sp {propose*editors*emacs*find-task-line*delete
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 delete-line)
 	(<c1> ^Gcontrol find-task)
@@ -1577,7 +1596,7 @@ sp {propose*editors*emacs*find*task*line*delete
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-line-delete)
 }
-sp {apply*editors*emacs*find*task*line*delete
+sp {apply*editors*emacs*find-task-line*delete
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
@@ -1589,9 +1608,9 @@ sp {apply*editors*emacs*find*task*line*delete
 	(<c3> ^Gcontrol word-action)
 	(<c3> ^Gcontrol <c4> -)
 }
-sp {propose*editors*emacs*find*task*line*insert
+sp {propose*editors*emacs*find-task-line*insert
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 insert-line)
 	(<c1> ^Gcontrol find-task)
@@ -1599,10 +1618,10 @@ sp {propose*editors*emacs*find*task*line*insert
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-line-insert)
 }
-sp {apply*editors*emacs*find*task*line*insert
+sp {apply*editors*emacs*find-task-line*insert
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in3 <c4>)
 	(state <s> ^G <c5>)
 	(<c5> ^Gcontrol <c6>)
@@ -1614,9 +1633,9 @@ sp {apply*editors*emacs*find*task*line*insert
 	(<c5> ^Gcontrol word-action)
 	(<c5> ^Gcontrol <c6> -)
 }
-sp {propose*editors*emacs*find*task*line*replace
+sp {propose*editors*emacs*find-task-line*replace
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
 	(<c2> ^in1 replace-line)
 	(<c1> ^Gcontrol find-task)
@@ -1624,11 +1643,11 @@ sp {propose*editors*emacs*find*task*line*replace
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-line-replace)
 }
-sp {apply*editors*emacs*find*task*line*replace
+sp {apply*editors*emacs*find-task-line*replace
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
-	(state <s> ^io.input-link <c4>)
+	(state <s> ^V <c4>)
 	(<c4> ^in3 <c5>)
 	(<c3> ^slot2 <c6>)
 	(state <s> ^G <c7>)
@@ -1642,7 +1661,7 @@ sp {apply*editors*emacs*find*task*line*replace
 	(<c3> ^slot2 <c6> -)
 	(<c7> ^Gcontrol <c8> -)
 }
-sp {propose*editors*emacs*find*task*line*type
+sp {propose*editors*emacs*find-task-line*type
 	(state <s> ^G <c1>)
 	(<c1> ^Gtask emacs)
 	(<c1> ^Gcontrol type-line)
@@ -1650,7 +1669,7 @@ sp {propose*editors*emacs*find*task*line*type
 	(<s> ^operator <n1>)
 	(<n1> ^name editors-emacs-find-task-line-type)
 }
-sp {apply*editors*emacs*find*task*line*type
+sp {apply*editors*emacs*find-task-line*type
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
 	(state <s> ^WM <c3>)
@@ -1667,9 +1686,9 @@ sp {apply*editors*emacs*find*task*line*type
 }
 sp {propose*editors*emacs*finish
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask emacs)
-	(<c1> ^Gcontrol <> nil)
+	(<c1> ^Gcontrol )
 	(<c2> ^in1 end)
 	-->
 	(<s> ^operator <n1>)
@@ -1682,5 +1701,6 @@ sp {apply*editors*emacs*finish
 	(<c1> ^name editors-emacs-finish)
 	-->
 	(<c2> ^Gtask finish)
+	(<c2> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }

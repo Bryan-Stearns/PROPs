@@ -208,7 +208,7 @@ sp {apply*elio*procedure-a*step-7
 }
 sp {propose*elio*solid-lime-diff*step-1
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> -^in1 )
 	-->
@@ -226,7 +226,7 @@ sp {apply*elio*solid-lime-diff*step-1
 }
 sp {propose*elio*solid-lime-diff*step-2
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> ^in1 lime4)
 	-->
@@ -236,7 +236,7 @@ sp {propose*elio*solid-lime-diff*step-2
 sp {apply*elio*solid-lime-diff*step-2
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^AC <c6>)
@@ -251,7 +251,7 @@ sp {apply*elio*solid-lime-diff*step-2
 sp {propose*elio*solid-lime-diff*diff
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> -^rt-result )
 	(<c3> ^in1 lime2)
@@ -264,7 +264,7 @@ sp {apply*elio*solid-lime-diff*diff
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(state <s> ^AC <c7>)
 	(<c1> ^name elio-solid-lime-diff-diff)
@@ -280,7 +280,7 @@ sp {apply*elio*solid-lime-diff*diff
 sp {propose*elio*solid-lime-diff*mult
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> ^slot1 subtract)
 	(<c3> ^in1 solid)
@@ -291,7 +291,7 @@ sp {propose*elio*solid-lime-diff*mult
 sp {apply*elio*solid-lime-diff*mult
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(state <s> ^RT <c5>)
 	(<c5> ^slot4 <c6>)
@@ -333,7 +333,7 @@ sp {apply*elio*solid-lime-diff*finish
 }
 sp {propose*elio*greater-algae*start
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> -^in1 )
 	-->
@@ -352,7 +352,7 @@ sp {apply*elio*greater-algae*start
 sp {propose*elio*greater-algae*div-2
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> -^rt-result )
 	(<c3> ^in1 algae)
@@ -363,7 +363,7 @@ sp {propose*elio*greater-algae*div-2
 sp {apply*elio*greater-algae*div-2
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c1> ^name elio-greater-algae-div-2)
 	-->
@@ -375,7 +375,7 @@ sp {apply*elio*greater-algae*div-2
 sp {propose*elio*greater-algae*read-solid
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> ^slot4 )
 	(<c3> ^in1 algae)
@@ -403,7 +403,7 @@ sp {apply*elio*greater-algae*read-solid
 sp {propose*elio*greater-algae*div-3
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> -^rt-result )
 	(<c3> ^in1 solid)
@@ -414,7 +414,7 @@ sp {propose*elio*greater-algae*div-3
 sp {apply*elio*greater-algae*div-3
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c1> ^name elio-greater-algae-div-3)
 	-->
@@ -426,7 +426,7 @@ sp {apply*elio*greater-algae*div-3
 sp {propose*elio*greater-algae*greater
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> ^slot1 div)
 	(<c3> ^in1 solid)
@@ -560,7 +560,7 @@ sp {apply*elio*part-plus-mineral*finish
 }
 sp {propose*elio*mean-toxin*start
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask mean-toxin)
 	(<c2> -^in1 )
 	-->
@@ -578,7 +578,7 @@ sp {apply*elio*mean-toxin*start
 }
 sp {propose*elio*mean-toxin*toxinmin
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask mean-toxin)
 	(<c2> ^in1 toxinmax)
 	-->
@@ -588,7 +588,7 @@ sp {propose*elio*mean-toxin*toxinmin
 sp {apply*elio*mean-toxin*toxinmin
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^AC <c6>)
@@ -603,7 +603,7 @@ sp {apply*elio*mean-toxin*toxinmin
 sp {propose*elio*mean-toxin*add
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask mean-toxin)
 	(<c2> -^rt-result )
 	(<c3> ^in1 toxinmin)
@@ -616,7 +616,7 @@ sp {apply*elio*mean-toxin*add
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c1> ^name elio-mean-toxin-add)
 	-->
@@ -1277,7 +1277,7 @@ sp {apply*elio*procedure-b*finish
 }
 sp {propose*elio*triple-lime*start
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask triple-lime)
 	(<c2> -^in1 )
 	-->
@@ -1296,7 +1296,7 @@ sp {apply*elio*triple-lime*start
 sp {propose*elio*triple-lime*mult
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask triple-lime)
 	(<c2> -^rt-result )
 	(<c3> ^in1 limemin)
@@ -1307,7 +1307,7 @@ sp {propose*elio*triple-lime*mult
 sp {apply*elio*triple-lime*mult
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c1> ^name elio-triple-lime-mult)
 	-->
@@ -1319,7 +1319,7 @@ sp {apply*elio*triple-lime*mult
 sp {propose*elio*triple-lime*read
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask triple-lime)
 	(<c2> ^slot4 )
 	(<c3> ^in1 limemin)
@@ -1347,7 +1347,7 @@ sp {apply*elio*triple-lime*read
 sp {propose*elio*triple-lime*add
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask triple-lime)
 	(<c2> -^rt-result )
 	(<c3> ^in1 algae)
@@ -1360,7 +1360,7 @@ sp {apply*elio*triple-lime*add
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c1> ^name elio-triple-lime-add)
 	-->
@@ -1400,7 +1400,7 @@ sp {apply*elio*triple-lime*finish
 }
 sp {propose*elio*lesser-evil*read-solid
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> -^in1 )
 	-->
@@ -1418,7 +1418,7 @@ sp {apply*elio*lesser-evil*read-solid
 }
 sp {propose*elio*lesser-evil*read-lime1
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^in1 solid)
 	-->
@@ -1428,7 +1428,7 @@ sp {propose*elio*lesser-evil*read-lime1
 sp {apply*elio*lesser-evil*read-lime1
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^AC <c6>)
@@ -1443,7 +1443,7 @@ sp {apply*elio*lesser-evil*read-lime1
 sp {propose*elio*lesser-evil*add-lime1
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> -^rt-result )
 	(<c3> ^in1 lime1)
@@ -1456,7 +1456,7 @@ sp {apply*elio*lesser-evil*add-lime1
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c1> ^name elio-lesser-evil-add-lime1)
 	-->
@@ -1468,7 +1468,7 @@ sp {apply*elio*lesser-evil*add-lime1
 sp {propose*elio*lesser-evil*read-algae
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^slot1 add)
 	(<c3> ^in1 lime1)
@@ -1504,7 +1504,7 @@ sp {apply*elio*lesser-evil*read-algae
 }
 sp {propose*elio*lesser-evil*read-toxin3
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^in1 algae)
 	-->
@@ -1514,7 +1514,7 @@ sp {propose*elio*lesser-evil*read-toxin3
 sp {apply*elio*lesser-evil*read-toxin3
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^AC <c6>)
@@ -1529,7 +1529,7 @@ sp {apply*elio*lesser-evil*read-toxin3
 sp {propose*elio*lesser-evil*add-toxin3
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> -^rt-result )
 	(<c3> ^in1 toxin3)
@@ -1542,7 +1542,7 @@ sp {apply*elio*lesser-evil*add-toxin3
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c1> ^name elio-lesser-evil-add-toxin3)
 	-->
@@ -1554,7 +1554,7 @@ sp {apply*elio*lesser-evil*add-toxin3
 sp {propose*elio*lesser-evil*toxin3
 	(state <s> ^G <c1>)
 	(state <s> ^RT <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^slot1 add)
 	(<c3> ^in1 toxin3)
@@ -1666,7 +1666,7 @@ sp {apply*elio*lesser-evil*greater-than-false
 }
 sp {propose*elio*solid-div-lime*read-solid
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> -^in1 )
 	-->
@@ -1684,7 +1684,7 @@ sp {apply*elio*solid-div-lime*read-solid
 }
 sp {propose*elio*solid-div-lime*read-lime1
 	(state <s> ^G <c1>)
-	(state <s> ^io.input-link <c2>)
+	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> ^in1 solid)
 	-->
@@ -1694,7 +1694,7 @@ sp {propose*elio*solid-div-lime*read-lime1
 sp {apply*elio*solid-div-lime*read-lime1
 	(state <s> ^operator <c1>)
 	(state <s> ^WM <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c3> ^in2 <c4>)
 	(<c2> ^slot2 <c5>)
 	(state <s> ^AC <c6>)
@@ -1709,7 +1709,7 @@ sp {apply*elio*solid-div-lime*read-lime1
 sp {propose*elio*solid-div-lime*div-lime1
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
-	(state <s> ^io.input-link <c3>)
+	(state <s> ^V <c3>)
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> -^rt-result )
 	(<c3> ^in1 lime1)
@@ -1722,7 +1722,7 @@ sp {apply*elio*solid-div-lime*div-lime1
 	(state <s> ^Q <c2>)
 	(state <s> ^WM <c3>)
 	(<c3> ^slot2 <c4>)
-	(state <s> ^io.input-link <c5>)
+	(state <s> ^V <c5>)
 	(<c5> ^in2 <c6>)
 	(<c1> ^name elio-solid-div-lime-div-lime1)
 	-->

@@ -58,7 +58,7 @@ sp {prefer*props*query*instructions
 sp {propose*props*substate*build-proposals
     (state <s> ^name props-eval
                ^operator <o1> +
-              -^prop-condition-xp
+              #-^prop-condition-xp
               -^props-flag propose-ready)
     (<o1> ^name << props-result-success props-result-fail >>)
 -->

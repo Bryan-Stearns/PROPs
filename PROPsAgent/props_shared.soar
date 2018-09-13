@@ -124,3 +124,20 @@ sp {catch*props*do-onc
     (<e> ^msg |PROPS-DO ONC| )
     (interrupt)
 }
+
+# CATCH THE CHUNKING KERNEL BUG WHERE IT DOESN'T MAINTAIN JUSTIFICATION SUPPORT AFTER RETURNING
+# (Removing "flushing" doesn't fix the bug. It only repeats it in a loop.)
+sp {catch*props*success-apply*bug-return
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^superstate <ss>
+               ^topstate.io.output-link <ol>)
+    (<ss> ^operator.name props-result-success
+          ^props-flag flushing)
+-->
+    #(<ss> ^props-flag flushing -)
+    (write (cmd print <ss> -d 3))
+    (<ol> ^error <e>)
+    (<e> ^msg |JUSTIFICATION FAIL| )
+	(interrupt)
+}

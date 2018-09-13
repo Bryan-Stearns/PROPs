@@ -67,3 +67,14 @@ sp {apply*props*sub*return*result
          ^literalize <sl> -)
 	(force-learn <s>)
 }
+
+# MARK THAT SHARED OBJECT MEMORY REFERENCES NEED TO BE MADE PRIOR TO FINAL PROPS RETURN
+sp {apply*props*sub*chain*iterate*transferred
+    (state <s>  ^operator <o>)
+    (<o> ^name props-sub-chain-iterate
+         ^note transfer-chain
+         ^sym <sym>)
+-->
+    (<sym> ^intermediate true)
+	(force-learn <s>)
+}

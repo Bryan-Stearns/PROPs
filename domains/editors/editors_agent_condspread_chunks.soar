@@ -1,0 +1,3687 @@
+sp {chunk*apply*props*spread-result*snc*t236524-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask emacs)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 292)
+}
+
+sp {chunk*apply*props*spread-result*snc*t236517-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 295)
+}
+
+sp {chunk*apply*props*spread-result*snc*t212706-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 295)
+}
+
+sp {chunk*apply*props*spread-result*snc*t212699-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask emacs)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 292)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t193359-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-finish ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1)
+    (link-stm-to-ltm <c1> 5)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193320-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 13)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193313-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*finish)
+    (<c1> ^name _P42)
+    (link-stm-to-ltm <c1> 16)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193306-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 end)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*finish)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 19)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t193133-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-line-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-line-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-line*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 54)
+    (link-stm-to-ltm <c1> 57)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193094-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 63)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193087-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 67)
+}
+
+sp {chunk*apply*props*spread-result*snc*t193080-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 65)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t192380-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-line-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-line-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-line*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 69)
+    (link-stm-to-ltm <c1> 72)
+}
+
+sp {chunk*apply*props*spread-result*snc*t192341-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 79)
+}
+
+sp {chunk*apply*props*spread-result*snc*t192334-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 77)
+}
+
+sp {chunk*apply*props*spread-result*snc*t192327-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 81)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t191146-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-line-type)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-line-type ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-line*type)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 22)
+    (link-stm-to-ltm <c1> 25)
+}
+
+sp {chunk*apply*props*spread-result*snc*t191107-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*type)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 33)
+}
+
+sp {chunk*apply*props*spread-result*snc*t191100-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol type-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*type)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 36)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t191019-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-line-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-line-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-line*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 38)
+    (link-stm-to-ltm <c1> 41)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190980-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 47)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190973-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 52)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190966-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-line*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 49)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t190228-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-word-action-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-word-action-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*word-action*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 126)
+    (link-stm-to-ltm <c1> 129)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190189-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 136)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190182-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 134)
+}
+
+sp {chunk*apply*props*spread-result*snc*t190175-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 138)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t189582-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-word-for-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-word-for-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-word*for-delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 203)
+    (link-stm-to-ltm <c1> 206)
+}
+
+sp {chunk*apply*props*spread-result*snc*t189543-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 215)
+}
+
+sp {chunk*apply*props*spread-result*snc*t189536-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 213)
+}
+
+sp {chunk*apply*props*spread-result*snc*t189529-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 211)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t188941-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-word-action-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-word-action-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*word-action*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 109)
+    (link-stm-to-ltm <c1> 112)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188902-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 122)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188895-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 124)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188888-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 120)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t188204-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-word-for-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-word-for-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-word*for-insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 188)
+    (link-stm-to-ltm <c1> 191)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188165-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 201)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188158-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 197)
+}
+
+sp {chunk*apply*props*spread-result*snc*t188151-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 199)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187888-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-line-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-line-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-line*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 248)
+    (link-stm-to-ltm <c1> 251)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187849-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-line*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 256)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187842-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in4 { <i1> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*emacs*find-line*next)
+    (<c1> ^name _P50)
+    (link-stm-to-ltm <c1> 259)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187832-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-line*next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 263)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187654-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-word-action-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-word-action-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*word-action*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 83)
+    (link-stm-to-ltm <c1> 86)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187615-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 93)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187608-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 95)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187601-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 91)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187528-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-word-action-post-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-word-action-post-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*word-action*post-insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 97)
+    (link-stm-to-ltm <c1> 100)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187489-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*post-insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 105)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187482-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol still-type)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*post-insert)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 107)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187425-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-word-action-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-word-action-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*word-action*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 140)
+    (link-stm-to-ltm <c1> 143)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187386-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 152)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187379-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 148)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187372-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*word-action*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 150)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187325-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-word-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-word-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-word*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 154)
+    (link-stm-to-ltm <c1> 157)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187286-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 169)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187279-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 164)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187272-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*read)
+    (<c1> ^name _P38)
+    (link-stm-to-ltm <c1> 167)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187219-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-word-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-word-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-word*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 171)
+    (link-stm-to-ltm <c1> 174)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187180-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 { <i1> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*emacs*find-task-word*next)
+    (<c1> ^name _P37)
+    (link-stm-to-ltm <c1> 184)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187170-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 179)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187163-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 186)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187156-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 181)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t187075-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-task-word-for-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-task-word-for-replace
+           ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-task-word*for-replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 217)
+    (link-stm-to-ltm <c1> 220)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187036-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 227)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187029-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 225)
+}
+
+sp {chunk*apply*props*spread-result*snc*t187022-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-task-word*for-replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 229)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t186961-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-find-line-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-find-line-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*find-line*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 231)
+    (link-stm-to-ltm <c1> 234)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186922-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-line*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 246)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186915-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in4 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-line*read)
+    (<c1> ^name _P51)
+    (link-stm-to-ltm <c1> 242)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186905-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*find-line*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 239)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t186831-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-init-find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-init-find-goal ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*init*find-goal)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 265)
+    (link-stm-to-ltm <c1> 268)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186792-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 { <i1> <> end })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*emacs*init*find-goal)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 279)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186785-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*init*find-goal)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 276)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186778-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask emacs)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*emacs*init*find-goal)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 274)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t186717-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-emacs-init-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-emacs-init-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*emacs*init*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 281)
+    (link-stm-to-ltm <c1> 284)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186678-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask emacs)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 292)
+}
+
+sp {chunk*apply*props*spread-result*snc*t186671-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name emacs_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*emacs*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 295)
+}
+
+sp {chunk*apply*props*spread-result*snc*t150157-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 710)
+}
+
+sp {chunk*apply*props*spread-result*snc*t150150-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask edt)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 708)
+}
+
+sp {chunk*apply*props*spread-result*snc*t120587-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask edt)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 708)
+}
+
+sp {chunk*apply*props*spread-result*snc*t120580-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 710)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t96265-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-finish ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*editors*edt*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 297)
+    (link-stm-to-ltm <c1> 300)
+}
+
+sp {chunk*apply*props*spread-result*snc*t96226-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 305)
+}
+
+sp {chunk*apply*props*spread-result*snc*t96219-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 end)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*finish)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 309)
+}
+
+sp {chunk*apply*props*spread-result*snc*t96212-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*finish)
+    (<c1> ^name _P42)
+    (link-stm-to-ltm <c1> 307)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t95895-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-line-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-line-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-line*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 337)
+    (link-stm-to-ltm <c1> 340)
+}
+
+sp {chunk*apply*props*spread-result*snc*t95856-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 345)
+}
+
+sp {chunk*apply*props*spread-result*snc*t95849-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 349)
+}
+
+sp {chunk*apply*props*spread-result*snc*t95842-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 347)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t94890-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-line-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-line-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-line*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 351)
+    (link-stm-to-ltm <c1> 354)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94851-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 359)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94844-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 363)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94837-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 361)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t94295-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 585)
+    (link-stm-to-ltm <c1> 588)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94256-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in3 short)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*next)
+    (<c1> ^name _P45)
+    (link-stm-to-ltm <c1> 598)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94249-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in2 <i1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*edt*line-strategy*next)
+    (<c1> ^name _P46)
+    (link-stm-to-ltm <c1> 601)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94242-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 593)
+}
+
+sp {chunk*apply*props*spread-result*snc*t94235-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 595)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t93584-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-line-type)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-line-type ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-line*type)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 311)
+    (link-stm-to-ltm <c1> 314)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93545-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*type)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 319)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93538-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol type-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*type)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 321)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t93457-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-line-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-line-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-line*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 323)
+    (link-stm-to-ltm <c1> 326)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93418-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 333)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93411-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 335)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93404-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-line*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 331)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t93246-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-find-destination)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-find-destination
+           ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*find-destination)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 566)
+    (link-stm-to-ltm <c1> 569)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93207-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*find-destination)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 579)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93200-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*find-destination)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 577)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93193-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*find-destination)
+    (<c1> ^name _P47)
+    (link-stm-to-ltm <c1> 582)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t93127-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-t-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-t-word ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*t-word)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 604)
+    (link-stm-to-ltm <c1> 607)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93088-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*t-word)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 612)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93081-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in3 long)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*t-word)
+    (<c1> ^name _P45)
+    (link-stm-to-ltm <c1> 616)
+}
+
+sp {chunk*apply*props*spread-result*snc*t93074-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*t-word)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 614)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t93010-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-look)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-look ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*look)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 619)
+    (link-stm-to-ltm <c1> 622)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92971-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 { <i1> <> word })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*edt*line-strategy*look)
+    (<c1> ^name _P44)
+    (link-stm-to-ltm <c1> 634)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92964-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 { <i1> <> single-word })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*edt*line-strategy*look)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 631)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92957-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*look)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 627)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92950-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*look)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 629)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t92896-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-read-instruction)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-read-instruction
+           ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*read-instruction)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 637)
+    (link-stm-to-ltm <c1> 640)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92857-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*read-instruction)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 647)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92850-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*read-instruction)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 645)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92843-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result error)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*read-instruction)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 650)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t92418-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-word-action-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-word-action-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*word-action*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 395)
+    (link-stm-to-ltm <c1> 398)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92379-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 407)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92372-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 405)
+}
+
+sp {chunk*apply*props*spread-result*snc*t92365-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 403)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t91741-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-word-for-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-word-for-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-word*for-delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 467)
+    (link-stm-to-ltm <c1> 470)
+}
+
+sp {chunk*apply*props*spread-result*snc*t91702-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 477)
+}
+
+sp {chunk*apply*props*spread-result*snc*t91695-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 479)
+}
+
+sp {chunk*apply*props*spread-result*snc*t91688-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 475)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t90712-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-word-action-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-word-action-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*word-action*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 379)
+    (link-stm-to-ltm <c1> 382)
+}
+
+sp {chunk*apply*props*spread-result*snc*t90673-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 391)
+}
+
+sp {chunk*apply*props*spread-result*snc*t90666-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 393)
+}
+
+sp {chunk*apply*props*spread-result*snc*t90659-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 389)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t89945-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-word-for-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-word-for-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-word*for-insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 453)
+    (link-stm-to-ltm <c1> 456)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89906-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 461)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89899-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 465)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89892-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 463)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t89821-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-line-re-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-line-re-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-line*re-read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 495)
+    (link-stm-to-ltm <c1> 498)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89782-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot3 <s2>)
+    (<w1> ^slot2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-read)
+    (<c1> ^name _P33)
+    (link-stm-to-ltm <c1> 507)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89772-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 509)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89765-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 504)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t89680-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-line-re-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-line-re-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-line*re-next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 511)
+    (link-stm-to-ltm <c1> 514)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89641-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 530)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89634-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot3 <s2>)
+    (<w1> ^slot2 { <s3> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-next)
+    (<c1> ^name _P28)
+    (link-stm-to-ltm <c1> 525)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89624-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 522)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89617-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot2 <s2>)
+    (<w1> ^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*re-next)
+    (<c1> ^name _P29)
+    (link-stm-to-ltm <c1> 528)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t89526-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-line-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-line-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-line*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 547)
+    (link-stm-to-ltm <c1> 550)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89487-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^RT <r1>)
+    (<r1> -^slot3 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*next)
+    (<c1> ^name _P25)
+    (link-stm-to-ltm <c1> 562)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89480-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 556)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89473-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot2 <s2> ^slot1 { <s3> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*next)
+    (<c1> ^name _P24)
+    (link-stm-to-ltm <c1> 559)
+}
+
+sp {chunk*apply*props*spread-result*snc*t89463-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 564)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t89036-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-word-action-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-word-action-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*word-action*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 365)
+    (link-stm-to-ltm <c1> 368)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88997-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 373)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88990-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 375)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88983-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 377)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88912-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-word-action-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-word-action-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*word-action*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 409)
+    (link-stm-to-ltm <c1> 412)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88873-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 421)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88866-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 417)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88859-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*word-action*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 419)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88812-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-word-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-word-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-word*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 423)
+    (link-stm-to-ltm <c1> 426)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88773-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 431)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88766-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 435)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88759-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*read)
+    (<c1> ^name _P38)
+    (link-stm-to-ltm <c1> 433)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88692-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-word-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-word-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-word*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 437)
+    (link-stm-to-ltm <c1> 440)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88653-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 451)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88646-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 445)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88639-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 447)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88632-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 { <i1> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*edt*find-task-word*next)
+    (<c1> ^name _P37)
+    (link-stm-to-ltm <c1> 449)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88555-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-task-word-for-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-task-word-for-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-task-word*for-replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 481)
+    (link-stm-to-ltm <c1> 484)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88516-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 491)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88509-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 489)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88502-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-task-word*for-replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 493)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88441-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-find-line-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-find-line-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*find-line*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 532)
+    (link-stm-to-ltm <c1> 535)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88402-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot2 <s2> ^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*read)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 543)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88392-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 540)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88385-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*find-line*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 545)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88333-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-enter)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-enter ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*enter)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 652)
+    (link-stm-to-ltm <c1> 655)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88294-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*enter)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 660)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88287-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*enter)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 662)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88280-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result success)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*enter)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 664)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88216-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-line-strategy-test)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-line-strategy-test ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*line-strategy*test)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 666)
+    (link-stm-to-ltm <c1> 669)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88177-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*test)
+    (<c1> ^name _P14)
+    (link-stm-to-ltm <c1> 681)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88170-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*test)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 678)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88163-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*line-strategy*test)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 676)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t88096-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-init-find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-init-find-goal ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*init*find-goal)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 683)
+    (link-stm-to-ltm <c1> 686)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88057-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*init*find-goal)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 693)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88050-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 { <i1> <> end })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*edt*init*find-goal)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 695)
+}
+
+sp {chunk*apply*props*spread-result*snc*t88043-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask edt)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*edt*init*find-goal)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 691)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t87982-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-edt-init-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-edt-init-start ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*edt*init*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 697)
+    (link-stm-to-ltm <c1> 700)
+}
+
+sp {chunk*apply*props*spread-result*snc*t87943-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask edt)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 708)
+}
+
+sp {chunk*apply*props*spread-result*snc*t87936-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name edt_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*edt*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 710)
+}
+
+sp {chunk*apply*props*spread-result*snc*t55889-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 1106)
+}
+
+sp {chunk*apply*props*spread-result*snc*t55882-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask ed)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_3)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1103)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27885-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask ed)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1103)
+}
+
+sp {chunk*apply*props*spread-result*snc*t27878-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_2)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 1106)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t6955-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-finish ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*editors*ed*finish)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 712)
+    (link-stm-to-ltm <c1> 715)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6916-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*finish)
+    (<c1> ^name _P42)
+    (link-stm-to-ltm <c1> 723)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6909-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 721)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6902-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 end)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*finish)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 726)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t6612-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-line-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-line-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-line*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 754)
+    (link-stm-to-ltm <c1> 757)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6573-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 764)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6566-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 768)
+}
+
+sp {chunk*apply*props*spread-result*snc*t6559-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 766)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t5911-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-line-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-line-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-line*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 770)
+    (link-stm-to-ltm <c1> 773)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5872-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 778)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5865-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 780)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5858-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 782)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t5202-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-line-type)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-line-type ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-line*type)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 728)
+    (link-stm-to-ltm <c1> 731)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5163-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol type-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*type)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 738)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5156-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*type)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 736)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t5099-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-line-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-line-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-line*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 740)
+    (link-stm-to-ltm <c1> 743)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5060-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 752)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5053-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 748)
+}
+
+sp {chunk*apply*props*spread-result*snc*t5046-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-line*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 750)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t4860-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-line-strategy-pcmd)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-line-strategy-pcmd ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*line-strategy*pcmd)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1006)
+    (link-stm-to-ltm <c1> 1009)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4821-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*pcmd)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1025)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4814-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result error)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*pcmd)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 1027)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4807-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*pcmd)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1023)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t4402-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-word-action-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-word-action-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*word-action*delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 812)
+    (link-stm-to-ltm <c1> 815)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4363-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 824)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4356-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 822)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4349-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 820)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3739-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-word-for-delete)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-word-for-delete ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-word*for-delete)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 894)
+    (link-stm-to-ltm <c1> 897)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3700-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 delete-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-delete)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 904)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3693-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-delete)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 902)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3686-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-delete)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 906)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2762-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-word-action-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-word-action-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*word-action*insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 798)
+    (link-stm-to-ltm <c1> 801)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2723-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 810)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2716-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 808)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2709-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 806)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2005-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-word-for-insert)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-word-for-insert ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-word*for-insert)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 880)
+    (link-stm-to-ltm <c1> 883)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1966-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-insert)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 892)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1959-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 insert-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-insert)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 890)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1952-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-insert)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 888)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1895-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-line-re-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-line-re-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-line*re-read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 926)
+    (link-stm-to-ltm <c1> 929)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1856-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 934)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1849-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot3 <s2>)
+    (<w1> ^slot2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-read)
+    (<c1> ^name _P33)
+    (link-stm-to-ltm <c1> 936)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1839-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 940)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1747-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-line-re-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-line-re-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-line*re-next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 942)
+    (link-stm-to-ltm <c1> 945)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1708-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 967)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1701-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 957)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1694-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot2 <s2>)
+    (<w1> ^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-next)
+    (<c1> ^name _P29)
+    (link-stm-to-ltm <c1> 963)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1684-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1> ^WM <w1>)
+    (<r1> ^slot3 <s2>)
+    (<w1> ^slot2 { <s3> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*re-next)
+    (<c1> ^name _P28)
+    (link-stm-to-ltm <c1> 959)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1613-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-line-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-line-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-line*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 985)
+    (link-stm-to-ltm <c1> 988)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1574-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^RT <r1>)
+    (<r1> -^slot3 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*next)
+    (<c1> ^name _P25)
+    (link-stm-to-ltm <c1> 1001)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1567-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot2 <s2> ^slot1 { <s3> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*next)
+    (<c1> ^name _P24)
+    (link-stm-to-ltm <c1> 997)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1557-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*next)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1004)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1550-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 995)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1140-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-word-action-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-word-action-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*word-action*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 784)
+    (link-stm-to-ltm <c1> 787)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1101-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 794)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1094-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 796)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1087-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 792)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1009-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-word-action-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-word-action-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*word-action*replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 826)
+    (link-stm-to-ltm <c1> 829)
+}
+
+sp {chunk*apply*props*spread-result*snc*t970-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 842)
+}
+
+sp {chunk*apply*props*spread-result*snc*t963-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol word-action)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 844)
+}
+
+sp {chunk*apply*props*spread-result*snc*t956-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*word-action*replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 840)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t892-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-word-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-word-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-word*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 846)
+    (link-stm-to-ltm <c1> 849)
+}
+
+sp {chunk*apply*props*spread-result*snc*t853-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 854)
+}
+
+sp {chunk*apply*props*spread-result*snc*t846-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 860)
+}
+
+sp {chunk*apply*props*spread-result*snc*t839-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*read)
+    (<c1> ^name _P38)
+    (link-stm-to-ltm <c1> 856)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t779-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-word-next)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-word-next ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-word*next)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 862)
+    (link-stm-to-ltm <c1> 865)
+}
+
+sp {chunk*apply*props*spread-result*snc*t740-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*next)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 872)
+}
+
+sp {chunk*apply*props*spread-result*snc*t733-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1> ^V <v1>)
+    (<w1> ^slot2 <s2>)
+    (<v1> ^in2 { <i1> <> <s2> })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*ed*find-task-word*next)
+    (<c1> ^name _P37)
+    (link-stm-to-ltm <c1> 874)
+}
+
+sp {chunk*apply*props*spread-result*snc*t723-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 870)
+}
+
+sp {chunk*apply*props*spread-result*snc*t716-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*next)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 878)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t638-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-task-word-for-replace)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-task-word-for-replace ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-task-word*for-replace)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 908)
+    (link-stm-to-ltm <c1> 911)
+}
+
+sp {chunk*apply*props*spread-result*snc*t599-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-task)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-replace)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 923)
+}
+
+sp {chunk*apply*props*spread-result*snc*t592-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-replace)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 918)
+}
+
+sp {chunk*apply*props*spread-result*snc*t585-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 replace-word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-task-word*for-replace)
+    (<c1> ^name _P34)
+    (link-stm-to-ltm <c1> 920)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t521-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-find-line-read)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-find-line-read ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*find-line*read)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 969)
+    (link-stm-to-ltm <c1> 972)
+}
+
+sp {chunk*apply*props*spread-result*snc*t482-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot2 <s2> ^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*read)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 979)
+}
+
+sp {chunk*apply*props*spread-result*snc*t472-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-line)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*read)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 983)
+}
+
+sp {chunk*apply*props*spread-result*snc*t465-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*find-line*read)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 977)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t413-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-line-strategy-enter)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-line-strategy-enter ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*line-strategy*enter)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1029)
+    (link-stm-to-ltm <c1> 1032)
+}
+
+sp {chunk*apply*props*spread-result*snc*t374-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*enter)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1040)
+}
+
+sp {chunk*apply*props*spread-result*snc*t367-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result success)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*enter)
+    (<c1> ^name _P18)
+    (link-stm-to-ltm <c1> 1042)
+}
+
+sp {chunk*apply*props*spread-result*snc*t360-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*enter)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1038)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t289-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-line-strategy-test)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-line-strategy-test ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*line-strategy*test)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1045)
+    (link-stm-to-ltm <c1> 1048)
+}
+
+sp {chunk*apply*props*spread-result*snc*t250-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*test)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1061)
+}
+
+sp {chunk*apply*props*spread-result*snc*t243-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*test)
+    (<c1> ^name _P14)
+    (link-stm-to-ltm <c1> 1065)
+}
+
+sp {chunk*apply*props*spread-result*snc*t236-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol line-strategy)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*line-strategy*test)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1063)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t179-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-init-find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-init-find-goal ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*editors*ed*init*find-goal)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1068)
+    (link-stm-to-ltm <c1> 1071)
+}
+
+sp {chunk*apply*props*spread-result*snc*t140-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol find-goal)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*init*find-goal)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 1083)
+}
+
+sp {chunk*apply*props*spread-result*snc*t133-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^in1 { <i1> <> end })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i2> ^condition <c1>)
+    (<i2> ^name propose*editors*ed*init*find-goal)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 1086)
+}
+
+sp {chunk*apply*props*spread-result*snc*t126-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask ed)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*editors*ed*init*find-goal)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1081)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t46-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name editors-ed-init-start)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported editors-ed-init-start ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*editors*ed*init*start)
+    (<c1> ^name |_P4|)
+    (link-stm-to-ltm <i1> 1089)
+    (link-stm-to-ltm <c1> 1092)
+}
+
+sp {chunk*apply*props*spread-result*snc*t22-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1> ^topstate <t1>)
+    (<g1> ^Gtask ed)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 1103)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1> ^topstate <t1>)
+    (<g1> -^Gcontrol <g2>)
+    (<t1> ^io <i1>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^task-sequence-name ed_1)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i3> ^condition <c1>)
+    (<i3> ^name propose*editors*ed*init*start)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 1106)
+}
+
+

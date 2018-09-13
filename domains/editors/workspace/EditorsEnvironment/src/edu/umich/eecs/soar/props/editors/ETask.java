@@ -8,8 +8,7 @@ import java.util.List;
 public class ETask {
 	public int line_pos, cursor_pos;
 	public String[] vlist;
-	public String[] old_vlist;
-	public boolean vlist_changed;
+	//public String[] old_vlist;
 	public List<String> line;
 	public List<String[]> edits;
 	public List<List<String>> text;
@@ -23,7 +22,6 @@ public class ETask {
 		line_pos = 0;
 		cursor_pos = 0;
 		vlist = new String[]{"","","",""};
-		vlist_changed = false;
 		
 		text = new ArrayList<List<String>>(20);
 		text.add(new LinkedList<String>(Arrays.asList("Geestelijk vader van de tovenaarsleerling JK Rowling lanceert morgen de site pottermorecom".split("\\s"))));
@@ -48,18 +46,12 @@ public class ETask {
 		text.add(new LinkedList<String>(Arrays.asList(new String[]{""})));
 	}
 	
-	public boolean set_vlist(String v1, String v2, String v3, String v4) {
-		old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};
+	public void set_vlist(String v1, String v2, String v3, String v4) {
+		//old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};
 		vlist = new String[]{v1, v2, v3, v4};
-		vlist_changed = !Arrays.equals(vlist, old_vlist);
-		return vlist_changed;
 	}
-	public boolean set_vlist(String[] list) {
-		old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};
+	public void set_vlist(String[] list) {
+		//old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};
 		vlist = list;
-		vlist_changed = !Arrays.equals(vlist, old_vlist);
-		return vlist_changed;
 	}
-	
-	public boolean vlist_changed() {return vlist_changed;}
 }

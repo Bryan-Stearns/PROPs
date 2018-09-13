@@ -14,7 +14,7 @@
 #  (<s> ^props-sub (<u>                     | 
 #           ^subname <name>                 | The unique name of the LTM instructing this memory address
 #           ^symbol <sym>                   | The prop copy used by the parent props-do operator
-#           ^sub (<sub>                     | A *copy* of the the LTM instructing this memory address, modified in this substate^chain-attr <attr>
+#           ^sub (<sub>                     | A *copy* of the LTM instructing this memory address, modified in this substate^chain-attr <attr>
 #               ^chain-next <next>          | The next node in the linked list of address dot-notation
 #               ^curr-id <cid>              | The symbol pointer found by tracing the linked list up to the current point
 #               ^curr-attr <cattr>          | The current node in the linked list of address dot-notation (starts at ^sub). When created, triggers iteration.
@@ -406,7 +406,8 @@ sp {propose*props*sub*chain*iterate*normal
     (<s> ^literalize <l>)
     (<node> ^chain-attr <attr>
             ^chain-next <next-node>)
-    (<id> ^<attr> <next-id>)
+    (<id> ^<attr> <next-id>
+		-^props-agnostic-add )		# Don't follow a link if marked to always make new WMEs
 -->
 	(<s> ^operator <o> + = >)
 	(<o> ^name props-sub-chain-iterate
@@ -733,7 +734,7 @@ sp {apply*props*sub*chain*iterate*literalize
          ^literalize {<l> <> <ol>})
 -->
     (<s> ^literalize <ol> -
-         ^literalize <l> )
+         ^literalize (+ <ol> <l>) )
 }
 sp {apply*props*sub*chain*iterate*ops
     (state <s>  ^operator <o>)
@@ -771,6 +772,7 @@ sp {apply*props*sub*chain*iterate*buff
     (<eb> ^object <new>     # Create the head of the chain (new object) on the action buffer for shared use with other PROPs
           ^action <prop>)   # Create a new action for adding this object!
     (<new> ^id1 <id1>
+		   ^new-prop <prop>
            ^id1new <id2>)   # The placeholder for id1 that gets the chain built onto it
     (<id2> ^<attr> <val>)
     (<prop> ^id1 <id1> ^attr1 <attr> ^id2 <id2> ^attr2 <attr>
@@ -790,6 +792,7 @@ sp {apply*props*sub*chain*iterate*create
 }
 sp {apply*props*sub*chain*iterate*branch
     (state <s>  ^operator <o>
+				#^props-sub.subname <nm>    # Ref here to link in chunk (so not overgeneral; the (<ch>.id1 <val>) test won't make it into chunk)
                 ^evalstate.props-buffer <eb>)
     (<o> ^name props-sub-chain-iterate
          ^rootstate <rs>
@@ -797,14 +800,18 @@ sp {apply*props*sub*chain*iterate*branch
          ^branch-id1 <id>                  # TODO: Not needed?
          ^branch-attr <attr>
          ^branch-id2 <id2>)
-    (<eb> ^object.id1new.<oattr> <val>)    # Ref here to link in chunk
-    (<sub> ^buff-chaining <ch>)
+    (<eb> ^object <bo>)
+	(<bo> 	#^new-prop.lti-name <lname>
+			^id1new.<oattr> <val>)    	   # Ref here to link in chunk
+    (<sub>	^chain-next.chain-attr <oattr>
+			^buff-chaining <ch>)
     (<ch> ^id1 <val>                       # Currently iterated to something that already is buffered to be created from a previous addressing routine
          -^id2 )    # Not yet finished initializing
 -->
     (<ch> ^attr1 <attr>
           ^id2 <id2>
           ^attr2 <attr>)
+	#(<o> ^literalize (+ 1 (int <oattr>)))    # Add another literalization; will happen next elab cycle (after 1st literalization), so no race
 }
 
 # MARK THAT SHARED OBJECT MEMORY REFERENCES NEED TO BE MADE PRIOR TO FINAL PROPS RETURN

@@ -593,17 +593,6 @@ sp {apply*props*success*search*end*unprohibit
     (<pl> ^prohibit <prbt> -)
 }
 
-# CATCH THE CHUNKING KERNEL BUG WHERE IT DOESN'T MAINTAIN JUSTIFICATION SUPPORT AFTER RETURNING
-# (This doesnt fix the bug. It only repeats it in a loop.)
-#sp {elaborate*props*success-apply*bug-return
-#    (state <s> ^impasse no-change
-#               ^attribute operator
-#               ^superstate <ss>)
-#    (<ss> ^operator.name props-result-success
-#          ^props-flag flushing)
-#-->
-#    (<ss> ^props-flag flushing -)
-#}
 
 # MODIFY AN ACTION THAT REFERENCES A CHAIN OF CREATED WMES SO IT ADDS THE CHAIN RATHER THAN THE END OF THE CHAIN
 sp {apply*props*success*buffer*fill*partial*result

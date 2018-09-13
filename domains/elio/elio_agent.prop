@@ -172,7 +172,7 @@ pp {propose*elio*solid-lime-diff*step-1
 	const2 solid-lime-diff
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -192,7 +192,7 @@ pp {propose*elio*solid-lime-diff*step-2
 	const3 lime4
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -203,7 +203,7 @@ pp {apply*elio*solid-lime-diff*step-2
 	--
 	s.operator.name == const1
 -->
-	s.WM.slot2 = s.io.input-link.in2
+	s.WM.slot2 = s.V.in2
 	s.AC.action.out1 = const2
 	s.AC.action.out2 = const3
 }
@@ -214,7 +214,7 @@ pp {propose*elio*solid-lime-diff*diff
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -228,7 +228,7 @@ pp {apply*elio*solid-lime-diff*diff
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 	s.AC.action.out1 = const3
 	s.AC.action.out2 = const4
 }
@@ -240,7 +240,7 @@ pp {propose*elio*solid-lime-diff*mult
 	--
 	s.G.Gtask == const2
 	s.RT.slot1 == const3
-	s.io.input-link.in1 == const4
+	s.V.in1 == const4
 -->
 	s.const1 +
 }
@@ -251,7 +251,7 @@ pp {apply*elio*solid-lime-diff*mult
 	s.operator.name == const1
 -->
 	s.Q.query.slot1 = const2
-	s.Q.query.slot2 = s.io.input-link.in2
+	s.Q.query.slot2 = s.V.in2
 	s.Q.query.slot3 = s.RT.slot4
 }
 pp {propose*elio*solid-lime-diff*finish
@@ -280,7 +280,7 @@ pp {propose*elio*greater-algae*start
 	const2 greater-algae
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -301,7 +301,7 @@ pp {propose*elio*greater-algae*div-2
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -313,7 +313,7 @@ pp {apply*elio*greater-algae*div-2
 	s.operator.name == const1
 -->
 	s.Q.query.slot1 = const2
-	s.Q.query.slot2 = s.io.input-link.in2
+	s.Q.query.slot2 = s.V.in2
 	s.Q.query.slot3 = const3
 }
 pp {propose*elio*greater-algae*read-solid
@@ -323,7 +323,7 @@ pp {propose*elio*greater-algae*read-solid
 	--
 	s.G.Gtask == const2
 	s.RT.slot4 
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -346,7 +346,7 @@ pp {propose*elio*greater-algae*div-3
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -358,7 +358,7 @@ pp {apply*elio*greater-algae*div-3
 	s.operator.name == const1
 -->
 	s.Q.query.slot1 = const2
-	s.Q.query.slot2 = s.io.input-link.in2
+	s.Q.query.slot2 = s.V.in2
 	s.Q.query.slot3 = const3
 }
 pp {propose*elio*greater-algae*greater
@@ -369,7 +369,7 @@ pp {propose*elio*greater-algae*greater
 	--
 	s.G.Gtask == const2
 	s.RT.slot1 == const3
-	s.io.input-link.in1 == const4
+	s.V.in1 == const4
 -->
 	s.const1 +
 }
@@ -468,7 +468,7 @@ pp {propose*elio*mean-toxin*start
 	const2 mean-toxin
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -488,7 +488,7 @@ pp {propose*elio*mean-toxin*toxinmin
 	const3 toxinmax
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -499,7 +499,7 @@ pp {apply*elio*mean-toxin*toxinmin
 	--
 	s.operator.name == const1
 -->
-	s.WM.slot2 = s.io.input-link.in2
+	s.WM.slot2 = s.V.in2
 	s.AC.action.out1 = const2
 	s.AC.action.out2 = const3
 }
@@ -510,7 +510,7 @@ pp {propose*elio*mean-toxin*add
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -522,7 +522,7 @@ pp {apply*elio*mean-toxin*add
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 }
 pp {propose*elio*mean-toxin*divide
 	const1 elio-mean-toxin-divide
@@ -1057,7 +1057,7 @@ pp {propose*elio*triple-lime*start
 	const2 triple-lime
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -1078,7 +1078,7 @@ pp {propose*elio*triple-lime*mult
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1090,7 +1090,7 @@ pp {apply*elio*triple-lime*mult
 	s.operator.name == const1
 -->
 	s.Q.query.slot1 = const2
-	s.Q.query.slot2 = s.io.input-link.in2
+	s.Q.query.slot2 = s.V.in2
 	s.Q.query.slot3 = const3
 }
 pp {propose*elio*triple-lime*read
@@ -1100,7 +1100,7 @@ pp {propose*elio*triple-lime*read
 	--
 	s.G.Gtask == const2
 	s.RT.slot4 
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1123,7 +1123,7 @@ pp {propose*elio*triple-lime*add
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1135,7 +1135,7 @@ pp {apply*elio*triple-lime*add
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 }
 pp {propose*elio*triple-lime*finish
 	const1 elio-triple-lime-finish
@@ -1163,7 +1163,7 @@ pp {propose*elio*lesser-evil*read-solid
 	const2 lesser-evil
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -1183,7 +1183,7 @@ pp {propose*elio*lesser-evil*read-lime1
 	const3 solid
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1194,7 +1194,7 @@ pp {apply*elio*lesser-evil*read-lime1
 	--
 	s.operator.name == const1
 -->
-	s.WM.slot2 = s.io.input-link.in2
+	s.WM.slot2 = s.V.in2
 	s.AC.action.out1 = const2
 	s.AC.action.out2 = const3
 }
@@ -1205,7 +1205,7 @@ pp {propose*elio*lesser-evil*add-lime1
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1217,7 +1217,7 @@ pp {apply*elio*lesser-evil*add-lime1
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 }
 pp {propose*elio*lesser-evil*read-algae
 	const1 elio-lesser-evil-read-algae
@@ -1227,7 +1227,7 @@ pp {propose*elio*lesser-evil*read-algae
 	--
 	s.G.Gtask == const2
 	s.RT.slot1 == const3
-	s.io.input-link.in1 == const4
+	s.V.in1 == const4
 -->
 	s.const1 +
 }
@@ -1252,7 +1252,7 @@ pp {propose*elio*lesser-evil*read-toxin3
 	const3 algae
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1263,7 +1263,7 @@ pp {apply*elio*lesser-evil*read-toxin3
 	--
 	s.operator.name == const1
 -->
-	s.WM.slot2 = s.io.input-link.in2
+	s.WM.slot2 = s.V.in2
 	s.AC.action.out1 = const2
 	s.AC.action.out2 = const3
 }
@@ -1274,7 +1274,7 @@ pp {propose*elio*lesser-evil*add-toxin3
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1286,7 +1286,7 @@ pp {apply*elio*lesser-evil*add-toxin3
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 }
 pp {propose*elio*lesser-evil*toxin3
 	const1 elio-lesser-evil-toxin3
@@ -1296,7 +1296,7 @@ pp {propose*elio*lesser-evil*toxin3
 	--
 	s.G.Gtask == const2
 	s.RT.slot1 == const3
-	s.io.input-link.in1 == const4
+	s.V.in1 == const4
 -->
 	s.const1 +
 }
@@ -1380,7 +1380,7 @@ pp {propose*elio*solid-div-lime*read-solid
 	const2 solid-div-lime
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 -
+	s.V.in1 -
 -->
 	s.const1 +
 }
@@ -1400,7 +1400,7 @@ pp {propose*elio*solid-div-lime*read-lime1
 	const3 solid
 	--
 	s.G.Gtask == const2
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1411,7 +1411,7 @@ pp {apply*elio*solid-div-lime*read-lime1
 	--
 	s.operator.name == const1
 -->
-	s.WM.slot2 = s.io.input-link.in2
+	s.WM.slot2 = s.V.in2
 	s.AC.action.out1 = const2
 	s.AC.action.out2 = const3
 }
@@ -1422,7 +1422,7 @@ pp {propose*elio*solid-div-lime*div-lime1
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.io.input-link.in1 == const3
+	s.V.in1 == const3
 -->
 	s.const1 +
 }
@@ -1434,7 +1434,7 @@ pp {apply*elio*solid-div-lime*div-lime1
 -->
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.WM.slot2
-	s.Q.query.slot3 = s.io.input-link.in2
+	s.Q.query.slot3 = s.V.in2
 }
 pp {propose*elio*solid-div-lime*finish
 	const1 elio-solid-div-lime-finish

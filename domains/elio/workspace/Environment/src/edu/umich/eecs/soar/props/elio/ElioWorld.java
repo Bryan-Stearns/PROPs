@@ -40,30 +40,30 @@ public class ElioWorld extends PROPsEnvironment {
 
 	
 	ElioWorld() {
-		//String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/";
-		//String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
-		String proj_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Elio/";
-		String props_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PROPs Project/";
+		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/";
+		String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
+		//String proj_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Elio/";
+		//String props_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PROPs Project/";
 		
 		this.setAgentName("ElioAgent");
 		this.setPropsDir(props_dir);
 		this.setProjDir(proj_dir);
 		
-		/*this.setCondChunkFile("elio_agent_condspread-chunks.soar");
-		this.setAddressChunkFile("elio_agent_L1-chunks.soar");
-		this.setFetchSeqFile("elio_agent_fetch-procedures.soar");
+		this.setCondChunkFile("elio_agent_condspread_chunks.soar");
+		this.setAddressChunkFile("elio_agent_L1_chunks.soar");
+		this.setFetchSeqFile("elio_agent_fetch_procedures.soar");
 		this.setInstructionsFile("elio_agent_instructions.soar");//"prims_elio01_agent_smem.soar");
-		this.setSoarAgentFile("elio_agent.soar");*/
-		this.setCondChunkFile("prims_elio02_condspread-chunks.soar");
+		this.setSoarAgentFile("elio_agent.soar");
+		/*this.setCondChunkFile("prims_elio02_condspread-chunks.soar");
 		this.setAddressChunkFile("prims_elio02_L1-chunks.soar");
 		this.setFetchSeqFile("prims_elio_procedures_smem.soar");
 		this.setInstructionsFile("test_elio_agent_PROP.soar");//"prims_elio01_agent_smem.soar");
-		this.setSoarAgentFile("test_elio_agent.soar");
+		this.setSoarAgentFile("test_elio_agent.soar");*/
 		
 		this.setIOSize(2, 2);
 		
-		this.setUserAgentFiles(Arrays.asList("lib_actr_interface_new.soar", 
-											 "smem_elio.soar"));
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+											 proj_dir + "elio_agent_smem.soar"));
 		
 
 		etask = new ETask("", 1,1,0);
@@ -127,7 +127,7 @@ public class ElioWorld extends PROPsEnvironment {
 	@Override
 	protected void user_doExperiment() {
 		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-b", "procedure-c", "procedure-d"));
-		int NUM_TRIALS = 50;
+		int NUM_TRIALS = 6;
 		
 		
 		etask.sample = current_sample++;
@@ -157,6 +157,12 @@ public class ElioWorld extends PROPsEnvironment {
 
 	@Override
 	protected void user_errorListener(String err) {
+		
+	}
+
+	@Override
+	protected void user_updateTask() {
+		// TODO Auto-generated method stub
 		
 	}
 

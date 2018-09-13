@@ -14,11 +14,14 @@ public class EditorsWorld extends PROPsEnvironment {
 
 	private ETask ed_task;
 	private Report rep;
-	private int task_count;				// The index of edit_tasks to use next
+	
+	//private int task_count;				// The index of edit_tasks to use next
+	private String task_name;
 	
 	private List<ArrayList<String[]>> edit_tasks;
 	private String[] numbers;
 
+	public boolean inDebug = false;
 	
 	EditorsWorld() {
 		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/";
@@ -28,16 +31,16 @@ public class EditorsWorld extends PROPsEnvironment {
 		this.setPropsDir(props_dir);
 		this.setProjDir(proj_dir);
 		
-		this.setCondChunkFile("prims_editors01_condspread_chunks.soar");
-		this.setAddressChunkFile("prims_editors01_L1-chunks.soar");
-		this.setFetchSeqFile("prims_editors_tasks_smem.soar");
-		this.setInstructionsFile("prims_editors_agent_smem.soar");
-		this.setSoarAgentFile("prims_editors_agent.soar");
+		this.setCondChunkFile("editors_agent_condspread_chunks.soar");
+		this.setAddressChunkFile("editors_agent_L1_chunks.soar");
+		this.setFetchSeqFile("editors_agent_fetch_procedures.soar");
+		this.setInstructionsFile("editors_agent_instructions.soar");
+		this.setSoarAgentFile("editors_agent.soar");
 		
 		this.setIOSize(4, 3);
 		
-		this.setUserAgentFiles(Arrays.asList("lib_actr_interface.soar", 
-											 "smem_editors.soar"));
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+												proj_dir + "editors_agent_smem.soar"));
 		
 		this.edit_tasks = new LinkedList<ArrayList<String[]>>();
 		
@@ -71,10 +74,26 @@ public class EditorsWorld extends PROPsEnvironment {
 		
 	}
 	
-	public void runEditorsDebug(String task, int taskNum) {
+	public void runEditorsDebug(String task, int taskNum, int threshold, String mode) {
 		String taskSeq = task + "_" + (taskNum+1);
-		task_count = taskNum;
-		this.runDebug(task, taskSeq);
+		task_name = task;
+		//task_count = taskNum;
+		inDebug = true;
+		this.runDebug(task, taskSeq, threshold, mode);
+		inDebug = false;
+	}
+	
+	private int getEditTaskIndex(String taskSeq) {
+		if (taskSeq.contains("_1")) {
+			return 0;
+		}
+		else if (taskSeq.contains("_2")) {
+			return 1;
+		}
+		else if (taskSeq.contains("_3")) {
+			return 2;
+		}
+		else return -1;	// Error, shouldn't happen
 	}
 	
 	
@@ -89,6 +108,7 @@ public class EditorsWorld extends PROPsEnvironment {
 			word = ed_task.text.get(ed_task.line_pos).get(ed_task.cursor_pos);
 		
 		ed_task.set_vlist("word", word, "nil", line);
+		
 	}
 	
 	private List<String> substitute_insert(String old_element, String new_element, List<String> l) {
@@ -305,19 +325,14 @@ public class EditorsWorld extends PROPsEnvironment {
 
 		rep.addLatency(latency);	// When a report ends from next-instruction, does not include the latency for next-instruction
 
-		if (ed_task.vlist_changed()) {
-			for (int i=0; i<ed_task.vlist.length; ++i) {
-				try {
-					this.setInput(i,ed_task.vlist[i]);
-					
-				} catch (Exception e) {
-					System.err.println("Wrong index....");
-				}
-			}
+		for (int i=0; i<ed_task.vlist.length; ++i) {
+			try {
+				this.setInput(i,ed_task.vlist[i]);
 
-			ed_task.vlist_changed = false;
+			} catch (Exception e) {
+				System.err.println("Wrong index....");
+			}
 		}
-		
 		
 	}
 
@@ -350,24 +365,26 @@ public class EditorsWorld extends PROPsEnvironment {
 				return;
 			}
 			
-			task_count = 0;
+			int task_count = 0;
 			rep.taskSetName = sac.name;
 			
-			for (int i=0; i<6 && !this.agentError; ++i) { // Each subject comes in for 6 'days'
+			for (int i=0; i<1 && !this.agentError; ++i) { // Each subject comes in for 6 'days'
 				int j = (int)(1800.0 / (double)sac.trials[i] + 0.5); // How many trials can fit into the 'day'
 				String condition = sac.conditions[i/2];
 
 				for (int k=0; k<j && !this.agentError; ++k) {
-					this.setTask(condition, condition + "_" + Integer.toString(task_count + 1));
+					task_name = condition;
+					this.setTask(task_name, task_name + "_" + Integer.toString(task_count + 1));
 
 					// Init report
 					rep.init();
-					rep.taskName = condition;
+					rep.taskName = task_name;
 					rep.trialNum = i+1;
 					rep.editNum = k+1;
 					
 					this.runAgent();	// Run until receiving the finish command
-					//this.agent.ExecuteCommandLine("print <ts> -d 4");
+					
+					task_count = (task_count + 1) % 3;
 					
 					if (!this.agentError) {	// abort potentially gets set in the updateEventHandler method
 						this.printReports();
@@ -391,29 +408,39 @@ public class EditorsWorld extends PROPsEnvironment {
 
 	@Override
 	protected void user_errorListener(String arg0) {
-		// TODO Auto-generated method stub
-		
+		System.err.println("ERROR DETECTED!");
 	}
 
 
 	@Override
 	protected void user_agentStart() {
 		// Init
-		ed_task.init();
-		ed_task.edits = new ArrayList<String[]>(edit_tasks.get(task_count));
+		//ed_task.init();
+		//int taskInd = getEditTaskIndex(this.taskSequenceName);
+		//if (taskInd != -1)
+		//	ed_task.edits = new ArrayList<String[]>(edit_tasks.get(taskInd));
 		this.clearReports();
-		task_count = (task_count + 1) % 3;
-		determine_v();
-		
+		rep.init();
+		determine_v();	
 	}
 	
 	@Override
 	protected void user_agentStop() {
-		// Init
-		ed_task.init();
-		ed_task.edits = new ArrayList<String[]>(edit_tasks.get(task_count));
-		rep.init();
-		//determine_v();
+		// Increment the task
+		if (inDebug) {
+			int currTaskInd = getEditTaskIndex(this.taskSequenceName);
+			currTaskInd = (currTaskInd + 1) % 3;
+			this.setTask(this.taskName, this.taskName + "_" + Integer.toString(currTaskInd + 1));
+		}
+		else {
+			user_updateTask();
+		}
+	}
+
+	@Override
+	protected void user_updateTask() {
+		ed_task.init();		// Resets the text to be edited
+		ed_task.edits = new ArrayList<String[]>(edit_tasks.get(getEditTaskIndex(this.taskSequenceName)));
 	}
 
 }

@@ -425,6 +425,22 @@ sp {apply*props*do*add
     (<prop> ^id1 <id1>
             ^id2 <id2>)
 }
+# Check for bad rule - RHS arg doesn't exist
+sp {apply*props*do*add*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <p>
+         ^literalize)
+    (<p> ^prop-type add
+        -^prop-type acceptable
+         ^attr2 <attr2>
+         ^id2 <id2>)
+	-(<id2> ^<attr2> <any>)
+-->
+    (<p> ^status fail)
+	(write |    ACTION FAILED: NO ADD SOURCE| (crlf) )
+	(interrupt)
+}
 
 # REMOVE
 sp {apply*props*do*remove
@@ -642,7 +658,7 @@ sp {apply*props*success*action*add*new
          ^literalize)
     (<id1> -^props-agnostic-add )
     (<id2> ^<attr2> <val>)                # The value being copied
-    -(<id1> ^<attr1> {<old> <> <val>})    # No existing value in this 'slot'
+    -(<id1> ^<attr1> ) # {<old> <> <val>})    # No existing value in this 'slot'
 -->
     (<id1> ^<attr1> <val> +)
     (<ins> ^props-result success)
@@ -662,10 +678,11 @@ sp {apply*props*success*action*add*replace        # TODO: Might be unstable to c
          ^attr2 <attr2>
          ^id1 <id1>
          ^id2 <id2>
+		-^applied						# This apply rule hasn't been applied yet (might be unnecessary)
          ^literalize)
     (<id1> -^props-agnostic-add )
     (<id2> ^<attr2> <val>)               # The value being copied
-    (<id1> ^<attr1> {<old> <> <val>})    # An existing value in this 'slot'
+    (<id1> ^<attr1> <old> ) # {<old> <> <val>})    # An existing value in this 'slot'
 -->
     (<id1> ^<attr1> <old> -             # Remove the old value, replace it with the new one
            ^<attr1> <val> +)
@@ -693,6 +710,29 @@ sp {apply*props*success*action*add*agnostic # TODO: This is a hacky fix for the 
 -->
     (<id1> ^<attr1> <val> +)
     (<ins> ^props-result success)
+}
+# Use a separate elaboration rule to mark when add*replace has fired (is i-supported because it modifies the operator)
+# (Might be unnecessary)
+sp {elaborate*props*success*action*add*replace*complete
+	(state <s> ^operator <o>
+              -^props-flag staging
+               ^props-flag flushing
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (^prop-type add
+                 -^intermediate)
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id1> -^props-agnostic-add )
+    (<id2> ^<attr2> <val>)               # The value being copied
+    (<id1> ^<attr1> <old> ) # {<old> <> <val>})    # An existing value in this 'slot'
+-->
+	(<i> ^applied true)
 }
 
 # APPLY ACTION REMOVE

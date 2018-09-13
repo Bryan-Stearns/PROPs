@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.util.Pair;
 
 import sml.Identifier;
 import sml.Kernel;
@@ -52,6 +53,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	protected int numAgentInputs = 3,
 				  numAgentOutputs = 3;
 	private ArrayList<WMElement> inputWMEs;
+	private ArrayList<GhostWME> newInputs;	// a buffer for the user-made environment input
 	private ArrayList<String> inputs;
 	private ArrayList<String> outputs;
 
@@ -64,6 +66,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	abstract protected void user_doExperiment();
 	abstract protected void user_agentStart();
 	abstract protected void user_agentStop();
+	abstract protected void user_updateTask();
 	abstract protected void user_outputListener(List<String> outputs);
 	abstract protected void user_errorListener(String err);
 	
@@ -76,6 +79,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		reports = new ArrayList<String>();
 		
 		inputWMEs = new ArrayList<WMElement>(numAgentInputs);
+		newInputs = new ArrayList<GhostWME>(numAgentInputs);
 		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
@@ -88,7 +92,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		// numAgentInputs, numAgentOutputs, 
 		// userAgentFiles
 	}
-
+	
 
 	private void loadLearnProductions(LearnConfig mode) throws Exception {
 		if (mode.spreading() && !mode.learnsConditions()) {
@@ -139,6 +143,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		agentError = false;
 		
 		// Reset IO
+		clearPerception();
 		input_link = agent.GetInputLink();
 		inTask = null;
 		inTaskSeqName = null;
@@ -189,7 +194,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		
 		if (verbose) {
 			agent.ExecuteCommandLine("watch 1");
-			agent.ExecuteCommandLine("watch --learn 1");
+			if (!testing)
+				agent.ExecuteCommandLine("watch --learn 1");
 			agent.ExecuteCommandLine("clog -A verbose_" + outFileName);
 		}
 		else if (!testing){
@@ -207,7 +213,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	private void loadUserAgentFiles() {
 		// Load the list of user-provided agent files
 		for (String s : userAgentFiles) {
-			agent.LoadProductions(proj_dir + s);
+			agent.LoadProductions(s);
 		}
 		
 	}
@@ -247,11 +253,15 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 		
 		inputWMEs = new ArrayList<WMElement>(numAgentInputs);
+		newInputs = new ArrayList<GhostWME>(numAgentInputs);
 		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
 		for (int i=0; i<numAgentInputs; ++i) {
 			inputWMEs.add(null);
+		}
+		for (int i=0; i<numAgentInputs; ++i) {
+			newInputs.add(null);
 		}
 		for (int i=0; i<numAgentInputs; ++i) {
 			inputs.add(null);
@@ -275,51 +285,71 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		
-		// Establish the given data on the input link
-		WMElement in = inputWMEs.get(slot);
-		if (in != null) {
-			in.DestroyWME();
-		}
-		if (input != null && !input.equals("")) {
-			inputWMEs.set(slot, input_link.CreateStringWME("in" + (slot+1), input));
+		if (input != null) {
+			newInputs.set(slot, new GhostWME(GhostWME.Type.STRING, "in" + (slot+1), input));
 		}
 		else {
-			inputWMEs.set(slot, null);
+			newInputs.set(slot, null);
 		}
-		
-		// Save for later internally
-		inputs.set(slot, input);
 	}
 	public void setInput(int slot, int input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		
-		// Establish the given data on the input link
-		WMElement in = inputWMEs.get(slot);
-		if (in != null) {
-			in.DestroyWME();
-		}
-		inputWMEs.set(slot, input_link.CreateIntWME("in" + (slot+1), input));
-		
-		// Save for later internally
-		inputs.set(slot, Integer.toString(input));
+		newInputs.set(slot, new GhostWME(GhostWME.Type.INT, "in" + (slot+1), Integer.toString(input)));
 	}
 	public void setInput(int slot, double input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		
-		// Establish the given data on the input link
-		WMElement in = inputWMEs.get(slot);
-		if (in != null) {
-			in.DestroyWME();
+		newInputs.set(slot, new GhostWME(GhostWME.Type.FLOAT, "in" + (slot+1), Double.toString(input)));
+	}
+	/*public void setInput(int slot, boolean input) throws Exception {
+		if (slot < 0 || slot >= numAgentInputs) {
+			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		inputWMEs.set(slot, input_link.CreateFloatWME("in" + (slot+1), input));
-		
-		// Save for later internally
-		inputs.set(slot, Double.toString(input));
+		newInputs.set(slot, new GhostWME(GhostWME.Type.BOOLEAN, "in" + (slot+1), Boolean.toString(input)));
+	}*/
+	
+	private WMElement makeInputWME(GhostWME w) {
+		if (w.type == GhostWME.Type.INT) {
+			return input_link.CreateIntWME(w.attribute, w.i_val);
+		}
+		else if (w.type == GhostWME.Type.FLOAT){
+			return input_link.CreateFloatWME(w.attribute, w.f_val);
+		}
+		else { // Assume STRING
+			return input_link.CreateStringWME(w.attribute, w.s_val);
+		}
+	}
+	
+	// Copy the new inputs from the buffer to the agent
+	private boolean applyNewInputs() {
+		boolean didChange = false;
+		// Only change WMEs if they are different (blinking can cause problems)
+		for (int i=0; i<numAgentInputs; ++i) {
+			GhostWME newIn = newInputs.get(i);
+			WMElement in = inputWMEs.get(i);
+			// Test if the wmes are equal
+			if (in == null && newIn == null) {
+				continue;
+			}
+			else if (newIn == null) {
+				didChange = true;
+				in.DestroyWME();
+				inputWMEs.set(i, null);
+				inputs.set(i, null);
+			}
+			else { //if (in == null) || !newIn.equals(in)) {
+				didChange = true;
+				if (in != null)
+					in.DestroyWME();
+				inputWMEs.set(i, makeInputWME(newIn));
+				inputs.set(i, newIn.toString());
+				newInputs.set(i, null);
+			} 
+		}
+		return didChange;
 	}
 	
 	public void clearPerception() {
@@ -329,6 +359,14 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			} catch (Exception e) {
 				e.printStackTrace();	// Shouldn't happen
 			}
+		}
+		//applyNewInputs();	// Apply the clearing
+		for (int i=0; i<numAgentInputs; ++i) {
+			if (inputWMEs.get(i) != null) {
+				inputWMEs.get(i).DestroyWME();
+				inputWMEs.set(i, null);
+			}
+			inputs.set(i, null);
 		}
 	}
 	
@@ -354,7 +392,6 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		if (inTask != null) {
 			if (!inTask.GetValueAsString().equals(task)) {
 				inTask.DestroyWME();
-				inTask = null;
 				inTask = input_link.CreateStringWME("task", task);		// for lib-actr to set Gtask
 			}
 		}
@@ -372,6 +409,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		
 		this.taskName = task;
 		this.taskSequenceName = taskSeqName;
+		
+		user_updateTask();
 	}
 
 
@@ -466,26 +505,27 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	}
 	
 
-	public void makeSpreadingChunks(String taskName, List<String> seqNames, String fname) {
+	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname) {
 		testing = true;
-		outFileName = "make_chunks.txt";
-		currentLearnMode.set(true, false, false, true, true, false, false, false);
+		outFileName = "make_condition_chunks.txt";
+		currentLearnMode.set(true, false, false, true, true, true, false, false);
 		currentLearnMode.setChunkThreshold(1);
 		
-		makeChunkingRuns(taskName, seqNames, fname);
+		makeChunkingRuns(taskSeqs, fname);
 		testing = false;
 	}
-	public void makeAddressingChunks(String taskName, List<String> seqNames, String fname) {
+	public void makeAddressingChunks(List<Pair<String,String>> taskSeqs, String fname) {
 		testing = true;
-		outFileName = "make_chunks.txt";
+		outFileName = "make_address_chunks.txt";
 		currentLearnMode.set(false, false, false, false, false, true, false, true);
 		currentLearnMode.setChunkThreshold(1);
 		
-		makeChunkingRuns(taskName, seqNames, fname);
+		makeChunkingRuns(taskSeqs, fname);
 		testing = false;
 	}
 	
-	public void makeChunkingRuns(String taskName, List<String> taskSeqs, String fname) {
+	@SuppressWarnings("restriction")
+	public void makeChunkingRuns(List<Pair<String,String>> taskSeqs, String fname) {
 
 		try {
 			initAgent();
@@ -494,26 +534,27 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			return;
 		}
 		clearOutputFile();
-
-		user_agentStart();
 		
 		int chunksDelta = 0,
 			chunksCurr = 0,
 			chunksPrev = 0;
 		int cont = currentLearnMode.getChunkThreshold() + 2;
+		int count = 0;
 		
-		for (String task : taskSeqs) {
-			setTask(taskName, task);
+		for (Pair<String,String> task : taskSeqs) {
+			setTask(task.getKey(), task.getValue());
 			
 			while (cont > 0) {
-				agent.RunSelfForever();
+				runAgent();
+				count++;
 				
-				if (chunksCurr == 0 || chunksPrev == 0)
-					continue;
 				// Check how many chunks were learned this past run
 				chunksPrev = chunksCurr;
 				chunksCurr = agent.ExecuteCommandLine("p -c").split("\n").length;
 				chunksDelta = chunksCurr - chunksPrev;
+				
+				if (chunksCurr == 0 || chunksPrev == 0)
+					continue;
 				
 				if (chunksDelta == 0)
 					cont--;
@@ -521,7 +562,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					cont = currentLearnMode.getChunkThreshold() + 2;
 			}
 			cont = currentLearnMode.getChunkThreshold() + 1;
+			
+			System.out.println("Completed " + task.getKey() + " : " + task.getValue() + ", " + count + " runs, " + chunksCurr + " chunks.");
+			count = 0;
 		}
+		
+		System.out.println("\nDone! Saving chunks to: " + fname);
 		
 		// Save chunks
 		try(FileWriter fw = new FileWriter(fname, false);
@@ -568,7 +614,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 		
 		// Clear old input
-		clearPerception();
+		//clearPerception();
 		
 		// Note the availability of this function for reporting:  int DC = agent.GetDecisionCycleCounter();
 		// Seemed broken when tried to use it before. Can't ignore impasse DCs in any case.
@@ -577,7 +623,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		for (int c = 0; c < C; ++c) {
 			final Identifier id = agent.GetCommand(c);
 			if (id != null && id.IsJustAdded()) {
-				int nChildren = id.GetNumberChildren();
+				//int nChildren = id.GetNumberChildren();
 				//if (nChildren != numAgentOutputs)
 					//return;
 				
@@ -599,10 +645,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					catch (IOException e) {
 						System.err.println("ERROR: Unable to append to file '" + outFileName + "'");
 					}
+					
+					id.AddStatusComplete();
 				}
 				// Handle Soar agent commands
-				else if (id.GetCommandName().compareTo(CMD_SAY) == 0
-						&& nChildren == numAgentOutputs) {
+				else if (id.GetCommandName().compareTo(CMD_SAY) == 0) {
+						//&& nChildren == numAgentOutputs) {
 
 					// Get the output
 					for (int i=0; i<numAgentOutputs; ++i) {
@@ -619,18 +667,22 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 					// Update the environment using the output
 					user_outputListener(outputs);
 					
+					// Update the agent inputs according to environment responses
+					applyNewInputs();
 					
+					id.AddStatusComplete();
 				}
 				else if (id.GetCommandName().compareTo(CMD_FINISH) == 0) {
 					stopAgent = true;
+					id.AddStatusComplete();
 				}
 				else {
 					id.AddStatusError();
 				}
 				
-				if (!(id.GetCommandName().compareTo(CMD_SAY) == 0
-						&& nChildren != numAgentOutputs))
-					id.AddStatusComplete();
+				//if (!(id.GetCommandName().compareTo(CMD_SAY) == 0))
+						//&& nChildren != numAgentOutputs))
+					//id.AddStatusComplete();
 			}
 		}
 
