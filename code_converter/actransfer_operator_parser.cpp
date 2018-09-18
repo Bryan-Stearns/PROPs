@@ -31,6 +31,8 @@ actransfer_operator_parser::actransfer_operator_parser(std::string in_path, std:
 	currRule_h1 = "";
 	currRule_h2 = "";
 	currTaskName = "";
+
+	initSlotRefMap();
 }
 
 actransfer_operator_parser::~actransfer_operator_parser() {
@@ -56,6 +58,8 @@ std::string actransfer_operator_parser::trim(std::string s) {
 	if (!s.compare(0,6,"(ins :"))
 		return s;
 	if (!s.compare(0,11,"(add-instr "))
+		return s;
+	if (!s.compare(0,1,":"))
 		return s;
 
 	return "";
@@ -108,6 +112,123 @@ std::string actransfer_operator_parser::nextToken(std::stringstream &ss) {
 	return token;
 }
 
+void actransfer_operator_parser::initSlotRefMap() {
+	slotRefMap = {
+		{"Gcontrol","s.G.Gcontrol"},
+		{"Gtop","s.G.Gtop"},
+		{"Gtask", "s.G.Gtask"},
+		{"Gparent", "s.G.Gparent"},
+		{"WMid", "s.WM"},
+		{"WMprev", "s.WM.WMprev"},
+		{"WMnext", "s.WM.WMnext"},
+		{"RTprev", "s.RT.WMprev"},
+		{"RTnext", "s.RT.WMnext"},
+		{"RT1", "s.smem.rt-result"},
+		{"RTid", "s.RT"},
+		{"AC1", "s.AC.action.slot1"}
+	};
+}
+
+// Assuming the ss given is just before a "(...)" of slot names, add to the given map the mappings of these slots to addresses in the given slot path
+void actransfer_operator_parser::getSlotNames(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string slotPath) {
+	std::string sToken = nextToken(ss); // Should be "("
+	if (sToken.compare("(")) {
+		printParseError("Invalid instruction. Expected '(' and slot names for '" + slotPath, true);
+	}
+
+	bool inParen = false;
+	int addrInd = 1;
+	sToken = nextToken(ss);
+
+	if (!sToken.compare("(")) {
+		inParen = true;
+		sToken = nextToken(ss);
+	}
+
+	while (sToken.compare(")")) {
+		// Add this token to the map
+		nameMap.insert(std::make_pair(sToken, slotPath + "slot" + toString(addrInd++)));
+
+		// Get the next token
+		sToken = nextToken(ss);
+		if (!sToken.compare(")") && inParen) {
+			addrInd = 1;				// Reset the addressing index
+			sToken = nextToken(ss);		// Get the next token
+			// Pass a newline if it exists
+			if (sToken.length() == 0)
+				sToken = nextToken(ss);
+			if (!sToken.compare("("))
+				sToken = nextToken(ss);
+		}
+	}
+}
+
+// Assuming the ss given is pointing to the middle of the add-instr directive, after the instruction name,
+// return a map of slot names to slot addresses.
+// Leave the stream at the beginning of the operator descriptions (which follow the add-instr setup).
+void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap) {
+	std::string slotPath = "";
+	std::string sToken = nextToken(ss);
+
+	// Read until finding the comment symbol
+	while (ss.good()) {
+		if (!sToken.compare(":input")) {
+			getSlotNames(ss, nameMap, "s.V.");
+		}
+		else if (!sToken.compare(":variables") || !sToken.compare(":working-memory")) {
+			getSlotNames(ss, nameMap, "s.WM.");
+		}
+		else if (!sToken.compare(":declarative")) {
+			getSlotNames(ss, nameMap, "s.RT.");
+		}
+		else if (!sToken.compare(":pm-function") || !sToken.compare(":init") || !sToken.compare(":parameters") || !sToken.compare(":reward")) {
+			// End after finding any post-slot parameters
+			nextLine(ss);
+			while (ss.peek() == ':')
+				nextLine(ss);
+			return;
+		}
+
+		sToken = nextToken(ss);
+
+		// Pass a newline if it exists
+		if (sToken.length() == 0)
+			sToken = nextToken(ss);
+	}
+}
+
+std::string actransfer_operator_parser::makeActionRef(const std::string &condRef) {
+	if (condRef.compare("s.RT")) {
+		// If it's not an RT ref, no need to change it
+		return condRef;
+	}
+
+	if (condRef.length() == 4) {
+		// Special case: replace "s.RT" with "s.Q.retrieve"
+		return "s.Q.retrieve";
+	}
+
+	std::string retval = condRef;
+	retval.replace(2,2, "Q.query");
+	return retval;
+}
+
+std::string actransfer_operator_parser::getBuffSlot(const std::string &buff, const int slot) {
+	if (!buff.compare("AC")) {
+		return "s.AC.action.slot" + toString(slot);
+	}
+	if (!buff.compare("RT") || !buff.compare("RTid")) {
+		return "s.Q.query.slot" + toString(slot);
+	}
+	if (!buff.compare("Gtop")) {
+		return "s.G.Gtop.slot" + toString(slot);
+	}
+	if (!buff.compare("newWM")) {
+		return "s.NW.wm.slot" + toString(slot);
+	}
+	return "";
+}
+
 // Get the conditions and actions of the next rule in the file in raw format.
 // Constants will still have raw values.
 // Returns success, and modifies the given stuctures.
@@ -115,39 +236,39 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 {
 	// TODO: Make automatic using "(add-instr"
 	const int wmprev_ind = 2;	// starting from 0
-	const std::map<std::string, std::string> condSlotRefs = {
+	/*const std::map<std::string, std::string> condSlotRefs = {
 			{"Gcontrol","s.G.Gcontrol"},
 			{"Gtop","s.G.Gtop"},
 			{"Gtask", "s.G.Gtask"},
 			{"Gparent", "s.G.Gparent"},
-			{"Vlabel", "s.V.in1"},
-			{"Vvalue", "s.V.in2"},
-			{"Vtype", "s.V.in1"},
-			{"Vword1", "s.V.in2"},
-			{"Vword2", "s.V.in3"},
-			{"Vline", "s.V.in4"},
+			//{"Vlabel", "s.V.in1"},
+			//{"Vvalue", "s.V.in2"},
+			//{"Vtype", "s.V.in1"},
+			//{"Vword1", "s.V.in2"},
+			//{"Vword2", "s.V.in3"},
+			//{"Vline", "s.V.in4"},
 			{"WMid", "s.WM"},
-			{"WMatt", "s.WM.slot1"},
-			{"WMvalue", "s.WM.slot2"},
+			//{"WMatt", "s.WM.slot1"},
+			//{"WMvalue", "s.WM.slot2"},
 			{"WMprev", "s.WM.WMprev"},
 			{"WMnext", "s.WM.WMnext"},
-			{"WMcurline", "s.WM.slot1"},
-			{"WMsearch-goal", "s.WM.slot2"},
-			{"RTtype", "s.RT.slot1"},
-			{"RTarg1", "s.RT.slot2"},
-			{"RTarg2", "s.RT.slot3"},
-			{"RTans", "s.RT.slot4"},
-			{"RTatt", "s.RT.slot1"},
-			{"RTvalue", "s.RT.slot2"},
+			//{"WMcurline", "s.WM.slot1"},
+			//{"WMsearch-goal", "s.WM.slot2"},
+			//{"RTtype", "s.RT.slot1"},
+			//{"RTarg1", "s.RT.slot2"},
+			//{"RTarg2", "s.RT.slot3"},
+			//{"RTans", "s.RT.slot4"},
+			//{"RTatt", "s.RT.slot1"},
+			//{"RTvalue", "s.RT.slot2"},
 			{"RTprev", "s.RT.WMprev"},
 			{"RTnext", "s.RT.WMnext"},
 			{"RT1", "s.smem.rt-result"},
-			{"RTcount-fact", "s.RT.slot1"},
-			{"RTfirst", "s.RT.slot2"},
-			{"RTsecond", "s.RT.slot3"},
-			{"RTdiff-3-fact", "s.RT.slot1"},
-			{"RTnum1", "s.RT.slot2"},
-			{"RTnum2", "s.RT.slot3"},
+			//{"RTcount-fact", "s.RT.slot1"},
+			//{"RTfirst", "s.RT.slot2"},
+			//{"RTsecond", "s.RT.slot3"},
+			//{"RTdiff-3-fact", "s.RT.slot1"},
+			//{"RTnum1", "s.RT.slot2"},
+			//{"RTnum2", "s.RT.slot3"},
 			{"RTid", "s.RT"}
 	};
 	const std::map<std::string, std::string> actSlotRefs = {
@@ -156,28 +277,30 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			{"Gtask", "s.G.Gtask"},
 			{"Gparent", "s.G.Gparent"},
 			{"WMid", "s.WM"},
-			{"WMatt", "s.WM.slot1"},
-			{"WMvalue", "s.WM.slot2"},
+			//{"WMatt", "s.WM.slot1"},
+			//{"WMvalue", "s.WM.slot2"},
 			{"WMprev", "s.WM.WMprev"},
-			{"WMcurline", "s.WM.slot1"},
-			{"WMsearch-goal", "s.WM.slot2"},
-			{"RTtype", "s.Q.query.slot1"},
-			{"RTarg1", "s.Q.query.slot2"},
-			{"RTarg2", "s.Q.query.slot3"},
-			{"RTans", "s.Q.query.slot4"},
-			{"RTatt", "s.Q.query.slot1"},
-			{"RTvalue", "s.Q.query.slot2"},
+			//{"WMcurline", "s.WM.slot1"},
+			//{"WMsearch-goal", "s.WM.slot2"},
+			//{"RTtype", "s.Q.query.slot1"},
+			//{"RTarg1", "s.Q.query.slot2"},
+			//{"RTarg2", "s.Q.query.slot3"},
+			//{"RTans", "s.Q.query.slot4"},
+			//{"RTatt", "s.Q.query.slot1"},
+			//{"RTvalue", "s.Q.query.slot2"},
 			{"RTprev", "s.Q.query.WMprev"},
 			//{"RT1", "s.Q.query.slot1"},
-			{"RTcount-fact", "s.Q.query.slot1"},
-			{"RTfirst", "s.Q.query.slot2"},
-			{"RTsecond", "s.Q.query.slot3"},
-			{"RTdiff-3-fact", "s.Q.query.slot1"},
-			{"RTnum1", "s.Q.query.slot2"},
-			{"RTnum2", "s.Q.query.slot3"},
-			{"AC1", "s.AC.action.out1"},
+			//{"RTcount-fact", "s.Q.query.slot1"},
+			//{"RTfirst", "s.Q.query.slot2"},
+			//{"RTsecond", "s.Q.query.slot3"},
+			//{"RTdiff-3-fact", "s.Q.query.slot1"},
+			//{"RTnum1", "s.Q.query.slot2"},
+			//{"RTnum2", "s.Q.query.slot3"},
+			{"AC1", "s.AC.action.slot1"},
 			{"RTid", "s.Q.retrieve"}
-	};
+	};*/
+
+
 
 	// Special case negation conditions
 	//const std::vector<std::string> specNegs = {"s.V.Vlabel", "s.V.Vvalue"/*, "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"*/};
@@ -190,17 +313,19 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	std::string sToken = nextToken(ss);	// "(" or ";~"
 
 	// Handle directives if any
-	while (!sToken.compare("(") || !sToken.compare("add-instr") || !sToken.compare(";~") || !sToken.compare(";~~")) {
+	while (!sToken.compare("(") || !sToken.compare("add-instr") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':') {
 		if (!sToken.compare("add-instr")) {
+			initSlotRefMap();
 			currTaskName = nextToken(ss);
-			nextLine(ss);
+			readInstrSettings(ss, slotRefMap);	// These will add task-specific refs to the master refs, without overwriting
 		}
 		else if (!sToken.compare(";~")) {
 			currRule_h1 = nextToken(ss);
 			currRule_h2 = "";
 		}
-		else if (!sToken.compare(";~~"))
+		else if (!sToken.compare(";~~")) {
 			currRule_h2 = nextToken(ss);
+		}
 		sToken = nextToken(ss);
 	}
 
@@ -229,8 +354,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		std::string p2;
 		std::string op;
 
-		auto it = condSlotRefs.find(sToken);
-		if (it == condSlotRefs.end()) {
+		auto it = slotRefMap.find(sToken);	// Look
+		if (it == slotRefMap.end()) {
 			printParseError("Unrecognized condition token '" + sToken + "'");
 			throw;
 		}
@@ -262,8 +387,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			}
 		}
 		else {
-			it = condSlotRefs.find(sToken);
-			if (it != condSlotRefs.end()) {
+			it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
 				p2 = it->second;
 			}
 			else {
@@ -311,15 +436,15 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
 			{"s.G.Gtop"}
 	};
-	std::map<std::string, std::vector<std::string>> dst_buffers = {
-			{"AC", {"s.AC.action.out1", "s.AC.action.out2", "s.AC.action.out3"}},
+	/*std::map<std::string, std::vector<std::string>> dst_buffers = {
+			{"AC", {"s.AC.action.slot1", "s.AC.action.slot2", "s.AC.action.slot3"}},
 			{"RT", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
 			{"RTid", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
 			//{"RTprev", {"s.RT.slot4.slot1", "s.RT.slot4.slot2", "s.RT.slot4.slot3", "s.RT.slot4.slot4"}},  // This is hacky specific for Elio.
 			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
 			{"newWM", {"s.NW.wm.slot1", "s.NW.wm.slot2", "s.NW.wm.slot3", "s.NW.wm.slot4"}},
 			{"Gtop", {"s.G.Gtop.slot1", "s.G.Gtop.slot2", "s.G.Gtop.slot3", "s.G.Gtop.slot4"}}
-	};
+	};*/
 
 	while (sToken.compare(")")) {
 		// Check for group action (e.g., (div RTvalue WMvalue) -> RT)
@@ -334,8 +459,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 
 				while (sToken.compare(")")) {
 					// Add each item within the ()'s to the source list
-					auto it = condSlotRefs.find(sToken);
-					if (it != condSlotRefs.end()) {
+					auto it = slotRefMap.find(sToken);
+					if (it != slotRefMap.end()) {
 						if (sToken.compare("RTid") == 0) {
 							// Special case: If (? ? RTid) -> RT, replace RT with RT.WMnext
 							specialRT = it->second;
@@ -365,12 +490,12 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			op = "=";
 			// Read destination buffer
 			buff = nextToken(ss);
-			if (dst_buffers.find(buff) == dst_buffers.end()) {
+			/*if (dst_buffers.find(buff) == dst_buffers.end()) {
 				std::cout << "ERROR: Unexpected target buffer '" + buff + "' for group value assignment." << std::endl;
 				throw;
 			}
 
-			auto buffList = dst_buffers.at(buff);
+			auto buffList = dst_buffers.at(buff);*/
 
 			// Check for use of queries - if so, don't clear-rt
 			if (!buff.compare("RT"))
@@ -418,12 +543,12 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				if (i == wmprev_ind && buff.compare("newWM") == 0 && std::find(src_bufferIDs.begin(), src_bufferIDs.end(), src) != src_bufferIDs.end()) {
 					dst = "s.NW.wm.WMprev";
 				}
-				else try {
-					dst = buffList.at(i);
-				} catch (...) {
+				else {
+					dst = getBuffSlot(buff,i+1); //buffList.at(i);
+				} /*catch (...) {
 					printParseError("Too many values sent to buffer!", true);
 					throw;
-				}	// If this fails, it's either a bad instruction or the buffers map is bad.
+				}*/	 // If this fails, it's either a bad instruction or the buffers map is bad.
 
 
 				if (!src.compare("nil")) {
@@ -440,8 +565,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			std::string p2;
 			std::string op;
 
-			auto it = condSlotRefs.find(sToken);
-			if (it != condSlotRefs.end()) {
+			auto it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
 				p1 = it->second;
 			}
 			else {
@@ -455,9 +580,9 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 
 			// Read arg2
 			sToken = nextToken(ss);
-			it = actSlotRefs.find(sToken);
-			if (it != actSlotRefs.end()) {
-				p2 = it->second;
+			it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
+				p2 = makeActionRef(it->second);
 
 				// Check for use of queries - if so, don't clear-rt
 				if (!p2.compare(0,4,"s.Q."))
@@ -581,7 +706,7 @@ bool splitDotChain(std::string const &original, std::string &front, std::string 
 // Stores list of converted reference declarations in retRefs.
 // Returns map from old dot notation source to new reference "s.attr1.attr2":"<id>".
 // Map also includes consts mapped to themselves.
-std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions) {
+std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &negTestRefs) {
 	auto retval = std::map<std::string, std::string>();
 	//auto ids = std::vector<std::string>();
 	std::string id1 = "",
@@ -613,6 +738,9 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 
 		// Do arg2 (might be a const)
+		if (!c.op.compare("-") && !c.path2.compare("")) {
+			negTestRefs.push_back(c.path1);
+		}
 		if (!splitDotChain(c.path2, p21, p22)) {
 			retval[p21] = p21;	// is a const
 			id2 = p21;
@@ -663,6 +791,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 		else if (!p11.compare(0,2, "s.")) {
 			if (!retval.count(p11)) {
+				// If an action of the form "s.foo.ey bar" and s.foo hasn't been tracked yet
 				id1 = "<c" + toString(idnum++) + ">";
 				retval[p11] = id1;
 
@@ -671,6 +800,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 		else if (!p11.compare("s")) {
 			if (!retval.count(p11)) {
+				// If an action of the form "s.foo bar", and <s> hasn't been tracked yet
 				id1 = "<c" + toString(idnum++) + ">";
 				retval[p11] = id1;
 
@@ -713,7 +843,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 			}
 		}
 		// Add action to remove the old value
-		if (a.path1.compare(0,10, "s.operator") && a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,3, "s.Q") && a.path1.compare("s.G.clear-rt")) {
+		if (std::find(negTestRefs.begin(), negTestRefs.end(), a.path1) == negTestRefs.end()
+				&& a.path1.compare(0,10, "s.operator") && a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,3, "s.Q") && a.path1.compare("s.G.clear-rt")) {
 			// Add reference to the old value
 			id2 = "<c" + toString(idnum++) + ">";
 			retRefs.push_back(retval.at(p11) + " ^" + p12 + " " + id2);
@@ -729,13 +860,13 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 }
 
 // Builds and returns a whole sp rule
-void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::string ruleName, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions)
+void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::string ruleName, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions, std::vector<std::string> &negTestRefs)
 {
 	// Build soar code id references
 	std::vector<std::string> condRefs;
 	int idnum = 1;
 	auto soarActions = actions;	// make a copy that will be modified to include remove actions in the next line:
-	auto refMap = buildSoarIdRefs(condRefs, conditions, soarActions);
+	auto refMap = buildSoarIdRefs(condRefs, conditions, soarActions, negTestRefs);
 
 	// Begin with the normal header
 	retval = "sp {" + ruleName + "\n";
@@ -846,19 +977,20 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 		opName += "-" + currRule_h2;
 	}
 
+	auto negTestRefs = std::vector<std::string>();
 	// *** PROPOSE RULE ***
 	currRuleName = "propose*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
 	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opActions = {Primitive("+", "s.operator", ""), Primitive("+", "s.operator.name", opName)};
-	buildSoarCode(proposeRule, currRuleName, conditions, opActions);
+	buildSoarCode(proposeRule, currRuleName, conditions, opActions, negTestRefs);
 
 	// *** APPLY RULE ***
 	currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
 	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
 	std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", opName)};
-	buildSoarCode(applyRule, currRuleName, opConds, actions);
+	buildSoarCode(applyRule, currRuleName, opConds, actions, negTestRefs);
 }
 
 std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives) {
