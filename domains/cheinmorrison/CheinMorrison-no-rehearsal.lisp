@@ -283,13 +283,13 @@
 ;~~ retrieve
 (ins :condition (Vobject = word RT1 = nil) :action ( (is-word Videntity) -> RT) :description "A word appears, so retrieve it")
 ;~~ success
-(ins :condition (Vobject = word RTanswer = yes) :action ((type "Y") -> AC) :description "Successful retrieve, say yes")
+(ins :condition (Vobject = word RTanswer = yes) :action ((type Y) -> AC) :description "Successful retrieve, say yes")
 ;~~ fail
-(ins :condition (Vobject = word RT1 = error) :action ((type "N") -> AC) :description "Failed to retrieve the word, say no")
+(ins :condition (Vobject = word RT1 = error) :action ((type N) -> AC) :description "Failed to retrieve the word, say no")
 
 ;; If a letter appears, remember it. Put the letter in WM, then bump WM into declarative memory
 ;~ remember-letter
-(ins :condition (Vobject = letter WMconcept = nil Gtop<>nil) :action (Videntity -> WMconcept (? WMid) -> newWM (wait) -> AC) :description "New item") 
+(ins :condition (Vobject = letter WMconcept = nil Gtop <> nil) :action (Videntity -> WMconcept (? WMid) -> newWM (wait) -> AC) :description "New item") 
 
 ;; If the report prompt appears, retrieve and report letters from the memorized list
 ;~ report

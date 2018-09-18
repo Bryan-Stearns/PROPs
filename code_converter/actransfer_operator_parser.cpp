@@ -120,12 +120,12 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			{"Gtop","s.G.Gtop"},
 			{"Gtask", "s.G.Gtask"},
 			{"Gparent", "s.G.Gparent"},
-			{"Vlabel", "s.io.input-link.in1"},
-			{"Vvalue", "s.io.input-link.in2"},
-			{"Vtype", "s.io.input-link.in1"},
-			{"Vword1", "s.io.input-link.in2"},
-			{"Vword2", "s.io.input-link.in3"},
-			{"Vline", "s.io.input-link.in4"},
+			{"Vlabel", "s.V.in1"},
+			{"Vvalue", "s.V.in2"},
+			{"Vtype", "s.V.in1"},
+			{"Vword1", "s.V.in2"},
+			{"Vword2", "s.V.in3"},
+			{"Vline", "s.V.in4"},
 			{"WMid", "s.WM"},
 			{"WMatt", "s.WM.slot1"},
 			{"WMvalue", "s.WM.slot2"},
@@ -277,7 +277,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 
 		// Check RT test conditions, indicating need to clear RT after reading
 		if (/*sToken.compare("nil") && sToken.compare("error") && std::find(specClears.begin(), specClears.end(), p1) != specClears.end()*/
-				!p1.compare(0,5, "s.RT.") ) {
+				!p1.compare(0,5, "s.RT.") || (!p1.compare(0,16, "s.smem.rt-result") && op.compare("-")) ) {
 			clearAction = (Primitive("=", "s.G.clear-rt", "const1"));
 		}
 

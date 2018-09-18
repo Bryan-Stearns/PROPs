@@ -633,8 +633,29 @@ sp {apply*props*success*action*add*new*staging
          ^id1 <id1>
          ^id2 <id2>
          ^literalize)
+    (<id1> -^props-agnostic-add )
     (<id2> ^<attr2> <val>)                # The value being copied
     -(<id1> ^<attr1> {<old> <> <val>})    # No existing value in this 'slot'
+-->
+    (<id1> ^<attr1> <val> +)
+    (<prop> ^staged success)
+}
+sp {apply*props*success*action*add*agnostic*new*staging
+    (state <s> ^operator <o>
+               ^props-flag staging
+               ^props-instructions <ins>
+               ^rootstate <rs>)
+    (<o> ^name props-result-success
+         ^item <i>)
+    (<i> ^action (<prop> ^prop-type add 
+                         ^intermediate) 
+         ^attr1 <attr1>
+         ^attr2 <attr2>
+         ^id1 <id1>
+         ^id2 <id2>
+         ^literalize)
+    (<id1> ^props-agnostic-add )
+    (<id2> ^<attr2> <val>)                # The value being copied
 -->
     (<id1> ^<attr1> <val> +)
     (<prop> ^staged success)

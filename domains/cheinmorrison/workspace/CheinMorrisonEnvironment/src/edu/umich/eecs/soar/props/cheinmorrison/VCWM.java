@@ -1,11 +1,12 @@
 package edu.umich.eecs.soar.props.cheinmorrison;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VCWM {
 	public String state;
 	public Boolean last_correct;
-	public ArrayList<Integer> spans;
+	public List<ArrayList<String>> spans;
 	public ArrayList<String> responses,
 							stimuli;
 	public int current_span,
@@ -14,11 +15,15 @@ public class VCWM {
 	public long start;
 	
 	VCWM() {
+		init();
+	}
+	
+	public void init() {
 		state = "lexical";
 		current_span = 4;
 		last_correct = null;
 		trials = 16;
-		spans = new ArrayList<Integer>();
+		spans = new ArrayList<ArrayList<String>>();
 		responses = new ArrayList<String>();
 		stimuli = new ArrayList<String>();
 		count = current_span - 1;

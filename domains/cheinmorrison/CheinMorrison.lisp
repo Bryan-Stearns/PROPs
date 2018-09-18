@@ -268,9 +268,9 @@
 ;~~ retrieve
 (ins :condition (Vobject = word RT1 = nil Gcontrol = lexdec) :action ( (is-word Videntity) -> RT) :description "Retrieve the word")
 ;~~ success
-(ins :condition (RTanswer = yes Gcontrol = lexdec) :action ((type "Y") -> AC) :description "Successful retrieve: respond 'yes'")
+(ins :condition (RTanswer = yes Gcontrol = lexdec) :action ((type Y) -> AC) :description "Successful retrieve: respond 'yes'")
 ;~~ fail
-(ins :condition (RT1 = error Gcontrol = lexdec) :action ((type "N") -> AC) :description "Retrieval failure: respond 'no'")
+(ins :condition (RT1 = error Gcontrol = lexdec) :action ((type N) -> AC) :description "Retrieval failure: respond 'no'")
 
 ;; When a letter appears, put it in WM and prepare to rehearse
 ;~ letter-seen

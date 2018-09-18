@@ -480,7 +480,41 @@ sp {propose*props*sub*chain*iterate*create*extend
     (<s> ^literalize <l>)
     (<node>  ^chain-attr <attr>
              ^chain-next <next-node>)
-    -(<id> ^<attr> )
+    (<id> -^<attr> 
+		  -^props-agnostic-add)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-sub-chain-iterate
+         ^rootstate <rs>
+         ^sub <sub>
+         ^sym <sym>
+         ^note chain-extend
+         ^literalize (+ 1 (int <l>) (int <attr>) )
+         ^create-id <id>
+         ^create-attr <attr>
+         ^create-val <new>
+         ^branch-id1 <id>
+         ^branch-attr <attr>  # Connect the augmentation chain to the root buffered object at return
+         ^branch-id2 <new>)
+}
+sp {propose*props*sub*chain*iterate*create*extend*agnostic
+    (state <s> ^props-sub <u>
+               ^rootstate <rs>)
+    (<u> ^sub <sub>)
+    (<sub>  -^curr-attr |done| 
+            -^status success
+            -^status fail)
+    # Special conditions:
+    (<u>  ^symbol <sym>)
+    (<sym>    ^prop-type add
+              ^intermediate )
+    (<sub>  ^curr-id <id>
+           -^curr-id props$rootstate        # Let replace*keywords do its job first
+            ^curr-attr <node>)
+    (<s> ^literalize <l>)
+    (<node>  ^chain-attr <attr>
+             ^chain-next <next-node>)
+    (<id> ^props-agnostic-add )
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-sub-chain-iterate
@@ -514,7 +548,42 @@ sp {propose*props*sub*chain*iterate*create*extend*final
     (<sub>  ^curr-id <id>
            -^curr-id props$rootstate)        # Let replace*keywords do its job first)
     (<s> ^literalize <l>)
-   -(<id> ^<attr> )
+	(<id> -^<attr> 
+		  -^props-agnostic-add)
+    (<id2> ^<attr2> <val>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-sub-chain-iterate
+         ^rootstate <rs>
+         ^sub <sub>
+         ^sym <sym>
+         ^note chain-extend-final
+         ^literalize (+ 1 (int <l>) (int <attr>) )
+         ^create-id <id>
+         ^create-attr <attr>
+         ^create-val <val>
+         ^branch-id1 <id>
+         ^branch-attr <attr>  # Connect the augmentation chain to the root buffered object at return
+         ^branch-id2 <id>)
+}
+sp {propose*props*sub*chain*iterate*create*extend*final*agnostic
+    (state <s> ^props-sub <u>
+               ^rootstate <rs>)
+    (<u> ^sub <sub>)
+    (<sub>   ^curr-attr |done| 
+            -^status success
+            -^status fail)
+    # Special conditions:
+    (<u>  ^symbol <sym>)
+    (<sym>    ^prop-type add
+              ^intermediate 
+              ^attr1 <attr>
+              ^id2 <id2>
+              ^attr2 <attr2>)
+    (<sub>  ^curr-id <id>
+           -^curr-id props$rootstate)        # Let replace*keywords do its job first)
+    (<s> ^literalize <l>)
+	(<id> ^props-agnostic-add)
     (<id2> ^<attr2> <val>)
 -->
     (<s> ^operator <o> + >)

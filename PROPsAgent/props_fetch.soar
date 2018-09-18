@@ -33,6 +33,7 @@
 # PULL INSTRUCTIONS ON STATE NO-CHANGE AFTER THE STATIC STRUCT HAS BEEN LOADED
 sp {propose*props*begin
     (state <s> ^name props-eval
+			  -^props-fetch-reset
               -^props-instructions)
 -->
     (<s> ^operator <o> + <)

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.umich.eecs.soar.propsutil.PROPsEnvironment;
+import sml.Agent;
 
 
 public class EditorsWorld extends PROPsEnvironment {
@@ -29,13 +30,12 @@ public class EditorsWorld extends PROPsEnvironment {
 		
 		this.setAgentName("EditorsAgent");
 		this.setPropsDir(props_dir);
-		this.setProjDir(proj_dir);
 		
-		this.setCondChunkFile("editors_agent_condspread_chunks.soar");
-		this.setAddressChunkFile("editors_agent_L1_chunks.soar");
-		this.setFetchSeqFile("editors_agent_fetch_procedures.soar");
-		this.setInstructionsFile("editors_agent_instructions.soar");
-		this.setSoarAgentFile("editors_agent.soar");
+		this.setCondChunkFile(proj_dir + "editors_agent_condspread_chunks.soar");
+		this.setAddressChunkFile(proj_dir + "editors_agent_L1_chunks.soar");
+		this.setFetchSeqFile(proj_dir + "editors_agent_fetch_procedures.soar");
+		this.setInstructionsFile(proj_dir + "editors_agent_instructions.soar");
+		this.setSoarAgentFile(proj_dir + "editors_agent.soar");
 		
 		this.setIOSize(4, 3);
 		
@@ -173,7 +173,7 @@ public class EditorsWorld extends PROPsEnvironment {
 			if (action.equals("next-instruction")) {
 				rep.state = "ll";
 				//rep.addLatency(STD_VISUAL_TIME); // Could move latency for 'next-instruction' here so it ends up in the report, but Taatgen doesn't?
-				this.reports.add(rep.toString());
+				this.addReport(rep.toString());
 				if (ed_task.edits.size() <= 1)
 					rep.task = "nil";
 				else
@@ -357,13 +357,8 @@ public class EditorsWorld extends PROPsEnvironment {
 		sa_conditions.add(new SaCondition("EMACS-EMACS-EMACS", new String[]{"emacs", "emacs", "emacs"}, new int[]{77, 37, 29, 23, 23, 21}));
 
 		for (SaCondition sac : sa_conditions) {
-			try {
-				this.initAgent();
-			} 
-			catch (Exception e) {
-				System.err.println(e.getMessage());
-				return;
-			}
+			if (!this.initAgent())
+				break;
 			
 			int task_count = 0;
 			rep.taskSetName = sac.name;

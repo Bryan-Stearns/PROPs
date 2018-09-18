@@ -42,23 +42,15 @@ public class ElioWorld extends PROPsEnvironment {
 	ElioWorld() {
 		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/";
 		String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
-		//String proj_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PRIMs_Duplications/Elio/";
-		//String props_dir = "/home/bryan/Dropbox/UM_misc/Soar/Research/PROPs/PROPs Project/";
-		
+
 		this.setAgentName("ElioAgent");
 		this.setPropsDir(props_dir);
-		this.setProjDir(proj_dir);
 		
-		this.setCondChunkFile("elio_agent_condspread_chunks.soar");
-		this.setAddressChunkFile("elio_agent_L1_chunks.soar");
-		this.setFetchSeqFile("elio_agent_fetch_procedures.soar");
-		this.setInstructionsFile("elio_agent_instructions.soar");//"prims_elio01_agent_smem.soar");
-		this.setSoarAgentFile("elio_agent.soar");
-		/*this.setCondChunkFile("prims_elio02_condspread-chunks.soar");
-		this.setAddressChunkFile("prims_elio02_L1-chunks.soar");
-		this.setFetchSeqFile("prims_elio_procedures_smem.soar");
-		this.setInstructionsFile("test_elio_agent_PROP.soar");//"prims_elio01_agent_smem.soar");
-		this.setSoarAgentFile("test_elio_agent.soar");*/
+		this.setCondChunkFile(proj_dir + "elio_agent_condspread_chunks.soar");
+		this.setAddressChunkFile(proj_dir + "elio_agent_L1_chunks.soar");
+		this.setFetchSeqFile(proj_dir + "elio_agent_fetch_procedures.soar");
+		this.setInstructionsFile(proj_dir + "elio_agent_instructions.soar");
+		this.setSoarAgentFile(proj_dir + "elio_agent.soar");
 		
 		this.setIOSize(2, 2);
 		
@@ -136,7 +128,9 @@ public class ElioWorld extends PROPsEnvironment {
 		// Alternate NUM_TRIALS trials of procedure-A with NUM_TRIALS trials of each of the others
 		for (String task : tasks) {
 	
-			try {this.initAgent();} catch (Exception e) {e.printStackTrace();}
+			if (!this.initAgent()) {
+				break;
+			}
 			
 			this.setTask("procedure-a", "procedure-a");
 			etask.init("procedure-a");

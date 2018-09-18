@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
 	if (!inExt.compare(".prop")) {
 		// Convert the prop file into an smem source file
 		try {
-			props_instruction_parser parser(inFront+inExt, outFront+"_PROP.soar");
+			props_instruction_parser parser(inFront+inExt, outFront+"_instructions.soar");
 			if (parser.convert() != 0) {
 				return 1;
 			}

@@ -6,25 +6,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
+
 import javafx.util.Pair;
 
 import sml.Identifier;
 import sml.Kernel;
 import sml.Kernel.UpdateEventInterface;
 import sml.WMElement;
+import sml.smlRunEventId;
 import sml.smlUpdateEventId;
 import sml.Agent;
+import sml.Agent.RunEventInterface;
 import edu.umich.soar.debugger.SWTApplication;
 
-public abstract class PROPsEnvironment implements UpdateEventInterface {
+public abstract class PROPsEnvironment implements UpdateEventInterface, RunEventInterface {
 	private boolean using_props = true;
 	private boolean verbose = true;
 	private boolean save_percepts = false;
 	private boolean testing = false;
 	private boolean running = false;
 	protected boolean agentError = false;
-	private String proj_dir = "";
+	private boolean initOkay = false;
 	private String props_dir = "";
 	
 	protected String agentName = "PROPsAgent";
@@ -56,24 +61,24 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	private ArrayList<GhostWME> newInputs;	// a buffer for the user-made environment input
 	private ArrayList<String> inputs;
 	private ArrayList<String> outputs;
-
+	private PriorityQueue<ScheduledInput> delayedInputs;
 
 	protected ArrayList<String> userAgentFiles;
 	protected ArrayList<String> reports;
 
 	//abstract protected void user_initEnvironment();
-	abstract protected void user_createAgent();
 	abstract protected void user_doExperiment();
+	abstract protected void user_outputListener(List<String> outputs);
+	abstract protected void user_createAgent();
 	abstract protected void user_agentStart();
 	abstract protected void user_agentStop();
 	abstract protected void user_updateTask();
-	abstract protected void user_outputListener(List<String> outputs);
 	abstract protected void user_errorListener(String err);
 	
 	public PROPsEnvironment() {
 		kernel = Kernel.CreateKernelInNewThread();
 		kernel.SetAutoCommit(true);
-		kernel.RegisterForUpdateEvent(smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES, this, this);
+		kernel.RegisterForUpdateEvent(smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES, this, null);
 		
 		userAgentFiles = new ArrayList<String>();
 		reports = new ArrayList<String>();
@@ -82,6 +87,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		newInputs = new ArrayList<GhostWME>(numAgentInputs);
 		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
+		delayedInputs = new PriorityQueue<ScheduledInput>(Comparator.comparing(ScheduledInput::getMoment));
 		
 		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
 		
@@ -94,18 +100,19 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	}
 	
 
-	private void loadLearnProductions(LearnConfig mode) throws Exception {
+	private boolean loadLearnProductions(LearnConfig mode) {
 		if (mode.spreading() && !mode.learnsConditions()) {
 			if (agent_condchunk_file == "") {
-				throw new Exception("ERROR: User did not provide the condition chunk file!");
+				System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
+				return false;
 			}
-			agent.LoadProductions(proj_dir + agent_condchunk_file);
+			agent.LoadProductions(agent_condchunk_file);
 		}
 		
 		if (mode.learnsAddressChunks()) {
 			// Learn addressing chunks only (and save them for later sourcing)
 			agent.LoadProductions(props_dir + "props_learn_l1.soar");
-			return;
+			return true;
 		}
 		
 		if (mode.seqs()) {
@@ -114,14 +121,15 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		
 		if (mode.learnsAutos() && !mode.learnsAddresses() && !mode.learnsProposals()) {
 			agent.LoadProductions(props_dir + "props_learn_l3only.soar");
-			return;
+			return true;
 		}
 		
 		if (!mode.learnsAddresses()) {
 			if (agent_addresschunk_file == "") {
-				throw new Exception("ERROR: User did not provide the addressing chunk file!");
+				System.err.println("ERROR: User did not provide the addressing chunk file! Aborting.");
+				return false;
 			}
-			agent.LoadProductions(proj_dir + agent_addresschunk_file);
+			agent.LoadProductions(agent_addresschunk_file);
 		}
 		if (mode.learnsProposals()) {
 			agent.LoadProductions(props_dir + "props_learn_l2.soar");
@@ -129,9 +137,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		if (mode.learnsAutos()) {
 			agent.LoadProductions(props_dir + "props_learn_l3.soar");
 		}
+		
+		return true;
 	}
 	
-	public void initAgent() throws Exception {
+	public boolean initAgent() {
 		if (agent != null) {
 			if (verbose)
 				agent.ExecuteCommandLine("clog -c");
@@ -139,6 +149,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 		
 		agent = kernel.CreateAgent(agentName + (agent_num++));
+		agent.RegisterForRunEvent(smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE, this, null);
 		agent.SetBlinkIfNoChange(false);
 		agentError = false;
 		
@@ -151,28 +162,31 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		setIOSize(numAgentInputs, numAgentOutputs);
 		running = false;
 
-		
-		if (props_dir == "") {
-			throw new Exception("ERROR: User did not provide the PROPS directory!");
-		}
-		if (proj_dir == "") {
-			throw new Exception("ERROR: User did not provide the domain project directory!");
-		}
-
 		// Load the agent files
 		if (using_props) {
+
+			if (props_dir == "") {
+				System.err.println("ERROR: User did not provide the PROPS directory! Aborting.");
+				initOkay = false;
+				return false;
+			}
+
 			if (agent_instruction_file == "") {
-				throw new Exception("ERROR: User did not provide the SMEM instruction file!");
+				System.err.println("ERROR: User did not provide the SMEM instruction file! Aborting.");
+				initOkay = false;
+				return false;
 			}
 			
 			agent.LoadProductions(props_dir + "_firstload_props.soar");			// props library
-			agent.LoadProductions(proj_dir + agent_instruction_file);		// The props instructions
+			agent.LoadProductions(agent_instruction_file);		// The props instructions
 			
 			if (currentLearnMode.manual()) {
 				if (agent_fetchseq_file == "") {
-					throw new Exception("ERROR: User did not provide the fetch sequence SMEM file!");
+					System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
+					initOkay = false;
+					return false;
 				}
-				agent.LoadProductions(proj_dir + agent_fetchseq_file);	// manual instruction sequences for tasks
+				agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
 			}
 			if (currentLearnMode.spreading()) {
 				agent.LoadProductions(props_dir + "props_learn_conds.soar");
@@ -180,17 +194,24 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 
 			agent.ExecuteCommandLine("chunk confidence-threshold " + currentLearnMode.getChunkThreshold());
 			
-			loadLearnProductions(currentLearnMode);
+			if (!loadLearnProductions(currentLearnMode)) {
+				initOkay = false;
+				return false;
+			}
 		}
 		else if (agent_genericsoar_file != "") {
-			agent.LoadProductions(proj_dir + agent_genericsoar_file);	// editors agent to be learned (for testing)
+			agent.LoadProductions(agent_genericsoar_file);	// editors agent to be learned (for testing)
 		}
 		else {
-			throw new IllegalArgumentException("ERROR: User did not provide the generic Soar agent file!");
+			System.err.println("ERROR: User did not provide the generic Soar agent file! Aborting.");
+			initOkay = false;
+			return false;
 		}
 		
 		loadUserAgentFiles();
 		user_createAgent();
+
+		reports = new ArrayList<String>();
 		
 		if (verbose) {
 			agent.ExecuteCommandLine("watch 1");
@@ -208,6 +229,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			agent.ExecuteCommandLine("save percepts -o " + agentName + "Percepts.spr -f");
 			agent.ExecuteCommandLine("save agent " + agentName + "_pre.soar");
 		}
+		
+		initOkay = true;
+		return true;
 	}
 	
 	private void loadUserAgentFiles() {
@@ -222,6 +246,10 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		userAgentFiles = new ArrayList<String>(filenames);
 	}
 
+
+	public long secToNano(double sec) {return (long) sec*1000000000l;}
+	public double nanoToSec(long nano) {return (double) nano/1000000000.0;}
+	
 	public void setCondChunkFile(String filename) { agent_condchunk_file = filename; }
 	public void setAddressChunkFile(String filename) { agent_addresschunk_file = filename; }
 	public void setInstructionsFile(String filename) { agent_instruction_file = filename; }
@@ -233,7 +261,6 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	public void setSavePercepts(boolean mode) { save_percepts = mode; }
 	
 	public void setPropsDir(String dir) { props_dir = dir; }
-	public void setProjDir(String dir) { proj_dir = dir; }
 	
 	public void setAgentName(String name) { agentName = name; }
 	public void setConfig(LearnConfig config) { currentLearnMode = config; }
@@ -286,7 +313,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
 		if (input != null) {
-			newInputs.set(slot, new GhostWME(GhostWME.Type.STRING, "in" + (slot+1), input));
+			newInputs.set(slot, new GhostWME(GhostWME.Type.STRING, "slot" + (slot+1), input));
 		}
 		else {
 			newInputs.set(slot, null);
@@ -296,19 +323,19 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		newInputs.set(slot, new GhostWME(GhostWME.Type.INT, "in" + (slot+1), Integer.toString(input)));
+		newInputs.set(slot, new GhostWME(GhostWME.Type.INT, "slot" + (slot+1), Integer.toString(input)));
 	}
 	public void setInput(int slot, double input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		newInputs.set(slot, new GhostWME(GhostWME.Type.FLOAT, "in" + (slot+1), Double.toString(input)));
+		newInputs.set(slot, new GhostWME(GhostWME.Type.FLOAT, "slot" + (slot+1), Double.toString(input)));
 	}
 	/*public void setInput(int slot, boolean input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
-		newInputs.set(slot, new GhostWME(GhostWME.Type.BOOLEAN, "in" + (slot+1), Boolean.toString(input)));
+		newInputs.set(slot, new GhostWME(GhostWME.Type.BOOLEAN, "slot" + (slot+1), Boolean.toString(input)));
 	}*/
 	
 	private WMElement makeInputWME(GhostWME w) {
@@ -384,6 +411,17 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 	}
 	
+	/**
+	 * Send the given actions to the input link after the given delay, in real time.
+	 * @param delaysec The number of seconds to delay until the inputs are made
+	 * @param actions The inputs to deliver, in slot order
+	 */
+	public void scheduleInput(double delaysec, List<String> actions) {
+		// Add the new schedule entry
+		long moment = System.nanoTime() + secToNano(delaysec);
+		delayedInputs.add(new ScheduledInput(moment, actions));	// PriorityQueue sorting recalculates when to trigger the next scheduled entry
+	}
+	
 	public void setTask(String task, String taskSeqName) {
 		// Clear input if any
 		//clearPerception();
@@ -439,14 +477,18 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	
 	// Print all current reports
 	public void printReports() {
+		printReports("");
+	}
+	public void printReports(String header) {
 		try(FileWriter fw = new FileWriter(outFileName, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw))
 		{
 			for (String s : reports) {
-				out.println(s);
+				String str = header + s;
+				out.println(str);
 				if (verbose)
-					agent.ExecuteCommandLine("echo\t" + s);
+					agent.ExecuteCommandLine("echo\t" + str);
 			}
 		}
 		catch (IOException e) {
@@ -464,12 +506,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		else
 			setOutputFile(task + "_debug_out.txt");
 		
-		try {
-			initAgent();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		initAgent();
+
+		if (!initOkay)
 			return;
-		}
+		
 		clearOutputFile();
 		setTask(task, taskSeq);
 
@@ -490,6 +531,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 	}
 	
 	public void runAgent(int steps) {
+		if (!initOkay)
+			return;
 		if (!running) {
 			user_agentStart();
 			running = true;
@@ -497,6 +540,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		agent.RunSelf(steps);   // Run for the given number of decision cycles
 	}
 	public void runAgent() {
+		if (!initOkay)
+			return;
 		if (!running) {
 			user_agentStart();
 			running = true;
@@ -601,9 +646,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 		}
 	}
 	
-	@Override
-	public void updateEventHandler(int arg0, Object arg1, Kernel kernel, int arg3) {
-		
+	/**
+	 * This is called every decision cycle, after the output phase.
+	 * It is used to react whenever the agent updates the output link.
+	 */
+	private void update_afterOutput() {
 		if (agentError) {
 			return;
 		}
@@ -654,11 +701,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 
 					// Get the output
 					for (int i=0; i<numAgentOutputs; ++i) {
-						outputs.set(i,id.GetParameterValue("out" + Integer.toString(i+1)));
+						outputs.set(i,id.GetParameterValue("slot" + Integer.toString(i+1)));
 					}
 					
 					if (outputs.get(0) == null) {
-						System.err.println("WARNING: 'out1' command missing.");
+						System.err.println("WARNING: output 'slot1' missing.");
 						id.AddStatusComplete();
 						agent.Commit();
 						break;
@@ -694,6 +741,38 @@ public abstract class PROPsEnvironment implements UpdateEventInterface {
 			// Reset for next trial
 			user_agentStop();
 			
+		}
+	}
+	
+	/**
+	 * Is called every decision cycle, after the apply phase, before the input phase.
+	 * This is used for checking and sending scheduled inputs.
+	 * Note, this could overwrite inputs set earlier this decision by user_outputListener().
+	 */
+	private void update_beforeInput() {
+		if (delayedInputs.size() == 0) {
+			return;
+		}
+		
+		// Only look at 1 delayed input per decision, since each affects all input slots
+		long time = System.nanoTime();
+		if (delayedInputs.peek().moment >= time) {
+			ScheduledInput input = delayedInputs.poll();
+			setPerception(input.inputs);
+		}
+	}
+	
+	@Override
+	public void updateEventHandler(int eventID, Object data, Kernel kernel, int runFlags) {
+		if (eventID == smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES.swigValue()) {
+			update_afterOutput();
+		}
+	}
+	
+	@Override
+	public void runEventHandler(int eventID, Object data, Agent agent, int runFlags) {
+		if (eventID == smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE.swigValue()) {
+			update_beforeInput();
 		}
 	}
 }

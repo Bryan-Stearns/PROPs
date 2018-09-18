@@ -34,14 +34,14 @@ chunk singleton state AC identifier
 
 
 # Buffer Init #
-sp {propose*elio*init
+sp {lib*actr*propose*init
 	(state <s> ^superstate nil
 				-^WM)
 -->
 	(<s> ^operator <o> + >)
 	(<o> ^name buffer-init)
 }
-sp {apply*elio*init
+sp {lib*actr*apply*init
 	(state <s> ^operator.name buffer-init
 				#^smem.command <scmd>
 				^io.output-link <ol>)
@@ -124,9 +124,9 @@ sp {lib*actr*elaborate*visual*in
 sp {lib*actr*elaborate*visual*debug*in-2
 	(state <s> ^V <v>
 				^io.input-link <il>)
-	(<il> ^in1 <i1>
-		^in2 <i2>
-		-^in3)
+	(<il> ^slot1 <i1>
+		^slot2 <i2>
+		-^slot3)
 -->
 	#(<v> ^Vlabel <i1>
 	#	^Vvalue <i2>)
@@ -135,20 +135,20 @@ sp {lib*actr*elaborate*visual*debug*in-2
 sp {lib*actr*elaborate*visual*debug*in-3
 	(state <s> ^V <v>
 				^io.input-link <il>)
-	(<il> ^in1 <i1>
-		^in2 <i2>
-		^in3 <i3>
-		-^in4 )
+	(<il> ^slot1 <i1>
+		^slot2 <i2>
+		^slot3 <i3>
+		-^slot4 )
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |"|)
 }
 sp {lib*actr*elaborate*visual*debug*in-4
 	(state <s> ^V <v>
 				^io.input-link <il>)
-	(<il> ^in1 <i1>
-		^in2 <i2>
-		^in3 <i3>
-		^in4 <i4>)
+	(<il> ^slot1 <i1>
+		^slot2 <i2>
+		^slot3 <i3>
+		^slot4 <i4>)
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |" "| <i4> |"|)
 }
@@ -169,8 +169,8 @@ sp {lib*actr*elaborate*input*task
 sp {lib*actr*elaborate*action*output-1
 	(state <s> ^AC.action <a>
 				^io.output-link <ol>)
-	(<a> ^out1 <o1>
-		-^out2 <o2>)
+	(<a> ^slot1 <o1>
+		-^slot2 <o2>)
 -->
 	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> (crlf) )
@@ -178,9 +178,9 @@ sp {lib*actr*elaborate*action*output-1
 sp {lib*actr*elaborate*action*output-2
 	(state <s> ^AC.action <a>
 				^io.output-link <ol>)
-	(<a> ^out1 <o1>
-		^out2 <o2>
-		-^out3)
+	(<a> ^slot1 <o1>
+		^slot2 <o2>
+		-^slot3)
 -->
 	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> (crlf) )
@@ -188,10 +188,10 @@ sp {lib*actr*elaborate*action*output-2
 sp {lib*actr*elaborate*action*output-3
 	(state <s> ^AC.action <a>
 				^io.output-link <ol>)
-	(<a> ^out1 <o1>
-		^out2 <o2>
-		^out3 <o3>
-		-^out4)
+	(<a> ^slot1 <o1>
+		^slot2 <o2>
+		^slot3 <o3>
+		-^slot4)
 -->
 	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> | | <o3> (crlf) )
@@ -199,10 +199,10 @@ sp {lib*actr*elaborate*action*output-3
 sp {lib*actr*elaborate*action*output-4
 	(state <s> ^AC.action <a>
 				^io.output-link <ol>)
-	(<a> ^out1 <o1>
-		^out2 <o2>
-		^out3 <o3>
-		^out4 <o4>)
+	(<a> ^slot1 <o1>
+		^slot2 <o2>
+		^slot3 <o3>
+		^slot4 <o4>)
 -->
 	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> | | <o3> | | <o4> (crlf) )

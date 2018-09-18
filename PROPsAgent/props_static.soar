@@ -275,6 +275,7 @@ sp {apply*props*manual*next-rule*normal
           ^next <top>)
     (<top> ^next <next>
            ^name <newname>)
+	#(<scmd> -^prohibit )
 -->
     (<ps> ^manual-next-rule <name> -
           ^manual-next-rule <newname>
@@ -294,6 +295,7 @@ sp {apply*props*manual*next-rule*clear
           ^current-task <task>
           ^prev <prev>
           ^next nil)
+	#(<scmd> -^prohibit )
 -->
     (<s> ^props-flag incremented-manual-seq)
     (<ps> ^manual-next-rule <name> -
@@ -303,10 +305,12 @@ sp {apply*props*manual*next-rule*clear
     (<scmd> ^store <ps>)
     (write (crlf) |   * MANUAL INSTRUCTION SEQUENCE CLEARED! * | (crlf))
 }
-# NOTE ONCE THIS OPERATOR HAS OCCURRED - THIS RETRACTS THE OPERATOR
+# NOTE, ONCE THIS OCCURS, THIS RETRACTS THE OPERATOR:
 sp {apply*props*manual*next-rule*incremented
     "Wait to give the done flag until known that the rule is applicable."
-    (state <s> ^operator <o>)
+    (state <s> ^operator <o>
+				^smem.command <scmd>)
+	#(<scmd> ^store)
     (<o> ^name props-manual-next-rule
         -^extra-advance true)    # Don't prevent further incrementing sequence unless was incremented _after_ instruction recall
 -->
@@ -315,20 +319,22 @@ sp {apply*props*manual*next-rule*incremented
 # IF INCREMENTING BEFORE FETCHING, THERE WILL BE ANOTHER INCREMENT AFTER FETCHING. RE-QUERY THE SEQENCE STRUCTURE TO THE RIGHT DEPTH.
 sp {apply*props*manual*next-rule*reset
     "Re-retrieve props-static after incrementing the manual, so enough depth is retrieved."
-    (state <s> ^operator <o>)
+    (state <s> ^operator <o>
+				^smem.command <scmd>)
+	#(<scmd> ^store)
     (<o> ^name props-manual-next-rule
          ^extra-advance true)  
 -->
     (<s> ^props-fetch-reset |manual-next-rule|)
 }
 
-sp {apply*props*manual*next-rule*clear-prohibits
-    "Remove any prohibits, they will interfere with the store command."
-    (state <s> ^operator.name props-manual-next-rule    # TODO: Is that right? Aren't those prohibits i-supported?
-               ^smem.command <scmd>)
-    (<scmd> ^prohibit <pbt>)
--->
-    (<scmd> ^prohibit <pbt> -)
-}
+#sp {apply*props*manual*next-rule*clear-prohibits
+#    "Remove any prohibits, they will interfere with the store command."
+#    (state <s> ^operator.name props-manual-next-rule    # TODO: Is that right? Aren't those prohibits i-supported? #UPDATE: No, not alright.
+#               ^smem.command <scmd>)
+#    (<scmd> ^prohibit <pbt>)
+#-->
+#    (<scmd> ^prohibit <pbt> -)
+#}
 
 

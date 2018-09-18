@@ -1,0 +1,511 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'CheinMorrison.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+pp {propose*chein*verbal-CWM*init
+	const1 chein-verbal-CWM-init
+	const2 verbal-CWM
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol -
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*init
+	const1 chein-verbal-CWM-init
+	const2 lexdec
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.G.Gtop = s.WM
+}
+pp {propose*chein*verbal-CWM*wait
+	const1 chein-verbal-CWM-wait
+	const2 verbal-CWM
+	const3 pending
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*wait
+	const1 chein-verbal-CWM-wait
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+pp {propose*chein*verbal-CWM*stop-rehearsal
+	const1 chein-verbal-CWM-stop-rehearsal
+	const2 verbal-CWM
+	const3 word
+	const4 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*stop-rehearsal
+	const1 chein-verbal-CWM-stop-rehearsal
+	const2 lexdec
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+}
+pp {propose*chein*verbal-CWM*lexical*retrieve
+	const1 chein-verbal-CWM-lexical-retrieve
+	const2 verbal-CWM
+	const3 word
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result -
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*lexical*retrieve
+	const1 chein-verbal-CWM-lexical-retrieve
+	const2 is-word
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+pp {propose*chein*verbal-CWM*lexical*success
+	const1 chein-verbal-CWM-lexical-success
+	const2 verbal-CWM
+	const3 yes
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.RT.slot3 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*lexical*success
+	const1 chein-verbal-CWM-lexical-success
+	const2 type
+	const3 Y
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*chein*verbal-CWM*lexical*fail
+	const1 chein-verbal-CWM-lexical-fail
+	const2 verbal-CWM
+	const3 error
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.smem.rt-result == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*lexical*fail
+	const1 chein-verbal-CWM-lexical-fail
+	const2 type
+	const3 N
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+	s.G.clear-rt = const1
+}
+pp {propose*chein*verbal-CWM*letter-seen*store-wm
+	const1 chein-verbal-CWM-letter-seen-store-wm
+	const2 verbal-CWM
+	const3 letter
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+	s.WM.slot1 -
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*letter-seen*store-wm
+	const1 chein-verbal-CWM-letter-seen-store-wm
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.V.slot2
+	s.AC.action.slot1 = const2
+}
+pp {propose*chein*verbal-CWM*letter-seen*store-dm
+	const1 chein-verbal-CWM-letter-seen-store-dm
+	const2 verbal-CWM
+	const3 letter
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+	s.WM.slot1 
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*letter-seen*store-dm
+	const1 chein-verbal-CWM-letter-seen-store-dm
+	const2 rehearse
+	--
+	s.operator.name == const1
+-->
+	s.NW.wm.slot1 = s.V.slot2
+	s.NW.wm.slot2 = s.WM
+	s.G.Gcontrol = const2
+}
+pp {propose*chein*verbal-CWM*rehearse*start
+	const1 chein-verbal-CWM-rehearse-start
+	const2 verbal-CWM
+	const3 letter
+	const4 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result -
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*rehearse*start
+	const1 chein-verbal-CWM-rehearse-start
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve = s.G.Gtop
+}
+pp {propose*chein*verbal-CWM*rehearse*next
+	const1 chein-verbal-CWM-rehearse-next
+	const2 verbal-CWM
+	const3 letter
+	const4 error
+	const5 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result <> const4
+	s.G.Gcontrol == const5
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*rehearse*next
+	const1 chein-verbal-CWM-rehearse-next
+	--
+	s.operator.name == const1
+-->
+	s.RT.WMprev = s.RT
+	s.G.clear-rt = const1
+}
+pp {propose*chein*verbal-CWM*rehearse*restart
+	const1 chein-verbal-CWM-rehearse-restart
+	const2 verbal-CWM
+	const3 letter
+	const4 error
+	const5 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result == const4
+	s.G.Gcontrol == const5
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*rehearse*restart
+	const1 chein-verbal-CWM-rehearse-restart
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve = s.G.Gtop
+}
+pp {propose*chein*verbal-CWM*report*start-from-rehearse
+	const1 chein-verbal-CWM-report-start-from-rehearse
+	const2 verbal-CWM
+	const3 report
+	const4 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*report*start-from-rehearse
+	const1 chein-verbal-CWM-report-start-from-rehearse
+	const2 report
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve = s.G.Gtop
+	s.G.Gcontrol = const2
+}
+pp {propose*chein*verbal-CWM*report*start-from-lexical
+	const1 chein-verbal-CWM-report-start-from-lexical
+	const2 verbal-CWM
+	const3 report
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*report*start-from-lexical
+	const1 chein-verbal-CWM-report-start-from-lexical
+	const2 report
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve = s.G.Gtop
+	s.G.Gcontrol = const2
+}
+pp {propose*chein*verbal-CWM*report*report
+	const1 chein-verbal-CWM-report-report
+	const2 verbal-CWM
+	const3 report
+	const4 error
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result <> const4
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*report*report
+	const1 chein-verbal-CWM-report-report
+	const2 type
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot1
+	s.RT.WMprev = s.RT
+	s.G.clear-rt = const1
+}
+pp {propose*chein*verbal-CWM*report*finish
+	const1 chein-verbal-CWM-report-finish
+	const2 verbal-CWM
+	const3 report
+	const4 error
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result == const4
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*report*finish
+	const1 chein-verbal-CWM-report-finish
+	const2 type
+	const3 end
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.WM.slot1
+	s.G.Gcontrol = const3
+	s.G.clear-rt = const1
+}
+pp {propose*chein*verbal-CWM*finish
+	const1 chein-verbal-CWM-finish
+	const2 verbal-CWM
+	const3 end
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*verbal-CWM*finish
+	const1 chein-verbal-CWM-finish
+	const2 enter
+	const3 finish
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.G.Gtask = const3
+	s.G.clear-rt = const1
+}
+pp {propose*chein*stroop*init
+	const1 chein-stroop-init
+	const2 stroop
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol -
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*init
+	const1 chein-stroop-init
+	const2 prepare
+	const3 wait
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+}
+pp {propose*chein*stroop*object-seen*focus-color
+	const1 chein-stroop-object-seen-focus-color
+	const2 stroop
+	const3 yes
+	const4 prepare
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*object-seen*focus-color
+	const1 chein-stroop-object-seen-focus-color
+	const2 get-property
+	const3 color-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+pp {propose*chein*stroop*object-seen*focus-all
+	const1 chein-stroop-object-seen-focus-all
+	const2 stroop
+	const3 yes
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*object-seen*focus-all
+	const1 chein-stroop-object-seen-focus-all
+	const2 get-property
+	const3 both
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+pp {propose*chein*stroop*report*retrieve
+	const1 chein-stroop-report-retrieve
+	const2 stroop
+	--
+	s.G.Gtask == const2
+	s.V.slot2 
+	s.RT.slot3 -
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*report*retrieve
+	const1 chein-stroop-report-retrieve
+	const2 s-mapping
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+pp {propose*chein*stroop*report*say
+	const1 chein-stroop-report-say
+	const2 stroop
+	--
+	s.G.Gtask == const2
+	s.RT.slot3 
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*report*say
+	const1 chein-stroop-report-say
+	const2 say
+	const3 neutral
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.G.Gcontrol = const3
+	s.G.clear-rt = const1
+}
+pp {propose*chein*stroop*idle*start
+	const1 chein-stroop-idle-start
+	const2 stroop
+	const3 pending
+	const4 neutral
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*idle*start
+	const1 chein-stroop-idle-start
+	const2 prepare
+	const3 wait
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+}
+pp {propose*chein*stroop*idle*wait
+	const1 chein-stroop-idle-wait
+	const2 stroop
+	const3 pending
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*idle*wait
+	const1 chein-stroop-idle-wait
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+pp {propose*chein*stroop*finish
+	const1 chein-stroop-finish
+	const2 stroop
+	const3 last
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+-->
+	s.const1 +
+}
+pp {apply*chein*stroop*finish
+	const1 chein-stroop-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.G.clear-rt = const1
+}

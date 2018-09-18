@@ -17,6 +17,8 @@ sp {elaborate*lib*prohibit*list
 }
 sp {elaborate*lib*prohibit*list*commands
     (state <s> ^smem <smem>)
+	-{(<s> ^operator <o> +)
+	  (<o> ^name props-manual-next-rule)}
     (<smem> ^prohibit-list.prohibit <p>
             ^command <scmd>)
     (<scmd> -^store)
