@@ -504,7 +504,9 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			// Check for the special case of backtracing a pointer ((? ? WMid) -> RTid)
 			if (buff.compare("RT") == 0 && specialRT.compare("") != 0) {
 				// Add the id attribute being queried
+				actions.push_back(Primitive("+","s.Q.wm-query",""));
 				actions.push_back(Primitive("=","s.Q.wm-query.root",specialRT));
+				usedQ = true;
 				// Add any extra attributes the id should have
 				for (size_t i=0; i<sources.size(); ++i) {
 					if (sources.at(i).compare(specialRT) == 0 || sources.at(i).compare("?") == 0)
@@ -601,7 +603,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				usedAC = true;
 			}
 			// Check for need for action that creates an Q query cluster
-			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q."))) {
+			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q.")) && p2.compare(2,10, "Q.retrieve")) {
 				actions.push_back(Primitive("+","s.Q.query",""));
 				usedQ = true;
 			}
@@ -662,13 +664,13 @@ void actransfer_operator_parser::buildPropCode(std::string &retval, const std::s
 
 	// Add actions
 	for (const Primitive &p : actions) {
-		if (!p.op.compare("=")) {
-			if (!p.path2.compare("")) {
-				// Single argument like existence or negation
-				retval += "\t" + p.path1 + " " + p.op + "\n";
+		if (!p.op.compare("=") && p.path1.compare("s")) {
+			if (p.path2.compare("")) {
+				retval += "\t" + p.path1 + " " + p.op + " " + p.path2 + "\n";
 			}
 			else {
-				retval += "\t" + p.path1 + " " + p.op + " " + p.path2 + "\n";
+				std::cerr << "Unrecognized prop action in " << ruleName << ": '= " << p.path1 << "'" << std::endl;
+				throw;
 			}
 		}
 		else if (!p.op.compare("-")) {
@@ -718,6 +720,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 
 	retval["s"] = "<s>";
 
+	if (!currRule_h1.compare("report") && !currRule_h2.compare("report"))
+		idnum = 1;
 	// Conditions
 	for (const Primitive &c : conditions) {
 		splitDotChain(c.path1, p11, p12);
@@ -775,7 +779,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 			retRefs.push_back("<s> ^operator " + id1);*/
 		}
 		else if (!a.path1.compare("s.AC") || !p11.compare(0,11, "s.AC.action")
-				|| !a.path1.compare("s.Q") || !p11.compare(0,9, "s.Q.query")) {
+				|| !a.path1.compare("s.Q") || !p11.compare(0,9, "s.Q.query") || !p11.compare(0,12, "s.Q.wm-query")
+				|| !a.path1.compare("s.NW") || !p11.compare(0,7, "s.NW.wm")) {
 			/*if (!retval.count("s.AC.action")) {
 				retval["a"] = "<a>";
 				retRefs.push_back("state <s> ^AC.action <a>");
@@ -844,7 +849,9 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 		// Add action to remove the old value
 		if (std::find(negTestRefs.begin(), negTestRefs.end(), a.path1) == negTestRefs.end()
-				&& a.path1.compare(0,10, "s.operator") && a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,3, "s.Q") && a.path1.compare("s.G.clear-rt")) {
+				&& a.path1.compare(0,10, "s.operator") && a.path1.compare("s.G.clear-rt")
+				&& a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,4, "s.NW")
+				&& a.path1.compare(0,4, "s.RT")) {
 			// Add reference to the old value
 			id2 = "<c" + toString(idnum++) + ">";
 			retRefs.push_back(retval.at(p11) + " ^" + p12 + " " + id2);
@@ -877,7 +884,7 @@ void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::s
 	}
 
 	// Add condition tests
-	std::string str, p11, p12, p2, p21, p22;
+	std::string p11, p12, p2, p21, p22;
 
 	for (const Primitive &c : conditions) {
 		splitDotChain(c.path1, p11, p12);
@@ -887,8 +894,8 @@ void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::s
 			std::cout << "ERROR: couldn't parse the condition reference '" + p11 + "'" << std::endl;
 			throw;
 		}
-		if (!refMap.count(p21)) {
-			std::cout << "ERROR: couldn't parse the condition reference '" + p21 + "'" << std::endl;
+		if (!refMap.count(c.path2)) {
+			std::cout << "ERROR: couldn't parse the condition reference '" + c.path2 + "'" << std::endl;
 			throw;
 		}
 		p11 = refMap.at(p11);
@@ -906,23 +913,35 @@ void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::s
 
 	retval += "\t-->\n";
 
+	auto opPrefs = std::vector<std::string>();	// Assuming only one operator proposed for this code's input. Could make a map of vectors otherwise.
+
 	// Add actions
 	for (const Primitive &a : soarActions) {
 		splitDotChain(a.path1, p11, p12);
 
 		if (!refMap.count(p11)) {
-			std::cout << "ERROR: couldn't parse the action reference '" + p11 + "'" << std::endl;
+			std::cerr << "ERROR: couldn't parse the action reference '" + p11 + "'" << std::endl;
 			throw;
 		}
 		p11 = refMap.at(p11);
+		// Check whether this is a create or a copy
 		if (a.path2.size() == 0) {
+			// If it's an operator proposal, remember the preference type and wait until all prefs have been found
+			if (!a.path1.compare("s.operator")) {
+				opPrefs.push_back(a.op);
+				if (!refMap.count("s.operator")) {
+					refMap[a.path1] = "<o1>";
+				}
+				continue;
+			}
+			// Not an assignment: create new ID
 			p2 = "<n" + toString(idnum++) + ">";
 			refMap[a.path1] = p2;
 		}
 		else {
 			splitDotChain(a.path2, p21, p22);
 			if (!refMap.count(a.path2)) {
-				std::cout << "ERROR: unsupported action dot reference." << std::endl;
+				std::cerr << "ERROR: unsupported action dot reference '" + a.path2 + "'" << std::endl;
 				throw;
 			}
 			p2 = refMap.at(a.path2);
@@ -933,6 +952,18 @@ void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::s
 
 		retval += "\t(" + p11 + " ^" + p12 + " " + p2 + ")\n";
 
+	}
+
+	// Add any operator proposals/preferences
+	if (opPrefs.size() > 0) {
+		// Add the preferences
+		p2 = "<o1>";
+		for (std::string str : opPrefs) {
+			p2 += " " + str;
+		}
+		// Add the action
+		p11 = refMap.at("s");
+		retval += "\t(" + p11 + " ^operator " + p2 + ")\n";
 	}
 
 	// Add closer
@@ -954,7 +985,7 @@ void actransfer_operator_parser::buildPropOperator(std::string &proposeRule, std
 	currRuleName = "propose*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
 	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
-	std::vector<Primitive> opActions = {Primitive("+", "s", "const1")};
+	std::vector<Primitive> opActions = {Primitive("+", "s", "const1"), Primitive("=", "s", "const1")};
 	buildPropCode(proposeRule, currRuleName, condConsts, conditions, opActions);
 
 	// *** APPLY RULE ***
@@ -982,7 +1013,9 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 	currRuleName = "propose*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
 	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 	// Make the operator-proposal action
-	std::vector<Primitive> opActions = {Primitive("+", "s.operator", ""), Primitive("+", "s.operator.name", opName)};
+	std::vector<Primitive> opActions = {Primitive("+", "s.operator", ""),
+										Primitive("=", "s.operator", ""),
+										Primitive("+", "s.operator.name", opName)};
 	buildSoarCode(proposeRule, currRuleName, conditions, opActions, negTestRefs);
 
 	// *** APPLY RULE ***
@@ -1071,7 +1104,8 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		try {
 			buildSoarOperator(proposeRule, applyRule, rawConditions, rawActions);
 		} catch (...) {
-			std::cout << "ERROR: Couldn't build Soar code.\n" << std::endl;
+			std::cerr << "ERROR: Couldn't build Soar code.\n" << std::endl;
+			return;
 		}
 		soarRules.push_back(proposeRule);
 		soarRules.push_back(applyRule);

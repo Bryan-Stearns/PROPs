@@ -284,7 +284,7 @@ bool props_instruction_parser::formatConditions(std::vector<arg_id_chain> &condi
 		{ "<=", "less-equal" },
 		{ ">=", "greater-equal" },
 		{ "-", "negation" },
-		{ "--", "negation" },
+		//{ "--", "negation" },
 		{ "?", "existence" }
 	};
 
@@ -300,6 +300,7 @@ bool props_instruction_parser::formatActions(std::vector<arg_id_chain> &actions)
 		{ ":=", "add" },
 		{ "-", "remove" },
 		{ "+", "acceptable" },	// "-" for reject doubles as remove; "=" indifferent doubles as add
+		//{ "==", "indifferent" },
 		{ ">", "better" },
 		{ "<", "worse" },
 		{ "!", "require" }
