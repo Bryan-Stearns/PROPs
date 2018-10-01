@@ -82,6 +82,17 @@ sp {apply*props*query*init-prohibits
 -->
     (<s> ^prop-prohibits <ps>)
 }
+
+sp {elaborate*props*prohibit*list
+    (state <s> ^prop-prohibits <pp>
+              #-^props-static.manual-next-rule
+               ^smem.prohibit-list <pl>)
+    (<pp> ^prohibit <prbt>)
+-->
+    (<pl> ^prohibit <prbt>)
+}
+
+
 sp {elaborate*props*query*apply-rule
     "Narrow the query type if searching for an apply rule"
     (state <s> ^smem.command.query <q>

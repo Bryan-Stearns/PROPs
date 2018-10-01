@@ -8,9 +8,13 @@ public class Stroop {
 				answer;
 	
 	Stroop() {
+		init();
+	}
+	
+	public void init() {
 		count = 0;
 		numtrials = 15;		// default
-		starttime = System.nanoTime() + 1000000000l;
+		starttime = 1000l;
 		type = "";
 		answer = "";
 		//schedule_delayed_action(1.0, "yes", "");

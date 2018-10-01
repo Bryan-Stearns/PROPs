@@ -16,7 +16,7 @@ sp {apply*chein*verbal-CWM*init
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
 	(<s> ^WM <c4>)
-	(<c2> ^Gtop <c5>)
+	#(<c2> ^Gtop <c5>)
 	(<c1> ^name chein-verbal-CWM-init)
 	-->
 	(<c2> ^Gcontrol lexdec)

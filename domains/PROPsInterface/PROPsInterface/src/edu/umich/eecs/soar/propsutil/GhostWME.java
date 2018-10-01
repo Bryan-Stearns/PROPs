@@ -13,6 +13,7 @@ public class GhostWME {
 	public int i_val;
 	public double f_val;
 	public boolean b_val;
+	public boolean blink_new;
 	
 	public GhostWME(Type t, String attr, String val) {
 		type = t;
@@ -32,6 +33,8 @@ public class GhostWME {
 			b_val = Boolean.parseBoolean(val);
 			break;
 		}
+		
+		blink_new = true;
 	}
 	
 	public boolean equals(WMElement wme) {

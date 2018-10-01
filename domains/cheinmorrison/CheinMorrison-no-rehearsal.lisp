@@ -152,9 +152,12 @@
         (let ((correct (equal h1 (strooptask-answer *sttask*))))
                 (trigger-reward (if correct (task-reward *task*) 0))
                 (push (list (1+ (strooptask-count *sttask*))(+ (mp-time) 0.2 (- (strooptask-starttime *sttask*))) (strooptask-type *sttask*) correct) *results*))
-	    (let ((new-percept (if (> (incf (strooptask-count *sttask*)) (strooptask-numtrials *sttask*)) '(last)
-                                 (progn (setf (strooptask-starttime *sttask*) (+ (mp-time) 1.2))
-                                   '(yes)))))
+	    (let ((new-percept (if (> (incf (strooptask-count *sttask*)) (strooptask-numtrials *sttask*)) 
+								'(last)
+                                 (progn 
+									(setf (strooptask-starttime *sttask*) (+ (mp-time) 1.2))
+                                   '(yes))
+							)))
               (schedule-delayed-action new-percept 1.2)
 
 ;	    (format t "~%*** Answer ~A for trial ~A at time ~6,3F~%" h1 (strooptask-type *sttask*) (+ (mp-time) 0.2 (- (strooptask-starttime *sttask*))))
@@ -276,12 +279,12 @@
 
 ;; Reactive strategy: when there is nothing on the display, wait
 ;~ wait
-(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for something to happen")
+;(ins :condition (Gtop <> nil Vobject = pending) :action ((wait) -> AC) :description "Wait for something to happen") ;;; COMMENTED OUT JUST FOR PROPS
 
 ;; Lexical decision task: if there is a word, then retrieve it and answer based on the success of the retrieval
 ;~ lexical
 ;~~ retrieve
-(ins :condition (Vobject = word RT1 = nil) :action ( (is-word Videntity) -> RT) :description "A word appears, so retrieve it")
+(ins :condition (Gtop <> nil Vobject = word RT1 = nil) :action ( (is-word Videntity) -> RT) :description "A word appears, so retrieve it")
 ;~~ success
 (ins :condition (Vobject = word RTanswer = yes) :action ((type Y) -> AC) :description "Successful retrieve, say yes")
 ;~~ fail
@@ -296,9 +299,11 @@
 ;~~ start
 (ins :condition (Vobject = report RT1 = nil) :action (Gtop -> RTid) :description "Report prompt came up: retrieve first item")
 ;~~ report
-(ins :condition (Vobject = report RT1 <> error) :action ((type RTconcept) -> AC RTid -> RTprev) :description "Report item and retrieve next")
+(ins :condition (Vobject = report RTconcept <> nil) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
+;(ins :condition (Vobject = report RT1 <> error) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
 ;~~ finish
-(ins :condition (Vobject = report RT1 = error) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+(ins :condition (Vobject = report RTconcept = nil RT1 <> nil) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+;(ins :condition (Vobject = report RT1 = error) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
 
 
 )
@@ -337,21 +342,23 @@
 ;~~ focus-color
 (ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
 ;~~ focus-all
-(ins :condition (Vobject = yes) :action ((get-property both) -> AC) :description "Object seen, focus on all")
+(ins :condition (Vobject = yes Gcontrol <> prepare Gcontrol <> nil) :action ((get-property both) -> AC) :description "Object seen, focus on all")
 
 ;; If the color is perceived, retrieve the color concept related to the color. This process is slowed down if there is a conflicting word in Vword. After the concept is retrieved, say it.
 ;~ report
 ;~~ retrieve
-(ins :condition (Vcolor <> nil RTconcept = nil) :action ( (s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
+(ins :condition (Gcontrol <> nil Vcolor <> nil RTconcept = nil) :action ( (s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
 ;~~ say
-(ins :condition (RTconcept <> nil) :action ((say RTconcept) -> AC neutral -> Gcontrol) :description "Say the answer") 
+(ins :condition (Gcontrol <> nil RTconcept <> nil) :action ((say RTconcept) -> AC neutral -> Gcontrol) :description "Say the answer")  ;;; Test Gcontrol so operator retracts after modifying Gcontrol
 
 ;; When the model is waiting for the next stimulus, it can choose to prepare or not
 ;~ idle
-;~~ start
-(ins :condition (Vobject = pending  Gcontrol = neutral) :action (prepare -> Gcontrol wait -> AC1) :description "Prepare to focus on the color of the next stimulus")  
+;~~ focus
+(ins :condition (Vobject = pending  Gcontrol = neutral) :action (prepare -> Gcontrol wait -> AC1) :description "Prepare to focus on the color of the next stimulus") 
+;~~ no-focus
+(ins :condition (Vobject = pending  Gcontrol = neutral) :action (noprepare -> Gcontrol wait -> AC1) :description "Prepare to wait without preparation")  
 ;~~ wait
-(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for the next stimulus without preparation")
+;(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for the next stimulus without preparation")
 
 ;~ finish
 (ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")

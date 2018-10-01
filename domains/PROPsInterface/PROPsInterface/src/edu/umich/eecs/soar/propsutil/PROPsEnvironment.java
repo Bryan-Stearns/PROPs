@@ -22,7 +22,7 @@ import sml.Agent;
 import sml.Agent.RunEventInterface;
 import edu.umich.soar.debugger.SWTApplication;
 
-public abstract class PROPsEnvironment implements UpdateEventInterface, RunEventInterface {
+public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEventInterface*/ {
 	private boolean using_props = true;
 	private boolean verbose = true;
 	private boolean save_percepts = false;
@@ -54,6 +54,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 	protected Agent agent = null;
 	private WMElement inTask,
 					  inTaskSeqName;
+	
+	private long elapsedAgentMSEC = 0;
+	protected double msecPerDecision = 50;
 	
 	protected int numAgentInputs = 3,
 				  numAgentOutputs = 3;
@@ -146,21 +149,26 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 			if (verbose)
 				agent.ExecuteCommandLine("clog -c");
 			kernel.DestroyAgent(agent);
+			// Clear the input WMEs, since the agent was destroyed
+			for (int i=0; i<inputWMEs.size(); ++i) {
+				inputWMEs.set(i, null);
+			}
 		}
 		
 		agent = kernel.CreateAgent(agentName + (agent_num++));
-		agent.RegisterForRunEvent(smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE, this, null);
+		//agent.RegisterForRunEvent(smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE, this, null);
 		agent.SetBlinkIfNoChange(false);
 		agentError = false;
 		
 		// Reset IO
-		clearPerception();
 		input_link = agent.GetInputLink();
 		inTask = null;
 		inTaskSeqName = null;
 		
-		setIOSize(numAgentInputs, numAgentOutputs);
+		setIOSize(numAgentInputs, numAgentOutputs);	// Resets input lists
 		running = false;
+		
+		elapsedAgentMSEC = 0;
 
 		// Load the agent files
 		if (using_props) {
@@ -247,8 +255,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 	}
 
 
-	public long secToNano(double sec) {return (long) sec*1000000000l;}
+	public long secToNano(double sec) {return (long) (sec*1000000000l);}
+	public long secToMilli(double sec) {return (long) (sec*1000l);}
 	public double nanoToSec(long nano) {return (double) nano/1000000000.0;}
+	public double nanoToMilli(long nano) {return (double) nano/1000000.0;}
+	public double milliToSec(long milli) {return (double) milli/1000.0;}
 	
 	public void setCondChunkFile(String filename) { agent_condchunk_file = filename; }
 	public void setAddressChunkFile(String filename) { agent_addresschunk_file = filename; }
@@ -308,9 +319,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 		return inputs;
 	}
 
-	public void setInput(int slot, String input) throws Exception {
+	public void setInput(int slot, String input) {
 		if (slot < 0 || slot >= numAgentInputs) {
-			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
+			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
 		if (input != null) {
 			newInputs.set(slot, new GhostWME(GhostWME.Type.STRING, "slot" + (slot+1), input));
@@ -319,15 +330,15 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 			newInputs.set(slot, null);
 		}
 	}
-	public void setInput(int slot, int input) throws Exception {
+	public void setInput(int slot, int input) {
 		if (slot < 0 || slot >= numAgentInputs) {
-			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
+			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
 		newInputs.set(slot, new GhostWME(GhostWME.Type.INT, "slot" + (slot+1), Integer.toString(input)));
 	}
-	public void setInput(int slot, double input) throws Exception {
+	public void setInput(int slot, double input) {
 		if (slot < 0 || slot >= numAgentInputs) {
-			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
+			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
 		newInputs.set(slot, new GhostWME(GhostWME.Type.FLOAT, "slot" + (slot+1), Double.toString(input)));
 	}
@@ -351,7 +362,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 	}
 	
 	// Copy the new inputs from the buffer to the agent
-	private boolean applyNewInputs() {
+	protected boolean applyNewInputs() {
 		boolean didChange = false;
 		// Only change WMEs if they are different (blinking can cause problems)
 		for (int i=0; i<numAgentInputs; ++i) {
@@ -367,13 +378,14 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 				inputWMEs.set(i, null);
 				inputs.set(i, null);
 			}
-			else { //if (in == null) || !newIn.equals(in)) {
+			else if ((in == null) || (newIn.blink_new || !newIn.equals(in))) {
 				didChange = true;
 				if (in != null)
 					in.DestroyWME();
 				inputWMEs.set(i, makeInputWME(newIn));
 				inputs.set(i, newIn.toString());
-				newInputs.set(i, null);
+				//newInputs.set(i, null);
+				newIn.blink_new = false;		// Don't recreate this input unless told otherwise
 			} 
 		}
 		return didChange;
@@ -387,7 +399,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 				e.printStackTrace();	// Shouldn't happen
 			}
 		}
-		//applyNewInputs();	// Apply the clearing
+		applyNewInputs();	// Apply the clearing
 		for (int i=0; i<numAgentInputs; ++i) {
 			if (inputWMEs.get(i) != null) {
 				inputWMEs.get(i).DestroyWME();
@@ -418,13 +430,28 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 	 */
 	public void scheduleInput(double delaysec, List<String> actions) {
 		// Add the new schedule entry
-		long moment = System.nanoTime() + secToNano(delaysec);
+		long moment = elapsedAgentMSEC + secToMilli(delaysec);
 		delayedInputs.add(new ScheduledInput(moment, actions));	// PriorityQueue sorting recalculates when to trigger the next scheduled entry
+	}
+	
+	protected void addAgentLatency(long msec) {
+		elapsedAgentMSEC += msec;
+	}
+	
+	/**
+	 * @return The elapsed agent time in milliseconds
+	 */
+	public long getElapsedTime() {
+		return elapsedAgentMSEC;
 	}
 	
 	public void setTask(String task, String taskSeqName) {
 		// Clear input if any
 		//clearPerception();
+		if (agent == null) {
+			if (!initAgent())
+				throw new RuntimeException();
+		}
 		
 		// Reset task commands
 		if (inTask != null) {
@@ -634,9 +661,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 			setOutputFile(exp_name + "_l" + m + "_s" + samples + ".dat");
 			clearOutputFile();
 
+			long startTime, endTime;
 			for (int i=0; i<samples; ++i) {
+				startTime = System.nanoTime();
 				user_doExperiment();
-				System.out.println("\nCompleted sample " + i);
+				endTime = System.nanoTime();
+				System.out.println("\nCompleted sample " + (i+1));
+				System.out.println(String.format("World ran at x%.3f real time on average.", elapsedAgentMSEC/nanoToMilli(endTime-startTime)));
 			}
 
 			if (verbose)
@@ -744,35 +775,32 @@ public abstract class PROPsEnvironment implements UpdateEventInterface, RunEvent
 		}
 	}
 	
-	/**
-	 * Is called every decision cycle, after the apply phase, before the input phase.
-	 * This is used for checking and sending scheduled inputs.
-	 * Note, this could overwrite inputs set earlier this decision by user_outputListener().
-	 */
-	private void update_beforeInput() {
-		if (delayedInputs.size() == 0) {
-			return;
-		}
-		
-		// Only look at 1 delayed input per decision, since each affects all input slots
-		long time = System.nanoTime();
-		if (delayedInputs.peek().moment >= time) {
-			ScheduledInput input = delayedInputs.poll();
-			setPerception(input.inputs);
-		}
-	}
-	
 	@Override
 	public void updateEventHandler(int eventID, Object data, Kernel kernel, int runFlags) {
 		if (eventID == smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES.swigValue()) {
+			// Increase the elapsed time each decision cycle
+			elapsedAgentMSEC += msecPerDecision;
+			// Manage agent output
 			update_afterOutput();
+		}
+		
+		// Check for delayed inputs
+		if (delayedInputs.size() == 0) {
+			return;
+		}
+		// Only look at 1 delayed input per decision, since each affects all input slots
+		// Note, this could overwrite inputs set earlier this decision by update_afterOutput().
+		if (delayedInputs.peek().msecMoment <= elapsedAgentMSEC) {
+			ScheduledInput input = delayedInputs.poll();
+			setPerception(input.inputs);
+			applyNewInputs();
 		}
 	}
 	
-	@Override
+	/*@Override
 	public void runEventHandler(int eventID, Object data, Agent agent, int runFlags) {
 		if (eventID == smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE.swigValue()) {
 			update_beforeInput();
 		}
-	}
+	}*/
 }

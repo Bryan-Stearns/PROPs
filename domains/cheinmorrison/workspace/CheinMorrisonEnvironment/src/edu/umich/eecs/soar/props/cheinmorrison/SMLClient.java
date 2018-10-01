@@ -14,15 +14,15 @@ public class SMLClient {
 
 		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
 		expList.add(new LearnConfig("12m", 48));
-		expList.add(new LearnConfig("123m", 48));
-		expList.add(new LearnConfig("12scm", 48));
+		//expList.add(new LearnConfig("123m", 48));
+		//expList.add(new LearnConfig("12scm", 48));
 
 		CheinMorrisonWorld world = new CheinMorrisonWorld();
-		//world.runExperiments("chein", 2, expList);
-		world.runEditorsDebug("verbal-CWM",0, 1, "12");
+		//world.setUseProps(false);
+		//world.runCheinExperiment("chein", 9, expList);
 		
-		//world.setConfig(new LearnConfig("scm123", 2));
-		//world.runEditorsDebug("ed",2);
+		//world.setSoarAgentFile("cheinNR_agent.soar");
+		world.runCheinDebug("verbal-CWM", 1, "sc123");
 		
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		

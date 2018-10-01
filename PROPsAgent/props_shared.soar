@@ -26,15 +26,6 @@ sp {elaborate*props*eval*state
 
 
 ### PROPAGATE MARKERS FOR VARIOUS INSTRUCTION EVALUATION STATE STACKS ###
-sp {elaborate*props*prohibit*list
-    (state <s> ^prop-prohibits <pp>
-              #-^props-static.manual-next-rule
-               ^smem.prohibit-list <pl>)
-    (<pp> ^prohibit <prbt>)
--->
-    (<pl> ^prohibit <prbt>)
-}
-
 
 ### DEFINE AND PROPAGATE THE ROOTSTATE ###
 

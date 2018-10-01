@@ -27,12 +27,12 @@ public class VCWM {
 		responses = new ArrayList<String>();
 		stimuli = new ArrayList<String>();
 		count = current_span - 1;
-		start = System.nanoTime() + 365000000l;
+		start = 365l;
 		//schedule_delayed_action(0.5, "word", get_rand_word());
 	}
 
 	@Override
 	public String toString() {
-		return "FIXME ";
+		return String.format("VCWM: Current-Span %d, Trials %d, State %s, Start %.3f, Count %d, Stimuli %s", current_span, trials, state.toUpperCase(), start/0.001, count, stimuli.toString());
 	}
 }

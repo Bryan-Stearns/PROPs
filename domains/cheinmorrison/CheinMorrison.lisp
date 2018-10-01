@@ -284,7 +284,7 @@
 ;~~ start
 (ins :condition (Vobject = letter RT1 = nil Gcontrol = rehearse) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
 ;~~ next
-(ins :condition (Vobject = letter RT1 <> error Gcontrol = rehearse) :action (RTid -> RTprev) :description "Rehearse next item")
+(ins :condition (Vobject = letter RT1 <> error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item")
 ;~~ restart
 (ins :condition (Vobject = letter RT1 = error  Gcontrol = rehearse) :action (Gtop -> RTid) :description "End of list, return to top")
 
@@ -296,7 +296,7 @@
 ;~~ start-from-lexical
 (ins :condition (Vobject = report Gcontrol = lexdec) :action (Gtop -> RTid report -> Gcontrol) :description "Report prompt came up: retrieve first item")
 ;~~ report
-(ins :condition (Vobject = report RT1 <> error Gcontrol = report) :action ((type RTconcept) -> AC RTid -> RTprev) :description "Report item and retrieve next")
+(ins :condition (Vobject = report RT1 <> error Gcontrol = report) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
 ;~~ finish
 (ins :condition (Vobject = report RT1 = error Gcontrol = report) :action ((type WMconcept) -> AC end -> Gcontrol) :description "Type last item")
 

@@ -78,6 +78,8 @@ sp {lib*actr*apply*finish
 		^G <g2> 
 		^WM <w> -
 		^WM <w2>
+		^RT <r> -	# FIXME: This wasn't reset before, why?
+		^RT <r2>
 		^AC <a> -
 		^AC <a2>)
 	(<a2> ^props-agnostic-add true)
@@ -243,6 +245,18 @@ sp {lib*actr*set*wm-query*return-result
 	(<s> ^RT <rt> -
 		^RT <res>)
 	#(write (crlf) |*** WM-QUERY: | <res> )
+}
+sp {lib*actr*set*wm-query*clean
+	:o-support
+	(state <s> ^Q <q>
+				^RT <res>)
+	(<q> ^wm-query <wmq>
+		^stamp <st>)
+	(<wmq> ^result <res>)
+	(<st> ^command <wmq>)
+-->
+	(<q> ^wm-query <wmq> -
+		^stamp <st> -)
 }
 
 # RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
@@ -441,4 +455,12 @@ sp {lib*actr*set*update-wmnext*remove		# (Never fires apparently)
 	(<w> ^WMnext <wmn> -)
 }
 
+# ADD WAIT OPERATOR BEHAVIOR
+sp {lib*actr*propose*wait
+	(state <s> ^io.input-link.slot1 |pending|
+				-^operator.name |wait-pending|)
+-->
+	(<s> ^operator <o> + = <)
+	(<o> ^name wait-pending)
+}
 
