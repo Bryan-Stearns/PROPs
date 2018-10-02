@@ -244,7 +244,7 @@ sp {propose*props*manual*next-rule
     (state <s> ^props-instructions <ins>
                #^props-flag has-failed-instructions  # Enable by sourcing props_spread_conds.soar
               -^props-flag incremented-manual-seq
-               ^props-static <ps>)
+               ^props-static <> none)
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-manual-next-rule)
@@ -320,12 +320,14 @@ sp {apply*props*manual*next-rule*incremented
 sp {apply*props*manual*next-rule*reset
     "Re-retrieve props-static after incrementing the manual, so enough depth is retrieved."
     (state <s> ^operator <o>
+				^props-flag dont-reset
 				^smem.command <scmd>)
 	#(<scmd> ^store)
     (<o> ^name props-manual-next-rule
          ^extra-advance true)  
 -->
-    (<s> ^props-fetch-reset |manual-next-rule|)
+    #(<s> ^props-fetch-reset |manual-next-rule|)
+	(<s> ^props-flag dont-reset -)
 }
 
 #sp {apply*props*manual*next-rule*clear-prohibits

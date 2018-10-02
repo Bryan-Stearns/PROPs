@@ -19,7 +19,8 @@ public class SMLClient {
 
 		EditorsWorld world = new EditorsWorld();
 		//world.runExperiments("editors_props", 1, expList);
-		world.runEditorsDebug("ed",0, 1, "1s");
+		//world.setVerbose(false);
+		world.runEditorsDebug("ed",0, 1, "s123s");
 		
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String, String>("ed","ed_1")); trainList.add(new Pair<String, String>("ed","ed_2")); trainList.add(new Pair<String, String>("ed","ed_3"));

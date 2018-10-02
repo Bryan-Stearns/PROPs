@@ -716,7 +716,7 @@ sp {apply*props*success*clean*buffer*op*transfer
 # After a failed props-evaluate, clear the eval structures and fetch a different set of instructions, and try again.
 ### 
 
-sp {propose*props*fail*search*prohibit
+sp {propose*props*result-fail
     (state <s> ^superstate <ss>
                ^proposals <p>
                ^props-instructions <ins>)
@@ -727,17 +727,20 @@ sp {propose*props*fail*search*prohibit
     (<o> ^name props-result-fail
          ^ins <ins>)
 }
-sp {apply*props*fail*search*prohibit     # Gives prohibit store a change to carry through
+sp {apply*props*result-fail     # Gives prohibit store a change to carry through
     (state <s> ^operator <o>
                ^prop-prohibits <pp>
-               ^props-instructions <ins>
-               ^superstate <ss>)
+			   ^props-flag dont-reset
+               ^props-instructions <ins>)
     (<o> ^name props-result-fail
          ^ins <ins>)
     (<ins> ^name <name>)
 -->
-    (<s> ^props-fetch-reset fail*search*prohibit)
+    #(<s> ^props-fetch-reset fail*search*prohibit)
+	(<s> ^props-flag dont-reset -)
     (<pp> ^prohibit <ins> )
     (write (crlf) | *** RETRACTING | <name> | *** | (crlf) | | )
 }
+
+
 

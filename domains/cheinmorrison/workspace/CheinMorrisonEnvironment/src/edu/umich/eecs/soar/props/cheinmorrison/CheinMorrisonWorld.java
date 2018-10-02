@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.umich.eecs.soar.propsutil.LearnConfig;
 import edu.umich.eecs.soar.propsutil.PROPsEnvironment;
+import javafx.util.Pair;
 
 
 public class CheinMorrisonWorld extends PROPsEnvironment {
@@ -16,7 +17,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	private VCWM cstask;
 	private Stroop sttask;
 
-	private String taskMode = "";
+	//private String taskMode = "";
 	private boolean inDebug = false;
 	private int numSamples = 1;
 	
@@ -27,8 +28,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.setAgentName("CheinMorrisonAgent");
 		this.setPropsDir(props_dir);
 		
-		//this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
-		//this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
+		this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
+		this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
 		//this.setFetchSeqFile(proj_dir + "cheinNR_agent_fetch_procedures.soar");
 		this.setInstructionsFile(proj_dir + "cheinNR_agent_instructions.soar");
 		this.setSoarAgentFile(proj_dir + "cheinNR_agent.soar");
@@ -44,7 +45,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	
 	public void runCheinDebug(String task, int threshold, String mode) {
 		inDebug = true;
-		taskMode = task;
+		//taskMode = task;
 		this.runDebug(task, task, threshold, mode);
 		inDebug = false;
 	}
@@ -78,14 +79,14 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			// 4 seconds are up
 			// trigger_reward(TASK_REWARD);
 			String next_letter = get_rand_letter();
-			if (cstask.count == 0) {
+			/*if (cstask.count == 0) {
 				cstask.state = "report";
 				this.scheduleInput(1.135, Arrays.asList("report","")); // last letter, schedule a report	// 1.135
 			} else {
 				cstask.count--;
 				cstask.start = this.getElapsedTime() + this.secToMilli(1.635);
 				this.scheduleInput(1.135, Arrays.asList("word", get_rand_word()));	// 1.135
-			}
+			}*/
 			set_perception("letter", next_letter, "");
 			cstask.stimuli.add(0, next_letter);
 			latency = 0.135;
@@ -125,6 +126,18 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			}
 		} else if (action.equals("wait")) {
 			set_perception("pending", null, null);
+			
+			// Moved from "type""lexical" to allow agent time to remember-letter.
+			if (cstask.state.equals("lexical")) {
+				if (cstask.count == 0) {
+					cstask.state = "report";
+					this.scheduleInput(1.135, Arrays.asList("report","")); // last letter, schedule a report	// 1.135
+				} else {
+					cstask.count--;
+					cstask.start = this.getElapsedTime() + this.secToMilli(1.635);
+					this.scheduleInput(1.135, Arrays.asList("word", get_rand_word()));	// 1.135
+				}
+			}
 		}
 		
 		return latency;
@@ -170,7 +183,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	}
 	
 	private void CM_setTask(String task) {
-		taskMode = task;
+		//taskMode = task;
 		this.setTask(task, task); 	// TODO: CM uses random inputs. Will need to make fixed inputs for training sequence!
 	}
 	
@@ -201,6 +214,17 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	public void runCheinExperiment(String taskName, int samples, ArrayList<LearnConfig> expList) {
 		numSamples = samples;
 		this.runExperiments(taskName, samples, expList);
+	}
+	
+	public void makePreChunks() {
+		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
+		trainList.add(new Pair<String,String>("verbal-CWM","verbal-CWM"));
+		trainList.add(new Pair<String,String>("stroop","stroop"));
+		
+		inDebug = true;
+		makeAddressingChunks(trainList, "cheinNR_agent_L1_chunks.soar", false);
+		makeSpreadingChunks(trainList, "cheinNR_agent_condspread_chunks.soar", false);
+		inDebug = false;
 	}
 	
 
@@ -264,10 +288,10 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 		double latency = 0.0;
 
-		if (taskMode.equals("stroop")) {
+		if (this.taskName.equals("stroop")) {
 			latency = stroop_action(action, val2);
 		}
-		else if (taskMode.equals("verbal-CWM")) {
+		else if (this.taskName.equals("verbal-CWM")) {
 			latency = VCWM_action(action, val2);
 		}
 		else {
@@ -283,15 +307,19 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 	@Override
 	protected void user_agentStart() {
-		// TODO Auto-generated method stub
+		// Called from runAgent() the first time it is run for an agent
 		
 	}
 
 	@Override
 	protected void user_agentStop() {
 		if (inDebug) {
-			int currTaskInd = 0;
-			//this.setTask(this.taskName, this.taskName + "_" + Integer.toString(currTaskInd + 1));
+			/*if (this.taskName.equals("verbal-CWM")) {
+				this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
+			}
+			else */if (this.taskName.equals("stroop")) {
+				init_stroop();
+			}
 		}
 		else {
 			user_updateTask();
@@ -300,20 +328,20 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 	@Override
 	protected void user_createAgent() {
-		// Called from initAgent() and runDebug(), when the agent is created
-		if (inDebug) {
-			if (taskMode.equals("verbal-CWM")) {
-				this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
-			}
-			else if (taskMode.equals("stroop")) {
-				this.scheduleInput(1.0, Arrays.asList("yes", null, null));
-			}
-		}
+		// Called from initAgent() and runDebug(), when the agent is created, usually before the task is set
 	}
 
 	@Override
 	protected void user_updateTask() {
 
+		if (inDebug) {
+			if (this.taskName.equals("verbal-CWM")) {
+				init_VCWM();
+			}
+			else if (this.taskName.equals("stroop")) {
+				init_stroop();
+			}
+		}
 		// Start perception with "pending"
 		this.setInput(0, "pending");
 		this.applyNewInputs();

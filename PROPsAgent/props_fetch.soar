@@ -16,7 +16,7 @@
 #       ^props-static (<x>                  | The LTM of deliberate fetch sequences and the current place in a sequence
 #           ^manual-next-rule <name>)       | The unique string name of the instructions to be queried next
 #       ^props-flag has-failed-instructions | A flag that indicates a first attempt at fetching failed to retrieve useable instructions
-#       ^props-fetch-reset <pfr>            | A flag that triggers the props-reset operator. (The value indicates the rule that created the flag.)
+#       ^props-flag dont-reset              | A flag that triggers the props-reset operator. (The value indicates the rule that created the flag.)
 #       
 #####
 
@@ -82,6 +82,13 @@ sp {apply*props*query*init-prohibits
 -->
     (<s> ^prop-prohibits <ps>)
 }
+sp {apply*props*query*init-dontreset
+    "Add the reset structure at the start of query cycles if needed"
+    (state <s> ^operator.name << props-load-static props-query >>
+                -^props-flag dont-reset)
+-->
+    (<s> ^props-flag dont-reset)
+}
 
 sp {elaborate*props*prohibit*list
     (state <s> ^prop-prohibits <pp>
@@ -110,9 +117,10 @@ sp {propose*props*search*lhs*quit
     (state <s>  ^operator.name props-query
                 ^props-static <ps>
                 ^smem.result.failure <cue>
+				^props-flag dont-reset
                 ^rootstate <rs>)
     (<ps> -^manual-next-rule)
-    -(<rs> ^props-fetch-reset <> search*lhs*quit)
+    #-(<rs> ^props-fetch-reset <> search*lhs*quit)
 -->
     (<rs>   ^props-flag impasse)
     # TODO: remove any other props-related structures at this time - if any?
@@ -123,9 +131,10 @@ sp {propose*props*search*lhs*quit*manual-error
     (state <s>  ^operator.name props-query
                 ^props-static <ps>
                 ^smem.result.failure <cue>
+				^props-flag dont-reset
                 ^rootstate <rs>)
     (<ps> ^manual-next-rule)
-    -(<rs> ^props-fetch-reset <> search*lhs*quit)
+    #-(<rs> ^props-fetch-reset <> search*lhs*quit)
 -->
     (<rs>   ^props-flag impasse)
     (write (crlf) | *** ERROR: Depleted instruction sequence without any matches! *** | )
@@ -171,7 +180,9 @@ sp {apply*props*retrieve
 
 sp {propose*props*reset
     (state <s> ^name props-eval
-               ^props-fetch-reset <blink>)
+				^props-static
+               #^props-fetch-reset <blink>)
+				-^props-flag dont-reset)
 -->
     (<s> ^operator <o> + > !)
     (<o> ^name props-reset)
@@ -182,11 +193,13 @@ sp {apply*props*reset
     (state <s> ^operator.name props-reset
                ^props-instructions <ins>
                ^props-static <ps>
-               ^props-fetch-reset <blink>)
+               #^props-fetch-reset <blink>)
+				-^props-flag dont-reset)
 -->
     (<s> ^props-instructions <ins> -
          ^props-static <ps> -
-         ^props-fetch-reset <blink> -
+         #^props-fetch-reset <blink> -
+		 ^props-flag dont-reset
          ^props-flag has-failed-instructions )  # Mark that at least one fail has occurred
 }
 # IF THIS RESET WAS CALLED DURING MANUAL-SEQUENCING PRIOR TO FETCH, THERE ARE NO INSTRUCTIONS TO RESET
@@ -194,10 +207,12 @@ sp {apply*props*reset*query-failed
     (state <s> ^operator.name props-reset
               -^props-instructions <ins>
                ^props-static <ps>
-               ^props-fetch-reset <blink>)
+               #^props-fetch-reset <blink>)
+				-^props-flag dont-reset)
 -->
     (<s> ^props-static <ps> -
-         ^props-fetch-reset <blink> -
+         #^props-fetch-reset <blink> -
+		 ^props-flag dont-reset
          ^props-flag has-failed-instructions )
 }
 # CLEAR THE ACTION BUFFER IF IT EXISTS
@@ -245,4 +260,29 @@ sp {apply*props*reset*spread-results
                ^prop-condition-xp <x>)
 -->
     (<s> ^prop-condition-xp <x> -)
+}
+
+
+### OPERATOR ### 
+# props-clear-prohibits
+##
+# This responds to changed input on the input link.
+# It removes existing prohibits, since they are (potentially) invalidated.
+### 
+
+sp {propose*props*clear-prohibits
+    (state <s> ^name props-eval
+				^prop-prohibits <pp>
+				^rootstate.io.input-link.input-changed true)
+	-{(<pp> -^prohibit )}	# It has at least one prohibit
+-->
+    (<s> ^operator <o> + > !)
+    (<o> ^name props-clear-prohibits)
+}
+sp {apply*props*clear-prohibits
+	(state <s> ^operator.name props-clear-prohibits
+				^prop-prohibits <pp>)
+	(<pp> ^prohibit <p>)
+-->
+	(<pp> ^prohibit <p> -)
 }

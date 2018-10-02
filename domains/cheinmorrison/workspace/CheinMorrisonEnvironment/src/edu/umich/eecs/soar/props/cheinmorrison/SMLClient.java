@@ -22,12 +22,10 @@ public class SMLClient {
 		//world.runCheinExperiment("chein", 9, expList);
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
-		world.runCheinDebug("verbal-CWM", 1, "sc123");
+		//world.runCheinDebug("verbal-CWM", 1, "sc123");
+		world.runCheinDebug("stroop", 1, "s23");
 		
-		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
-		
-		/*world.makeAddressingChunks(trainList, "chein_agent_L1_chunks.soar");
-		world.makeSpreadingChunks(trainList, "chein_agent_condspread_chunks.soar");*/
+		//world.makePreChunks();
 	}
 
 }

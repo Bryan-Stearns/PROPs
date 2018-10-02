@@ -1,0 +1,68 @@
+#####    Author: Bryan Stearns, 2018
+#   These rules let the agent chunk failure conditions as prohibit links, so it can avoid fetching connected instructions.
+#	This leads to undesirable effects. Chunking will backtrace through the rootstate prohibit flags when making all future problem solving chunks.
+#####
+
+sp {apply*props*result-fail     # Overwrites default behavior of keeping prohibit in the substate
+    (state <s> ^operator <o>
+              -^force-learn-onc-state
+               ^prop-prohibits <pp>
+               ^props-instructions <ins>
+			   ^props-flag dont-reset
+               ^superstate <ss>)
+    (<o> ^name props-result-fail
+         ^ins <ins>)
+    (<ins> ^name <name>)
+-->
+    #(<s> ^props-fetch-reset fail*search*prohibit)
+	(<s> ^props-flag dont-reset -)
+    (write (crlf) | *** RETRACTING | <name> | *** | (crlf) | | )
+}
+
+sp {elaborate*props*result-fail*snc
+    (state <s> ^prop-eval-data.status fail
+				-^force-learn-onc-state				
+               ^props-instructions <ins>
+               ^superstate <ss>)
+	(<ss> ^type state)	# Just to avoid potential case of only negations tests in chunk (illegal syntax)
+    (<ins> ^name <name>)
+-->
+	(<ss> ^prop-prohibit <pnew>)
+	(<pnew> ^name <name>)
+    (link-stm-to-ltm <pnew> (@ <ins>))
+}
+sp {elaborate*props*result-fail*onc
+    (state <s> ^prop-eval-data.status fail
+				^force-learn-onc-state		
+               ^props-instructions <ins>
+               ^superstate <ss>)
+    (<ins> ^name <name>)
+-->
+    (<ss> ^prop-prohibit <pnew>)
+	(<pnew> ^name <name>
+			^temp-smem-link (@ <ins>))
+}
+sp {elaborate*props*result-fail*onc*return-copy
+    (state <s> ^impasse no-change
+               ^attribute operator
+               ^superstate <ss>
+               ^prop-prohibit <pp>
+				^superstate <ss>)
+	(<ss> ^type state)	# Just to avoid potential case of only negations tests in chunk (illegal syntax)
+	(<pp> ^name <name>
+			^temp-smem-link <num>)
+-->
+	(<ss> ^prop-prohibit <pnew>)
+	(<pnew> ^name <name>)
+    (link-stm-to-ltm <pnew> <num>)
+}
+
+sp {elaborate*props*prohibit*list	# Overwrites default behavior to pull prohibits from rootstate instead of eval-state
+    (state <s> ^rootstate <rs>
+				#^quiescence t
+				^name props-eval
+               ^smem.prohibit-list <pl>)
+    (<rs> ^prop-prohibit <prbt>)
+-->
+    (<pl> ^prohibit <prbt>)
+}

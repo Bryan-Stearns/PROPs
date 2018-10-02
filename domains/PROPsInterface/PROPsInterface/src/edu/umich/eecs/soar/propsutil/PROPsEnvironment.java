@@ -37,7 +37,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	final protected String CMD_SAY = "say",
 							CMD_FINISH = "finish",
 							CMD_INSTR_NEXT = "props-command",
-							CMD_ERROR = "error";
+							CMD_ERROR = "error",
+							ATTR_INPUT_CHANGED = "input-changed";
 	protected String outFileName = "AgentOutput.txt",
 					agent_condchunk_file = "",
 					agent_addresschunk_file = "",
@@ -53,7 +54,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	protected Kernel kernel;
 	protected Agent agent = null;
 	private WMElement inTask,
-					  inTaskSeqName;
+					  inTaskSeqName,
+					  inputChangedWME;
+	private boolean inputChanged;
 	
 	private long elapsedAgentMSEC = 0;
 	protected double msecPerDecision = 50;
@@ -153,6 +156,9 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			for (int i=0; i<inputWMEs.size(); ++i) {
 				inputWMEs.set(i, null);
 			}
+			inTask = null;
+			inTaskSeqName = null;
+			inputChangedWME = null;
 		}
 		
 		agent = kernel.CreateAgent(agentName + (agent_num++));
@@ -162,8 +168,6 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		
 		// Reset IO
 		input_link = agent.GetInputLink();
-		inTask = null;
-		inTaskSeqName = null;
 		
 		setIOSize(numAgentInputs, numAgentOutputs);	// Resets input lists
 		running = false;
@@ -295,6 +299,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		inputs = new ArrayList<String>(numAgentInputs);
 		outputs = new ArrayList<String>(numAgentOutputs);
 		
+		inputChanged = false;
+		if (inputChangedWME != null) {
+			inputChangedWME.DestroyWME();
+			inputChangedWME = null;
+		}
+		
 		for (int i=0; i<numAgentInputs; ++i) {
 			inputWMEs.add(null);
 		}
@@ -388,6 +398,11 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 				newIn.blink_new = false;		// Don't recreate this input unless told otherwise
 			} 
 		}
+		
+		if (didChange) {
+			inputChanged = true;
+		}
+		
 		return didChange;
 	}
 	
@@ -434,6 +449,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		delayedInputs.add(new ScheduledInput(moment, actions));	// PriorityQueue sorting recalculates when to trigger the next scheduled entry
 	}
 	
+	/**
+	 * Clear the list of existing delayed inputs
+	 */
+	public void clearScheduledInputs() {
+		delayedInputs.clear();
+	}
+	
 	protected void addAgentLatency(long msec) {
 		elapsedAgentMSEC += msec;
 	}
@@ -446,18 +468,21 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	}
 	
 	public void setTask(String task, String taskSeqName) {
-		// Clear input if any
-		//clearPerception();
 		if (agent == null) {
 			if (!initAgent())
 				throw new RuntimeException();
 		}
+		
+		// Clear input if any
+		//clearPerception();
+		clearScheduledInputs();
 		
 		// Reset task commands
 		if (inTask != null) {
 			if (!inTask.GetValueAsString().equals(task)) {
 				inTask.DestroyWME();
 				inTask = input_link.CreateStringWME("task", task);		// for lib-actr to set Gtask
+				inputChanged = true;
 			}
 		}
 		else 
@@ -467,6 +492,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			if (!inTaskSeqName.GetValueAsString().equals(taskSeqName)) {
 				inTaskSeqName.DestroyWME();
 				inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskSeqName);	// for specifying a known PROPs instruction sequence
+				inputChanged = true;
 			}
 		}
 		else
@@ -577,21 +603,35 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	}
 	
 
-	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname) {
+	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname) { makeSpreadingChunks(taskSeqs, fname, true); }
+	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname, boolean useManualSeq) {
+		if (taskSeqs.size() == 0) {
+			System.err.println("No tasks given to makeSpreadingChunks. Nothing to do.");
+			return;
+		}
+		
 		testing = true;
 		outFileName = "make_condition_chunks.txt";
-		currentLearnMode.set(true, false, false, true, true, true, false, false);
+		currentLearnMode.set(true, false, false, true, true, useManualSeq, false, false);
 		currentLearnMode.setChunkThreshold(1);
-		
+
+		System.out.println("Starting condition chunking run...");
 		makeChunkingRuns(taskSeqs, fname);
 		testing = false;
 	}
-	public void makeAddressingChunks(List<Pair<String,String>> taskSeqs, String fname) {
+	public void makeAddressingChunks(List<Pair<String,String>> taskSeqs, String fname) { makeAddressingChunks(taskSeqs, fname, true); }
+	public void makeAddressingChunks(List<Pair<String,String>> taskSeqs, String fname, boolean useManualSeq) {
+		if (taskSeqs.size() == 0) {
+			System.err.println("No tasks given to makeAddressingChunks. Nothing to do.");
+			return;
+		}
+		
 		testing = true;
 		outFileName = "make_address_chunks.txt";
-		currentLearnMode.set(false, false, false, false, false, true, false, true);
+		currentLearnMode.set(false, false, false, false, false, useManualSeq, false, true);
 		currentLearnMode.setChunkThreshold(1);
 		
+		System.out.println("Starting address chunking run...");
 		makeChunkingRuns(taskSeqs, fname);
 		testing = false;
 	}
@@ -785,15 +825,28 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 		
 		// Check for delayed inputs
-		if (delayedInputs.size() == 0) {
-			return;
+		if (delayedInputs.size() != 0) {
+			// Only look at 1 delayed input per decision, since each affects all input slots
+			// Note, this could overwrite inputs set earlier this decision by update_afterOutput().
+			if (delayedInputs.peek().msecMoment <= elapsedAgentMSEC) {
+				ScheduledInput input = delayedInputs.poll();
+				setPerception(input.inputs);
+				applyNewInputs();
+			}
 		}
-		// Only look at 1 delayed input per decision, since each affects all input slots
-		// Note, this could overwrite inputs set earlier this decision by update_afterOutput().
-		if (delayedInputs.peek().msecMoment <= elapsedAgentMSEC) {
-			ScheduledInput input = delayedInputs.poll();
-			setPerception(input.inputs);
-			applyNewInputs();
+
+		// Send a generic flag to the agent of whether environment input has changed
+		if (inputChanged) {
+			if (inputChangedWME != null)
+				inputChangedWME.DestroyWME();
+			inputChangedWME = input_link.CreateStringWME(ATTR_INPUT_CHANGED, "true");
+			inputChanged = false;	// Remove the string next cycle
+		}
+		else {
+			if (inputChangedWME != null) {
+				inputChangedWME.DestroyWME();
+				inputChangedWME = null;
+			}
 		}
 	}
 	
