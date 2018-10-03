@@ -28,40 +28,41 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	private boolean save_percepts = false;
 	private boolean testing = false;
 	private boolean running = false;
-	protected boolean agentError = false;
+	private boolean agentError = false;
 	private boolean initOkay = false;
 	private String props_dir = "";
 	
-	protected String agentName = "PROPsAgent";
+	private String agentName = "PROPsAgent";
 	private int agent_num = 0;
-	final protected String CMD_SAY = "say",
+	final private String CMD_SAY = "say",
 							CMD_FINISH = "finish",
-							CMD_INSTR_NEXT = "props-command",
+							//CMD_INSTR_NEXT = "props-command",
 							CMD_ERROR = "error",
 							ATTR_INPUT_CHANGED = "input-changed";
-	protected String outFileName = "AgentOutput.txt",
+	private String outFileName = "AgentOutput.txt",
 					agent_condchunk_file = "",
 					agent_addresschunk_file = "",
 					agent_instruction_file = "",
 					agent_fetchseq_file = "",
 					agent_genericsoar_file = "";
-	protected String taskName = "TEST",
-					 taskSequenceName = "TEST";
+	private String taskName = "TEST",
+					taskSequenceName = "TEST";
 	
-	protected LearnConfig currentLearnMode;
+	private LearnConfig currentLearnMode;
+	private int currentSampleNum;
 	
-	protected Identifier input_link;
-	protected Kernel kernel;
-	protected Agent agent = null;
+	private Identifier input_link;
+	private Kernel kernel;
+	private Agent agent = null;
 	private WMElement inTask,
 					  inTaskSeqName,
 					  inputChangedWME;
 	private boolean inputChanged;
 	
 	private long elapsedAgentMSEC = 0;
-	protected double msecPerDecision = 50;
+	private double msecPerDecision = 50;
 	
-	protected int numAgentInputs = 3,
+	private int numAgentInputs = 3,
 				  numAgentOutputs = 3;
 	private ArrayList<WMElement> inputWMEs;
 	private ArrayList<GhostWME> newInputs;	// a buffer for the user-made environment input
@@ -69,8 +70,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	private ArrayList<String> outputs;
 	private PriorityQueue<ScheduledInput> delayedInputs;
 
-	protected ArrayList<String> userAgentFiles;
-	protected ArrayList<String> reports;
+	private ArrayList<String> userAgentFiles;
+	private ArrayList<String> reports;
 
 	//abstract protected void user_initEnvironment();
 	abstract protected void user_doExperiment();
@@ -96,6 +97,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		delayedInputs = new PriorityQueue<ScheduledInput>(Comparator.comparing(ScheduledInput::getMoment));
 		
 		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
+		currentSampleNum = 0;
 		
 		//user_initEnvironment();
 		//   User needs to set: 
@@ -107,7 +109,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	
 
 	private boolean loadLearnProductions(LearnConfig mode) {
-		if (mode.spreading() && !mode.learnsConditions()) {
+		if (mode.learnsSpreading() && !mode.learnsAllConditions()) {
 			if (agent_condchunk_file == "") {
 				System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
 				return false;
@@ -121,7 +123,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			return true;
 		}
 		
-		if (mode.seqs()) {
+		if (mode.learnsManualSeqs()) {
 			agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
 		}
 		
@@ -145,6 +147,14 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 		
 		return true;
+	}
+	
+	private void loadUserAgentFiles() {
+		// Load the list of user-provided agent files
+		for (String s : userAgentFiles) {
+			agent.LoadProductions(s);
+		}
+		
 	}
 	
 	public boolean initAgent() {
@@ -192,7 +202,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			agent.LoadProductions(props_dir + "_firstload_props.soar");			// props library
 			agent.LoadProductions(agent_instruction_file);		// The props instructions
 			
-			if (currentLearnMode.manual()) {
+			if (currentLearnMode.usesManual()) {
 				if (agent_fetchseq_file == "") {
 					System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
 					initOkay = false;
@@ -200,7 +210,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 				}
 				agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
 			}
-			if (currentLearnMode.spreading()) {
+			if (currentLearnMode.learnsSpreading()) {
 				agent.LoadProductions(props_dir + "props_learn_conds.soar");
 			}
 
@@ -246,24 +256,28 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		return true;
 	}
 	
-	private void loadUserAgentFiles() {
-		// Load the list of user-provided agent files
-		for (String s : userAgentFiles) {
-			agent.LoadProductions(s);
-		}
-		
-	}
-	
 	public void setUserAgentFiles(List<String> filenames) {
 		userAgentFiles = new ArrayList<String>(filenames);
 	}
 
 
+	public boolean isUsingProps() { return using_props; }
+	public boolean isVerbose() { return verbose; }
+	public boolean isSavingPercepts() { return save_percepts; }
+	public boolean hasError() { return agentError; }
+	
+	public LearnConfig getLearnMode() { return currentLearnMode; }
+	public int getCurrentSample() { return currentSampleNum; }
+	public String getTask() { return taskName; }
+	public String getTaskInstance() { return taskSequenceName; }
+	
 	public long secToNano(double sec) {return (long) (sec*1000000000l);}
 	public long secToMilli(double sec) {return (long) (sec*1000l);}
 	public double nanoToSec(long nano) {return (double) nano/1000000000.0;}
 	public double nanoToMilli(long nano) {return (double) nano/1000000.0;}
 	public double milliToSec(long milli) {return (double) milli/1000.0;}
+	
+	public void setPropsDir(String dir) { props_dir = dir; }
 	
 	public void setCondChunkFile(String filename) { agent_condchunk_file = filename; }
 	public void setAddressChunkFile(String filename) { agent_addresschunk_file = filename; }
@@ -271,17 +285,20 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	public void setFetchSeqFile(String filename) { agent_fetchseq_file = filename; }
 	public void setSoarAgentFile(String filename) { agent_genericsoar_file = filename; }
 	
+	public void setAgentName(String name) { agentName = name; }
+	public void setConfig(LearnConfig config) { currentLearnMode = config; }
+	
 	public void setUseProps(boolean mode) { using_props = mode; }
 	public void setVerbose(boolean mode) { verbose = mode; }
 	public void setSavePercepts(boolean mode) { save_percepts = mode; }
 	
-	public void setPropsDir(String dir) { props_dir = dir; }
-	
-	public void setAgentName(String name) { agentName = name; }
-	public void setConfig(LearnConfig config) { currentLearnMode = config; }
-	
 	public void setOutputFile(String filename) { outFileName = filename; }
 	
+	/**
+	 * Configures input and output slots, and clears any existing input.
+	 * @param inputSize The max number of inputs
+	 * @param outputSize The max number of outputs
+	 */
 	public void setIOSize(int inputSize, int outputSize) {
 		numAgentInputs = inputSize;
 		numAgentOutputs = outputSize;
@@ -325,11 +342,32 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		return inputs.get(slot);
 	}
 	
+	/**
+	 * @return The ordered list of the contents of the input-link slots.
+	 */
 	public List<String> getPerception() {
 		return inputs;
 	}
 
-	public void setInput(int slot, String input) {
+	/**
+	 * Set the agent's input-link slots 
+	 * @param perception An ordered list of inputs for each slot
+	 */
+	protected void setPerception(List<String> perception) {
+		int lim = numAgentInputs;
+		if (perception.size() < numAgentInputs)
+			lim = perception.size();
+		
+		for (int i=0; i<lim; ++i) {
+			try {
+				this.setInput(i,perception.get(i));
+			} catch (Exception e) {
+				System.err.println("Indexing error when setting perception.");
+			}
+		}
+	}
+	
+	protected void setInput(int slot, String input) {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
@@ -340,19 +378,19 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			newInputs.set(slot, null);
 		}
 	}
-	public void setInput(int slot, int input) {
+	protected void setInput(int slot, int input) {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
 		newInputs.set(slot, new GhostWME(GhostWME.Type.INT, "slot" + (slot+1), Integer.toString(input)));
 	}
-	public void setInput(int slot, double input) {
+	protected void setInput(int slot, double input) {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new RuntimeException("ERROR in setInput(): Input slot must be between 0 and " + (numAgentInputs-1));
 		}
 		newInputs.set(slot, new GhostWME(GhostWME.Type.FLOAT, "slot" + (slot+1), Double.toString(input)));
 	}
-	/*public void setInput(int slot, boolean input) throws Exception {
+	/*protected void setInput(int slot, boolean input) throws Exception {
 		if (slot < 0 || slot >= numAgentInputs) {
 			throw new Exception("ERROR: Input slot must be between 1 and " + numAgentInputs);
 		}
@@ -371,7 +409,10 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 	}
 	
-	// Copy the new inputs from the buffer to the agent
+	/** 
+	 * Flush all new inputs to the agent's input-link
+	 * @return Whether the input-link changes at all.
+	 */
 	protected boolean applyNewInputs() {
 		boolean didChange = false;
 		// Only change WMEs if they are different (blinking can cause problems)
@@ -406,7 +447,10 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		return didChange;
 	}
 	
-	public void clearPerception() {
+	/**
+	 * Remove all input WMEs
+	 */
+	protected void clearPerception() {
 		for (int i=0; i<inputWMEs.size(); ++i) {
 			try {
 				setInput(i, null);
@@ -424,26 +468,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 	}
 	
-	public void setPerception(List<String> perception) {
-		int lim = numAgentInputs;
-		if (perception.size() < numAgentInputs)
-			lim = perception.size();
-		
-		for (int i=0; i<lim; ++i) {
-			try {
-				this.setInput(i,perception.get(i));
-			} catch (Exception e) {
-				System.err.println("Indexing error when setting perception.");
-			}
-		}
-	}
-	
 	/**
 	 * Send the given actions to the input link after the given delay, in real time.
 	 * @param delaysec The number of seconds to delay until the inputs are made
 	 * @param actions The inputs to deliver, in slot order
 	 */
-	public void scheduleInput(double delaysec, List<String> actions) {
+	protected void scheduleInput(double delaysec, List<String> actions) {
 		// Add the new schedule entry
 		long moment = elapsedAgentMSEC + secToMilli(delaysec);
 		delayedInputs.add(new ScheduledInput(moment, actions));	// PriorityQueue sorting recalculates when to trigger the next scheduled entry
@@ -452,10 +482,14 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	/**
 	 * Clear the list of existing delayed inputs
 	 */
-	public void clearScheduledInputs() {
+	protected void clearScheduledInputs() {
 		delayedInputs.clear();
 	}
 	
+	/**
+	 * Notify the world of additional elapsed time used by the agent (besides normal decision cycle time). 
+	 * @param msec The extra time taken, in milliseconds.
+	 */
 	protected void addAgentLatency(long msec) {
 		elapsedAgentMSEC += msec;
 	}
@@ -467,7 +501,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		return elapsedAgentMSEC;
 	}
 	
-	public void setTask(String task, String taskSeqName) {
+	public void setTask(String task, String taskInstance) {
 		if (agent == null) {
 			if (!initAgent())
 				throw new RuntimeException();
@@ -489,23 +523,26 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			inTask = input_link.CreateStringWME("task", task);
 		
 		if (inTaskSeqName != null) {
-			if (!inTaskSeqName.GetValueAsString().equals(taskSeqName)) {
+			if (!inTaskSeqName.GetValueAsString().equals(taskInstance)) {
 				inTaskSeqName.DestroyWME();
-				inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskSeqName);	// for specifying a known PROPs instruction sequence
+				inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskInstance);	// for specifying a known PROPs instruction sequence
 				inputChanged = true;
 			}
 		}
 		else
-			inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskSeqName);
+			inTaskSeqName = input_link.CreateStringWME("task-sequence-name", taskInstance);
 		
 		this.taskName = task;
-		this.taskSequenceName = taskSeqName;
+		this.taskSequenceName = taskInstance;
 		
 		user_updateTask();
 	}
 
 
-	// Clear the output file if it already exists
+	/** 
+	 * Clear the output file if it already exists, create it if it doesn't.
+	 * @return True if successful, false if an filesystem error occurred.
+	 */
 	public boolean clearOutputFile() {
 		if (!verbose) {
 			try {
@@ -521,6 +558,10 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		return true;
 	}
 
+	/**
+	 * Add a string to the list of reports
+	 * @param r The report entry to store
+	 */
 	public void addReport(String r) {
 		reports.add(r);
 	}
@@ -528,10 +569,16 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		reports.clear();
 	}
 	
-	// Print all current reports
+	/**
+	 * Print all current reports
+	 */
 	public void printReports() {
 		printReports("");
 	}
+	/**
+	 * Print all current reports
+	 * @param header A header to include in front of each report line
+	 */
 	public void printReports(String header) {
 		try(FileWriter fw = new FileWriter(outFileName, true);
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -549,10 +596,17 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 	}
 	
-	public void runDebug(String task, String taskSeq, int threshold, String learnMode) {
+	/**
+	 * Run a task in the Soar Java Debugger
+	 * @param task The name of the task
+	 * @param taskSeq The name of the task instance (make same as task if no instance variation)
+	 * @param threshold The chunking threshold to use
+	 * @param learnMode The learning configuration to use
+	 */
+	public void runDebug(String task, String taskSeq, LearnConfig mode) {
 		testing = true;
-		currentLearnMode.set(learnMode);
-		currentLearnMode.setChunkThreshold(threshold);
+		currentLearnMode = mode;
+		currentSampleNum = 1;
 		
 		if (task.compareTo(taskSeq) != 0)
 			setOutputFile(task + "_" + taskSeq + "_debug_out.txt");
@@ -657,8 +711,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			setTask(task.getKey(), task.getValue());
 			
 			while (cont > 0) {
+				currentSampleNum = ++count;
 				runAgent();
-				count++;
 				
 				// Check how many chunks were learned this past run
 				chunksPrev = chunksCurr;
@@ -703,6 +757,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 
 			long startTime, endTime;
 			for (int i=0; i<samples; ++i) {
+				currentSampleNum = i+1;
 				startTime = System.nanoTime();
 				user_doExperiment();
 				endTime = System.nanoTime();

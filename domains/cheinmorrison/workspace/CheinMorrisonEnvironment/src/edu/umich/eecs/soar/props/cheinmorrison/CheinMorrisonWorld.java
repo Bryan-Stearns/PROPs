@@ -46,7 +46,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	public void runCheinDebug(String task, int threshold, String mode) {
 		inDebug = true;
 		//taskMode = task;
-		this.runDebug(task, task, threshold, mode);
+		this.runDebug(task, task, new LearnConfig(mode, threshold));
 		inDebug = false;
 	}
 	
@@ -199,9 +199,9 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	}
 	
 	private void do_stroop(int day, String condition) {
-		this.setOutputFile("stroopCheinNR_s" + numSamples + ".txt");
+		this.setOutputFile("stroopCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
 		CM_setTask("stroop");
-		for (int i=0; i<3 && !this.agentError; ++i) { //FIXME i<12
+		for (int i=0; i<12 && !this.hasError(); ++i) {
 			init_stroop();
 			
 			this.runAgent();
@@ -239,12 +239,12 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		if (!this.initAgent()) return;
 		do_stroop(1, "EXP");
 
-		for (int i=0; i<2 && !this.agentError; ++i) {
+		for (int i=0; i<2 && !this.hasError(); ++i) {
 			// Practice the verbal task
 			System.out.println("*** Practice Session " + (i+1));
 			CM_setTask("verbal-CWM");
 
-			for (int j=0; j<16 && !this.agentError; ++j) {
+			for (int j=0; j<16 && !this.hasError(); ++j) {
 				init_VCWM();
 
 				this.runAgent();	// Run until receiving the finish command
@@ -252,13 +252,13 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		}
 		
 		this.clearReports(); 	// We don't use the practice results
-		this.setOutputFile("WMCheinNR_s" + numSamples + ".txt");
+		this.setOutputFile("WMCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
 		
-		for (int i=0; i<20 && !this.agentError; ++i) {
+		for (int i=0; i<20 && !this.hasError(); ++i) {
 			// Test the verbal task
 			System.out.println("*** Session " + (i+1));
 
-			for (int j=0; j<16 && !this.agentError; ++j) {
+			for (int j=0; j<16 && !this.hasError(); ++j) {
 				init_VCWM();
 
 				this.runAgent();	// Run until receiving the finish command
@@ -267,7 +267,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			this.clearReports();
 		}
 		
-		if (this.agentError) {
+		if (this.hasError()) {
 			System.out.println("ERROR RETURNED BY AGENT " + "!");
 			return;
 		}
@@ -288,10 +288,10 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 		double latency = 0.0;
 
-		if (this.taskName.equals("stroop")) {
+		if (this.getTask().equals("stroop")) {
 			latency = stroop_action(action, val2);
 		}
-		else if (this.taskName.equals("verbal-CWM")) {
+		else if (this.getTask().equals("verbal-CWM")) {
 			latency = VCWM_action(action, val2);
 		}
 		else {
@@ -317,7 +317,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			/*if (this.taskName.equals("verbal-CWM")) {
 				this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
 			}
-			else */if (this.taskName.equals("stroop")) {
+			else */if (this.getTask().equals("stroop")) {
 				init_stroop();
 			}
 		}
@@ -335,10 +335,10 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	protected void user_updateTask() {
 
 		if (inDebug) {
-			if (this.taskName.equals("verbal-CWM")) {
+			if (this.getTask().equals("verbal-CWM")) {
 				init_VCWM();
 			}
-			else if (this.taskName.equals("stroop")) {
+			else if (this.getTask().equals("stroop")) {
 				init_stroop();
 			}
 		}
