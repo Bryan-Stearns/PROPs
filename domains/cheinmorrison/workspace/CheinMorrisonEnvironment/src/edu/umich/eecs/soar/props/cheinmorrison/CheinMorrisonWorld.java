@@ -21,18 +21,29 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	private boolean inDebug = false;
 	private int numSamples = 1;
 	
-	CheinMorrisonWorld() {
+	private boolean rehearseMode = false;
+	
+	CheinMorrisonWorld(boolean rehearse) {
 		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/";
 		String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
 		
 		this.setAgentName("CheinMorrisonAgent");
 		this.setPropsDir(props_dir);
 		
-		this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
-		this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
-		//this.setFetchSeqFile(proj_dir + "cheinNR_agent_fetch_procedures.soar");
-		this.setInstructionsFile(proj_dir + "cheinNR_agent_instructions.soar");
-		this.setSoarAgentFile(proj_dir + "cheinNR_agent.soar");
+		if (rehearse)  {
+			this.setCondChunkFile(proj_dir + "chein_agent_condspread_chunks.soar");
+			this.setAddressChunkFile(proj_dir + "chein_agent_L1_chunks.soar");
+			//this.setFetchSeqFile(proj_dir + "chein_agent_fetch_procedures.soar");
+			this.setInstructionsFile(proj_dir + "chein_agent_instructions.soar");
+			this.setSoarAgentFile(proj_dir + "chein_agent.soar");
+		}
+		else {
+			this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
+			this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
+			//this.setFetchSeqFile(proj_dir + "cheinNR_agent_fetch_procedures.soar");
+			this.setInstructionsFile(proj_dir + "cheinNR_agent_instructions.soar");
+			this.setSoarAgentFile(proj_dir + "cheinNR_agent.soar");
+		}
 		
 		this.setIOSize(3, 2);
 
@@ -41,6 +52,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		
 		cstask = new VCWM();
 		sttask = new Stroop();
+		rehearseMode = rehearse;
 	}
 	
 	public void runCheinDebug(String task, int threshold, String mode) {
@@ -187,10 +199,13 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.setTask(task, task); 	// TODO: CM uses random inputs. Will need to make fixed inputs for training sequence!
 	}
 	
-	private void init_VCWM() {
-		cstask.init();
+	private void reset_VCWM() {
 		cstask.start = this.getElapsedTime() + this.secToMilli(0.365);
 		this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
+	}
+	private void init_VCWM() {
+		cstask.init();
+		reset_VCWM();
 	}
 	private void init_stroop() {
 		sttask.init();
@@ -199,7 +214,12 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	}
 	
 	private void do_stroop(int day, String condition) {
-		this.setOutputFile("stroopCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		if (rehearseMode) {
+			this.setOutputFile("stroopChein_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		}
+		else {
+			this.setOutputFile("stroopCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		}
 		CM_setTask("stroop");
 		for (int i=0; i<12 && !this.hasError(); ++i) {
 			init_stroop();
@@ -221,9 +241,13 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		trainList.add(new Pair<String,String>("verbal-CWM","verbal-CWM"));
 		trainList.add(new Pair<String,String>("stroop","stroop"));
 		
+		String task = "cheinNR";
+		if (rehearseMode)
+			task = "chein";
+		
 		inDebug = true;
-		makeAddressingChunks(trainList, "cheinNR_agent_L1_chunks.soar", false);
-		makeSpreadingChunks(trainList, "cheinNR_agent_condspread_chunks.soar", false);
+		makeSpreadingChunks(trainList, task + "_agent_condspread_chunks.soar", false);
+		makeAddressingChunks(trainList, task + "_agent_L1_chunks.soar", false);
 		inDebug = false;
 	}
 	
@@ -232,34 +256,43 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	protected void user_doExperiment() {
 		// Run the control agent
 		if (!this.initAgent()) return;
-		do_stroop(1, "CONTROL");
+		/*do_stroop(1, "CONTROL");
+		// WEIRD: Taatgen reinits here in rehearsal case
 		do_stroop(21, "CONTROL");
 
 		// Run the transfer agent
 		if (!this.initAgent()) return;
-		do_stroop(1, "EXP");
-
+		do_stroop(1, "EXP");*/
+		// WEIRD: Taatgen reinits here in rehearsal case
+		
+		CM_setTask("verbal-CWM");
 		for (int i=0; i<2 && !this.hasError(); ++i) {
 			// Practice the verbal task
 			System.out.println("*** Practice Session " + (i+1));
-			CM_setTask("verbal-CWM");
+			init_VCWM();
 
 			for (int j=0; j<16 && !this.hasError(); ++j) {
-				init_VCWM();
+				reset_VCWM();
 
 				this.runAgent();	// Run until receiving the finish command
 			}
 		}
 		
 		this.clearReports(); 	// We don't use the practice results
-		this.setOutputFile("WMCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		if (rehearseMode) {
+			this.setOutputFile("WMChein_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		}
+		else {
+			this.setOutputFile("WMCheinNR_" + this.getLearnMode().toString() + "_s" + numSamples + ".txt");
+		}
 		
 		for (int i=0; i<20 && !this.hasError(); ++i) {
 			// Test the verbal task
 			System.out.println("*** Session " + (i+1));
+			init_VCWM();
 
 			for (int j=0; j<16 && !this.hasError(); ++j) {
-				init_VCWM();
+				reset_VCWM();
 
 				this.runAgent();	// Run until receiving the finish command
 			}

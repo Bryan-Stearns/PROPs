@@ -259,6 +259,16 @@ sp {lib*actr*set*wm-query*clean
 		^stamp <st> -)
 }
 
+sp {lib*actr*elaborate*wm-query*error
+	(state <s> ^smem <smem>
+				^Q <q>
+				^RT <r>)
+	(<q> ^wm-query <wmq>)
+	(<wmq> -^result )
+-->
+	(<smem> ^rt-result error)
+}
+
 # RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
 sp {lib*actr*set*retrieval
 	:o-support
@@ -366,6 +376,7 @@ sp {lib*actr*elaborate*query*success
 	(state <s> ^smem <smem>
 			^RT <r>)
 	(<r> ^<any> )
+	(<smem> -^rt-result error)
 -->
 	(<smem> ^rt-result success)
 }
@@ -381,47 +392,38 @@ sp {lib*actr*elaborate*query*failure*error
 
 
 # CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
-sp {lib*actr*apply*query*clear
+sp {lib*actr*apply*clear-rt
 	:o-support
 	(state <s> ^G <g>
 			^Q <q>
 			^RT <rt>)
-	(<q> ^query <qry>
-		^stamp <st>)
-	(<st> ^command <qry>)
 	(<g> ^clear-rt <any>)
 -->
-	(<q> ^query <qry> -
-		^stamp <st> -)
 	(<s> ^RT <rt> -
 		^RT <rnew>)
 	(<g> ^clear-rt <any> -)
 }
-sp {lib*actr*apply*retrieve*clear
+sp {lib*actr*apply*clear-rt*clear-command
 	:o-support
 	(state <s> ^G <g>
-			^Q <q>
-			^RT <rt>)
-	(<q> ^{<attr> << retrieve wm-query >>} <rt>
+			^Q <q>)
+	(<q> ^{<attr> << query retrieve wm-query >>} <rt>
 		^stamp <st>)
 	(<st> ^command <rt>)
 	(<g> ^clear-rt <any>)
 -->
 	(<q> ^<attr> <rt> -
 		^stamp <st> -)
-	(<s> ^RT <rt> -
-		^RT <rnew>)
-	(<g> ^clear-rt <any> -)
 }
-sp {lib*actr*apply*smem-command*clear-empty
-	:o-support
-	(state <s> ^G <g>
-			^Q <q>)
-	(<q> -^<< query retrieve wm-query >> <qry>)
-	(<g> ^clear-rt <any>)
--->
-	(<g> ^clear-rt <any> -)
-}
+#sp {lib*actr*apply*smem-command*clear-empty
+#	:o-support
+#	(state <s> ^G <g>
+#			^Q <q>)
+#	(<q> -^<< query retrieve wm-query >> <qry>)
+#	(<g> ^clear-rt <any>)
+#-->
+#	(<g> ^clear-rt <any> -)
+#}
 
 
 # NEWWM #

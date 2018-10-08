@@ -253,15 +253,18 @@
 
 ;; Initialize the pointer into declarative memory by pointing it at working memory. This will become the first memory item
 ;~ init
-(ins :condition (Gcontrol = nil) :action (lexdec -> Gcontrol WMid -> Gtop) :description "Start with lexical decision")
+(ins :condition (Gtop = nil Gcontrol = nil) :action (lexdec -> Gcontrol WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
 
 ;; This is just waiting for the first stimulus, otherwise there is no break between lexical decision items
 ;~ wait
-(ins :condition (Vobject = pending Gcontrol = lexdec) :action ((wait) -> AC) :description "Wait for the next word")
+;(ins :condition (Vobject = pending Gcontrol = lexdec) :action ((wait) -> AC) :description "Wait for the next word")
 
-;; If we are rehearsing and a word appears, switch to lexical decision
+;; If we are rehearsing and a word appears, switch to lexical decision (new to PROP model: clear RT after rehearsal, different from stopping before rehearsal)
 ;~ stop-rehearsal
-(ins :condition (Vobject = word Gcontrol = rehearse) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing")
+;~~ pre-rehearse
+(ins :condition (Vobject = word Gcontrol = rehearse RT1 == nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Interrupted before rehearsal began
+;~~ post-rehearse
+(ins :condition (Vobject = word Gcontrol = rehearse RT1 <> nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Test RT1 to clear RT, in prep for lexical-retrieve
 
 ;; Do lexical decision
 ;~ lexical
@@ -277,16 +280,16 @@
 ;~~ store-wm
 (ins :condition (Vobject = letter Gcontrol = lexdec WMconcept = nil) :action (Videntity -> WMconcept (wait) -> AC) :description "A letter is presented: put it in WM")
 ;~~ store-dm
-(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept <> nil) :action ((Videntity WMid) -> newWM rehearse -> Gcontrol) :description "A letter is presented: put it in DM")
+(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept <> nil) :action ((Videntity WMid) -> newWM rehearse -> Gcontrol (wait) -> AC) :description "A letter is presented: put it in DM")
 
 ;; Do rehearsal as long as the letter is still on the screen
 ;~ rehearse
 ;~~ start
-(ins :condition (Vobject = letter RT1 = nil Gcontrol = rehearse) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
+(ins :condition (Vobject = pending RT1 = nil Gcontrol = rehearse) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
 ;~~ next
-(ins :condition (Vobject = letter RT1 <> error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item")
+(ins :condition (Vobject = pending RT1 != error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistene test, so when it blinks on each cycle this operator will also blink
 ;~~ restart
-(ins :condition (Vobject = letter RT1 = error  Gcontrol = rehearse) :action (Gtop -> RTid) :description "End of list, return to top")
+(ins :condition (Vobject = pending RT1 = error  Gcontrol = rehearse) :action (Gtop -> RTid) :description "End of list, return to top")
 
 
 ;; Do the report
@@ -298,10 +301,11 @@
 ;~~ report
 (ins :condition (Vobject = report RT1 <> error Gcontrol = report) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
 ;~~ finish
-(ins :condition (Vobject = report RT1 = error Gcontrol = report) :action ((type WMconcept) -> AC end -> Gcontrol) :description "Type last item")
+(ins :condition (Vobject = report RT1 = error Gcontrol = report) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+;(ins :condition (Vobject = report RT1 = error Gcontrol = report) :action ((type WMconcept) -> AC end -> Gcontrol) :description "Type last item")
 
 ;~ finish
-(ins :condition (Gcontrol = end) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+;(ins :condition (Gcontrol = end) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
 
 )
 
@@ -337,21 +341,23 @@
 ;~~ focus-color
 (ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
 ;~~ focus-all
-(ins :condition (Vobject = yes) :action ((get-property both) -> AC) :description "Object seen, focus on all")
+(ins :condition (Vobject = yes Gcontrol <> prepare Gcontrol <> nil) :action ((get-property both) -> AC) :description "Object seen, focus on all")
 
 ;; If the color is perceived, retrieve the color concept related to the color. This process is slowed down if there is a conflicting word in Vword. After the concept is retrieved, say it.
 ;~ report
 ;~~ retrieve
-(ins :condition (Vcolor <> nil RTconcept = nil) :action ( (s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
+(ins :condition (Gcontrol <> nil Vcolor <> nil RTconcept = nil) :action ( (s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
 ;~~ say
-(ins :condition (RTconcept <> nil) :action ((say RTconcept) -> AC neutral -> Gcontrol) :description "Say the answer") 
+(ins :condition (Gcontrol <> nil RTconcept <> nil) :action ((say RTconcept) -> AC neutral -> Gcontrol) :description "Say the answer")  ;;; Test Gcontrol so operator retracts after modifying Gcontrol
 
 ;; When the model is waiting for the next stimulus, it can choose to prepare or not
 ;~ idle
-;~~ start
-(ins :condition (Vobject = pending  Gcontrol = neutral) :action (prepare -> Gcontrol wait -> AC1) :description "Prepare to focus on the color of the next stimulus")  
+;~~ focus
+(ins :condition (Vobject = pending  Gcontrol = neutral) :action (prepare -> Gcontrol wait -> AC1) :description "Prepare to focus on the color of the next stimulus") 
+;~~ no-focus
+(ins :condition (Vobject = pending  Gcontrol = neutral) :action (noprepare -> Gcontrol wait -> AC1) :description "Wait without preparation")  
 ;~~ wait
-(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for the next stimulus without preparation")
+;(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for the next stimulus without preparation")
 
 ;~ finish
 (ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")

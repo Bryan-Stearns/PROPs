@@ -340,6 +340,38 @@ sp {apply*props*do*greater*equal*fail
     (<prop> ^status fail)
 }
 
+# COMPARE INEXISTENCE  (Inexistence is negation except when there are multi-attributes)
+sp {apply*props*do*inexistence
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type negation
+            ^attr1 <attr1>
+            ^id1 <id1>
+			-^id2 )
+    # Compare:
+    (<id1> -^<attr1> <val>)
+-->
+    (<prop> ^status success)
+}
+sp {apply*props*do*inexistence*fail
+    (state <s> ^operator <o>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type negation
+            ^attr1 <attr1>
+            ^id1 <id1>
+			-^id2 )
+    # Compare:
+    (<id1> ^<attr1> <val>)
+-->
+    (<prop> ^status fail)
+}
+
 # COMPARE NEGATION
 sp {apply*props*do*negation
     (state <s> ^operator <o>)

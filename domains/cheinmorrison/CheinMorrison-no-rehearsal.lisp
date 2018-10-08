@@ -275,7 +275,7 @@
 
 ;; Initialize the pointer into declarative memory by pointing it at working memory. This will become the first memory item
 ;~ init
-(ins :condition (Gtop = nil) :action (WMid -> Gtop) :description "Initiating the list")
+(ins :condition (Gtop = nil) :action (WMid -> Gtop) :description "Initiating the list")  ;; Test Gtop so that action is add instead of replace
 
 ;; Reactive strategy: when there is nothing on the display, wait
 ;~ wait
@@ -356,7 +356,7 @@
 ;~~ focus
 (ins :condition (Vobject = pending  Gcontrol = neutral) :action (prepare -> Gcontrol wait -> AC1) :description "Prepare to focus on the color of the next stimulus") 
 ;~~ no-focus
-(ins :condition (Vobject = pending  Gcontrol = neutral) :action (noprepare -> Gcontrol wait -> AC1) :description "Prepare to wait without preparation")  
+(ins :condition (Vobject = pending  Gcontrol = neutral) :action (noprepare -> Gcontrol wait -> AC1) :description "Wait without preparation")  
 ;~~ wait
 ;(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait for the next stimulus without preparation")
 
