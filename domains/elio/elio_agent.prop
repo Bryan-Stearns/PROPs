@@ -11,6 +11,7 @@ pp {propose*elio*procedure-a*step-1
 	s.G.Gtop -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-1
 	const1 elio-procedure-a-step-1
@@ -32,6 +33,7 @@ pp {propose*elio*procedure-a*step-2
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-2
 	const1 elio-procedure-a-step-2
@@ -57,6 +59,7 @@ pp {propose*elio*procedure-a*step-3
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-3
 	const1 elio-procedure-a-step-3
@@ -81,6 +84,7 @@ pp {propose*elio*procedure-a*step-4
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-4
 	const1 elio-procedure-a-step-4
@@ -106,6 +110,7 @@ pp {propose*elio*procedure-a*step-5
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-5
 	const1 elio-procedure-a-step-5
@@ -130,6 +135,7 @@ pp {propose*elio*procedure-a*step-6
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-6
 	const1 elio-procedure-a-step-6
@@ -154,6 +160,7 @@ pp {propose*elio*procedure-a*step-7
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-a*step-7
 	const1 elio-procedure-a-step-7
@@ -167,17 +174,18 @@ pp {apply*elio*procedure-a*step-7
 	s.G.Gtask = const3
 	s.G.clear-rt = const1
 }
-pp {propose*elio*solid-lime-diff*step-7
-	const1 elio-solid-lime-diff-step-7
+pp {propose*elio*solid-lime-diff*step-1
+	const1 elio-solid-lime-diff-step-1
 	const2 solid-lime-diff
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*solid-lime-diff*step-7
-	const1 elio-solid-lime-diff-step-7
+pp {apply*elio*solid-lime-diff*step-1
+	const1 elio-solid-lime-diff-step-1
 	const2 read
 	const3 lime4
 	--
@@ -195,6 +203,7 @@ pp {propose*elio*solid-lime-diff*step-2
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-lime-diff*step-2
 	const1 elio-solid-lime-diff-step-2
@@ -217,6 +226,7 @@ pp {propose*elio*solid-lime-diff*diff
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-lime-diff*diff
 	const1 elio-solid-lime-diff-diff
@@ -243,6 +253,7 @@ pp {propose*elio*solid-lime-diff*mult
 	s.V.slot1 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-lime-diff*mult
 	const1 elio-solid-lime-diff-mult
@@ -263,6 +274,7 @@ pp {propose*elio*solid-lime-diff*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-lime-diff*finish
 	const1 elio-solid-lime-diff-finish
@@ -275,17 +287,18 @@ pp {apply*elio*solid-lime-diff*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*greater-algae*finish
-	const1 elio-greater-algae-finish
+pp {propose*elio*greater-algae*start
+	const1 elio-greater-algae-start
 	const2 greater-algae
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*greater-algae*finish
-	const1 elio-greater-algae-finish
+pp {apply*elio*greater-algae*start
+	const1 elio-greater-algae-start
 	const2 read
 	const3 algae
 	--
@@ -304,6 +317,7 @@ pp {propose*elio*greater-algae*div-2
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*greater-algae*div-2
 	const1 elio-greater-algae-div-2
@@ -326,6 +340,7 @@ pp {propose*elio*greater-algae*read-solid
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*greater-algae*read-solid
 	const1 elio-greater-algae-read-solid
@@ -349,6 +364,7 @@ pp {propose*elio*greater-algae*div-3
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*greater-algae*div-3
 	const1 elio-greater-algae-div-3
@@ -372,6 +388,7 @@ pp {propose*elio*greater-algae*greater
 	s.V.slot1 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*greater-algae*greater
 	const1 elio-greater-algae-greater
@@ -392,6 +409,7 @@ pp {propose*elio*greater-algae*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*greater-algae*finish
 	const1 elio-greater-algae-finish
@@ -404,17 +422,18 @@ pp {apply*elio*greater-algae*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*part-plus-mineral*finish
-	const1 elio-part-plus-mineral-finish
+pp {propose*elio*part-plus-mineral*start
+	const1 elio-part-plus-mineral-start
 	const2 part-plus-mineral
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*part-plus-mineral*finish
-	const1 elio-part-plus-mineral-finish
+pp {apply*elio*part-plus-mineral*start
+	const1 elio-part-plus-mineral-start
 	--
 	s.operator.name == const1
 -->
@@ -429,6 +448,7 @@ pp {propose*elio*part-plus-mineral*add
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*part-plus-mineral*add
 	const1 elio-part-plus-mineral-add
@@ -450,6 +470,7 @@ pp {propose*elio*part-plus-mineral*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*part-plus-mineral*finish
 	const1 elio-part-plus-mineral-finish
@@ -463,17 +484,18 @@ pp {apply*elio*part-plus-mineral*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*mean-toxin*finish
-	const1 elio-mean-toxin-finish
+pp {propose*elio*mean-toxin*start
+	const1 elio-mean-toxin-start
 	const2 mean-toxin
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*mean-toxin*finish
-	const1 elio-mean-toxin-finish
+pp {apply*elio*mean-toxin*start
+	const1 elio-mean-toxin-start
 	const2 read
 	const3 toxinmax
 	--
@@ -491,6 +513,7 @@ pp {propose*elio*mean-toxin*toxinmin
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mean-toxin*toxinmin
 	const1 elio-mean-toxin-toxinmin
@@ -513,6 +536,7 @@ pp {propose*elio*mean-toxin*add
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mean-toxin*add
 	const1 elio-mean-toxin-add
@@ -533,6 +557,7 @@ pp {propose*elio*mean-toxin*divide
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mean-toxin*divide
 	const1 elio-mean-toxin-divide
@@ -554,6 +579,7 @@ pp {propose*elio*mean-toxin*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mean-toxin*finish
 	const1 elio-mean-toxin-finish
@@ -566,17 +592,18 @@ pp {apply*elio*mean-toxin*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*index1-div-marine*finish
-	const1 elio-index1-div-marine-finish
+pp {propose*elio*index1-div-marine*start
+	const1 elio-index1-div-marine-start
 	const2 index1-div-marine
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*index1-div-marine*finish
-	const1 elio-index1-div-marine-finish
+pp {apply*elio*index1-div-marine*start
+	const1 elio-index1-div-marine-start
 	--
 	s.operator.name == const1
 -->
@@ -591,6 +618,7 @@ pp {propose*elio*index1-div-marine*next
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index1-div-marine*next
 	const1 elio-index1-div-marine-next
@@ -608,6 +636,7 @@ pp {propose*elio*index1-div-marine*divide
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index1-div-marine*divide
 	const1 elio-index1-div-marine-divide
@@ -628,6 +657,7 @@ pp {propose*elio*index1-div-marine*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index1-div-marine*finish
 	const1 elio-index1-div-marine-finish
@@ -640,17 +670,18 @@ pp {apply*elio*index1-div-marine*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*index2-min-mineral*finish
-	const1 elio-index2-min-mineral-finish
+pp {propose*elio*index2-min-mineral*start
+	const1 elio-index2-min-mineral-start
 	const2 index2-min-mineral
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*index2-min-mineral*finish
-	const1 elio-index2-min-mineral-finish
+pp {apply*elio*index2-min-mineral*start
+	const1 elio-index2-min-mineral-start
 	--
 	s.operator.name == const1
 -->
@@ -665,6 +696,7 @@ pp {propose*elio*index2-min-mineral*subtract
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index2-min-mineral*subtract
 	const1 elio-index2-min-mineral-subtract
@@ -685,6 +717,7 @@ pp {propose*elio*index2-min-mineral*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index2-min-mineral*finish
 	const1 elio-index2-min-mineral-finish
@@ -697,17 +730,18 @@ pp {apply*elio*index2-min-mineral*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*mineral-div-marine*finish
-	const1 elio-mineral-div-marine-finish
+pp {propose*elio*mineral-div-marine*start
+	const1 elio-mineral-div-marine-start
 	const2 mineral-div-marine
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*mineral-div-marine*finish
-	const1 elio-mineral-div-marine-finish
+pp {apply*elio*mineral-div-marine*start
+	const1 elio-mineral-div-marine-start
 	--
 	s.operator.name == const1
 -->
@@ -722,6 +756,7 @@ pp {propose*elio*mineral-div-marine*skip
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mineral-div-marine*skip
 	const1 elio-mineral-div-marine-skip
@@ -729,7 +764,7 @@ pp {apply*elio*mineral-div-marine*skip
 	--
 	s.operator.name == const1
 -->
-	s.Q.wm-query.root = s.RT
+	s.Q.wm-query.root = s.RT.RTid
 	s.Q.wm-query.slot1 = const2
 }
 pp {propose*elio*mineral-div-marine*divide
@@ -741,6 +776,7 @@ pp {propose*elio*mineral-div-marine*divide
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mineral-div-marine*divide
 	const1 elio-mineral-div-marine-divide
@@ -761,6 +797,7 @@ pp {propose*elio*mineral-div-marine*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*mineral-div-marine*finish
 	const1 elio-mineral-div-marine-finish
@@ -773,17 +810,18 @@ pp {apply*elio*mineral-div-marine*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*part-mult-index1*finish
-	const1 elio-part-mult-index1-finish
+pp {propose*elio*part-mult-index1*start
+	const1 elio-part-mult-index1-start
 	const2 part-mult-index1
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*part-mult-index1*finish
-	const1 elio-part-mult-index1-finish
+pp {apply*elio*part-mult-index1*start
+	const1 elio-part-mult-index1-start
 	--
 	s.operator.name == const1
 -->
@@ -798,6 +836,7 @@ pp {propose*elio*part-mult-index1*mult
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*part-mult-index1*mult
 	const1 elio-part-mult-index1-mult
@@ -821,6 +860,7 @@ pp {propose*elio*part-mult-index1*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*part-mult-index1*finish
 	const1 elio-part-mult-index1-finish
@@ -831,17 +871,18 @@ pp {apply*elio*part-mult-index1*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*index1-plus-index2*finish
-	const1 elio-index1-plus-index2-finish
+pp {propose*elio*index1-plus-index2*start
+	const1 elio-index1-plus-index2-start
 	const2 index1-plus-index2
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*index1-plus-index2*finish
-	const1 elio-index1-plus-index2-finish
+pp {apply*elio*index1-plus-index2*start
+	const1 elio-index1-plus-index2-start
 	--
 	s.operator.name == const1
 -->
@@ -856,6 +897,7 @@ pp {propose*elio*index1-plus-index2*add
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index1-plus-index2*add
 	const1 elio-index1-plus-index2-add
@@ -876,6 +918,7 @@ pp {propose*elio*index1-plus-index2*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*index1-plus-index2*finish
 	const1 elio-index1-plus-index2-finish
@@ -896,6 +939,7 @@ pp {propose*elio*procedure-b*start
 	s.G.Gtop -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*start
 	const1 elio-procedure-b-start
@@ -917,6 +961,7 @@ pp {propose*elio*procedure-b*step-2
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*step-2
 	const1 elio-procedure-b-step-2
@@ -942,6 +987,7 @@ pp {propose*elio*procedure-b*step-3
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*step-3
 	const1 elio-procedure-b-step-3
@@ -967,6 +1013,7 @@ pp {propose*elio*procedure-b*step-4
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*step-4
 	const1 elio-procedure-b-step-4
@@ -991,6 +1038,7 @@ pp {propose*elio*procedure-b*step-5
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*step-5
 	const1 elio-procedure-b-step-5
@@ -1015,6 +1063,7 @@ pp {propose*elio*procedure-b*step-6
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*step-6
 	const1 elio-procedure-b-step-6
@@ -1039,6 +1088,7 @@ pp {propose*elio*procedure-b*finish
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-b*finish
 	const1 elio-procedure-b-finish
@@ -1052,17 +1102,18 @@ pp {apply*elio*procedure-b*finish
 	s.G.Gtask = const3
 	s.G.clear-rt = const1
 }
-pp {propose*elio*triple-lime*finish
-	const1 elio-triple-lime-finish
+pp {propose*elio*triple-lime*start
+	const1 elio-triple-lime-start
 	const2 triple-lime
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*triple-lime*finish
-	const1 elio-triple-lime-finish
+pp {apply*elio*triple-lime*start
+	const1 elio-triple-lime-start
 	const2 read
 	const3 limemin
 	--
@@ -1081,6 +1132,7 @@ pp {propose*elio*triple-lime*mult
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*triple-lime*mult
 	const1 elio-triple-lime-mult
@@ -1103,6 +1155,7 @@ pp {propose*elio*triple-lime*read
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*triple-lime*read
 	const1 elio-triple-lime-read
@@ -1126,6 +1179,7 @@ pp {propose*elio*triple-lime*add
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*triple-lime*add
 	const1 elio-triple-lime-add
@@ -1146,6 +1200,7 @@ pp {propose*elio*triple-lime*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*triple-lime*finish
 	const1 elio-triple-lime-finish
@@ -1158,17 +1213,18 @@ pp {apply*elio*triple-lime*finish
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*lesser-evil*finish
-	const1 elio-lesser-evil-finish
+pp {propose*elio*lesser-evil*read-solid
+	const1 elio-lesser-evil-read-solid
 	const2 lesser-evil
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*lesser-evil*finish
-	const1 elio-lesser-evil-finish
+pp {apply*elio*lesser-evil*read-solid
+	const1 elio-lesser-evil-read-solid
 	const2 read
 	const3 solid
 	--
@@ -1186,6 +1242,7 @@ pp {propose*elio*lesser-evil*read-lime1
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*read-lime1
 	const1 elio-lesser-evil-read-lime1
@@ -1208,6 +1265,7 @@ pp {propose*elio*lesser-evil*add-lime1
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*add-lime1
 	const1 elio-lesser-evil-add-lime1
@@ -1230,6 +1288,7 @@ pp {propose*elio*lesser-evil*read-algae
 	s.V.slot1 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*read-algae
 	const1 elio-lesser-evil-read-algae
@@ -1255,6 +1314,7 @@ pp {propose*elio*lesser-evil*read-toxin3
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*read-toxin3
 	const1 elio-lesser-evil-read-toxin3
@@ -1277,6 +1337,7 @@ pp {propose*elio*lesser-evil*add-toxin3
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*add-toxin3
 	const1 elio-lesser-evil-add-toxin3
@@ -1299,6 +1360,7 @@ pp {propose*elio*lesser-evil*toxin3
 	s.V.slot1 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*toxin3
 	const1 elio-lesser-evil-toxin3
@@ -1317,6 +1379,7 @@ pp {propose*elio*lesser-evil*read-intermediate
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*read-intermediate
 	const1 elio-lesser-evil-read-intermediate
@@ -1340,6 +1403,7 @@ pp {propose*elio*lesser-evil*greater-than-true
 	s.RT.slot4 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*greater-than-true
 	const1 elio-lesser-evil-greater-than-true
@@ -1363,6 +1427,7 @@ pp {propose*elio*lesser-evil*greater-than-false
 	s.RT.slot4 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*lesser-evil*greater-than-false
 	const1 elio-lesser-evil-greater-than-false
@@ -1375,17 +1440,18 @@ pp {apply*elio*lesser-evil*greater-than-false
 	s.G.Gtask = s.G.Gparent
 	s.G.clear-rt = const1
 }
-pp {propose*elio*solid-div-lime*greater-than-false
-	const1 elio-solid-div-lime-greater-than-false
+pp {propose*elio*solid-div-lime*read-solid
+	const1 elio-solid-div-lime-read-solid
 	const2 solid-div-lime
 	--
 	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
+	s.const1 =
 }
-pp {apply*elio*solid-div-lime*greater-than-false
-	const1 elio-solid-div-lime-greater-than-false
+pp {apply*elio*solid-div-lime*read-solid
+	const1 elio-solid-div-lime-read-solid
 	const2 read
 	const3 solid
 	--
@@ -1403,6 +1469,7 @@ pp {propose*elio*solid-div-lime*read-lime1
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-div-lime*read-lime1
 	const1 elio-solid-div-lime-read-lime1
@@ -1425,6 +1492,7 @@ pp {propose*elio*solid-div-lime*div-lime1
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-div-lime*div-lime1
 	const1 elio-solid-div-lime-div-lime1
@@ -1445,6 +1513,7 @@ pp {propose*elio*solid-div-lime*finish
 	s.RT.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*solid-div-lime*finish
 	const1 elio-solid-div-lime-finish
@@ -1465,6 +1534,7 @@ pp {propose*elio*procedure-c*start
 	s.G.Gtop -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*start
 	const1 elio-procedure-c-start
@@ -1486,6 +1556,7 @@ pp {propose*elio*procedure-c*step-2
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-2
 	const1 elio-procedure-c-step-2
@@ -1511,6 +1582,7 @@ pp {propose*elio*procedure-c*step-3
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-3
 	const1 elio-procedure-c-step-3
@@ -1535,6 +1607,7 @@ pp {propose*elio*procedure-c*step-4
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-4
 	const1 elio-procedure-c-step-4
@@ -1560,6 +1633,7 @@ pp {propose*elio*procedure-c*step-5
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-5
 	const1 elio-procedure-c-step-5
@@ -1584,6 +1658,7 @@ pp {propose*elio*procedure-c*step-6
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-6
 	const1 elio-procedure-c-step-6
@@ -1608,6 +1683,7 @@ pp {propose*elio*procedure-c*step-7
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-c*step-7
 	const1 elio-procedure-c-step-7
@@ -1629,6 +1705,7 @@ pp {propose*elio*procedure-d*start
 	s.G.Gtop -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*start
 	const1 elio-procedure-d-start
@@ -1650,6 +1727,7 @@ pp {propose*elio*procedure-d*step-2
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-2
 	const1 elio-procedure-d-step-2
@@ -1675,6 +1753,7 @@ pp {propose*elio*procedure-d*step-3
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-3
 	const1 elio-procedure-d-step-3
@@ -1700,6 +1779,7 @@ pp {propose*elio*procedure-d*step-4
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-4
 	const1 elio-procedure-d-step-4
@@ -1724,6 +1804,7 @@ pp {propose*elio*procedure-d*step-5
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-5
 	const1 elio-procedure-d-step-5
@@ -1748,6 +1829,7 @@ pp {propose*elio*procedure-d*step-6
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-6
 	const1 elio-procedure-d-step-6
@@ -1772,6 +1854,7 @@ pp {propose*elio*procedure-d*step-7
 	s.WM.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*elio*procedure-d*step-7
 	const1 elio-procedure-d-step-7

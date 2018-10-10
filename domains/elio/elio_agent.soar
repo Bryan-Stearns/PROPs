@@ -8,8 +8,8 @@ sp {propose*elio*procedure-a*step-1
 	(<c1> ^Gtask procedure-a)
 	(<c1> -^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-1)
+	(<o1> ^name elio-procedure-a-step-1)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-1
 	(state <s> ^operator <c1>)
@@ -33,8 +33,8 @@ sp {propose*elio*procedure-a*step-2
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 solid-lime-diff)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-2)
+	(<o1> ^name elio-procedure-a-step-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-2
 	(state <s> ^operator <c1>)
@@ -43,10 +43,8 @@ sp {apply*elio*procedure-a*step-2
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-a-step-2)
 	-->
 	(<c2> ^action <n1>)
@@ -55,11 +53,10 @@ sp {apply*elio*procedure-a*step-2
 	(<c3> ^slot1 particulate)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask greater-algae)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask greater-algae)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-a*step-3
 	(state <s> ^G <c1>)
@@ -67,8 +64,8 @@ sp {propose*elio*procedure-a*step-3
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 greater-algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-3)
+	(<o1> ^name elio-procedure-a-step-3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-3
 	(state <s> ^operator <c1>)
@@ -95,8 +92,8 @@ sp {propose*elio*procedure-a*step-4
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 part-plus-mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-4)
+	(<o1> ^name elio-procedure-a-step-4)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-4
 	(state <s> ^operator <c1>)
@@ -105,10 +102,8 @@ sp {apply*elio*procedure-a*step-4
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-a-step-4)
 	-->
 	(<c2> ^action <n1>)
@@ -117,11 +112,10 @@ sp {apply*elio*procedure-a*step-4
 	(<c3> ^slot1 index1)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask mean-toxin)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask mean-toxin)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-a*step-5
 	(state <s> ^G <c1>)
@@ -129,8 +123,8 @@ sp {propose*elio*procedure-a*step-5
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 mean-toxin)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-5)
+	(<o1> ^name elio-procedure-a-step-5)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-5
 	(state <s> ^operator <c1>)
@@ -157,8 +151,8 @@ sp {propose*elio*procedure-a*step-6
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 index1-div-marine)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-6)
+	(<o1> ^name elio-procedure-a-step-6)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-6
 	(state <s> ^operator <c1>)
@@ -185,8 +179,8 @@ sp {propose*elio*procedure-a*step-7
 	(<c1> ^Gtask procedure-a)
 	(<c2> ^slot1 index2-min-mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-a-step-7)
+	(<o1> ^name elio-procedure-a-step-7)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-a*step-7
 	(state <s> ^operator <c1>)
@@ -204,19 +198,19 @@ sp {apply*elio*procedure-a*step-7
 	(<c5> ^clear-rt const1)
 	(<c5> ^Gtask <c6> -)
 }
-sp {propose*elio*solid-lime-diff*step-7
+sp {propose*elio*solid-lime-diff*step-1
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-lime-diff-step-7)
+	(<o1> ^name elio-solid-lime-diff-step-1)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*solid-lime-diff*step-7
+sp {apply*elio*solid-lime-diff*step-1
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-solid-lime-diff-step-7)
+	(<c1> ^name elio-solid-lime-diff-step-1)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -228,8 +222,8 @@ sp {propose*elio*solid-lime-diff*step-2
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> ^slot1 lime4)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-lime-diff-step-2)
+	(<o1> ^name elio-solid-lime-diff-step-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-lime-diff*step-2
 	(state <s> ^operator <c1>)
@@ -254,8 +248,8 @@ sp {propose*elio*solid-lime-diff*diff
 	(<c2> -^rt-result )
 	(<c3> ^slot1 lime2)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-lime-diff-diff)
+	(<o1> ^name elio-solid-lime-diff-diff)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-lime-diff*diff
 	(state <s> ^operator <c1>)
@@ -283,8 +277,8 @@ sp {propose*elio*solid-lime-diff*mult
 	(<c2> ^slot1 subtract)
 	(<c3> ^slot1 solid)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-lime-diff-mult)
+	(<o1> ^name elio-solid-lime-diff-mult)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-lime-diff*mult
 	(state <s> ^operator <c1>)
@@ -306,8 +300,8 @@ sp {propose*elio*solid-lime-diff*finish
 	(<c1> ^Gtask solid-lime-diff)
 	(<c2> ^slot1 mult)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-lime-diff-finish)
+	(<o1> ^name elio-solid-lime-diff-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-lime-diff*finish
 	(state <s> ^operator <c1>)
@@ -329,19 +323,19 @@ sp {apply*elio*solid-lime-diff*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*greater-algae*finish
+sp {propose*elio*greater-algae*start
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask greater-algae)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-finish)
+	(<o1> ^name elio-greater-algae-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*greater-algae*finish
+sp {apply*elio*greater-algae*start
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-greater-algae-finish)
+	(<c1> ^name elio-greater-algae-start)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -355,8 +349,8 @@ sp {propose*elio*greater-algae*div-2
 	(<c2> -^rt-result )
 	(<c3> ^slot1 algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-div-2)
+	(<o1> ^name elio-greater-algae-div-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*greater-algae*div-2
 	(state <s> ^operator <c1>)
@@ -378,8 +372,8 @@ sp {propose*elio*greater-algae*read-solid
 	(<c2> ^slot4 )
 	(<c3> ^slot1 algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-read-solid)
+	(<o1> ^name elio-greater-algae-read-solid)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*greater-algae*read-solid
 	(state <s> ^operator <c1>)
@@ -406,8 +400,8 @@ sp {propose*elio*greater-algae*div-3
 	(<c2> -^rt-result )
 	(<c3> ^slot1 solid)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-div-3)
+	(<o1> ^name elio-greater-algae-div-3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*greater-algae*div-3
 	(state <s> ^operator <c1>)
@@ -429,8 +423,8 @@ sp {propose*elio*greater-algae*greater
 	(<c2> ^slot1 div)
 	(<c3> ^slot1 solid)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-greater)
+	(<o1> ^name elio-greater-algae-greater)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*greater-algae*greater
 	(state <s> ^operator <c1>)
@@ -452,8 +446,8 @@ sp {propose*elio*greater-algae*finish
 	(<c1> ^Gtask greater-algae)
 	(<c2> ^slot1 greater-of)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-greater-algae-finish)
+	(<o1> ^name elio-greater-algae-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*greater-algae*finish
 	(state <s> ^operator <c1>)
@@ -475,23 +469,22 @@ sp {apply*elio*greater-algae*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*part-plus-mineral*finish
+sp {propose*elio*part-plus-mineral*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask part-plus-mineral)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-plus-mineral-finish)
+	(<o1> ^name elio-part-plus-mineral-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*part-plus-mineral*finish
+sp {apply*elio*part-plus-mineral*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-part-plus-mineral-finish)
+	(<c1> ^name elio-part-plus-mineral-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*part-plus-mineral*add
@@ -500,8 +493,8 @@ sp {propose*elio*part-plus-mineral*add
 	(<c1> ^Gtask part-plus-mineral)
 	(<c2> ^slot1 particulate)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-plus-mineral-add)
+	(<o1> ^name elio-part-plus-mineral-add)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*part-plus-mineral*add
 	(state <s> ^operator <c1>)
@@ -527,48 +520,41 @@ sp {propose*elio*part-plus-mineral*finish
 	(<c1> ^Gtask part-plus-mineral)
 	(<c2> ^slot1 add)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-plus-mineral-finish)
+	(<o1> ^name elio-part-plus-mineral-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*part-plus-mineral*finish
 	(state <s> ^operator <c1>)
 	(state <s> ^NW <c2>)
-	(state <s> ^NW.wm <c3>)
-	(<c3> ^slot1 <c4>)
-	(state <s> ^RT <c5>)
-	(<c5> ^slot4 <c6>)
-	(<c3> ^slot2 <c7>)
-	(<s> ^WM <c8>)
-	(<c3> ^WMprev <c9>)
-	(state <s> ^G <c10>)
-	(<c10> ^Gparent <c11>)
-	(<c10> ^Gtask <c12>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot4 <c4>)
+	(<s> ^WM <c5>)
+	(state <s> ^G <c6>)
+	(<c6> ^Gparent <c7>)
+	(<c6> ^Gtask <c8>)
 	(<c1> ^name elio-part-plus-mineral-finish)
 	-->
 	(<c2> ^wm <n1>)
 	(<n1> ^slot1 part-plus-mineral)
-	(<n1> ^slot2 <c6>)
-	(<n1> ^WMprev <c8>)
-	(<c10> ^Gtask <c11>)
-	(<c10> ^clear-rt const1)
-	(<n1> ^slot1 <c4> -)
-	(<n1> ^slot2 <c7> -)
-	(<n1> ^WMprev <c9> -)
-	(<c10> ^Gtask <c12> -)
+	(<n1> ^slot2 <c4>)
+	(<n1> ^WMprev <c5>)
+	(<c6> ^Gtask <c7>)
+	(<c6> ^clear-rt const1)
+	(<c6> ^Gtask <c8> -)
 }
-sp {propose*elio*mean-toxin*finish
+sp {propose*elio*mean-toxin*start
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask mean-toxin)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mean-toxin-finish)
+	(<o1> ^name elio-mean-toxin-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*mean-toxin*finish
+sp {apply*elio*mean-toxin*start
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-mean-toxin-finish)
+	(<c1> ^name elio-mean-toxin-start)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -580,8 +566,8 @@ sp {propose*elio*mean-toxin*toxinmin
 	(<c1> ^Gtask mean-toxin)
 	(<c2> ^slot1 toxinmax)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mean-toxin-toxinmin)
+	(<o1> ^name elio-mean-toxin-toxinmin)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mean-toxin*toxinmin
 	(state <s> ^operator <c1>)
@@ -606,8 +592,8 @@ sp {propose*elio*mean-toxin*add
 	(<c2> -^rt-result )
 	(<c3> ^slot1 toxinmin)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mean-toxin-add)
+	(<o1> ^name elio-mean-toxin-add)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mean-toxin*add
 	(state <s> ^operator <c1>)
@@ -629,8 +615,8 @@ sp {propose*elio*mean-toxin*divide
 	(<c1> ^Gtask mean-toxin)
 	(<c2> ^slot1 add)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mean-toxin-divide)
+	(<o1> ^name elio-mean-toxin-divide)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mean-toxin*divide
 	(state <s> ^operator <c1>)
@@ -650,8 +636,8 @@ sp {propose*elio*mean-toxin*finish
 	(<c1> ^Gtask mean-toxin)
 	(<c2> ^slot1 div)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mean-toxin-finish)
+	(<o1> ^name elio-mean-toxin-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mean-toxin*finish
 	(state <s> ^operator <c1>)
@@ -673,23 +659,22 @@ sp {apply*elio*mean-toxin*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*index1-div-marine*finish
+sp {propose*elio*index1-div-marine*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask index1-div-marine)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-div-marine-finish)
+	(<o1> ^name elio-index1-div-marine-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*index1-div-marine*finish
+sp {apply*elio*index1-div-marine*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-index1-div-marine-finish)
+	(<c1> ^name elio-index1-div-marine-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*index1-div-marine*next
@@ -698,8 +683,8 @@ sp {propose*elio*index1-div-marine*next
 	(<c1> ^Gtask index1-div-marine)
 	(<c2> ^slot1 mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-div-marine-next)
+	(<o1> ^name elio-index1-div-marine-next)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index1-div-marine*next
 	(state <s> ^operator <c1>)
@@ -708,7 +693,6 @@ sp {apply*elio*index1-div-marine*next
 	(<c3> ^WMnext <c4>)
 	(<c1> ^name elio-index1-div-marine-next)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*index1-div-marine*divide
@@ -717,8 +701,8 @@ sp {propose*elio*index1-div-marine*divide
 	(<c1> ^Gtask index1-div-marine)
 	(<c2> ^slot1 index1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-div-marine-divide)
+	(<o1> ^name elio-index1-div-marine-divide)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index1-div-marine*divide
 	(state <s> ^operator <c1>)
@@ -740,8 +724,8 @@ sp {propose*elio*index1-div-marine*finish
 	(<c1> ^Gtask index1-div-marine)
 	(<c2> ^slot1 div)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-div-marine-finish)
+	(<o1> ^name elio-index1-div-marine-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index1-div-marine*finish
 	(state <s> ^operator <c1>)
@@ -763,23 +747,22 @@ sp {apply*elio*index1-div-marine*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*index2-min-mineral*finish
+sp {propose*elio*index2-min-mineral*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask index2-min-mineral)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index2-min-mineral-finish)
+	(<o1> ^name elio-index2-min-mineral-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*index2-min-mineral*finish
+sp {apply*elio*index2-min-mineral*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-index2-min-mineral-finish)
+	(<c1> ^name elio-index2-min-mineral-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*index2-min-mineral*subtract
@@ -788,8 +771,8 @@ sp {propose*elio*index2-min-mineral*subtract
 	(<c1> ^Gtask index2-min-mineral)
 	(<c2> ^slot1 mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index2-min-mineral-subtract)
+	(<o1> ^name elio-index2-min-mineral-subtract)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index2-min-mineral*subtract
 	(state <s> ^operator <c1>)
@@ -811,8 +794,8 @@ sp {propose*elio*index2-min-mineral*finish
 	(<c1> ^Gtask index2-min-mineral)
 	(<c2> ^slot1 subtract)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index2-min-mineral-finish)
+	(<o1> ^name elio-index2-min-mineral-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index2-min-mineral*finish
 	(state <s> ^operator <c1>)
@@ -834,23 +817,22 @@ sp {apply*elio*index2-min-mineral*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*mineral-div-marine*finish
+sp {propose*elio*mineral-div-marine*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask mineral-div-marine)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mineral-div-marine-finish)
+	(<o1> ^name elio-mineral-div-marine-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*mineral-div-marine*finish
+sp {apply*elio*mineral-div-marine*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-mineral-div-marine-finish)
+	(<c1> ^name elio-mineral-div-marine-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*mineral-div-marine*skip
@@ -859,17 +841,19 @@ sp {propose*elio*mineral-div-marine*skip
 	(<c1> ^Gtask mineral-div-marine)
 	(<c2> ^slot1 particulate)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mineral-div-marine-skip)
+	(<o1> ^name elio-mineral-div-marine-skip)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mineral-div-marine*skip
 	(state <s> ^operator <c1>)
-	(state <s> ^Q.wm-query <c2>)
-	(<s> ^RT <c3>)
+	(state <s> ^Q <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^RTid <c4>)
 	(<c1> ^name elio-mineral-div-marine-skip)
 	-->
-	(<c2> ^root <c3>)
-	(<c2> ^slot1 mineral)
+	(<c2> ^wm-query <n1>)
+	(<n1> ^root <c4>)
+	(<n1> ^slot1 mineral)
 }
 sp {propose*elio*mineral-div-marine*divide
 	(state <s> ^G <c1>)
@@ -877,8 +861,8 @@ sp {propose*elio*mineral-div-marine*divide
 	(<c1> ^Gtask mineral-div-marine)
 	(<c2> ^slot1 mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mineral-div-marine-divide)
+	(<o1> ^name elio-mineral-div-marine-divide)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mineral-div-marine*divide
 	(state <s> ^operator <c1>)
@@ -900,8 +884,8 @@ sp {propose*elio*mineral-div-marine*finish
 	(<c1> ^Gtask mineral-div-marine)
 	(<c2> ^slot1 div)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-mineral-div-marine-finish)
+	(<o1> ^name elio-mineral-div-marine-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*mineral-div-marine*finish
 	(state <s> ^operator <c1>)
@@ -923,23 +907,22 @@ sp {apply*elio*mineral-div-marine*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*part-mult-index1*finish
+sp {propose*elio*part-mult-index1*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask part-mult-index1)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-mult-index1-finish)
+	(<o1> ^name elio-part-mult-index1-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*part-mult-index1*finish
+sp {apply*elio*part-mult-index1*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-part-mult-index1-finish)
+	(<c1> ^name elio-part-mult-index1-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*part-mult-index1*mult
@@ -948,8 +931,8 @@ sp {propose*elio*part-mult-index1*mult
 	(<c1> ^Gtask part-mult-index1)
 	(<c2> ^slot1 particulate)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-mult-index1-mult)
+	(<o1> ^name elio-part-mult-index1-mult)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*part-mult-index1*mult
 	(state <s> ^operator <c1>)
@@ -960,8 +943,7 @@ sp {apply*elio*part-mult-index1*mult
 	(<c5> ^slot2 <c6>)
 	(state <s> ^G <c7>)
 	(<c7> ^Gtop <c8>)
-	(state <s> ^NW.wm <c9>)
-	(<c9> ^slot1 <c10>)
+	(state <s> ^NW <c9>)
 	(<c1> ^name elio-part-mult-index1-mult)
 	-->
 	(<c2> ^query <n1>)
@@ -969,9 +951,9 @@ sp {apply*elio*part-mult-index1*mult
 	(<n1> ^slot2 <c4>)
 	(<n1> ^slot3 <c6>)
 	(<c7> ^Gtop <c5>)
-	(<c9> ^slot1 part-mult-index1)
+	(<c9> ^wm <n2>)
+	(<n2> ^slot1 part-mult-index1)
 	(<c7> ^Gtop <c8> -)
-	(<c9> ^slot1 <c10> -)
 }
 sp {propose*elio*part-mult-index1*finish
 	(state <s> ^G <c1>)
@@ -979,8 +961,8 @@ sp {propose*elio*part-mult-index1*finish
 	(<c1> ^Gtask part-mult-index1)
 	(<c2> ^slot1 mult)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-part-mult-index1-finish)
+	(<o1> ^name elio-part-mult-index1-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*part-mult-index1*finish
 	(state <s> ^operator <c1>)
@@ -999,23 +981,22 @@ sp {apply*elio*part-mult-index1*finish
 	(<c2> ^slot2 <c5> -)
 	(<c6> ^Gtask <c8> -)
 }
-sp {propose*elio*index1-plus-index2*finish
+sp {propose*elio*index1-plus-index2*start
 	(state <s> ^G <c1>)
 	(state <s> ^smem <c2>)
 	(<c1> ^Gtask index1-plus-index2)
 	(<c2> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-plus-index2-finish)
+	(<o1> ^name elio-index1-plus-index2-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*index1-plus-index2*finish
+sp {apply*elio*index1-plus-index2*start
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gtop <c4>)
-	(<c1> ^name elio-index1-plus-index2-finish)
+	(<c1> ^name elio-index1-plus-index2-start)
 	-->
-	(<c2> ^query <n1>)
 	(<c2> ^retrieve <c4>)
 }
 sp {propose*elio*index1-plus-index2*add
@@ -1024,8 +1005,8 @@ sp {propose*elio*index1-plus-index2*add
 	(<c1> ^Gtask index1-plus-index2)
 	(<c2> ^slot1 index1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-plus-index2-add)
+	(<o1> ^name elio-index1-plus-index2-add)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index1-plus-index2*add
 	(state <s> ^operator <c1>)
@@ -1047,8 +1028,8 @@ sp {propose*elio*index1-plus-index2*finish
 	(<c1> ^Gtask index1-plus-index2)
 	(<c2> ^slot1 add)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-index1-plus-index2-finish)
+	(<o1> ^name elio-index1-plus-index2-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*index1-plus-index2*finish
 	(state <s> ^operator <c1>)
@@ -1075,8 +1056,8 @@ sp {propose*elio*procedure-b*start
 	(<c1> ^Gtask procedure-b)
 	(<c1> -^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-start)
+	(<o1> ^name elio-procedure-b-start)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*start
 	(state <s> ^operator <c1>)
@@ -1100,8 +1081,8 @@ sp {propose*elio*procedure-b*step-2
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 mean-toxin)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-step-2)
+	(<o1> ^name elio-procedure-b-step-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*step-2
 	(state <s> ^operator <c1>)
@@ -1110,10 +1091,8 @@ sp {apply*elio*procedure-b*step-2
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-b-step-2)
 	-->
 	(<c2> ^action <n1>)
@@ -1122,11 +1101,10 @@ sp {apply*elio*procedure-b*step-2
 	(<c3> ^slot1 particulate)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask solid-lime-diff)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask solid-lime-diff)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-b*step-3
 	(state <s> ^G <c1>)
@@ -1134,8 +1112,8 @@ sp {propose*elio*procedure-b*step-3
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 solid-lime-diff)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-step-3)
+	(<o1> ^name elio-procedure-b-step-3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*step-3
 	(state <s> ^operator <c1>)
@@ -1144,10 +1122,8 @@ sp {apply*elio*procedure-b*step-3
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-b-step-3)
 	-->
 	(<c2> ^action <n1>)
@@ -1156,11 +1132,10 @@ sp {apply*elio*procedure-b*step-3
 	(<c3> ^slot1 mineral)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask greater-algae)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask greater-algae)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-b*step-4
 	(state <s> ^G <c1>)
@@ -1168,8 +1143,8 @@ sp {propose*elio*procedure-b*step-4
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 greater-algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-step-4)
+	(<o1> ^name elio-procedure-b-step-4)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*step-4
 	(state <s> ^operator <c1>)
@@ -1196,8 +1171,8 @@ sp {propose*elio*procedure-b*step-5
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 mineral-div-marine)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-step-5)
+	(<o1> ^name elio-procedure-b-step-5)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*step-5
 	(state <s> ^operator <c1>)
@@ -1224,8 +1199,8 @@ sp {propose*elio*procedure-b*step-6
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 part-mult-index1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-step-6)
+	(<o1> ^name elio-procedure-b-step-6)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*step-6
 	(state <s> ^operator <c1>)
@@ -1252,8 +1227,8 @@ sp {propose*elio*procedure-b*finish
 	(<c1> ^Gtask procedure-b)
 	(<c2> ^slot1 index1-plus-index2)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-b-finish)
+	(<o1> ^name elio-procedure-b-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-b*finish
 	(state <s> ^operator <c1>)
@@ -1271,19 +1246,19 @@ sp {apply*elio*procedure-b*finish
 	(<c5> ^clear-rt const1)
 	(<c5> ^Gtask <c6> -)
 }
-sp {propose*elio*triple-lime*finish
+sp {propose*elio*triple-lime*start
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask triple-lime)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-triple-lime-finish)
+	(<o1> ^name elio-triple-lime-start)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*triple-lime*finish
+sp {apply*elio*triple-lime*start
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-triple-lime-finish)
+	(<c1> ^name elio-triple-lime-start)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -1297,8 +1272,8 @@ sp {propose*elio*triple-lime*mult
 	(<c2> -^rt-result )
 	(<c3> ^slot1 limemin)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-triple-lime-mult)
+	(<o1> ^name elio-triple-lime-mult)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*triple-lime*mult
 	(state <s> ^operator <c1>)
@@ -1320,8 +1295,8 @@ sp {propose*elio*triple-lime*read
 	(<c2> ^slot4 )
 	(<c3> ^slot1 limemin)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-triple-lime-read)
+	(<o1> ^name elio-triple-lime-read)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*triple-lime*read
 	(state <s> ^operator <c1>)
@@ -1348,8 +1323,8 @@ sp {propose*elio*triple-lime*add
 	(<c2> -^rt-result )
 	(<c3> ^slot1 algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-triple-lime-add)
+	(<o1> ^name elio-triple-lime-add)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*triple-lime*add
 	(state <s> ^operator <c1>)
@@ -1371,8 +1346,8 @@ sp {propose*elio*triple-lime*finish
 	(<c1> ^Gtask triple-lime)
 	(<c2> ^slot1 add)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-triple-lime-finish)
+	(<o1> ^name elio-triple-lime-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*triple-lime*finish
 	(state <s> ^operator <c1>)
@@ -1394,19 +1369,19 @@ sp {apply*elio*triple-lime*finish
 	(<c2> ^slot2 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*lesser-evil*finish
+sp {propose*elio*lesser-evil*read-solid
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask lesser-evil)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-finish)
+	(<o1> ^name elio-lesser-evil-read-solid)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*lesser-evil*finish
+sp {apply*elio*lesser-evil*read-solid
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-lesser-evil-finish)
+	(<c1> ^name elio-lesser-evil-read-solid)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -1418,8 +1393,8 @@ sp {propose*elio*lesser-evil*read-lime1
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^slot1 solid)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-read-lime1)
+	(<o1> ^name elio-lesser-evil-read-lime1)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*read-lime1
 	(state <s> ^operator <c1>)
@@ -1444,8 +1419,8 @@ sp {propose*elio*lesser-evil*add-lime1
 	(<c2> -^rt-result )
 	(<c3> ^slot1 lime1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-add-lime1)
+	(<o1> ^name elio-lesser-evil-add-lime1)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*add-lime1
 	(state <s> ^operator <c1>)
@@ -1469,8 +1444,8 @@ sp {propose*elio*lesser-evil*read-algae
 	(<c2> ^slot1 add)
 	(<c3> ^slot1 lime1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-read-algae)
+	(<o1> ^name elio-lesser-evil-read-algae)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*read-algae
 	(state <s> ^operator <c1>)
@@ -1480,23 +1455,20 @@ sp {apply*elio*lesser-evil*read-algae
 	(<c2> ^slot2 <c5>)
 	(<c2> ^slot1 <c6>)
 	(state <s> ^NW <c7>)
-	(state <s> ^NW.wm <c8>)
-	(<c8> ^WMprev <c9>)
-	(state <s> ^AC <c10>)
-	(state <s> ^G <c11>)
+	(state <s> ^AC <c8>)
+	(state <s> ^G <c9>)
 	(<c1> ^name elio-lesser-evil-read-algae)
 	-->
 	(<c2> ^slot2 <c4>)
 	(<c2> ^slot1 intermediate)
 	(<c7> ^wm <n1>)
 	(<n1> ^WMprev <c2>)
-	(<c10> ^action <n2>)
+	(<c8> ^action <n2>)
 	(<n2> ^slot1 read)
 	(<n2> ^slot2 algae)
-	(<c11> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^slot2 <c5> -)
 	(<c2> ^slot1 <c6> -)
-	(<n1> ^WMprev <c9> -)
 }
 sp {propose*elio*lesser-evil*read-toxin3
 	(state <s> ^G <c1>)
@@ -1504,8 +1476,8 @@ sp {propose*elio*lesser-evil*read-toxin3
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^slot1 algae)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-read-toxin3)
+	(<o1> ^name elio-lesser-evil-read-toxin3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*read-toxin3
 	(state <s> ^operator <c1>)
@@ -1530,8 +1502,8 @@ sp {propose*elio*lesser-evil*add-toxin3
 	(<c2> -^rt-result )
 	(<c3> ^slot1 toxin3)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-add-toxin3)
+	(<o1> ^name elio-lesser-evil-add-toxin3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*add-toxin3
 	(state <s> ^operator <c1>)
@@ -1555,8 +1527,8 @@ sp {propose*elio*lesser-evil*toxin3
 	(<c2> ^slot1 add)
 	(<c3> ^slot1 toxin3)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-toxin3)
+	(<o1> ^name elio-lesser-evil-toxin3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*toxin3
 	(state <s> ^operator <c1>)
@@ -1569,7 +1541,6 @@ sp {apply*elio*lesser-evil*toxin3
 	(<c1> ^name elio-lesser-evil-toxin3)
 	-->
 	(<c2> ^slot2 <c4>)
-	(<c6> ^query <n1>)
 	(<c6> ^retrieve <c7>)
 	(<c2> ^slot2 <c5> -)
 }
@@ -1579,8 +1550,8 @@ sp {propose*elio*lesser-evil*read-intermediate
 	(<c1> ^Gtask lesser-evil)
 	(<c2> ^slot1 intermediate)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-read-intermediate)
+	(<o1> ^name elio-lesser-evil-read-intermediate)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*read-intermediate
 	(state <s> ^operator <c1>)
@@ -1607,8 +1578,8 @@ sp {propose*elio*lesser-evil*greater-than-true
 	(<c2> ^slot1 greater-than)
 	(<c2> ^slot4 true)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-greater-than-true)
+	(<o1> ^name elio-lesser-evil-greater-than-true)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*greater-than-true
 	(state <s> ^operator <c1>)
@@ -1637,8 +1608,8 @@ sp {propose*elio*lesser-evil*greater-than-false
 	(<c2> ^slot1 greater-than)
 	(<c2> ^slot4 false)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-lesser-evil-greater-than-false)
+	(<o1> ^name elio-lesser-evil-greater-than-false)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*lesser-evil*greater-than-false
 	(state <s> ^operator <c1>)
@@ -1660,19 +1631,19 @@ sp {apply*elio*lesser-evil*greater-than-false
 	(<c2> ^slot1 <c6> -)
 	(<c7> ^Gtask <c9> -)
 }
-sp {propose*elio*solid-div-lime*greater-than-false
+sp {propose*elio*solid-div-lime*read-solid
 	(state <s> ^G <c1>)
 	(state <s> ^V <c2>)
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> -^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-div-lime-greater-than-false)
+	(<o1> ^name elio-solid-div-lime-read-solid)
+	(<s> ^operator <o1> + =)
 }
-sp {apply*elio*solid-div-lime*greater-than-false
+sp {apply*elio*solid-div-lime*read-solid
 	(state <s> ^operator <c1>)
 	(state <s> ^AC <c2>)
-	(<c1> ^name elio-solid-div-lime-greater-than-false)
+	(<c1> ^name elio-solid-div-lime-read-solid)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read)
@@ -1684,8 +1655,8 @@ sp {propose*elio*solid-div-lime*read-lime1
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> ^slot1 solid)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-div-lime-read-lime1)
+	(<o1> ^name elio-solid-div-lime-read-lime1)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-div-lime*read-lime1
 	(state <s> ^operator <c1>)
@@ -1710,8 +1681,8 @@ sp {propose*elio*solid-div-lime*div-lime1
 	(<c2> -^rt-result )
 	(<c3> ^slot1 lime1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-div-lime-div-lime1)
+	(<o1> ^name elio-solid-div-lime-div-lime1)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-div-lime*div-lime1
 	(state <s> ^operator <c1>)
@@ -1733,8 +1704,8 @@ sp {propose*elio*solid-div-lime*finish
 	(<c1> ^Gtask solid-div-lime)
 	(<c2> ^slot1 div)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-solid-div-lime-finish)
+	(<o1> ^name elio-solid-div-lime-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*solid-div-lime*finish
 	(state <s> ^operator <c1>)
@@ -1761,8 +1732,8 @@ sp {propose*elio*procedure-c*start
 	(<c1> ^Gtask procedure-c)
 	(<c1> -^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-start)
+	(<o1> ^name elio-procedure-c-start)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*start
 	(state <s> ^operator <c1>)
@@ -1786,8 +1757,8 @@ sp {propose*elio*procedure-c*step-2
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 triple-lime)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-2)
+	(<o1> ^name elio-procedure-c-step-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-2
 	(state <s> ^operator <c1>)
@@ -1796,10 +1767,8 @@ sp {apply*elio*procedure-c*step-2
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-c-step-2)
 	-->
 	(<c2> ^action <n1>)
@@ -1808,11 +1777,10 @@ sp {apply*elio*procedure-c*step-2
 	(<c3> ^slot1 particulate)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask lesser-evil)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask lesser-evil)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-c*step-3
 	(state <s> ^G <c1>)
@@ -1820,8 +1788,8 @@ sp {propose*elio*procedure-c*step-3
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 lesser-evil)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-3)
+	(<o1> ^name elio-procedure-c-step-3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-3
 	(state <s> ^operator <c1>)
@@ -1848,8 +1816,8 @@ sp {propose*elio*procedure-c*step-4
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 part-plus-mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-4)
+	(<o1> ^name elio-procedure-c-step-4)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-4
 	(state <s> ^operator <c1>)
@@ -1858,10 +1826,8 @@ sp {apply*elio*procedure-c*step-4
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-c-step-4)
 	-->
 	(<c2> ^action <n1>)
@@ -1870,11 +1836,10 @@ sp {apply*elio*procedure-c*step-4
 	(<c3> ^slot1 index1)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask solid-div-lime)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask solid-div-lime)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-c*step-5
 	(state <s> ^G <c1>)
@@ -1882,8 +1847,8 @@ sp {propose*elio*procedure-c*step-5
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 solid-div-lime)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-5)
+	(<o1> ^name elio-procedure-c-step-5)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-5
 	(state <s> ^operator <c1>)
@@ -1910,8 +1875,8 @@ sp {propose*elio*procedure-c*step-6
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 index1-div-marine)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-6)
+	(<o1> ^name elio-procedure-c-step-6)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-6
 	(state <s> ^operator <c1>)
@@ -1938,8 +1903,8 @@ sp {propose*elio*procedure-c*step-7
 	(<c1> ^Gtask procedure-c)
 	(<c2> ^slot1 index2-min-mineral)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-c-step-7)
+	(<o1> ^name elio-procedure-c-step-7)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-c*step-7
 	(state <s> ^operator <c1>)
@@ -1962,8 +1927,8 @@ sp {propose*elio*procedure-d*start
 	(<c1> ^Gtask procedure-d)
 	(<c1> -^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-start)
+	(<o1> ^name elio-procedure-d-start)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*start
 	(state <s> ^operator <c1>)
@@ -1987,8 +1952,8 @@ sp {propose*elio*procedure-d*step-2
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 triple-lime)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-2)
+	(<o1> ^name elio-procedure-d-step-2)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-2
 	(state <s> ^operator <c1>)
@@ -1997,10 +1962,8 @@ sp {apply*elio*procedure-d*step-2
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-d-step-2)
 	-->
 	(<c2> ^action <n1>)
@@ -2009,11 +1972,10 @@ sp {apply*elio*procedure-d*step-2
 	(<c3> ^slot1 particulate)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask lesser-evil)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask lesser-evil)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-d*step-3
 	(state <s> ^G <c1>)
@@ -2021,8 +1983,8 @@ sp {propose*elio*procedure-d*step-3
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 lesser-evil)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-3)
+	(<o1> ^name elio-procedure-d-step-3)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-3
 	(state <s> ^operator <c1>)
@@ -2031,10 +1993,8 @@ sp {apply*elio*procedure-d*step-3
 	(<c3> ^slot2 <c4>)
 	(<c3> ^slot1 <c5>)
 	(state <s> ^NW <c6>)
-	(state <s> ^NW.wm <c7>)
-	(<c7> ^WMprev <c8>)
-	(state <s> ^G <c9>)
-	(<c9> ^Gtask <c10>)
+	(state <s> ^G <c7>)
+	(<c7> ^Gtask <c8>)
 	(<c1> ^name elio-procedure-d-step-3)
 	-->
 	(<c2> ^action <n1>)
@@ -2043,11 +2003,10 @@ sp {apply*elio*procedure-d*step-3
 	(<c3> ^slot1 mineral)
 	(<c6> ^wm <n2>)
 	(<n2> ^WMprev <c3>)
-	(<c9> ^Gtask solid-div-lime)
-	(<c9> ^clear-rt const1)
+	(<c7> ^Gtask solid-div-lime)
+	(<c7> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
-	(<n2> ^WMprev <c8> -)
-	(<c9> ^Gtask <c10> -)
+	(<c7> ^Gtask <c8> -)
 }
 sp {propose*elio*procedure-d*step-4
 	(state <s> ^G <c1>)
@@ -2055,8 +2014,8 @@ sp {propose*elio*procedure-d*step-4
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 solid-div-lime)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-4)
+	(<o1> ^name elio-procedure-d-step-4)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-4
 	(state <s> ^operator <c1>)
@@ -2083,8 +2042,8 @@ sp {propose*elio*procedure-d*step-5
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 mineral-div-marine)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-5)
+	(<o1> ^name elio-procedure-d-step-5)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-5
 	(state <s> ^operator <c1>)
@@ -2111,8 +2070,8 @@ sp {propose*elio*procedure-d*step-6
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 part-mult-index1)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-6)
+	(<o1> ^name elio-procedure-d-step-6)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-6
 	(state <s> ^operator <c1>)
@@ -2139,8 +2098,8 @@ sp {propose*elio*procedure-d*step-7
 	(<c1> ^Gtask procedure-d)
 	(<c2> ^slot1 index1-plus-index2)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name elio-procedure-d-step-7)
+	(<o1> ^name elio-procedure-d-step-7)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*elio*procedure-d*step-7
 	(state <s> ^operator <c1>)

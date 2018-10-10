@@ -18,16 +18,16 @@ public class SMLClient {
 		expList.add(new LearnConfig("123smc", 1));
 
 		EditorsWorld world = new EditorsWorld();
-		//world.runExperiments("editors_props", 1, expList);
+		world.runExperiments("editors_props", 1, expList);
 		//world.setVerbose(false);
-		world.runEditorsDebug("ed",0, 1, "s123s");
+		//world.runEditorsDebug("ed",0, new LearnConfig("s123s",1));
 		
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String, String>("ed","ed_1")); trainList.add(new Pair<String, String>("ed","ed_2")); trainList.add(new Pair<String, String>("ed","ed_3"));
 		trainList.add(new Pair<String, String>("edt","edt_1")); trainList.add(new Pair<String, String>("edt","edt_2")); trainList.add(new Pair<String, String>("edt","edt_3"));
 		trainList.add(new Pair<String, String>("emacs","emacs_1")); trainList.add(new Pair<String, String>("emacs","emacs_2")); trainList.add(new Pair<String, String>("emacs","emacs_3"));
 		
-		/*world.makeAddressingChunks(trainList, "editors_agent_L1_chunks.soar");*/
+		//world.makeAddressingChunks(trainList, "editors_agent_L1_chunks.soar");
 		//world.makeSpreadingChunks(trainList, "editors_agent_condspread_chunks.soar");
 		
 	}

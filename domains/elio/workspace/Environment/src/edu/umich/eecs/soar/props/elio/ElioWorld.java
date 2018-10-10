@@ -84,14 +84,15 @@ public class ElioWorld extends PROPsEnvironment {
 			}
 		}
 		else if (val1.compareTo("enter") == 0) {
-			// (Inputs already destroyed, leave it that way)
+			// Clear inputs
+			this.clearPerception();
 			// Get the current number of chunks
 			int chunkCount = agent.ExecuteCommandLine("p -c").split("\n").length;
 			// Store the result
 			int DC = agent.GetDecisionCycleCounter();
 			//results.add(new Result(etask, val2, DC - lastDC, chunkCount));
 			this.addReport(String.format("%1$s \t%2$d \t%3$d \t%4$.3f \t%5$s \t%6$d \t%7$d",
-					this.taskName.toUpperCase(), etask.trial, etask.line, (System.nanoTime() - etask.start)/1000000000.0, val2, (DC - lastDC), chunkCount, etask.sample));
+					this.getTask().toUpperCase(), etask.trial, etask.line, (System.nanoTime() - etask.start)/1000000000.0, val2, (DC - lastDC), chunkCount, etask.sample));
 			
 			lastDC = DC;
 			// Start next task

@@ -233,30 +233,26 @@ sp {lib*actr*set*wm-query*search
 -->
 	(<wmq> ^result <cand>)
 }
-sp {lib*actr*set*wm-query*return-result
-	:o-support
+
+sp {lib*actr*elaborate*wm-query*return-result
 	(state <s> ^Q <q>
-				^RT {<rt> <> <res>})
+				^RT <rt>)
 	(<q> ^wm-query <wmq>)
-	-{(<q> ^<< query retrieve wm-query >> <> <wmq>)}		# Don't replace until the old cmd has been removed - else it would then trigger this rule before removal
-	(<wmq> ^result <res>
-			-^result <> <res>)
--->
-	(<s> ^RT <rt> -
-		^RT <res>)
-	#(write (crlf) |*** WM-QUERY: | <res> )
-}
-sp {lib*actr*set*wm-query*clean
-	:o-support
-	(state <s> ^Q <q>
-				^RT <res>)
-	(<q> ^wm-query <wmq>
-		^stamp <st>)
 	(<wmq> ^result <res>)
-	(<st> ^command <wmq>)
+	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
+	(<res> ^<attr> <val>)
 -->
-	(<q> ^wm-query <wmq> -
-		^stamp <st> -)
+	(<rt> ^<attr> <val>)
+}
+sp {lib*actr*elaborate*wm-query*return-result*id
+	(state <s> ^Q <q>
+				^RT <rt>)
+	(<q> ^wm-query <wmq>)
+	(<wmq> ^result <res>)
+	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
+	(<res> ^<attr> <val>)
+-->
+	(<rt> ^RTid <res>)
 }
 
 sp {lib*actr*elaborate*wm-query*error
@@ -270,18 +266,25 @@ sp {lib*actr*elaborate*wm-query*error
 }
 
 # RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
-sp {lib*actr*set*retrieval
-	:o-support
+sp {lib*actr*elaborate*retrieval
 	(state <s> ^Q <q>
 				^RT <rt>)
-	(<q> ^retrieve {<r> <> <rt>})
-	-{(<q> ^<< query retrieve wm-query >> <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
+	(<q> ^retrieve <r>)
+	(<r> ^<attr> <val>)
+	#-{(<q> ^<< query retrieve wm-query >> <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
 -->
-	(<s> ^RT <rt> -
-		^RT <r>)
+	(<rt> ^<attr> <val>)
 	#(write (crlf) |*** WM-RETRIEVE: | <r> )
 }
-
+sp {lib*actr*elaborate*retrieval*id
+	(state <s> ^Q <q>
+				^RT <rt>)
+	(<q> ^retrieve <r>)
+	(<r> ^<attr> <val>)
+-->
+	(<rt> ^RTid <r>)
+	#(write (crlf) |*** WM-RETRIEVE: | <r> )
+}
 
 # PROCESS NEW SMEM COMMANDS AND DC-STAMP THEM
 sp {lib*actr*set*smem-command*stamp
@@ -315,52 +318,71 @@ sp {lib*actr*elaborate*query*collect
 -->
 	(<r> ^<slot> <val> )
 }
+sp {lib*actr*elaborate*query*collect*id
+	(state <s> ^smem.result.retrieved <sret>
+				^RT <r>)
+	(<sret> ^<slot> <val>)
+-->
+	(<r> ^RTid <sret>)
+}
 
 # REMOVE OLD QUERIES WHEN NEW ONES ARISE
-sp {lib*actr*set*replace-query
-	"If there is a command newer than a query, based on the dc-stamp, then remove the old query"
-	:o-support
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^{<attr1> << query retrieve wm-query >>} <q1>
-		^query {<q2> <> <q1>}
-		^stamp <st1>
-		^stamp <st2>)
-	(<st1> ^command <q1>
-			^dc <dc1>)
-	(<st2> ^command <q2>
-			^dc < <dc1>)
--->
-	(<q> ^query <q2> -
-		^stamp <st2> -)
-	(<s> ^RT <rt> -
-		^RT <rtnew>)
-}
-sp {lib*actr*set*replace-retrieve*query
-	"If there is a query newer than a retrieve, based on the dc-stamp, then remove the old one and clear RT"
-	:o-support
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^query <q1>
-		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
-		^stamp <st1>
-		^stamp <st2>)
-	(<st1> ^command <q1>
-			^dc <dc1>)
-	(<st2> ^command <q2>
-			^dc < <dc1>)
--->
-	(<q> ^<attr> <q2> -
-		^stamp <st2> -)
-	(<s> ^RT <rt> -
-		^RT <rtnew>)
-}
-sp {lib*actr*set*replace-retrieve*retrieve
+#sp {lib*actr*set*replace-query
+#	"If there is a command newer than a query, based on the dc-stamp, then remove the old query"
+#	:o-support
+#	(state <s> ^Q <q>
+#				^RT <rt>)
+#	(<q> ^{<attr1> << query retrieve wm-query >>} <q1>
+#		^query {<q2> <> <q1>}
+#		^stamp <st1>
+#		^stamp <st2>)
+#	(<st1> ^command <q1>
+#			^dc <dc1>)
+#	(<st2> ^command <q2>
+#			^dc < <dc1>)
+#-->
+#	(<q> ^query <q2> -
+#		^stamp <st2> -)
+#}
+#sp {lib*actr*set*replace-retrieve*query
+#	"If there is a query newer than a retrieve, based on the dc-stamp, then remove the old one and clear RT"
+#	:o-support
+#	(state <s> ^Q <q>
+#				^RT <rt>)
+#	(<q> ^query <q1>
+#		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
+#		^stamp <st1>
+#		^stamp <st2>)
+#	(<st1> ^command <q1>
+#			^dc <dc1>)
+#	(<st2> ^command <q2>
+#			^dc < <dc1>)
+#-->
+#	(<q> ^<attr> <q2> -
+#		^stamp <st2> -)
+#}
+#sp {lib*actr*set*replace-retrieve*retrieve
+#	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
+#	:o-support
+#	(state <s> ^Q <q>)
+#	(<q> ^<< retrieve wm-query >> <q1>
+#		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
+#		^stamp <st1>
+#		^stamp <st2>)
+#	(<st1> ^command <q1>
+#			^dc <dc1>)
+#	(<st2> ^command <q2>
+#			^dc < <dc1>)
+#-->
+#	(<q> ^<attr> <q2> -
+#		^stamp <st2> -)
+#}
+sp {lib*actr*set*replace-q-command
 	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
 	:o-support
 	(state <s> ^Q <q>)
-	(<q> ^<< retrieve wm-query >> <q1>
-		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
+	(<q> ^<< query retrieve wm-query >> <q1>
+		^{<attr> << query retrieve wm-query >>} {<q2> <> <q1>}
 		^stamp <st1>
 		^stamp <st2>)
 	(<st1> ^command <q1>
@@ -392,17 +414,17 @@ sp {lib*actr*elaborate*query*failure*error
 
 
 # CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
-sp {lib*actr*apply*clear-rt
-	:o-support
-	(state <s> ^G <g>
-			^Q <q>
-			^RT <rt>)
-	(<g> ^clear-rt <any>)
--->
-	(<s> ^RT <rt> -
-		^RT <rnew>)
-	(<g> ^clear-rt <any> -)
-}
+#sp {lib*actr*apply*clear-rt
+#	:o-support
+#	(state <s> ^G <g>
+#			^Q <q>
+#			^RT <rt>)
+#	(<g> ^clear-rt <any>)
+#-->
+#	(<s> ^RT <rt> -
+#		^RT <rnew>)
+#	(<g> ^clear-rt <any> -)
+#}
 sp {lib*actr*apply*clear-rt*clear-command
 	:o-support
 	(state <s> ^G <g>
@@ -415,15 +437,15 @@ sp {lib*actr*apply*clear-rt*clear-command
 	(<q> ^<attr> <rt> -
 		^stamp <st> -)
 }
-#sp {lib*actr*apply*smem-command*clear-empty
-#	:o-support
-#	(state <s> ^G <g>
-#			^Q <q>)
-#	(<q> -^<< query retrieve wm-query >> <qry>)
-#	(<g> ^clear-rt <any>)
-#-->
-#	(<g> ^clear-rt <any> -)
-#}
+sp {lib*actr*apply*smem-command*clear-empty
+	:o-support
+	(state <s> ^G <g>
+			^Q <q>)
+	(<q> -^<< query retrieve wm-query >> <qry>)
+	(<g> ^clear-rt <any>)
+-->
+	(<g> ^clear-rt <any> -)
+}
 
 
 # NEWWM #

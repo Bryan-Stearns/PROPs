@@ -11,6 +11,7 @@ pp {propose*editors*ed*init*start
 	s.G.Gcontrol -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*init*start
 	const1 editors-ed-init-start
@@ -37,6 +38,7 @@ pp {propose*editors*ed*init*find-goal
 	s.V.slot1 <> const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*init*find-goal
 	const1 editors-ed-init-find-goal
@@ -59,6 +61,7 @@ pp {propose*editors*ed*line-strategy*test
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*line-strategy*test
 	const1 editors-ed-line-strategy-test
@@ -81,6 +84,7 @@ pp {propose*editors*ed*line-strategy*enter
 	s.smem.rt-result == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*line-strategy*enter
 	const1 editors-ed-line-strategy-enter
@@ -102,6 +106,7 @@ pp {propose*editors*ed*line-strategy*pcmd
 	s.smem.rt-result == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*line-strategy*pcmd
 	const1 editors-ed-line-strategy-pcmd
@@ -127,6 +132,7 @@ pp {propose*editors*ed*find-line*next
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-line*next
 	const1 editors-ed-find-line-next
@@ -149,6 +155,7 @@ pp {propose*editors*ed*find-line*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-line*read
 	const1 editors-ed-find-line-read
@@ -171,6 +178,7 @@ pp {propose*editors*ed*find-line*re-next
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-line*re-next
 	const1 editors-ed-find-line-re-next
@@ -196,6 +204,7 @@ pp {propose*editors*ed*find-line*re-read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-line*re-read
 	const1 editors-ed-find-line-re-read
@@ -219,6 +228,7 @@ pp {propose*editors*ed*find-task-word*for-replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-word*for-replace
 	const1 editors-ed-find-task-word-for-replace
@@ -243,6 +253,7 @@ pp {propose*editors*ed*find-task-word*for-delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-word*for-delete
 	const1 editors-ed-find-task-word-for-delete
@@ -267,6 +278,7 @@ pp {propose*editors*ed*find-task-word*for-insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-word*for-insert
 	const1 editors-ed-find-task-word-for-insert
@@ -292,6 +304,7 @@ pp {propose*editors*ed*find-task-word*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-word*next
 	const1 editors-ed-find-task-word-next
@@ -311,6 +324,7 @@ pp {propose*editors*ed*find-task-word*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-word*read
 	const1 editors-ed-find-task-word-read
@@ -333,6 +347,7 @@ pp {propose*editors*ed*word-action*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*word-action*replace
 	const1 editors-ed-word-action-replace
@@ -355,6 +370,7 @@ pp {propose*editors*ed*word-action*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*word-action*delete
 	const1 editors-ed-word-action-delete
@@ -377,6 +393,7 @@ pp {propose*editors*ed*word-action*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*word-action*insert
 	const1 editors-ed-word-action-insert
@@ -399,6 +416,7 @@ pp {propose*editors*ed*word-action*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*word-action*next
 	const1 editors-ed-word-action-next
@@ -421,6 +439,7 @@ pp {propose*editors*ed*find-task-line*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-line*delete
 	const1 editors-ed-find-task-line-delete
@@ -443,6 +462,7 @@ pp {propose*editors*ed*find-task-line*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-line*insert
 	const1 editors-ed-find-task-line-insert
@@ -466,6 +486,7 @@ pp {propose*editors*ed*find-task-line*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-line*replace
 	const1 editors-ed-find-task-line-replace
@@ -487,6 +508,7 @@ pp {propose*editors*ed*find-task-line*type
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*find-task-line*type
 	const1 editors-ed-find-task-line-type
@@ -509,6 +531,7 @@ pp {propose*editors*ed*finish
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*ed*finish
 	const1 editors-ed-finish
@@ -527,6 +550,7 @@ pp {propose*editors*edt*init*start
 	s.G.Gcontrol -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*init*start
 	const1 editors-edt-init-start
@@ -553,6 +577,7 @@ pp {propose*editors*edt*init*find-goal
 	s.V.slot1 <> const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*init*find-goal
 	const1 editors-edt-init-find-goal
@@ -575,6 +600,7 @@ pp {propose*editors*edt*line-strategy*test
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*test
 	const1 editors-edt-line-strategy-test
@@ -597,6 +623,7 @@ pp {propose*editors*edt*line-strategy*enter
 	s.smem.rt-result == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*enter
 	const1 editors-edt-line-strategy-enter
@@ -618,6 +645,7 @@ pp {propose*editors*edt*line-strategy*read-instruction
 	s.smem.rt-result == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*read-instruction
 	const1 editors-edt-line-strategy-read-instruction
@@ -643,6 +671,7 @@ pp {propose*editors*edt*line-strategy*look
 	s.V.slot1 <> const5
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*look
 	const1 editors-edt-line-strategy-look
@@ -663,6 +692,7 @@ pp {propose*editors*edt*line-strategy*t-word
 	s.V.slot3 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*t-word
 	const1 editors-edt-line-strategy-t-word
@@ -685,6 +715,7 @@ pp {propose*editors*edt*line-strategy*next
 	s.V.slot2 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*next
 	const1 editors-edt-line-strategy-next
@@ -705,6 +736,7 @@ pp {propose*editors*edt*line-strategy*find-destination
 	s.V.slot1 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*line-strategy*find-destination
 	const1 editors-edt-line-strategy-find-destination
@@ -726,6 +758,7 @@ pp {propose*editors*edt*find-line*next
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-line*next
 	const1 editors-edt-find-line-next
@@ -748,6 +781,7 @@ pp {propose*editors*edt*find-line*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-line*read
 	const1 editors-edt-find-line-read
@@ -770,6 +804,7 @@ pp {propose*editors*edt*find-line*re-next
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-line*re-next
 	const1 editors-edt-find-line-re-next
@@ -795,6 +830,7 @@ pp {propose*editors*edt*find-line*re-read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-line*re-read
 	const1 editors-edt-find-line-re-read
@@ -818,6 +854,7 @@ pp {propose*editors*edt*find-task-word*for-replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-word*for-replace
 	const1 editors-edt-find-task-word-for-replace
@@ -842,6 +879,7 @@ pp {propose*editors*edt*find-task-word*for-delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-word*for-delete
 	const1 editors-edt-find-task-word-for-delete
@@ -866,6 +904,7 @@ pp {propose*editors*edt*find-task-word*for-insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-word*for-insert
 	const1 editors-edt-find-task-word-for-insert
@@ -891,6 +930,7 @@ pp {propose*editors*edt*find-task-word*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-word*next
 	const1 editors-edt-find-task-word-next
@@ -910,6 +950,7 @@ pp {propose*editors*edt*find-task-word*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-word*read
 	const1 editors-edt-find-task-word-read
@@ -932,6 +973,7 @@ pp {propose*editors*edt*word-action*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*word-action*replace
 	const1 editors-edt-word-action-replace
@@ -954,6 +996,7 @@ pp {propose*editors*edt*word-action*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*word-action*delete
 	const1 editors-edt-word-action-delete
@@ -976,6 +1019,7 @@ pp {propose*editors*edt*word-action*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*word-action*insert
 	const1 editors-edt-word-action-insert
@@ -998,6 +1042,7 @@ pp {propose*editors*edt*word-action*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*word-action*next
 	const1 editors-edt-word-action-next
@@ -1020,6 +1065,7 @@ pp {propose*editors*edt*find-task-line*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-line*delete
 	const1 editors-edt-find-task-line-delete
@@ -1042,6 +1088,7 @@ pp {propose*editors*edt*find-task-line*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-line*insert
 	const1 editors-edt-find-task-line-insert
@@ -1065,6 +1112,7 @@ pp {propose*editors*edt*find-task-line*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-line*replace
 	const1 editors-edt-find-task-line-replace
@@ -1086,6 +1134,7 @@ pp {propose*editors*edt*find-task-line*type
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*find-task-line*type
 	const1 editors-edt-find-task-line-type
@@ -1108,6 +1157,7 @@ pp {propose*editors*edt*finish
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*edt*finish
 	const1 editors-edt-finish
@@ -1126,6 +1176,7 @@ pp {propose*editors*emacs*init*start
 	s.G.Gcontrol -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*init*start
 	const1 editors-emacs-init-start
@@ -1150,6 +1201,7 @@ pp {propose*editors*emacs*init*find-goal
 	s.V.slot1 <> const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*init*find-goal
 	const1 editors-emacs-init-find-goal
@@ -1172,6 +1224,7 @@ pp {propose*editors*emacs*find-line*next
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-line*next
 	const1 editors-emacs-find-line-next
@@ -1191,6 +1244,7 @@ pp {propose*editors*emacs*find-line*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-line*read
 	const1 editors-emacs-find-line-read
@@ -1213,6 +1267,7 @@ pp {propose*editors*emacs*find-task-word*for-replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-word*for-replace
 	const1 editors-emacs-find-task-word-for-replace
@@ -1236,6 +1291,7 @@ pp {propose*editors*emacs*find-task-word*for-delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-word*for-delete
 	const1 editors-emacs-find-task-word-for-delete
@@ -1259,6 +1315,7 @@ pp {propose*editors*emacs*find-task-word*for-insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-word*for-insert
 	const1 editors-emacs-find-task-word-for-insert
@@ -1283,6 +1340,7 @@ pp {propose*editors*emacs*find-task-word*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-word*next
 	const1 editors-emacs-find-task-word-next
@@ -1302,6 +1360,7 @@ pp {propose*editors*emacs*find-task-word*read
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-word*read
 	const1 editors-emacs-find-task-word-read
@@ -1324,6 +1383,7 @@ pp {propose*editors*emacs*word-action*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*word-action*replace
 	const1 editors-emacs-word-action-replace
@@ -1347,6 +1407,7 @@ pp {propose*editors*emacs*word-action*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*word-action*delete
 	const1 editors-emacs-word-action-delete
@@ -1367,6 +1428,7 @@ pp {propose*editors*emacs*word-action*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*word-action*insert
 	const1 editors-emacs-word-action-insert
@@ -1386,6 +1448,7 @@ pp {propose*editors*emacs*word-action*post-insert
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*word-action*post-insert
 	const1 editors-emacs-word-action-post-insert
@@ -1409,6 +1472,7 @@ pp {propose*editors*emacs*word-action*next
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*word-action*next
 	const1 editors-emacs-word-action-next
@@ -1431,6 +1495,7 @@ pp {propose*editors*emacs*find-task-line*delete
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-line*delete
 	const1 editors-emacs-find-task-line-delete
@@ -1453,6 +1518,7 @@ pp {propose*editors*emacs*find-task-line*insert
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-line*insert
 	const1 editors-emacs-find-task-line-insert
@@ -1476,6 +1542,7 @@ pp {propose*editors*emacs*find-task-line*replace
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-line*replace
 	const1 editors-emacs-find-task-line-replace
@@ -1497,6 +1564,7 @@ pp {propose*editors*emacs*find-task-line*type
 	s.G.Gcontrol == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*find-task-line*type
 	const1 editors-emacs-find-task-line-type
@@ -1519,6 +1587,7 @@ pp {propose*editors*emacs*finish
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*editors*emacs*finish
 	const1 editors-emacs-finish

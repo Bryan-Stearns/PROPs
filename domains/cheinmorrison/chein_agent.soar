@@ -220,11 +220,12 @@ sp {propose*chein*verbal-CWM*rehearse*next
 sp {apply*chein*verbal-CWM*rehearse*next
 	(state <s> ^operator <c1>)
 	(state <s> ^Q <c2>)
-	(<s> ^RT <c3>)
+	(state <s> ^RT <c3>)
+	(<c3> ^RTid <c4>)
 	(<c1> ^name chein-verbal-CWM-rehearse-next)
 	-->
 	(<c2> ^wm-query <n1>)
-	(<n1> ^root <c3>)
+	(<n1> ^root <c4>)
 }
 sp {propose*chein*verbal-CWM*rehearse*restart
 	(state <s> ^G <c1>)
@@ -309,13 +310,14 @@ sp {apply*chein*verbal-CWM*report*report
 	(state <s> ^RT <c3>)
 	(<c3> ^slot1 <c4>)
 	(state <s> ^Q <c5>)
+	(<c3> ^RTid <c6>)
 	(<c1> ^name chein-verbal-CWM-report-report)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 type)
 	(<n1> ^slot2 <c4>)
 	(<c5> ^wm-query <n2>)
-	(<n2> ^root <c3>)
+	(<n2> ^root <c6>)
 }
 sp {propose*chein*verbal-CWM*report*finish
 	(state <s> ^G <c1>)

@@ -124,7 +124,7 @@ void actransfer_operator_parser::initSlotRefMap() {
 		{"RTprev", "s.RT.WMprev"},
 		{"RTnext", "s.RT.WMnext"},
 		{"RT1", "s.smem.rt-result"},
-		{"RTid", "s.RT"},
+		{"RTid", "s.RT.RTid"},
 		{"AC1", "s.AC.action.slot1"}
 	};
 }
@@ -166,9 +166,11 @@ void actransfer_operator_parser::getSlotNames(std::stringstream &ss, std::map<st
 // Assuming the ss given is pointing to the middle of the add-instr directive, after the instruction name,
 // return a map of slot names to slot addresses.
 // Leave the stream at the beginning of the operator descriptions (which follow the add-instr setup).
-void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap) {
+void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken) {
 	std::string slotPath = "";
-	std::string sToken = nextToken(ss);
+	std::string sToken = startToken;;
+	if (startToken.length() == 0)
+		sToken = nextToken(ss);
 
 	// Read until finding the comment symbol
 	while (ss.good()) {
@@ -192,8 +194,8 @@ void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::m
 		sToken = nextToken(ss);
 
 		// Pass a newline if it exists
-		if (sToken.length() == 0)
-			sToken = nextToken(ss);
+		//if (sToken.length() == 0)
+		//	sToken = nextToken(ss);
 	}
 }
 
@@ -319,6 +321,9 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			currTaskName = nextToken(ss);
 			readInstrSettings(ss, slotRefMap);	// These will add task-specific refs to the master refs, without overwriting
 		}
+		else if (!sToken.compare(0,1, ":")) {
+			readInstrSettings(ss, slotRefMap, sToken);
+		}
 		else if (!sToken.compare(";~")) {
 			currRule_h1 = nextToken(ss);
 			currRule_h2 = "";
@@ -326,13 +331,19 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		else if (!sToken.compare(";~~")) {
 			currRule_h2 = nextToken(ss);
 		}
-		sToken = nextToken(ss);
+		do {
+			sToken = nextToken(ss);
+		} while (sToken.length() == 0);
 	}
 
 	// Begin instruction
 
+	/*if (currTaskName.compare("part-mult*index1") && !currRule_h1.compare("mult")) {
+		sToken = "";
+	}*/
 	// Skip next "ins"
 	sToken = nextToken(ss);
+
 
 
 	// *** CONDITIONS ***
@@ -363,14 +374,13 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		// Get path to of first arg
 		p1 = it->second;
 
-		// Read op ("=" or "<>");
+		// Read op ("=" or "<>" or "!=");
 		op = nextToken(ss);
-		if (op.compare("<>") != 0)
+		if (!op.compare("="))
 			op = "==";
 
 		// Read arg2
 		sToken = nextToken(ss);
-
 
 		// Check special negation/existence cases
 		if (!sToken.compare("nil") /*&& std::find(specNegs.begin(), specNegs.end(), p1) != specNegs.end()*/ )
@@ -384,6 +394,13 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				// Existence test (<> nil)
 				p2 = "";
 				op = "";
+			}
+		}
+		else if (!op.compare("!=")) {
+			// Special value-negation test (versus inequality test for existence of a different value)
+			p2 = sToken;
+			if (slotRefMap.find(sToken) == slotRefMap.end()) {
+				condConsts.push_back(p2);
 			}
 		}
 		else {
@@ -529,7 +546,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				usedQ = true;
 			}
 			// Check for a newWM wm cluster
-			if (!usedQ && !buff.compare("newWM")) {
+			if (!usedNW && !buff.compare("newWM")) {
 				actions.push_back(Primitive("+","s.NW.wm",""));
 				usedNW = true;
 			}
@@ -584,7 +601,13 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			sToken = nextToken(ss);
 			it = slotRefMap.find(sToken);
 			if (it != slotRefMap.end()) {
-				p2 = makeActionRef(it->second);
+				if (!sToken.compare("RTid")) {
+					// Special case: RTid is the retrieve command if on the action side, and the RTid wme if on the condition side
+					p2 = "s.Q.retrieve";
+				}
+				else {
+					p2 = makeActionRef(it->second);
+				}
 
 				// Check for use of queries - if so, don't clear-rt
 				if (!p2.compare(0,4,"s.Q."))
@@ -669,7 +692,7 @@ void actransfer_operator_parser::buildPropCode(std::string &retval, const std::s
 				retval += "\t" + p.path1 + " " + p.op + " " + p.path2 + "\n";
 			}
 			else {
-				std::cerr << "Unrecognized prop action in " << ruleName << ": '= " << p.path1 << "'" << std::endl;
+				std::cerr << "Second arg missing in prop action in " << ruleName << ": '= " << p.path1 << "'" << std::endl;
 				throw;
 			}
 		}
@@ -720,8 +743,6 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 
 	retval["s"] = "<s>";
 
-	if (!currRule_h1.compare("report") && !currRule_h2.compare("report"))
-		idnum = 1;
 	// Conditions
 	for (const Primitive &c : conditions) {
 		splitDotChain(c.path1, p11, p12);
@@ -742,8 +763,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 
 		// Do arg2 (might be a const)
-		if (!c.op.compare("-") && !c.path2.compare("")) {
-			negTestRefs.push_back(c.path1);
+		if ((!c.op.compare("-") && !c.path2.compare("")) || !c.op.compare("!=")) {
+			negTestRefs.push_back(c.path1);	// If an action adds to this address, don't try to remove contents "already there"
 		}
 		if (!splitDotChain(c.path2, p21, p22)) {
 			retval[p21] = p21;	// is a const
@@ -781,9 +802,9 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		else if (!a.path1.compare("s.AC") || !p11.compare(0,11, "s.AC.action")
 				|| !a.path1.compare("s.Q") || !p11.compare(0,9, "s.Q.query") || !p11.compare(0,12, "s.Q.wm-query")
 				|| !a.path1.compare("s.NW") || !p11.compare(0,7, "s.NW.wm")) {
-			/*if (!retval.count("s.AC.action")) {
-				retval["a"] = "<a>";
-				retRefs.push_back("state <s> ^AC.action <a>");
+			/*if (!a.path1.compare(0,4, "s.NW") && !retval.count("s.NW")) {
+				retval["s.NW"] = "<nw>";
+				retRefs.push_back("state <s> ^NW <nw>");
 			}*/
 		}
 		else if (!a.path1.compare("s.G.clear-rt")) {
@@ -904,7 +925,7 @@ void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::s
 			p2 = "<> " + p2;
 		}
 
-		if (!c.op.compare("-"))
+		if (!c.op.compare("-") || !c.op.compare("!="))
 			retval += "\t(" + p11 + " -^" + p12 + " " + p2 + ")\n";
 		else
 			retval += "\t(" + p11 + " ^" + p12 + " " + p2 + ")\n";

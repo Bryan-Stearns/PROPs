@@ -19,13 +19,13 @@ public class SMLClient {
 		CheinMorrisonWorld world = new CheinMorrisonWorld(true);
 		//world.setUseProps(false);
 		
-		world.runCheinExperiment("chein", 9, expList);
+		//world.runCheinExperiment("chein", 9, expList);
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		//world.runCheinDebug("verbal-CWM", 1, "sc123");
 		//world.runCheinDebug("stroop", 1, "sc123");
 		
-		//world.makePreChunks();
+		world.makePreChunks();
 	}
 
 }

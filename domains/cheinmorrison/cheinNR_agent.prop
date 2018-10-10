@@ -11,6 +11,7 @@ pp {propose*cheinNR*verbal-CWM*init
 	s.G.Gtop -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*init
 	const1 cheinNR-verbal-CWM-init
@@ -30,6 +31,7 @@ pp {propose*cheinNR*verbal-CWM*lexical*retrieve
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*lexical*retrieve
 	const1 cheinNR-verbal-CWM-lexical-retrieve
@@ -51,6 +53,7 @@ pp {propose*cheinNR*verbal-CWM*lexical*success
 	s.RT.slot3 == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*lexical*success
 	const1 cheinNR-verbal-CWM-lexical-success
@@ -74,6 +77,7 @@ pp {propose*cheinNR*verbal-CWM*lexical*fail
 	s.smem.rt-result == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*lexical*fail
 	const1 cheinNR-verbal-CWM-lexical-fail
@@ -97,6 +101,7 @@ pp {propose*cheinNR*verbal-CWM*remember-letter
 	s.G.Gtop 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*remember-letter
 	const1 cheinNR-verbal-CWM-remember-letter
@@ -118,6 +123,7 @@ pp {propose*cheinNR*verbal-CWM*report*start
 	s.smem.rt-result -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*report*start
 	const1 cheinNR-verbal-CWM-report-start
@@ -136,6 +142,7 @@ pp {propose*cheinNR*verbal-CWM*report*report
 	s.RT.slot1 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*report*report
 	const1 cheinNR-verbal-CWM-report-report
@@ -145,7 +152,7 @@ pp {apply*cheinNR*verbal-CWM*report*report
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = s.RT.slot1
-	s.Q.wm-query.root = s.RT
+	s.Q.wm-query.root = s.RT.RTid
 }
 pp {propose*cheinNR*verbal-CWM*report*finish
 	const1 cheinNR-verbal-CWM-report-finish
@@ -158,6 +165,7 @@ pp {propose*cheinNR*verbal-CWM*report*finish
 	s.smem.rt-result 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*verbal-CWM*report*finish
 	const1 cheinNR-verbal-CWM-report-finish
@@ -178,6 +186,7 @@ pp {propose*cheinNR*stroop*init
 	s.G.Gcontrol -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*init
 	const1 cheinNR-stroop-init
@@ -200,6 +209,7 @@ pp {propose*cheinNR*stroop*object-seen*focus-color
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*object-seen*focus-color
 	const1 cheinNR-stroop-object-seen-focus-color
@@ -223,6 +233,7 @@ pp {propose*cheinNR*stroop*object-seen*focus-all
 	s.G.Gcontrol 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*object-seen*focus-all
 	const1 cheinNR-stroop-object-seen-focus-all
@@ -244,6 +255,7 @@ pp {propose*cheinNR*stroop*report*retrieve
 	s.RT.slot3 -
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*report*retrieve
 	const1 cheinNR-stroop-report-retrieve
@@ -263,6 +275,7 @@ pp {propose*cheinNR*stroop*report*say
 	s.RT.slot3 
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*report*say
 	const1 cheinNR-stroop-report-say
@@ -287,6 +300,7 @@ pp {propose*cheinNR*stroop*idle*focus
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*idle*focus
 	const1 cheinNR-stroop-idle-focus
@@ -309,6 +323,7 @@ pp {propose*cheinNR*stroop*idle*no-focus
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*idle*no-focus
 	const1 cheinNR-stroop-idle-no-focus
@@ -329,6 +344,7 @@ pp {propose*cheinNR*stroop*finish
 	s.V.slot1 == const3
 -->
 	s.const1 +
+	s.const1 =
 }
 pp {apply*cheinNR*stroop*finish
 	const1 cheinNR-stroop-finish

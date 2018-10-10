@@ -1,0 +1,1017 @@
+sp {chunk*elaborate*props*spread-result*onc*return*t22231-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-finish ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*finish)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 1)
+    (link-stm-to-ltm <c1> 5)
+}
+
+sp {chunk*apply*props*spread-result*snc*t21870-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 last)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*finish)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 17)
+}
+
+sp {chunk*apply*props*spread-result*snc*t21863-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 14)
+}
+
+sp {chunk*apply*props*spread-result*snc*t21825-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*idle*no-focus)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 31)
+}
+
+sp {chunk*apply*props*spread-result*snc*t21818-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol neutral)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*idle*no-focus)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 36)
+}
+
+sp {chunk*apply*props*spread-result*snc*t21535-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*next)
+    (<c1> ^name _P27)
+    (link-stm-to-ltm <c1> 251)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16878-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-object-seen-focus-all)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-object-seen-focus-all ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*object-seen*focus-all)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 98)
+    (link-stm-to-ltm <c1> 101)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16592-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol { <g2> <> prepare })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-all)
+    (<c1> ^name _P35)
+    (link-stm-to-ltm <c1> 112)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16585-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 yes)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-all)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 109)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t16462-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-report-say)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-report-say ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*report*say)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 52)
+    (link-stm-to-ltm <c1> 55)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16146-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot3 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*say)
+    (<c1> ^name _P39)
+    (link-stm-to-ltm <c1> 73)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16139-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*say)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 67)
+}
+
+sp {chunk*apply*props*spread-result*snc*t16132-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*say)
+    (<c1> ^name _P36)
+    (link-stm-to-ltm <c1> 70)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t15486-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-report-retrieve)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-report-retrieve ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*report*retrieve)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 76)
+    (link-stm-to-ltm <c1> 79)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15185-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*retrieve)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 86)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15178-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot2 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*retrieve)
+    (<c1> ^name _P37)
+    (link-stm-to-ltm <c1> 91)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15171-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*retrieve)
+    (<c1> ^name _P36)
+    (link-stm-to-ltm <c1> 88)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15164-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^RT <r1>)
+    (<r1> -^slot3 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*report*retrieve)
+    (<c1> ^name _P38)
+    (link-stm-to-ltm <c1> 95)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15126-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-all)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 107)
+}
+
+sp {chunk*apply*props*spread-result*snc*t15119-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-all)
+    (<c1> ^name _P36)
+    (link-stm-to-ltm <c1> 115)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t14538-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-object-seen-focus-color)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-object-seen-focus-color ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*object-seen*focus-color)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 118)
+    (link-stm-to-ltm <c1> 121)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14267-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol prepare)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-color)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 130)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14260-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 yes)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-color)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 128)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14253-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*object-seen*focus-color)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 126)
+}
+
+sp {chunk*apply*props*spread-result*snc*t14014-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*start)
+    (<c1> ^name _P11)
+    (link-stm-to-ltm <c1> 272)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t13719-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-stroop-init)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-stroop-init ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*chein*stroop*init)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 132)
+    (link-stm-to-ltm <c1> 135)
+}
+
+sp {chunk*apply*props*spread-result*snc*t13463-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask stroop)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*init)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 140)
+}
+
+sp {chunk*apply*props*spread-result*snc*t13456-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1>)
+    (<g1> -^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*stroop*init)
+    (<c1> ^name |_P3|)
+    (link-stm-to-ltm <c1> 143)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t5226-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-report-finish)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-report-finish ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*report*finish)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 145)
+    (link-stm-to-ltm <c1> 148)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4985-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result error)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*finish)
+    (<c1> ^name _P30)
+    (link-stm-to-ltm <c1> 160)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4978-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*finish)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 155)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4971-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*finish)
+    (<c1> ^name _P32)
+    (link-stm-to-ltm <c1> 163)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4964-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*finish)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 157)
+}
+
+sp {chunk*apply*props*spread-result*snc*t4676-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result error)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*restart)
+    (<c1> ^name _P30)
+    (link-stm-to-ltm <c1> 230)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t4124-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-report-report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-report-report ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*report*report)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 165)
+    (link-stm-to-ltm <c1> 168)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3898-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*report)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 178)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3891-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result { <r1> <> error })
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*report)
+    (<c1> ^name _P31)
+    (link-stm-to-ltm <c1> 183)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3884-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*report)
+    (<c1> ^name _P32)
+    (link-stm-to-ltm <c1> 186)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3877-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*report)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 180)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3839-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*start-from-lexical)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 198)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3786-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*restart)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 226)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t3407-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-report-start-from-rehearse)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-report-start-from-rehearse
+           ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*report*start-from-rehearse)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 204)
+    (link-stm-to-ltm <c1> 207)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3211-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*start-from-rehearse)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 212)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3204-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 report)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*start-from-rehearse)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 214)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3197-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol rehearse)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*report*start-from-rehearse)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 216)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3128-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*next)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 246)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3121-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol rehearse)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*next)
+    (<c1> ^name _P28)
+    (link-stm-to-ltm <c1> 254)
+}
+
+sp {chunk*apply*props*spread-result*snc*t3083-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*rehearse*start)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 267)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t2627-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-lexical-success)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-lexical-success ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*lexical*success)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 340)
+    (link-stm-to-ltm <c1> 343)
+}
+
+sp {chunk*apply*props*spread-result*snc*t2522-1
+    :chunk
+    (state <s1> ^RT <r1> -^props-agnostic-add <p1>)
+    (<r1> ^slot3 yes)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*success)
+    (<c1> ^name _P16)
+    (link-stm-to-ltm <c1> 355)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1885-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-stop-rehearsal-pre-rehearse)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-stop-rehearsal-pre-rehearse
+           ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*stop-rehearsal*pre-rehearse)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 400)
+    (link-stm-to-ltm <c1> 403)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1839-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*pre-rehearse)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 408)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1832-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol rehearse)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*pre-rehearse)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 413)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1698-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-letter-seen-store-dm)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-letter-seen-store-dm ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*letter-seen*store-dm)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 276)
+    (link-stm-to-ltm <c1> 279)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1562-1
+    :chunk
+    (state <s1> ^WM <w1> -^props-agnostic-add <p1>)
+    (<w1> ^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-dm)
+    (<c1> ^name _P22)
+    (link-stm-to-ltm <c1> 300)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1555-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol lexdec)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-dm)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 297)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1548-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 letter)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-dm)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 295)
+}
+
+sp {chunk*apply*props*spread-result*snc*t1541-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-dm)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 293)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t1051-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-letter-seen-store-wm)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-letter-seen-store-wm ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*letter-seen*store-wm)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 303)
+    (link-stm-to-ltm <c1> 306)
+}
+
+sp {chunk*apply*props*spread-result*snc*t930-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-wm)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 314)
+}
+
+sp {chunk*apply*props*spread-result*snc*t923-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol lexdec)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-wm)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 318)
+}
+
+sp {chunk*apply*props*spread-result*snc*t916-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^WM <w1>)
+    (<w1> -^slot1 <s2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-wm)
+    (<c1> ^name _P20)
+    (link-stm-to-ltm <c1> 321)
+}
+
+sp {chunk*apply*props*spread-result*snc*t909-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 letter)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*letter-seen*store-wm)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 316)
+}
+
+sp {chunk*apply*props*spread-result*snc*t826-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*post-rehearse)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 390)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t655-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-lexical-fail)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-lexical-fail ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*lexical*fail)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 324)
+    (link-stm-to-ltm <c1> 327)
+}
+
+sp {chunk*apply*props*spread-result*snc*t549-1
+    :chunk
+    (state <s1> ^smem <s2> -^props-agnostic-add <p1>)
+    (<s2> ^rt-result error)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*fail)
+    (<c1> ^name _P19)
+    (link-stm-to-ltm <c1> 335)
+}
+
+sp {chunk*apply*props*spread-result*snc*t542-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*fail)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 332)
+}
+
+sp {chunk*apply*props*spread-result*snc*t535-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol lexdec)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*fail)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 338)
+}
+
+sp {chunk*apply*props*spread-result*snc*t497-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*success)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 352)
+}
+
+sp {chunk*apply*props*spread-result*snc*t490-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol lexdec)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*success)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 358)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t316-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-lexical-retrieve)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-lexical-retrieve ^status success
+           ^instruction <i1> ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*lexical*retrieve)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 360)
+    (link-stm-to-ltm <c1> 363)
+}
+
+sp {chunk*apply*props*spread-result*snc*t240-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*retrieve)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 373)
+}
+
+sp {chunk*apply*props*spread-result*snc*t233-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*retrieve)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 375)
+}
+
+sp {chunk*apply*props*spread-result*snc*t226-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*retrieve)
+    (<c1> ^name _P11)
+    (link-stm-to-ltm <c1> 377)
+}
+
+sp {chunk*apply*props*spread-result*snc*t219-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gcontrol lexdec)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*lexical*retrieve)
+    (<c1> ^name _P10)
+    (link-stm-to-ltm <c1> 379)
+}
+
+sp {chunk*apply*props*spread-result*snc*t181-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*post-rehearse)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 392)
+}
+
+sp {chunk*apply*props*spread-result*snc*t143-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^smem <s2>)
+    (<s2> -^rt-result <r1>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*pre-rehearse)
+    (<c1> ^name _P11)
+    (link-stm-to-ltm <c1> 416)
+}
+
+sp {chunk*apply*props*spread-result*snc*t136-1
+    :chunk
+    (state <s1> ^V <v1> -^props-agnostic-add <p1>)
+    (<v1> ^slot1 word)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*stop-rehearsal*pre-rehearse)
+    (<c1> ^name |_P9|)
+    (link-stm-to-ltm <c1> 410)
+}
+
+sp {chunk*elaborate*props*spread-result*onc*return*t69-1
+    :chunk
+    (state <s1> ^operator <o1> -^props-agnostic-add <p1>)
+    (<o1> ^name chein-verbal-CWM-init)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^o-supported chein-verbal-CWM-init ^status success ^instruction <i1>
+           ^condition <c1>)
+    (<i1> ^name apply*chein*verbal-CWM*init)
+    (<c1> ^name |_P6|)
+    (link-stm-to-ltm <i1> 419)
+    (link-stm-to-ltm <c1> 422)
+}
+
+sp {chunk*apply*props*spread-result*snc*t38-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1>)
+    (<g1> -^Gtop <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*init)
+    (<c1> ^name |_P2|)
+    (link-stm-to-ltm <c1> 435)
+}
+
+sp {chunk*apply*props*spread-result*snc*t31-1
+    :chunk
+    (state <s1> ^G <g1> -^props-agnostic-add <p1>)
+    (<g1> ^Gtask verbal-CWM)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*init)
+    (<c1> ^name |_P1|)
+    (link-stm-to-ltm <c1> 431)
+}
+
+sp {chunk*apply*props*spread-result*snc*t24-1
+    :chunk
+    (state <s1> ^type state -^props-agnostic-add <p1> ^G <g1>)
+    (<g1> -^Gcontrol <g2>)
+    -->
+    (<s1> ^prop-condition-xp <p2>)
+    (<p2> ^status success ^instruction <i1> ^condition <c1>)
+    (<i1> ^name propose*chein*verbal-CWM*init)
+    (<c1> ^name |_P3|)
+    (link-stm-to-ltm <c1> 438)
+}
+
+

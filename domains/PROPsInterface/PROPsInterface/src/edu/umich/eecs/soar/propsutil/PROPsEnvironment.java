@@ -52,8 +52,8 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	private int currentSampleNum;
 	
 	private Identifier input_link;
-	private Kernel kernel;
-	private Agent agent = null;
+	protected Kernel kernel;
+	protected Agent agent = null;
 	private WMElement inTask,
 					  inTaskSeqName,
 					  inputChangedWME;

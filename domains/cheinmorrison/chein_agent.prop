@@ -229,7 +229,7 @@ pp {apply*chein*verbal-CWM*rehearse*next
 	--
 	s.operator.name == const1
 -->
-	s.Q.wm-query.root = s.RT
+	s.Q.wm-query.root = s.RT.RTid
 }
 pp {propose*chein*verbal-CWM*rehearse*restart
 	const1 chein-verbal-CWM-rehearse-restart
@@ -319,7 +319,7 @@ pp {apply*chein*verbal-CWM*report*report
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = s.RT.slot1
-	s.Q.wm-query.root = s.RT
+	s.Q.wm-query.root = s.RT.RTid
 }
 pp {propose*chein*verbal-CWM*report*finish
 	const1 chein-verbal-CWM-report-finish

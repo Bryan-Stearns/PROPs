@@ -1,0 +1,1984 @@
+sp {chunk*apply*props*sub*return*result*OpNoChange*t72505-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U58 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t45934-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U54 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a2>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <a1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a3>)
+    (<o3> ^id1 <a1> ^id1new <i4>)
+    (<a3> ^id1 <a1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t41678-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U54 ^attr2 slot3 ^attr1 slot2 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^slot3 <s4>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p6> -^slot2 <s5>)
+    -->
+    (<p4> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t41677-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U54 ^attr2 slot3 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^slot3 <s4>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p6> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t41676-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U54 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t39543-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U54 ^attr2 slot3 ^attr1 slot2
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot3 <s4>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p5> -^slot2 <s5>)
+    -->
+    (<p3> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t39542-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U54 ^attr2 slot3
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>
+          ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot3 <s4>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p5> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t39541-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U54 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t39538-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U56 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr RT ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^RT <r2>)
+    -->
+    (<p4> ^<t2> <r2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t39528-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U57 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t39284-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U53 ^sub1-link <s3>)
+    (<s3> ^chain-attr RT ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^RT <r2>)
+    -->
+    (<p2> ^<t2> <r2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t38550-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U50 ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t38543-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U51 ^sub1-link <s3>)
+    (<s3> ^chain-attr V ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^V <v1>)
+    -->
+    (<p2> ^<t2> <v1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t38533-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U52 ^sub1-link <s3>)
+    (<s3> ^chain-attr RT ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^RT <r2>)
+    -->
+    (<p2> ^<t2> <r2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t38504-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U49 ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t7989-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U29 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^NW <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t7982-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U32 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^NW <n1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <n1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a2>)
+    (<o3> ^id1 <n1> ^id1new <i4>)
+    (<a2> ^id1 <n1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t6511-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U48 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t5397-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U45 ^attr2 slot1 ^attr1 slot2 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^slot1 <s4>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p6> -^slot2 <s5>)
+    -->
+    (<p4> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t5396-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U45 ^attr2 slot1 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^slot1 <s4>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p6> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t5395-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U45 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t4842-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U45 ^attr2 slot1 ^attr1 slot2
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <a1> ^id1new <i4>)
+      (<i4> ^action <a2>)}
+    (<c2> ^chain-next done ^chain-attr action ^chain-attr <c3>)
+    (<i6> ^slot1 <s4>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot2 - ^attr1 slot2 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot2 ^oldattr1 slot2)
+    (<e1> ^slot2 <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t4840-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U45 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a2>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <a1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a3>)
+    (<o3> ^id1 <a1> ^id1new <i4>)
+    (<a3> ^id1 <a1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4833-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^wm-query <w1>)
+    (<w1> -^props-agnostic-add <p3> -^root <r2>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U40 ^attr2 RT ^attr1 root ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr wm-query ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^RT <r3>)
+    -->
+    (<p5> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t4832-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^wm-query <w1>)
+    (<w1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U40 ^attr2 RT ^prop-type add ^sub1-link <s3>
+          ^attr1 <a1> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr wm-query ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^RT <r2>)
+    -->
+    (<w1> ^<a1> <r2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t4831-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U40 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t4296-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U40 ^attr2 RT ^attr1 root
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <q1> ^id1new <i4>)
+      (<i4> ^wm-query <w1>)}
+    (<c2> ^chain-next done ^chain-attr wm-query ^chain-attr <c3>)
+    (<i6> ^RT <r2>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 root - ^attr1 root ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 root ^oldattr1 root)
+    (<e1> ^root <r2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t4294-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U40 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <q1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a2>)
+    (<o3> ^id1 <q1> ^id1new <i4>)
+    (<a2> ^id1 <q1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4287-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U45 ^attr2 slot1 ^attr1 slot2
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot1 <s4>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p5> -^slot2 <s5>)
+    -->
+    (<p3> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t4286-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U45 ^attr2 slot1
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>
+          ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot1 <s4>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p5> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t4285-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U45 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4282-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U47 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr RT ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^RT <r2>)
+    -->
+    (<p4> ^<t2> <r2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4104-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U44 ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4097-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U43 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t4009-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U42 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t3980-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U38 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t3725-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U36 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+    -->
+    (<p3> ^<t2> <q1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t3722-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U37 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^G <g1>)
+    -->
+    (<p4> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t3541-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U39 ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t2425-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<i2> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p4> -^slot2 <s3>)
+    (<p5> -^id1 <i3> ^sub1 _U32 ^attr2 WM ^attr1 slot2 ^prop-type add
+          ^sub1-link <s4> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^NW <i1>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-attr <c3> ^chain-next <c5>)
+    (<i6> ^WM <w2>)
+    -->
+    (<p5> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t2424-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<i2> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p4> -^<a1> <a2>)
+    (<p5> -^id1 <i3> ^sub1 _U32 ^attr2 WM ^prop-type add ^sub1-link <s3>
+          ^attr1 <a1> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^NW <i1>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-attr <c3> ^chain-next <c5>)
+    (<i6> ^WM <w2>)
+    -->
+    (<w1> ^<a1> <w2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t2423-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<p4> -^id1 <i3> ^sub1 _U32 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^NW <i1>)
+    (<c2> ^chain-attr <c3> ^chain-next <c5> ^chain-next <c6>
+          ^chain-attr { <c7> <> props$const })
+    (<i2> ^<c7> <c8>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t2416-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<i2> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p4> -^slot1 <s3>)
+    (<p5> -^id1 <i3> ^sub1 _U29 ^attr2 slot2 ^attr1 slot1 ^prop-type add
+          ^sub1-link <s4> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^NW <i1>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-attr <c3> ^chain-next <c5>)
+    (<i6> ^slot2 <s5>)
+    -->
+    (<p5> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t2415-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<i2> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p4> -^<a1> <a2>)
+    (<p5> -^id1 <i3> ^sub1 _U29 ^attr2 slot2 ^prop-type add ^sub1-link <s3>
+          ^attr1 <a1> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^NW <i1>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-attr <c3> ^chain-next <c5>)
+    (<i6> ^slot2 <s4>)
+    -->
+    (<w1> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t2414-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1 <i1> ^id1new <i2>)
+    (<i1> -^props-agnostic-add <p3> -^<c3> <c4>)
+    (<p4> -^id1 <i3> ^sub1 _U29 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^NW <i1>)
+    (<c2> ^chain-attr <c3> ^chain-next <c5> ^chain-next <c6>
+          ^chain-attr { <c7> <> props$const })
+    (<i2> ^<c7> <c8>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t2404-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U34 ^attr2 3 ^attr1 slot1 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p6> -^slot1 <s4>)
+    -->
+    (<p4> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t2403-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U34 ^attr2 3 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p6> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t2402-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U34 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t2074-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U20 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t2067-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U22 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a2>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <a1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a3>)
+    (<o3> ^id1 <a1> ^id1new <i4>)
+    (<a3> ^id1 <a1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1826-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^slot1 <s3>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U14 ^attr2 2 ^attr1 slot1 ^prop-type add
+          ^sub1-link <s4> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3> ^chain-attr <c4>)
+    (<i6> ^2 <i7>)
+    -->
+    (<p5> ^<t2> <q1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t1825-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U14 ^attr2 2 ^prop-type add ^sub1-link <s3>
+          ^attr1 <a1> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3> ^chain-attr <c4>)
+    (<i6> ^2 <i7>)
+    -->
+    (<q1> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t1824-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U14 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1817-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^slot2 <s3>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U16 ^attr2 slot2 ^attr1 slot2 ^prop-type add
+          ^sub1-link <s4> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3> ^chain-attr <c4>)
+    (<i6> ^slot2 <s5>)
+    -->
+    (<p5> ^<t2> <q1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t1816-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p5>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<i2> ^props-agnostic-add <p4>)
+    (<p5> -^id1 <i3> ^sub1 _U16 ^attr2 slot2 ^prop-type add ^sub1-link <s3>
+          ^attr1 <a1> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p6> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3> ^chain-attr <c4>)
+    (<i6> ^slot2 <s4>)
+    -->
+    (<q1> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t1815-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U16 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1552-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p3> -^slot2 <s3>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U32 ^attr2 WM ^attr1 slot2
+          ^prop-type add ^sub1-link <s4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^NW <i2>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^WM <w2>)
+    -->
+    (<p4> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t1551-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^wm <w1>)
+    (<w1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U32 ^attr2 WM ^prop-type add
+          ^sub1-link <s3> ^attr1 <a1> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^NW <i2>)
+    (<c2> ^chain-next done ^chain-attr wm ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^WM <w2>)
+    -->
+    (<w1> ^<a1> <w2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t1550-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U32 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^NW <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t1540-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U29 ^attr2 slot2 ^attr1 slot1
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^NW <n1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <n1> ^id1new <i4>)
+      (<i4> ^wm <w1>)}
+    (<c2> ^chain-next done ^chain-attr wm ^chain-attr <c3>)
+    (<i6> ^slot2 <s4>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot1 - ^attr1 slot1 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot1 ^oldattr1 slot1)
+    (<e1> ^slot1 <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t1538-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U29 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr NW ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^NW <n1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <n1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a2>)
+    (<o3> ^id1 <n1> ^id1new <i4>)
+    (<a2> ^id1 <n1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1535-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U31 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr V ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^V <v1>)
+    -->
+    (<p4> ^<t2> <v1>)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t1528-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U34 ^attr2 3 ^attr1 slot1
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <a1> ^id1new <i4>)
+      (<i4> ^action <a2>)}
+    (<c2> ^chain-next done ^chain-attr action ^chain-attr <c3>)
+    (<i6> ^3 <i7>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot1 - ^attr1 slot1 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot1 ^oldattr1 slot1)
+    (<e1> ^slot1 <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t1526-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U34 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a2>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <a1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a3>)
+    (<o3> ^id1 <a1> ^id1new <i4>)
+    (<a3> ^id1 <a1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1414-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U28 ^sub1-link <s3>)
+    (<s3> ^chain-attr WM ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^WM <w1>)
+    -->
+    (<p2> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1203-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U22 ^attr2 3 ^attr1 slot2 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p6> -^slot2 <s4>)
+    -->
+    (<p4> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t1202-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U22 ^attr2 3 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p6> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t1201-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U22 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t1002-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^slot1 <s3>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U14 ^attr2 2 ^attr1 slot1
+          ^prop-type add ^sub1-link <s4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^2 <i7>)
+    -->
+    (<p4> ^<t2> <q1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t1001-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U14 ^attr2 2 ^prop-type add
+          ^sub1-link <s3> ^attr1 <a1> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^2 <i7>)
+    -->
+    (<q1> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t1000-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U14 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t993-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U16 ^attr2 slot2 ^attr1 slot2
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <q1> ^id1new <i4>)
+      (<i4> ^query <q2>)}
+    (<c2> ^chain-next done ^chain-attr query ^chain-attr <c3>)
+    (<i6> ^slot2 <s4>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot2 - ^attr1 slot2 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot2 ^oldattr1 slot2)
+    (<e1> ^slot2 <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t991-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U16 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <q1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a2>)
+    (<o3> ^id1 <q1> ^id1new <i4>)
+    (<a2> ^id1 <q1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t815-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U26 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr WM ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^WM <w1>)
+    -->
+    (<p3> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t812-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U27 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr V ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^V <v1>)
+    -->
+    (<p4> ^<t2> <v1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t805-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U20 ^attr2 2 ^attr1 slot1 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i4> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^2 <i7>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p6> -^slot1 <s4>)
+    -->
+    (<p4> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t804-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U20 ^attr2 2 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr <c4>)
+    (<i6> ^2 <i7>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p6> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t803-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i2> ^props-agnostic-add <p3>)
+    (<p4> -^id1 <i3> ^sub1 _U20 ^prop-type add ^sub1-link <s3>
+          ^intermediate <i4> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const } ^chain-attr <c6>)
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p4> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t705-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U25 ^sub1-link <s3>)
+    (<s3> ^chain-attr WM ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^WM <w1>)
+    -->
+    (<p2> ^<t2> <w1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t525-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U22 ^attr2 3 ^attr1 slot2
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a1>)
+    (<a1> -^props-agnostic-add <p5> -^slot2 <s4>)
+    -->
+    (<p3> ^<t2> <a1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t524-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U22 ^attr2 3 ^prop-type add
+          ^sub1-link <s3> ^intermediate <i5> ^id2 <i6> ^attr1 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next done ^chain-attr action ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^3 <i7>)
+    (<i1> ^action <a2>)
+    (<a2> -^props-agnostic-add <p5> -^<a1> <a3>)
+    -->
+    (<a2> ^<a1> <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t523-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U22 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t516-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U20 ^attr2 2 ^attr1 slot1
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <a1> ^id1new <i4>)
+      (<i4> ^action <a2>)}
+    (<c2> ^chain-next done ^chain-attr action ^chain-attr <c3>)
+    (<i6> ^2 <i7>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot1 - ^attr1 slot1 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot1 ^oldattr1 slot1)
+    (<e1> ^slot1 <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t514-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U20 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a2>)
+    (<s3> ^chain-attr AC ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^AC <a1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <a1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a3>)
+    (<o3> ^id1 <a1> ^id1new <i4>)
+    (<a3> ^id1 <a1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t507-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 _U13 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t426-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U24 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t391-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U19 ^sub1-link <s3>)
+    (<s3> ^chain-attr RT ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^RT <r2>)
+    -->
+    (<p2> ^<t2> <r2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t270-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^slot2 <s3>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U16 ^attr2 slot2 ^attr1 slot2
+          ^prop-type add ^sub1-link <s4> ^intermediate <i5> ^id2 <i6>)
+    (<s4> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot2 <s5>)
+    -->
+    (<p4> ^<t2> <q1>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*create*OpNoChange*t269-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p4>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<i1> ^query <q1>)
+    (<q1> -^props-agnostic-add <p3> -^<a1> <a2>)
+    (<p4> -^id1 <i3> -^intermediate <i4> ^sub1 _U16 ^attr2 slot2
+          ^prop-type add ^sub1-link <s3> ^attr1 <a1> ^intermediate <i5>
+          ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^Q <i2>)
+    (<c2> ^chain-next done ^chain-attr query ^chain-next <c3>
+          ^chain-attr { <c4> <> props$const })
+    (<i6> ^slot2 <s4>)
+    -->
+    (<q1> ^<a1> <s4>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*transferred*OpNoChange*t268-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1> ^id1 <i2>)
+    (<p3> -^id1 <i3> -^intermediate <i4> ^sub1 _U16 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <i2>)
+    (<c2> ^chain-next <c3> ^chain-next <c4>
+          ^chain-attr { <c5> <> props$const }
+          ^chain-attr { <c6> <> props$const })
+    (<i1> ^<c5> <c7>)
+    -->
+    (<p3> ^intermediate true)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t265-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^proposal <p2> ^prop <p4>)
+    (<s2> ^props-buffer <p3> ^rootstate <r1>)
+    (<p4> -^id2 <i1> -^id1 <i2> -^intermediate <i3> ^sub2 _U18 ^prop-type add
+          ^sub2-link <s3> ^sub1 <s4> ^sub1-link <s5> ^attr2 <a1>)
+    (<s3> ^chain-attr V ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p5> ^V <v1>)
+    -->
+    (<p4> ^<t2> <v1>)
+}
+
+sp {chunk*apply*props*sub*return*result*add*buffer*arg1*OpNoChange*t258-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p2> ^object <o2>)
+    (<o2> ^id1new <i1>)
+    (<p3> -^id1 <i2> -^intermediate <i3> ^sub1 _U14 ^attr2 2 ^attr1 slot1
+          ^prop-type add ^sub1-link <s3> ^intermediate <i5> ^id2 <i6>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+   -{ (<p2> ^object <o3>)
+      (<o3> ^id1 <q1> ^id1new <i4>)
+      (<i4> ^query <q2>)}
+    (<c2> ^chain-next done ^chain-attr query ^chain-attr <c3>)
+    (<i6> ^2 <i7>)
+    (<i1> ^<c3> <c4>)
+    -->
+    (<p3> ^id1 <c4> ^attr1 slot1 - ^attr1 slot1 ^end-id1 <e1> ^buff-id2 <e1>
+           ^buff-attr2 slot1 ^oldattr1 slot1)
+    (<e1> ^slot1 <i7>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*buff*OpNoChange*t256-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^intermediate <i1> -^id1 <i2> ^sub1 _U14 ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr Q ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^Q <q1>)
+    (<c2> ^chain-attr { <c3> <> props$const } ^chain-next <c5>)
+   -{ (<p2> ^object <o2>)
+      (<o2> ^id1 <q1> ^id1new <i3>)
+      (<i3> ^<c3> <c4>)}
+    -->
+    (<p3> ^intermediate true)
+    (<p2> ^object <o3> ^action <a2>)
+    (<o3> ^id1 <q1> ^id1new <i4>)
+    (<a2> ^id1 <q1> ^attr1 <c3> ^id2 <i4> ^attr2 <c3> ^prop-type action
+           ^prop-type add ^lti-name (make-constant-symbol |!|))
+    (<i4> ^<c3> <c6>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t194-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U11 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t184-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 |_U9| ^sub1-link <s3>)
+    (<s3> ^chain-attr V ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^V <v1>)
+    -->
+    (<p2> ^<t2> <v1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t155-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U12 ^sub1-link <s3>)
+    (<s3> ^chain-attr smem ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^smem <s4>)
+    -->
+    (<p2> ^<t2> <s4>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t126-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 _U10 ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t83-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 |_U7| ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t76-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p3>)
+    (<s2> ^props-buffer <p2> ^rootstate <r1>)
+    (<p3> -^id1 <i1> -^intermediate <i2> ^sub1 |_U8| ^prop-type add
+          ^sub1-link <s3> ^attr2 <a1>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p4> ^G <g1>)
+    -->
+    (<p3> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t69-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 |_U6| ^sub1-link <s3>)
+    (<s3> ^chain-attr operator ^curr-id <c1> ^chain-next <c2>
+          ^target-attr <t1> ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^operator <o2>)
+    -->
+    (<p2> ^<t2> <o2>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t52-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^const <c1> ^rootstate <r1>)
+    (<c1> ^1 <i1>)
+    (<p2> -^id1 <i2> ^sub1 |_U4| ^attr1 1 ^prop-type proposal ^sub1-link <s3>)
+    (<s3> ^chain-next done ^chain-attr props$const ^target-arg id1
+          ^curr-id <c2> ^target-attr <t1> ^depth { <d1> <= 2 })
+    -->
+    (<p2> ^id1 <c2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*ops*OpNoChange*t51-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^const <c1> ^rootstate <r1>)
+    (<c1> ^1 <i1>)
+    (<p2> -^id1 <i2> ^sub1 |_U4| ^attr1 1 ^prop-type proposal ^sub1-link <s3>)
+    (<s3> ^chain-next done ^chain-attr props$const ^target-arg id1
+          ^curr-id <c2> ^target-attr <t1> ^depth { <d1> <= 2 })
+    -->
+    (<p2> ^ops <o2>)
+    (<o2> ^op <o3> ^op-target attr1)
+    (<o3> ^name <i1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t45-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^const <c1> ^rootstate <r1>)
+    (<c1> ^1 <i1>)
+    (<p2> -^id1 <i2> ^sub1 |_U5| ^attr1 1 ^prop-type proposal ^sub1-link <s3>)
+    (<s3> ^chain-next done ^chain-attr props$const ^target-arg id1
+          ^curr-id <c2> ^target-attr <t1> ^depth { <d1> <= 2 })
+    -->
+    (<p2> ^id1 <c2>)
+}
+
+sp {chunk*apply*props*sub*chain*iterate*ops*OpNoChange*t44-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^const <c1> ^rootstate <r1>)
+    (<c1> ^1 <i1>)
+    (<p2> -^id1 <i2> ^sub1 |_U5| ^attr1 1 ^prop-type proposal ^sub1-link <s3>)
+    (<s3> ^chain-next done ^chain-attr props$const ^target-arg id1
+          ^curr-id <c2> ^target-attr <t1> ^depth { <d1> <= 2 })
+    -->
+    (<p2> ^ops <o2>)
+    (<o2> ^op <o3> ^op-target attr1)
+    (<o3> ^name <i1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t38-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 |_U1| ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t31-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 |_U2| ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+sp {chunk*apply*props*sub*return*result*OpNoChange*t24-1
+    :chunk
+    (state <s1> ^operator <o1> ^superstate <s2>)
+    (<o1> ^name props-do ^proposal <p1> ^prop <p2>)
+    (<s2> ^rootstate <r1>)
+    (<p2> -^id1 <i1> ^sub1 |_U3| ^sub1-link <s3>)
+    (<s3> ^chain-attr G ^curr-id <c1> ^chain-next <c2> ^target-attr <t1>
+          ^target-arg <t2> ^depth { <d1> <= 2 })
+    (<c1> -^props-agnostic-add <p3> ^G <g1>)
+    -->
+    (<p2> ^<t2> <g1>)
+}
+
+

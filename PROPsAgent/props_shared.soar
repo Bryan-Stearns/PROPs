@@ -116,6 +116,18 @@ sp {catch*props*do-onc
     (interrupt)
 }
 
+sp {catch*props*sub-onc
+    (state <s> ^impasse no-change
+               ^superstate <ss>
+               ^topstate.io.output-link <ol>)
+    (<ss> ^operator.name props-sub-return-result)
+-->
+    (write (cmd print <ss> -d 4))
+    (<ol> ^error <e>)
+    (<e> ^msg |PROPS-SUB ONC - ACTION PATH NOT FOUND| )
+    (interrupt)
+}
+
 # CATCH THE CHUNKING KERNEL BUG WHERE IT DOESN'T MAINTAIN JUSTIFICATION SUPPORT AFTER RETURNING
 # (Removing "flushing" doesn't fix the bug. It only repeats it in a loop.)
 sp {catch*props*success-apply*bug-return

@@ -112,10 +112,10 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			this.addReport(String.format("%1d %2d", cstask.current_span, correct ? 1 : 0));
 			if (cstask.last_correct != null && cstask.current_span > 1) {
 				if (correct && cstask.last_correct) {
-					cstask.current_span++;
+					//cstask.current_span++;	// DISABLED FOR PROP2
 					correct = null;
 				} else if (!correct && !cstask.last_correct) {
-					cstask.current_span--;
+					//cstask.current_span--;	// DISABLED FOR PROP2
 					correct = null;
 				}
 			}

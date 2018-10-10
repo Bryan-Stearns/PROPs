@@ -277,14 +277,14 @@ bool props_instruction_parser::formatConditions(std::vector<arg_id_chain> &condi
 		{ "=", "equality" },
 		{ "==", "equality" },
 		{ "<>", "inequality" },
-		{ "!=", "inequality" },
+		{ "!=", "negation" },
 		{ "<=>", "type-equality" },
 		{ "<", "less-than" },
 		{ ">", "greater-than" },
 		{ "<=", "less-equal" },
 		{ ">=", "greater-equal" },
 		{ "-", "negation" },
-		//{ "--", "negation" },
+		{ "--", "negation" },
 		{ "?", "existence" }
 	};
 

@@ -8,8 +8,8 @@ sp {propose*cheinNR*verbal-CWM*init
 	(<c1> ^Gtask verbal-CWM)
 	(<c1> -^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-init)
+	(<o1> ^name cheinNR-verbal-CWM-init)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*init
 	(state <s> ^operator <c1>)
@@ -28,8 +28,8 @@ sp {propose*cheinNR*verbal-CWM*lexical*retrieve
 	(<c2> ^slot1 word)
 	(<c3> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-lexical-retrieve)
+	(<o1> ^name cheinNR-verbal-CWM-lexical-retrieve)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*lexical*retrieve
 	(state <s> ^operator <c1>)
@@ -50,8 +50,8 @@ sp {propose*cheinNR*verbal-CWM*lexical*success
 	(<c2> ^slot1 word)
 	(<c3> ^slot3 yes)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-lexical-success)
+	(<o1> ^name cheinNR-verbal-CWM-lexical-success)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*lexical*success
 	(state <s> ^operator <c1>)
@@ -72,8 +72,8 @@ sp {propose*cheinNR*verbal-CWM*lexical*fail
 	(<c2> ^slot1 word)
 	(<c3> ^rt-result error)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-lexical-fail)
+	(<o1> ^name cheinNR-verbal-CWM-lexical-fail)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*lexical*fail
 	(state <s> ^operator <c1>)
@@ -95,8 +95,8 @@ sp {propose*cheinNR*verbal-CWM*remember-letter
 	(<c3> -^slot1 )
 	(<c1> ^Gtop )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-remember-letter)
+	(<o1> ^name cheinNR-verbal-CWM-remember-letter)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*remember-letter
 	(state <s> ^operator <c1>)
@@ -121,8 +121,8 @@ sp {propose*cheinNR*verbal-CWM*report*start
 	(<c2> ^slot1 report)
 	(<c3> -^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-report-start)
+	(<o1> ^name cheinNR-verbal-CWM-report-start)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*report*start
 	(state <s> ^operator <c1>)
@@ -141,8 +141,8 @@ sp {propose*cheinNR*verbal-CWM*report*report
 	(<c2> ^slot1 report)
 	(<c3> ^slot1 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-report-report)
+	(<o1> ^name cheinNR-verbal-CWM-report-report)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*report*report
 	(state <s> ^operator <c1>)
@@ -150,13 +150,14 @@ sp {apply*cheinNR*verbal-CWM*report*report
 	(state <s> ^RT <c3>)
 	(<c3> ^slot1 <c4>)
 	(state <s> ^Q <c5>)
+	(<c3> ^RTid <c6>)
 	(<c1> ^name cheinNR-verbal-CWM-report-report)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 type)
 	(<n1> ^slot2 <c4>)
 	(<c5> ^wm-query <n2>)
-	(<n2> ^root <c3>)
+	(<n2> ^root <c6>)
 }
 sp {propose*cheinNR*verbal-CWM*report*finish
 	(state <s> ^G <c1>)
@@ -168,8 +169,8 @@ sp {propose*cheinNR*verbal-CWM*report*finish
 	(<c3> -^slot1 )
 	(<c4> ^rt-result )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-verbal-CWM-report-finish)
+	(<o1> ^name cheinNR-verbal-CWM-report-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*verbal-CWM*report*finish
 	(state <s> ^operator <c1>)
@@ -189,8 +190,8 @@ sp {propose*cheinNR*stroop*init
 	(<c1> ^Gtask stroop)
 	(<c1> -^Gcontrol )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-init)
+	(<o1> ^name cheinNR-stroop-init)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*init
 	(state <s> ^operator <c1>)
@@ -209,8 +210,8 @@ sp {propose*cheinNR*stroop*object-seen*focus-color
 	(<c2> ^slot1 yes)
 	(<c1> ^Gcontrol prepare)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-object-seen-focus-color)
+	(<o1> ^name cheinNR-stroop-object-seen-focus-color)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*object-seen*focus-color
 	(state <s> ^operator <c1>)
@@ -229,8 +230,8 @@ sp {propose*cheinNR*stroop*object-seen*focus-all
 	(<c1> ^Gcontrol <> prepare)
 	(<c1> ^Gcontrol )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-object-seen-focus-all)
+	(<o1> ^name cheinNR-stroop-object-seen-focus-all)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*object-seen*focus-all
 	(state <s> ^operator <c1>)
@@ -250,8 +251,8 @@ sp {propose*cheinNR*stroop*report*retrieve
 	(<c2> ^slot2 )
 	(<c3> -^slot3 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-report-retrieve)
+	(<o1> ^name cheinNR-stroop-report-retrieve)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*report*retrieve
 	(state <s> ^operator <c1>)
@@ -271,8 +272,8 @@ sp {propose*cheinNR*stroop*report*say
 	(<c1> ^Gcontrol )
 	(<c2> ^slot3 )
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-report-say)
+	(<o1> ^name cheinNR-stroop-report-say)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*report*say
 	(state <s> ^operator <c1>)
@@ -297,8 +298,8 @@ sp {propose*cheinNR*stroop*idle*focus
 	(<c2> ^slot1 pending)
 	(<c1> ^Gcontrol neutral)
 	-->
-	(<s> ^operator <n1> + =)
-	(<n1> ^name cheinNR-stroop-idle-focus)
+	(<o1> ^name cheinNR-stroop-idle-focus)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*idle*focus
 	(state <s> ^operator <c1>)
@@ -319,8 +320,8 @@ sp {propose*cheinNR*stroop*idle*no-focus
 	(<c2> ^slot1 pending)
 	(<c1> ^Gcontrol neutral)
 	-->
-	(<s> ^operator <n1> + =)
-	(<n1> ^name cheinNR-stroop-idle-no-focus)
+	(<o1> ^name cheinNR-stroop-idle-no-focus)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*idle*no-focus
 	(state <s> ^operator <c1>)
@@ -340,8 +341,8 @@ sp {propose*cheinNR*stroop*finish
 	(<c1> ^Gtask stroop)
 	(<c2> ^slot1 last)
 	-->
-	(<s> ^operator <n1>)
-	(<n1> ^name cheinNR-stroop-finish)
+	(<o1> ^name cheinNR-stroop-finish)
+	(<s> ^operator <o1> + =)
 }
 sp {apply*cheinNR*stroop*finish
 	(state <s> ^operator <c1>)

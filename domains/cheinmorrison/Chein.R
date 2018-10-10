@@ -55,7 +55,7 @@ graphname <- ifelse(PLOT_SOURCE=="PRIMS", "",
 
 modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
                     "/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/",
-                    "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/Results/")
+                    "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/")
 
 # Human VCWM data:
 dada <- c( 0, 5.9, 6.7, 0.8, 3.6, 9.2, 6.6, 13.9, 11.2, 13.9, 11.8, 9.1, 12.5, 12.8, 12.8, 16.8, 15.5, 13.9, 20.8, 22.5)

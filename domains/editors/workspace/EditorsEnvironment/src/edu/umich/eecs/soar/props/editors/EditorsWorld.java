@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.umich.eecs.soar.propsutil.LearnConfig;
 import edu.umich.eecs.soar.propsutil.PROPsEnvironment;
-import sml.Agent;
 
 
 public class EditorsWorld extends PROPsEnvironment {
@@ -74,12 +74,12 @@ public class EditorsWorld extends PROPsEnvironment {
 		
 	}
 	
-	public void runEditorsDebug(String task, int taskNum, int threshold, String mode) {
+	public void runEditorsDebug(String task, int taskNum, LearnConfig config) {
 		String taskSeq = task + "_" + (taskNum+1);
 		task_name = task;
 		//task_count = taskNum;
 		inDebug = true;
-		this.runDebug(task, taskSeq, threshold, mode);
+		this.runDebug(task, taskSeq, config);
 		inDebug = false;
 	}
 	
@@ -343,7 +343,7 @@ public class EditorsWorld extends PROPsEnvironment {
 		ed_task = new ETask();//(1,1,current_sample);
 		rep = new Report();
 		
-		this.reports = new ArrayList<String>();
+		this.clearReports();
 	}
 
 
@@ -363,11 +363,11 @@ public class EditorsWorld extends PROPsEnvironment {
 			int task_count = 0;
 			rep.taskSetName = sac.name;
 			
-			for (int i=0; i<1 && !this.agentError; ++i) { // Each subject comes in for 6 'days'
+			for (int i=0; i<1 && !this.hasError(); ++i) { // Each subject comes in for 6 'days'
 				int j = (int)(1800.0 / (double)sac.trials[i] + 0.5); // How many trials can fit into the 'day'
 				String condition = sac.conditions[i/2];
 
-				for (int k=0; k<j && !this.agentError; ++k) {
+				for (int k=0; k<j && !this.hasError(); ++k) {
 					task_name = condition;
 					this.setTask(task_name, task_name + "_" + Integer.toString(task_count + 1));
 
@@ -381,7 +381,7 @@ public class EditorsWorld extends PROPsEnvironment {
 					
 					task_count = (task_count + 1) % 3;
 					
-					if (!this.agentError) {	// abort potentially gets set in the updateEventHandler method
+					if (!this.hasError()) {	// abort potentially gets set in the updateEventHandler method
 						this.printReports();
 						System.out.println("Done: " + sac.name + ", " + condition + " " + Integer.toString(i+1) + "," + Integer.toString(k+1));
 					}
@@ -392,12 +392,12 @@ public class EditorsWorld extends PROPsEnvironment {
 				}
 			}
 			
-			if (this.agentError) 
+			if (this.hasError()) 
 				break;
 		}
 
 		//agent.ExecuteCommandLine("clog -c");
-		this.agentError = false;
+		//this.agentError = false;
 	}
 
 
@@ -423,9 +423,9 @@ public class EditorsWorld extends PROPsEnvironment {
 	protected void user_agentStop() {
 		// Increment the task
 		if (inDebug) {
-			int currTaskInd = getEditTaskIndex(this.taskSequenceName);
+			int currTaskInd = getEditTaskIndex(this.getTaskInstance());
 			currTaskInd = (currTaskInd + 1) % 3;
-			this.setTask(this.taskName, this.taskName + "_" + Integer.toString(currTaskInd + 1));
+			this.setTask(this.getTask(), this.getTask() + "_" + Integer.toString(currTaskInd + 1));
 		}
 		else {
 			user_updateTask();
@@ -435,7 +435,7 @@ public class EditorsWorld extends PROPsEnvironment {
 	@Override
 	protected void user_updateTask() {
 		ed_task.init();		// Resets the text to be edited
-		ed_task.edits = new ArrayList<String[]>(edit_tasks.get(getEditTaskIndex(this.taskSequenceName)));
+		ed_task.edits = new ArrayList<String[]>(edit_tasks.get(getEditTaskIndex(this.getTaskInstance())));
 	}
 
 }
