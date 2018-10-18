@@ -13,6 +13,7 @@ sp {apply*props*build-proposals*state
     (<s> ^name props-build-proposals
          ^proposal-buffer <pb>
          ^proposal-lits <pls>
+         ^unused-proposals <up>
          ^Proposals <ppls>)
     (force-learn <s>)
 } # Always learn

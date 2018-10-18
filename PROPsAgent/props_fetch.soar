@@ -31,13 +31,23 @@
 
 
 # PULL INSTRUCTIONS ON STATE NO-CHANGE AFTER THE STATIC STRUCT HAS BEEN LOADED
-sp {propose*props*begin
+sp {propose*props*query
     (state <s> ^name props-eval
-			  -^props-fetch-reset
-              -^props-instructions)
+              #-^props-instructions
+              -^props-flag fetched-enough
+			  -^props-fetch-reset)
 -->
     (<s> ^operator <o> + <)
     (<o> ^name props-query)
+}
+
+sp {elaborate*props*fetched-enough
+    "By default, fetch only one set of instructions"
+    # This is modified by props_tie.soar
+    (state <s> ^name props-eval
+               ^props-instructions <ins>)
+-->
+    (<s> ^props-flag fetched-enough)
 }
 
 # DO A FREE RECALL WHENEVER THERE ARE NO CUES TO USE
@@ -62,6 +72,16 @@ sp {apply*props*query*manual
     (<q>    ^prop-type |instruction|
             ^name <name>)
     (write |   * CUED RECALL FOR | <name> | * | )
+}
+
+sp {apply*props*query*prohibit-competition
+    "If querying for multiple instructions, prohibit duplicates"
+    (state <s> ^name props-eval
+               ^smem.command <scmd>
+               ^props-instructions <lti>)
+    (<scmd> ^query.prop-type |instruction|)
+-->
+    (<scmd> ^prohibit <lti>)
 }
 
 # CLEAN ANY INVALID SPREAD SOURCES BEFORE THE QUERY TAKES EFFECT
@@ -113,7 +133,7 @@ sp {elaborate*props*query*apply-rule
 
 # QUIT IF NO MORE INSTRUCTIONS TO TRY 
 # (The impasse flag does nothing here; it is a signal for the rootstate to use if it wants. Interrupting is the main thing here.)
-sp {propose*props*search*lhs*quit
+sp {apply*props*query*quit
     (state <s>  ^operator.name props-query
                 ^props-static <ps>
                 ^smem.result.failure <cue>
@@ -127,7 +147,7 @@ sp {propose*props*search*lhs*quit
     (write (crlf) | *** NO MORE INSTRUCTIONS TO TRY - YOU'VE REACHED A PROPER STATE NO-CHANGE *** | )
     (interrupt)
 }
-sp {propose*props*search*lhs*quit*manual-error
+sp {apply*props*query*quit*manual-error
     (state <s>  ^operator.name props-query
                 ^props-static <ps>
                 ^smem.result.failure <cue>
@@ -191,12 +211,14 @@ sp {propose*props*reset
 # CLEAR THE MAIN STRUCTURES
 sp {apply*props*reset
     (state <s> ^operator.name props-reset
+               ^selected-instructions <ins>
                ^props-instructions <ins>
                ^props-static <ps>
                #^props-fetch-reset <blink>)
 				-^props-flag dont-reset)
 -->
-    (<s> ^props-instructions <ins> -
+    (<s> ^selected-instructions <ins> -
+         ^props-instructions <ins> -
          ^props-static <ps> -
          #^props-fetch-reset <blink> -
 		 ^props-flag dont-reset

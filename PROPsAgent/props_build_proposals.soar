@@ -70,11 +70,13 @@ sp {elaborate*props*build-proposals*bypass-one-fail
     "Bypass the build substate if theres only one item due to condition failure"
     (state <s> ^name props-eval
                ^proposals ( <ps> ^propose <p1>) )
-    (<p1> -^original 
+    (<p1> #-^original true
+           ^used true
            ^status fail)
    -{(<ps> ^propose {<p2> <> <p1>})
      (<p2> ^status
-          -^original )}
+          #-^original true
+           ^used true )}
 -->
     (<s> ^props-flag propose-ready)
 }
@@ -104,9 +106,9 @@ sp {propose*props*build-proposals*state
                ^attribute operator
               -^name )
     (<ss>   ^name props-eval
-            ^operator <oo>
+            #^operator <oo>
             ^proposals <ppls>)
-    (<oo> -^name props-reset)    # Don't build the same time as removing
+    #(<oo> -^name props-reset)    # Don't build the same time as removing
 -->
     (<s> ^operator <o> + < )
     (<o> ^name props-build-proposals-init
@@ -120,6 +122,7 @@ sp {apply*props*build-proposals*state
     (<s> ^name props-build-proposals
          ^proposal-buffer <pb>
          ^proposal-lits <pls>
+         ^unused-proposals <up>
          ^Proposals <ppls>)
     #(force-learn <s>)                # ENABLE BY SOURCING props_learn_l2.soar
 }
@@ -138,6 +141,15 @@ sp {apply*props*build-proposals*bug-catch
     (interrupt)
 }
 
+sp {elaborate*props*build-proposals*unused
+    "Collect the set of proposals that were not used, so chunking can exploit local negation test"
+    (state <s> ^name props-build-proposals
+               ^unused-proposals <up>
+               ^Proposals.propose <p>)
+    (<p> -^used true)
+-->
+    (<up> ^propose <p>)
+}
 
 
 ### OPERATOR ### 
@@ -159,13 +171,16 @@ sp {apply*props*build-proposals*combos
     "Make the head combo structure. Dont combine conds with acts or any ancestors with children."
     (state <s> ^operator.name props-build-proposals-combos
                ^Proposals <ppls>
+               ^unused-proposals <up>
                ^proposal-lits <pls>
                ^proposal-buffer <pb>)
-    (<ppls> ^propose (<p1> -^original true 
+    (<up> -^propose <p1>
+          -^propose <p2>)
+    (<ppls> ^propose (<p1> #-^original true
                            ^size <z1>
                            ^prop-type <type>
                            ^name <n1>)
-            ^propose (<p2> -^original true
+            ^propose (<p2> #-^original true
                            ^size <z2>
                            ^prop-type <type>    # <type> is only << condition action >>
                            ^name {<n2> > <n1>}) )
@@ -186,15 +201,18 @@ sp {apply*props*build-proposals*combos*final-combo
     "Make the final combo structure that combines conds with acts, if applicable."
     (state <s> ^operator.name props-build-proposals-combos
                ^Proposals <ppls>
+               ^unused-proposals <up>
                ^proposal-lits <pls>
                ^proposal-buffer <pb>)
+    (<up> -^propose <p1>
+          -^propose <p2>)
     (<ppls> ^cond-count <ccnt>
             ^act-count <acnt>
-            ^propose (<p1> -^original true 
+            ^propose (<p1> #-^original true
                            ^name <n1>
                            ^prop-type condition
                            ^size <ccnt>)
-            ^propose (<p2> -^original true 
+            ^propose (<p2> #-^original true
                            ^name <n2>
                            ^prop-type action
                            ^size <acnt>) )

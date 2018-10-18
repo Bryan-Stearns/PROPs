@@ -12,7 +12,7 @@
 ##		PRIMARY STRUCTURES
 #  (<s> ^name props-eval
 #       ^rootstate <rs>                     | The pointer to the superstate that the learned rule should fire in
-#       ^props-instructions (<ins>          | The instructions corresponding to a single primitive operator
+#       ^selected-instructions (<ins>          | The instructions corresponding to a single operator
 #          [^prop-link (<prop>              | Pointer to the actual LTI-linked prop instruction element
 #               ^name                       |
 #               ^id1 <id1>                  | The first arg's id of the id:attr pair. Usually needs creation through addressing.
@@ -87,6 +87,7 @@ sp {apply*props*collect-failure
 # PROPOSE THE INSTRUCTED PROPOSALS
 sp {propose*props*evaluate-sets
     (state <s> ^name props-eval
+               ^props-flag originals-ready
                ^proposals <prps>)
     (<prps> ^propose <p>)
     (<p> ^size <contr>
@@ -118,7 +119,7 @@ sp {prefer*props*proposals*higher-combos
           ^propose (<i1> ^size <z1>
                       -^status) )
     (<o2> ^name props-evaluate
-          ^propose (<i2> ^size < <z1>) )
+          ^propose (<i2> ^size < <z1>) ) # Don't test -^status so not affected by operators just evaluated
    -{(<i2> ^prop <p2>)
      (<i1> -^prop <p2>)}    # It is not the case that the smaller has any that are not in the larger
     
@@ -400,7 +401,8 @@ sp {apply*props*do*return*status*success
     -{(<oo> ^propose.prop-eval-data <d>)
       (<d> -^status success)} # TODO: This should be redundant - <ppl> is the same as <oo>.propose. Shouldn't affect chunking?
 -->
-    (<ppl> ^original true -)
+    #(<ppl> ^original true -)
+    (<ppl> ^used true)
 }
 sp {apply*props*do*return*status*fail
     "If an evaluation fails, return the result and still mark the proposal as used."
@@ -412,7 +414,8 @@ sp {apply*props*do*return*status*fail
     (<p> ^status fail)
 -->
     (<d> ^status fail)
-    (<ppl> ^original true -)
+    #(<ppl> ^original true -)
+    (<ppl> ^used true)
 }
 
 # Return props-do status results to the props-evaluation propose structure.
@@ -578,7 +581,7 @@ sp {apply*props*result-success*flush-buffer
     (state <s> ^operator.name props-result-success
               -^props-flag staging
                ^rootstate <rs>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
 -->
     (<s> ^props-flag flushing)
     (write (crlf) | *** | <ins> | SUCCESS *** | (crlf) | | )
@@ -719,7 +722,7 @@ sp {apply*props*success*clean*buffer*op*transfer
 sp {propose*props*result-fail
     (state <s> ^superstate <ss>
                ^proposals <p>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
      (<p> ^cond-count
          -^not-failed)
 -->
@@ -731,7 +734,7 @@ sp {apply*props*result-fail     # Gives prohibit store a change to carry through
     (state <s> ^operator <o>
                ^prop-prohibits <pp>
 			   ^props-flag dont-reset
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-fail
          ^ins <ins>)
     (<ins> ^name <name>)

@@ -15,7 +15,7 @@
 #  (<s>  ^name props-eval                   | Mostly all in the main eval state
 #        ^roostate <rs>                     | The original state that impassed to cause PROPs code to take action
 #        ^force-learn-onc-state <state>     | If this exists, then the rootstate impasse was an op no-change, and the ONC substate is <state>
-#        ^props-instructions (<ins>         | The active instructions
+#        ^selected-instructions (<ins>      | The active instructions
 #            ^name <iname>                  | Instructions' name
 #            ^spread-source <isrc>          | The intermediate object in the SMEM spread structure ("Knowledge of skill condition structure" in (Stearns & Laird, 2018) Fig 3), to be linked to in ONC chunks
 #            ^cond-spread-source <csrc>)    | A specific condition object in SMEM ("Knowledge of matched conditions" in (Stearns & Laird, 2018) Fig 3), to be linked to in the chunk
@@ -60,12 +60,14 @@ sp {apply*props*query*manual
     (write |   * CUED RECALL FOR | <name> | * | )
 }
 
-# ONLY INCREMENT THE MANUAL SEQUENCE FOR CUED RECALL (overwrites from props_static.soar)
+# ONLY INCREMENT THE MANUAL SEQUENCE FOR CUED RECALL 
+# (overwrites from props_static.soar)
 sp {propose*props*manual*next-rule
-    (state <s> ^props-instructions <ins>
+    (state <s> ^selected-instructions <ins>
                ^props-flag has-failed-instructions  # Only increment if just used cued recall due to failing a free recall
               -^props-flag incremented-manual-seq
-               ^props-static <ps>)
+               ^props-flag originals-ready
+               ^props-static <> none)
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-manual-next-rule)
@@ -75,7 +77,7 @@ sp {propose*props*manual*next-rule
 sp {elaborate*props*spread-result*intermediate*snc
     (state <s> ^name props-eval
               -^force-learn-onc-state
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^prop-eval-data <d>)
     (<ins> ^name <iname>
            ^spread-source <isrc>
@@ -98,7 +100,7 @@ sp {elaborate*props*spread-result*intermediate*snc
 sp {elaborate*props*spread-result*intermediate*onc
     (state <s> ^name props-eval
                ^force-learn-onc-state
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^prop-eval-data <d>)
     (<ins> ^spread-source <isrc>
            ^cond-spread-source <csrc>)
@@ -120,7 +122,7 @@ sp {elaborate*props*spread-result*intermediate*snc*negation-test
     (state <s> ^name props-eval
               -^force-learn-onc-state
                ^rootstate.type state
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^prop-eval-data <d>)
     (<ins> ^name <iname>
            ^spread-source <isrc>
@@ -145,7 +147,7 @@ sp {elaborate*props*spread-result*intermediate*onc*negation-test
     (state <s> ^name props-eval
                ^force-learn-onc-state
                ^rootstate.type state
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^prop-eval-data <d>)
     (<ins> ^spread-source <isrc>
            ^cond-spread-source <csrc>)

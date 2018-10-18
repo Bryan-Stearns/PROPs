@@ -12,7 +12,7 @@ sp {apply*props*success*next-rule*save-seq-link
                ^props-flag has-failed-instructions # Don't save if the sequence hasn't been properly updated this round (bad save data)
                ^smem.command <scmd>
                ^props-static <ps>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<ps> ^prev <item>
           ^current-task <task>
           ^next <> nil)
@@ -32,7 +32,7 @@ sp {apply*props*success*next-rule*update
     "If a sequence pointer is known with these instructions, use that instead of incrementing."
     (state <s> ^operator.name props-result-success
               -^props-flag has-failed-instructions
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^smem.command <scmd>
                ^props-static <ps>)
     (<ins> ^in-sequence <in1>)

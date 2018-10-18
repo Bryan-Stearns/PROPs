@@ -61,7 +61,7 @@ sp {elaborate*rootstate*cascade
 
 
 sp {elaborate*props*consts    # TODO: All this does is add (<s> ^const) to the eval-state chunk.
-    (state <s> ^props-instructions.const <q>
+    (state <s> ^selected-instructions.const <q>
                -^const <> <q>)
 -->
     (<s> ^const <q>)
@@ -86,7 +86,8 @@ sp {elaborate*props*failure*blink
 }
 
 # DEBUGGING
-sp {catch*props*op-tie
+sp {elaborate*props*tie*state
+    "By default treat ties as errors. Overwrite with props_tie.soar"
     (state <s> ^impasse tie
                ^superstate <ss>
                ^topstate.io.output-link <ol>)

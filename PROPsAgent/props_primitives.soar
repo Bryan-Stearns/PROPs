@@ -654,7 +654,7 @@ sp {apply*props*do*require
 sp {apply*props*success*action*add*new*staging
     (state <s> ^operator <o>
                ^props-flag staging
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -675,7 +675,7 @@ sp {apply*props*success*action*add*new*staging
 sp {apply*props*success*action*add*agnostic*new*staging
     (state <s> ^operator <o>
                ^props-flag staging
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -698,7 +698,7 @@ sp {apply*props*success*action*add*new
     (state <s> ^operator <o>
               -^props-flag staging
                ^props-flag flushing
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -721,7 +721,7 @@ sp {apply*props*success*action*add*replace        # TODO: Might be unstable to c
     (state <s> ^operator <o>
               -^props-flag staging
                ^props-flag flushing
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -747,7 +747,7 @@ sp {apply*props*success*action*add*agnostic # TODO: This is a hacky fix for the 
     (state <s> ^operator <o>
               -^props-flag staging
                ^props-flag flushing
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -770,7 +770,7 @@ sp {elaborate*props*success*action*add*replace*complete
 	(state <s> ^operator <o>
               -^props-flag staging
                ^props-flag flushing
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -793,7 +793,7 @@ sp {apply*props*success*action*remove
     (state <s> ^operator <o>
               -^props-flag staging
                ^props-flag flushing
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^rootstate <rs>)
     (<o> ^name props-result-success
          ^item <i>)
@@ -815,7 +815,7 @@ sp {apply*props*success*action*acceptable
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -843,7 +843,7 @@ sp {apply*props*success*action*indifferent
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -866,7 +866,7 @@ sp {apply*props*success*action*better
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -895,7 +895,7 @@ sp {apply*props*success*action*worse
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -924,7 +924,7 @@ sp {apply*props*success*action*best
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -948,7 +948,7 @@ sp {apply*props*success*action*worst
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
@@ -972,7 +972,7 @@ sp {apply*props*success*action*require
               -^props-flag staging
                ^props-flag flushing
                ^props-buffer <bff>
-               ^props-instructions <ins>)
+               ^selected-instructions <ins>)
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)

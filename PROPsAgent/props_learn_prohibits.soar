@@ -1,4 +1,4 @@
-#####    Author: Bryan Stearns, 2018
+#####    Author: Bryan Stearns, September 2018
 #   These rules let the agent chunk failure conditions as prohibit links, so it can avoid fetching connected instructions.
 #	This leads to undesirable effects. Chunking will backtrace through the rootstate prohibit flags when making all future problem solving chunks.
 #####
@@ -7,7 +7,7 @@ sp {apply*props*result-fail     # Overwrites default behavior of keeping prohibi
     (state <s> ^operator <o>
               -^force-learn-onc-state
                ^prop-prohibits <pp>
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
 			   ^props-flag dont-reset
                ^superstate <ss>)
     (<o> ^name props-result-fail
@@ -22,7 +22,7 @@ sp {apply*props*result-fail     # Overwrites default behavior of keeping prohibi
 sp {elaborate*props*result-fail*snc
     (state <s> ^prop-eval-data.status fail
 				-^force-learn-onc-state				
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^superstate <ss>)
 	(<ss> ^type state)	# Just to avoid potential case of only negations tests in chunk (illegal syntax)
     (<ins> ^name <name>)
@@ -34,7 +34,7 @@ sp {elaborate*props*result-fail*snc
 sp {elaborate*props*result-fail*onc
     (state <s> ^prop-eval-data.status fail
 				^force-learn-onc-state		
-               ^props-instructions <ins>
+               ^selected-instructions <ins>
                ^superstate <ss>)
     (<ins> ^name <name>)
 -->

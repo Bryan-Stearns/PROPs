@@ -87,12 +87,7 @@ sp {lib*actr*apply*finish
 	(<s> ^props-flag reset-manual-sequence)
 	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
 }
-#sp {lib*actr*apply*finish*remove-actions
-#	(state <s> ^operator.name actransfer-finish
-#				^AC (<ac> ^action <a>))
-#-->
-#	(<ac> ^action <a> -)
-#}
+
 
 sp {lib*actr*elaborate*finish
 	(state <s> ^G.Gtask finish
@@ -327,56 +322,6 @@ sp {lib*actr*elaborate*query*collect*id
 }
 
 # REMOVE OLD QUERIES WHEN NEW ONES ARISE
-#sp {lib*actr*set*replace-query
-#	"If there is a command newer than a query, based on the dc-stamp, then remove the old query"
-#	:o-support
-#	(state <s> ^Q <q>
-#				^RT <rt>)
-#	(<q> ^{<attr1> << query retrieve wm-query >>} <q1>
-#		^query {<q2> <> <q1>}
-#		^stamp <st1>
-#		^stamp <st2>)
-#	(<st1> ^command <q1>
-#			^dc <dc1>)
-#	(<st2> ^command <q2>
-#			^dc < <dc1>)
-#-->
-#	(<q> ^query <q2> -
-#		^stamp <st2> -)
-#}
-#sp {lib*actr*set*replace-retrieve*query
-#	"If there is a query newer than a retrieve, based on the dc-stamp, then remove the old one and clear RT"
-#	:o-support
-#	(state <s> ^Q <q>
-#				^RT <rt>)
-#	(<q> ^query <q1>
-#		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
-#		^stamp <st1>
-#		^stamp <st2>)
-#	(<st1> ^command <q1>
-#			^dc <dc1>)
-#	(<st2> ^command <q2>
-#			^dc < <dc1>)
-#-->
-#	(<q> ^<attr> <q2> -
-#		^stamp <st2> -)
-#}
-#sp {lib*actr*set*replace-retrieve*retrieve
-#	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
-#	:o-support
-#	(state <s> ^Q <q>)
-#	(<q> ^<< retrieve wm-query >> <q1>
-#		^{<attr> << retrieve wm-query >>} {<q2> <> <q1>}
-#		^stamp <st1>
-#		^stamp <st2>)
-#	(<st1> ^command <q1>
-#			^dc <dc1>)
-#	(<st2> ^command <q2>
-#			^dc < <dc1>)
-#-->
-#	(<q> ^<attr> <q2> -
-#		^stamp <st2> -)
-#}
 sp {lib*actr*set*replace-q-command
 	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
 	:o-support
@@ -414,17 +359,6 @@ sp {lib*actr*elaborate*query*failure*error
 
 
 # CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
-#sp {lib*actr*apply*clear-rt
-#	:o-support
-#	(state <s> ^G <g>
-#			^Q <q>
-#			^RT <rt>)
-#	(<g> ^clear-rt <any>)
-#-->
-#	(<s> ^RT <rt> -
-#		^RT <rnew>)
-#	(<g> ^clear-rt <any> -)
-#}
 sp {lib*actr*apply*clear-rt*clear-command
 	:o-support
 	(state <s> ^G <g>

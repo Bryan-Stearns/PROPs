@@ -262,7 +262,7 @@
 ;; If we are rehearsing and a word appears, switch to lexical decision (new to PROP model: clear RT after rehearsal, different from stopping before rehearsal)
 ;~ stop-rehearsal
 ;~~ pre-rehearse
-(ins :condition (Vobject = word Gcontrol = rehearse RT1 == nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Interrupted before rehearsal began
+(ins :condition (Vobject = word Gcontrol = rehearse RT1 = nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Interrupted before rehearsal began
 ;~~ post-rehearse
 (ins :condition (Vobject = word Gcontrol = rehearse RT1 <> nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Test RT1 to clear RT, in prep for lexical-retrieve
 
@@ -287,7 +287,7 @@
 ;~~ start
 (ins :condition (Vobject = pending RT1 = nil Gcontrol = rehearse) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
 ;~~ next
-(ins :condition (Vobject = pending RT1 != error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistene test, so when it blinks on each cycle this operator will also blink
+(ins :condition (Vobject = pending RT1 != error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
 ;~~ restart
 (ins :condition (Vobject = pending RT1 = error  Gcontrol = rehearse) :action (Gtop -> RTid) :description "End of list, return to top")
 

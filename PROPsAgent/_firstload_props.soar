@@ -39,7 +39,7 @@ source props_primitive_addressing.soar
 source props_shared.soar
 #source props_build_proposals.soar        # Is sourced with props_learn_l2.soar
 #source props_condition_spread.soar       # Source this optionally on your own to enable condition spread learning
-
+source props_tie.soar
 
 multi-attributes condition 4
 multi-attributes action 4

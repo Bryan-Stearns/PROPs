@@ -241,9 +241,10 @@ sp {prefer*props*manual-sequencing
 }
 
 sp {propose*props*manual*next-rule
-    (state <s> ^props-instructions <ins>
-               #^props-flag has-failed-instructions  # Enable by sourcing props_spread_conds.soar
+    (state <s> ^selected-instructions <ins>
+               #^props-flag has-failed-instructions  # Enable by sourcing props_learn_conds.soar
               -^props-flag incremented-manual-seq
+               ^props-flag originals-ready
                ^props-static <> none)
 -->
     (<s> ^operator <o> + >)

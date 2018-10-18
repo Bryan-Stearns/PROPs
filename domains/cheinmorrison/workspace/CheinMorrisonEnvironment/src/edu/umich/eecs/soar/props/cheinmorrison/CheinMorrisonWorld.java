@@ -58,7 +58,9 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	public void runCheinDebug(String task, int threshold, String mode) {
 		inDebug = true;
 		//taskMode = task;
+		this.setVerbose(false);
 		this.runDebug(task, task, new LearnConfig(mode, threshold));
+		this.setVerbose(true);
 		inDebug = false;
 	}
 	

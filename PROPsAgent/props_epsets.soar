@@ -1,0 +1,247 @@
+#####    Author: Bryan Stearns, October 2018
+#   This code enables the use of delta sets at the topstate to guide instruction fetching.
+#   This would not make sense alongside a manual task sequence.
+##        OPERATORS
+#   props-load-epset                        | Load a set of deltas for the task
+#   props-retrieve-epset                    | Collect the smem retrieval results
+#   
+##        STRUCTURE
+#  (<s> ^superstate nil                     | In the rootstate
+#       ^props-epset (<pe>                  | The 'buffer' set of deltas
+#          [^delta (<d>                     | Corresponds to a single instruction set
+#               ^spread-id <ltinum>         | The smem lti id to spread to if all conditions are true
+#               ^spreader (<xs>             | Created if all conditions are true
+#                   ^spread-id <ltinum>)    | An augmentation so spread executes properly. Allows multiple spreaders in future. 
+#               ^consts <dc>                | Holds constants for the rule
+#              [^condition (<c>             | Corresponds to a single condition of the delta
+#                   ^prop-type << ... >>    | The operation type
+#                   ^id1 <id1>              | The base address for arg1
+#                   ^id2 <id2>              | The base address for arg2
+#                   ^attr1 <attr1>          | The attribute for arg1
+#                   ^attr2 <attr2>          | The attribute for arg2
+#                   ^result success)])])    | Created if the condition is true
+#####
+
+
+### OPERATOR ### 
+# props-load-epset
+##
+# Recall info needed to support the PROPs processing 
+### 
+
+sp {propose*props*eval*query*epset
+    "Load the static struct to begin the fetch process"    # The struct includes prohibits needed during fetching
+    (state <s> ^WM
+              -^smem.result.<< retrieved failure >>
+              -^props-epset)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-load-epset)
+}
+
+sp {apply*props*eval*query*epset
+    (state <s> ^operator.name props-load-epset
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 3)    # For retrieving props-static.next.next, to increment that linked list pointer
+    (<q> ^props-epset props-epset)
+}
+
+
+### OPERATOR ### 
+# props-retrieve-epset
+##
+# Pull the query result
+### 
+
+sp {propose*props*eval*retrieve*epset
+    (state <s> ^superstate nil
+              -^props-epset <pe>
+               ^smem.result.<< success failure >> <q>)
+    (<q> ^props-epset props-epset)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-retrieve-epset)
+}
+
+sp {apply*props*eval*retrieve*epset*success
+    (state <s> ^operator <o>
+               ^smem.result.retrieved <e>)
+    (<o> ^name props-retrieve-epset)
+-->
+    (<s> ^props-epset <e>)
+}
+sp {apply*props*eval*retrieve*epset*failure
+    (state <s> ^operator <o>
+               ^smem.result.failure)
+    (<o> ^name props-retrieve-epset)
+-->
+    (<s> ^props-epset |none|)
+}
+
+
+### 
+# Elaborate upon matching rule descriptions in the epset to stimulate spread
+###
+
+sp {elaborate*props*epset*delta*all-true
+    "Create a spreader if all conditions are true"
+    (state <s> ^props-epset <pe>)
+    (<pe> ^delta <d>)
+    (<d> ^spread-id <ltinum>)
+    -{(<d> ^condition <c>)
+      (<c> -^result success)} # It is not the case that this delta has untrue conditions
+-->
+    (<d> ^result success
+         ^spreader <xs>)
+    (<xs> ^spread-id <ltinum>)        # some augmentation just to allow spread
+    (link-stm-to-ltm <xs> <ltinum>)
+}
+
+# SUPPLY CACHED ADDRESSES:
+
+sp {elaborate*props*epset*delta*cond*address1*buffer
+    (state <s> ^props-epset.delta.condition <c>
+               ^<buff> <buff-id>)
+    (<c> ^address1 <buff>)
+-->
+    (<c> ^id1 <buff-id>)
+}
+sp {elaborate*props*epset*delta*cond*address2*buffer
+    (state <s> ^props-epset.delta.condition <c>
+               ^<buff> <buff-id>)
+    (<c> ^address2 <buff>)
+-->
+    (<c> ^id2 <buff-id>)
+}
+sp {elaborate*props*epset*delta*cond*address1*const
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^consts <dc>
+         ^condition <c>)
+    (<c> ^address1 constant)
+-->
+    (<c> ^id1 <dc>)
+}
+sp {elaborate*props*epset*delta*cond*address2*const
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^consts <dc>
+         ^condition <c>)
+    (<c> ^address2 constant)
+-->
+    (<c> ^id2 <dc>)
+}
+
+# EPSET PRELS: (PRimitive ELabs)
+
+sp {elaborate*props*epset*delta*cond*eq
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type equality
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*neq
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type inequality
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> <val>)
+    (<id2> ^<attr2> <> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*teq
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type type-equality
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> <val>)
+    (<id2> ^<attr2> <=> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*less
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type less-than
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> < <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*greater
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type greater-than
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> > <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*less-equal
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type less-equal
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> <= <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*greater-equal
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type greater-equal
+         ^id1 <id1>
+         ^id2 <id2>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id1> ^<attr1> <= <val>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<c> ^result success)
+}
+#sp {elaborate*props*epset*delta*cond*inexistence
+#    (state <s> ^props-epset.delta.condition <c>)
+#    (<c> ^prop-type inexistence
+#         ^id1 <id1>
+#         ^attr1 <attr1>)
+#    (<id1> -^<attr1> <val>)
+#-->
+#    (<c> ^result success)
+#}
+sp {elaborate*props*epset*delta*cond*negation
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type negation
+         ^id1 <id1>
+         ^attr1 <attr1>)
+    (<id1> -^<attr1> <val>)
+-->
+    (<c> ^result success)
+}
+sp {elaborate*props*epset*delta*cond*existence
+    (state <s> ^props-epset.delta.condition <c>)
+    (<c> ^prop-type existence
+         ^id1 <id1>
+         ^attr1 <attr1>)
+    (<id1> ^<attr1> <val>)
+-->
+    (<c> ^result success)
+}
