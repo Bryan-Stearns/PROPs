@@ -40,8 +40,10 @@ public class ElioWorld extends PROPsEnvironment {
 
 	
 	ElioWorld() {
-		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/";
-		String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
+		//String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/";
+		//String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
+		String proj_dir = "C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\domains\\elio\\";
+		String props_dir = "C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\PROPsAgent\\";
 
 		this.setAgentName("ElioAgent");
 		this.setPropsDir(props_dir);
@@ -54,9 +56,11 @@ public class ElioWorld extends PROPsEnvironment {
 		
 		this.setIOSize(2, 2);
 		
-		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
-											 proj_dir + "elio_agent_smem.soar"));
-		
+		//this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+		//									 proj_dir + "elio_agent_smem.soar"));
+		this.setUserAgentFiles(Arrays.asList("C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\domains\\lib_actransfer_interface.soar", 
+				 proj_dir + "elio_agent_smem.soar"));
+
 
 		etask = new ETask("", 1,1,0);
 	}
