@@ -36,6 +36,7 @@ props_instruction_parser::props_instruction_parser(std::string iPath, std::strin
 	lineNumber = 1;	// unnecessary
 	currRuleName = "";
 	currRuleHasOpRef = false;
+	currTaskName = "default";
 
 	CONST_ID = "props$const";	// Used for internal intermediate referencing constants, and external printing of op-names in subchains
 	BUFFER_ID = "B1";
@@ -99,14 +100,15 @@ std::string props_instruction_parser::nextLine(std::stringstream &ss) {
 		//inFile >> std::ws;
 		getline(inFile, line);
 		lineNumber++;
-		line = trim(line);
+		if (line.compare(0,12, "# add-instr "))	// Allow special comment-nested meta data to pass
+			line = trim(line);
 	}
 	ss.str(line);
 	ss.clear();
 	return line;
 }
 
-// Returns whether the given string is of an ID format (either A12 or @12, a letter followed by numbers)
+// Returns whether the given string is of an ID format (either A12 or @12, a letter or @ followed by numbers)
 bool props_instruction_parser::isID(const std::string &str) {
 	std::string s = str;
 	if (s.substr(0, 1).compare("@") == 0 && std::isdigit(s.at(1)))
@@ -338,6 +340,7 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 	std::stringstream ss;
 	std::vector<std::string> insList = std::vector<std::string>();		// The results for each input props instructions
 	lineNumber = 1;
+	std::string prevTaskName = "default";
 
 	while (inFile.good()) {
 		auto constants = std::vector<arg_chain>();
@@ -346,7 +349,13 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 
 		std::string sToken = "";
 		char cToken;
-		nextLine(ss);
+		sToken = nextLine(ss);
+
+		// Check for task name directive
+		if (!sToken.compare(0,12, "# add-instr ")) {
+			currTaskName = trim(sToken.substr(12));
+			nextLine(ss);
+		}
 
 		// Begin prop rule
 		ss >> sToken;
@@ -485,6 +494,13 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 			instrs << "(<Q" << constNumber << "> ^" << s.at(0) << " " << s.at(1) << ")" << std::endl;
 		}
 
+		// Add epset delta for this instruction
+		instrs << "(<epset-" << currTaskName << "> ^delta <d" << instNumber << ">)" << std::endl
+				<< "(<d" << instNumber << "> ^name " << currRuleName << ")" << std::endl
+				<< "(<d" << instNumber << "> ^instructions <dz" << instNumber << ">)" << std::endl
+				<< "(<dz" << instNumber << "> ^spread-id <Z" << instNumber << ">)" << std::endl
+				<< "(<d" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
+
 		// Add conditions
 		for (auto &s : conditions) {
 			int propNumber = maxPropNumber;
@@ -501,6 +517,10 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 				maxPropNumber++;
 			}
 
+			// Add epset condition
+			instrs << "(<d" << instNumber << "> ^condition <dc" << propNumber << ">)" << std::endl;
+
+			// Add condition to instructions
 			auto c = s.first;
 			std::string ZPid = "Z" + toString(instNumber) + "P" + toString(propNumber);
 
@@ -518,6 +538,30 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 			// Don't print PROP details if defined earlier
 			if (skip)
 				continue;
+
+			// Add epset condition details
+			instrs << "(<dc" << propNumber << "> ^prop-type " << c.at(0) << ")" << std::endl;
+			for (std::size_t i = 1; i < c.size(); i += 2) {
+				instrs << "(<dc" << propNumber << "> ^attr" << (i + 1) / 2 << " " << c.at(i + 1) << ")" << std::endl;
+			}
+			std::string tempStr;
+			try {
+				tempStr = s.second.at(0).at(1); 	// Use ^sub1-link.chain-attr if it exists
+			} catch (...) {
+				tempStr = ROOT_MARKER;
+			}
+			instrs << "(<dc" << propNumber << "> ^address1 " << tempStr << ")" << std::endl;
+			if (c.size() > 3) {
+				try {
+					if (!c.at(3).compare(CONST_ID))
+						tempStr = CONST_ID;				// Use const if ^id2 is CONST_ID
+					else
+						tempStr = s.second.at(1).at(1); // Use ^sub2-link.chain-attr if it exists
+				} catch (...) {
+					tempStr = ROOT_MARKER;
+				}
+				instrs << "(<dc" << propNumber << "> ^address2 " << tempStr << ")" << std::endl;
+			}
 
 			instrs << "(<P" << propNumber << "> ^lti-name |_P" << propNumber << "|)" << std::endl;
 			//instrs << "(<P" << propNumber << "> ^spread-source <Cue" << propNumber << ">)" << std::endl;
@@ -537,6 +581,7 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 
 			// Add attribute chain
 			printSubChain(s, instrs, propNumber);
+
 		}
 
 		/*
@@ -609,6 +654,11 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 		instNumber++;
 		constNumber++;
 		inFile >> std::ws;
+
+		if (currTaskName.compare(prevTaskName)) {
+			insList.push_back("(<epset-" + currTaskName + "> ^props-epset-name " + currTaskName + ")");	// TODO: replace default with procedure set name
+			prevTaskName = currTaskName;
+		}
 	}
 
 	return insList;

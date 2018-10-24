@@ -58,20 +58,19 @@ sp {apply*props*query*manual
     (<q>    ^prop-type |instruction|
             ^name <name>)
     (write |   * CUED RECALL FOR | <name> | * | )
-}
+}    # Overwrites props_static.soar
 
 # ONLY INCREMENT THE MANUAL SEQUENCE FOR CUED RECALL 
-# (overwrites from props_static.soar)
 sp {propose*props*manual*next-rule
     (state <s> ^selected-instructions <ins>
                ^props-flag has-failed-instructions  # Only increment if just used cued recall due to failing a free recall
               -^props-flag incremented-manual-seq
-               ^props-flag originals-ready
+              -^props-flag originals-not-ready
                ^props-static <> none)
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-manual-next-rule)
-}
+}    # Overwrites props_static.soar
 
 # CREATE SPREAD-TRIGGER ELABORATIONS FOR SUCCESSFUL CONDITIONS (new)
 sp {elaborate*props*spread-result*intermediate*snc
@@ -217,7 +216,7 @@ sp {apply*props*dont-learn*snc
 -->
     (write (crlf) | *** NOT LEARNING STATE | <s> |***| )
     (dont-learn <s>)
-}
+}    # props_learn_l3.soar should overwrite this if used
 sp {apply*props*dont-learn*onc
     (state <s> ^operator.name props-result-success
                ^proposals <ppls>
@@ -225,7 +224,7 @@ sp {apply*props*dont-learn*onc
 -->
     (write (crlf) | *** NOT LEARNING STATE | <state> |***| )
     (dont-learn <state>)
-}
+}    # props_learn_l3.soar should overwrite this if used
 
 
 sp {apply*props*spread-result*snc

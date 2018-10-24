@@ -18,7 +18,9 @@ public class SMLClient {
 
 		ElioWorld world = new ElioWorld();
 		//world.runExperiments("elio_props", 2, expList);
-		world.runDebug("procedure-b","procedure-b", new LearnConfig("23s", 1));
+		
+		//world.setVerbose(false);
+		world.runDebug("procedure-a","procedure-a", new LearnConfig("23sce", 1));
 
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String, String>("procedure-a","procedure-a"));
@@ -28,6 +30,7 @@ public class SMLClient {
 
 		//world.makeSpreadingChunks(trainList, "elio_agent_condspread_chunks.soar");
 		//world.makeAddressingChunks(trainList, "elio_agent_L1_chunks.soar");
+		//world.makeFetchSets(trainList, "elio_agent_epsets.soar", true);
 	}
 
 }

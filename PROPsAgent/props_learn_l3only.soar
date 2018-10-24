@@ -1,3 +1,4 @@
+
 ### SOURCE THIS TO CHUNK THE WHOLE INSTRUCTION SET THE FIRST TIME IT IS EVALUATED (SKIPPING THE ASSOCIATIVE PHASE) ###
 sp {apply*props*force-learn*all*d1
     "Learn the production: when the evalstate is directly under the rootstate."
@@ -26,3 +27,8 @@ sp {elaborate*props*build-proposals*finalized
 -->
     (<s> ^props-flag propose-ready)
 }
+
+# Remove from props_learn_conds.soar or props_learn_l3.soar
+production excise apply*props*dont-learn*snc
+production excise apply*props*dont-learn*onc
+# (If these productions aren't found, it stops the sourcing of this file, so this goes at the end.)

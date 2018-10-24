@@ -25,6 +25,7 @@ public:
 
 private:
 	const static std::string CONST_NAME;
+	const static std::string CLEAR_RT_PATH;
 	std::string inPath,
 		outPath;
 	std::ifstream inFile;

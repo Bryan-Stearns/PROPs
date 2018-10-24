@@ -87,7 +87,7 @@ sp {apply*props*collect-failure
 # PROPOSE THE INSTRUCTED PROPOSALS
 sp {propose*props*evaluate-sets
     (state <s> ^name props-eval
-               ^props-flag originals-ready
+              -^props-flag originals-not-ready
                ^proposals <prps>)
     (<prps> ^propose <p>)
     (<p> ^size <contr>

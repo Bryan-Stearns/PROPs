@@ -941,7 +941,7 @@ sp {apply*props*sub*chain*iterate*special*success
          ^literalize)
 -->
     (<sym> ^status success)
-    (<ppl> ^original true -)
+    #(<ppl> ^original true -)
     (write |  *** Absence success: | <id> | ^| <attr> | already gone.| (crlf))
 }
 
@@ -1072,7 +1072,7 @@ sp {apply*props*sub*chain*iterate*fail
          ^literalize)
 -->
     (<sym> ^status fail)
-    (<ppl> ^original true -)
+    #(<ppl> ^original true -)
 }
 
 

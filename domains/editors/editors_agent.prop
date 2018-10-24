@@ -3,6 +3,7 @@
 # FROM 'editors.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
 #####
 
+# add-instr ed
 pp {propose*editors*ed*init*start
 	const1 editors-ed-init-start
 	const2 ed
@@ -27,6 +28,7 @@ pp {apply*editors*ed*init*start
 	s.AC.action.slot1 = const4
 	s.G.Gcontrol = const5
 }
+# add-instr ed
 pp {propose*editors*ed*init*find-goal
 	const1 editors-ed-init-find-goal
 	const2 ed
@@ -51,6 +53,7 @@ pp {apply*editors*ed*init*find-goal
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr ed
 pp {propose*editors*ed*line-strategy*test
 	const1 editors-ed-line-strategy-test
 	const2 ed
@@ -73,6 +76,7 @@ pp {apply*editors*ed*line-strategy*test
 	s.Q.query.slot2 = s.WM.slot1
 	s.Q.query.slot3 = s.WM.slot2
 }
+# add-instr ed
 pp {propose*editors*ed*line-strategy*enter
 	const1 editors-ed-line-strategy-enter
 	const2 ed
@@ -93,8 +97,9 @@ pp {apply*editors*ed*line-strategy*enter
 	s.operator.name == const1
 -->
 	s.G.Gcontrol = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr ed
 pp {propose*editors*ed*line-strategy*pcmd
 	const1 editors-ed-line-strategy-pcmd
 	const2 ed
@@ -119,8 +124,9 @@ pp {apply*editors*ed*line-strategy*pcmd
 	s.AC.action.slot2 = s.WM.slot2
 	s.WM.slot1 = s.WM.slot2
 	s.G.Gcontrol = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr ed
 pp {propose*editors*ed*find-line*next
 	const1 editors-ed-find-line-next
 	const2 ed
@@ -145,6 +151,7 @@ pp {apply*editors*ed*find-line*next
 	s.Q.query.slot1 = const3
 	s.Q.query.slot2 = s.WM.slot1
 }
+# add-instr ed
 pp {propose*editors*ed*find-line*read
 	const1 editors-ed-find-line-read
 	const2 ed
@@ -167,6 +174,7 @@ pp {apply*editors*ed*find-line*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-line*re-next
 	const1 editors-ed-find-line-re-next
 	const2 ed
@@ -194,6 +202,7 @@ pp {apply*editors*ed*find-line*re-next
 	s.Q.query.slot2 = s.RT.slot3
 	s.Q.query.slot3 -
 }
+# add-instr ed
 pp {propose*editors*ed*find-line*re-read
 	const1 editors-ed-find-line-re-read
 	const2 ed
@@ -217,6 +226,7 @@ pp {apply*editors*ed*find-line*re-read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-word*for-replace
 	const1 editors-ed-find-task-word-for-replace
 	const2 ed
@@ -240,8 +250,9 @@ pp {apply*editors*ed*find-task-word*for-replace
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-word*for-delete
 	const1 editors-ed-find-task-word-for-delete
 	const2 ed
@@ -265,8 +276,9 @@ pp {apply*editors*ed*find-task-word*for-delete
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-word*for-insert
 	const1 editors-ed-find-task-word-for-insert
 	const2 ed
@@ -290,8 +302,9 @@ pp {apply*editors*ed*find-task-word*for-insert
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-word*next
 	const1 editors-ed-find-task-word-next
 	const2 ed
@@ -314,6 +327,7 @@ pp {apply*editors*ed*find-task-word*next
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-word*read
 	const1 editors-ed-find-task-word-read
 	const2 ed
@@ -336,6 +350,7 @@ pp {apply*editors*ed*find-task-word*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr ed
 pp {propose*editors*ed*word-action*replace
 	const1 editors-ed-word-action-replace
 	const2 ed
@@ -359,6 +374,7 @@ pp {apply*editors*ed*word-action*replace
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr ed
 pp {propose*editors*ed*word-action*delete
 	const1 editors-ed-word-action-delete
 	const2 ed
@@ -382,6 +398,7 @@ pp {apply*editors*ed*word-action*delete
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr ed
 pp {propose*editors*ed*word-action*insert
 	const1 editors-ed-word-action-insert
 	const2 ed
@@ -405,6 +422,7 @@ pp {apply*editors*ed*word-action*insert
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr ed
 pp {propose*editors*ed*word-action*next
 	const1 editors-ed-word-action-next
 	const2 ed
@@ -428,6 +446,7 @@ pp {apply*editors*ed*word-action*next
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-line*delete
 	const1 editors-ed-find-task-line-delete
 	const2 ed
@@ -451,6 +470,7 @@ pp {apply*editors*ed*find-task-line*delete
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-line*insert
 	const1 editors-ed-find-task-line-insert
 	const2 ed
@@ -475,6 +495,7 @@ pp {apply*editors*ed*find-task-line*insert
 	s.WM.slot2 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-line*replace
 	const1 editors-ed-find-task-line-replace
 	const2 ed
@@ -499,6 +520,7 @@ pp {apply*editors*ed*find-task-line*replace
 	s.WM.slot2 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr ed
 pp {propose*editors*ed*find-task-line*type
 	const1 editors-ed-find-task-line-type
 	const2 ed
@@ -521,6 +543,7 @@ pp {apply*editors*ed*find-task-line*type
 	s.AC.action.slot2 = s.WM.slot2
 	s.G.Gcontrol = const3
 }
+# add-instr ed
 pp {propose*editors*ed*finish
 	const1 editors-ed-finish
 	const2 ed
@@ -540,8 +563,9 @@ pp {apply*editors*ed*finish
 	s.operator.name == const1
 -->
 	s.G.Gtask = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*init*start
 	const1 editors-edt-init-start
 	const2 edt
@@ -566,6 +590,7 @@ pp {apply*editors*edt*init*start
 	s.AC.action.slot1 = const4
 	s.G.Gcontrol = const5
 }
+# add-instr edt
 pp {propose*editors*edt*init*find-goal
 	const1 editors-edt-init-find-goal
 	const2 edt
@@ -590,6 +615,7 @@ pp {apply*editors*edt*init*find-goal
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*test
 	const1 editors-edt-line-strategy-test
 	const2 edt
@@ -612,6 +638,7 @@ pp {apply*editors*edt*line-strategy*test
 	s.Q.query.slot2 = s.WM.slot1
 	s.Q.query.slot3 = s.WM.slot2
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*enter
 	const1 editors-edt-line-strategy-enter
 	const2 edt
@@ -632,8 +659,9 @@ pp {apply*editors*edt*line-strategy*enter
 	s.operator.name == const1
 -->
 	s.G.Gcontrol = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*read-instruction
 	const1 editors-edt-line-strategy-read-instruction
 	const2 edt
@@ -656,8 +684,9 @@ pp {apply*editors*edt*line-strategy*read-instruction
 -->
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*look
 	const1 editors-edt-line-strategy-look
 	const2 edt
@@ -681,6 +710,7 @@ pp {apply*editors*edt*line-strategy*look
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*t-word
 	const1 editors-edt-line-strategy-t-word
 	const2 edt
@@ -703,6 +733,7 @@ pp {apply*editors*edt*line-strategy*t-word
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = s.V.slot2
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*next
 	const1 editors-edt-line-strategy-next
 	const2 edt
@@ -725,6 +756,7 @@ pp {apply*editors*edt*line-strategy*next
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr edt
 pp {propose*editors*edt*line-strategy*find-destination
 	const1 editors-edt-line-strategy-find-destination
 	const2 edt
@@ -747,6 +779,7 @@ pp {apply*editors*edt*line-strategy*find-destination
 	s.G.Gcontrol = const2
 	s.WM.slot1 = s.V.slot4
 }
+# add-instr edt
 pp {propose*editors*edt*find-line*next
 	const1 editors-edt-find-line-next
 	const2 edt
@@ -771,6 +804,7 @@ pp {apply*editors*edt*find-line*next
 	s.Q.query.slot1 = const3
 	s.Q.query.slot2 = s.WM.slot1
 }
+# add-instr edt
 pp {propose*editors*edt*find-line*read
 	const1 editors-edt-find-line-read
 	const2 edt
@@ -793,6 +827,7 @@ pp {apply*editors*edt*find-line*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-line*re-next
 	const1 editors-edt-find-line-re-next
 	const2 edt
@@ -820,6 +855,7 @@ pp {apply*editors*edt*find-line*re-next
 	s.Q.query.slot2 = s.RT.slot3
 	s.Q.query.slot3 -
 }
+# add-instr edt
 pp {propose*editors*edt*find-line*re-read
 	const1 editors-edt-find-line-re-read
 	const2 edt
@@ -843,6 +879,7 @@ pp {apply*editors*edt*find-line*re-read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-word*for-replace
 	const1 editors-edt-find-task-word-for-replace
 	const2 edt
@@ -866,8 +903,9 @@ pp {apply*editors*edt*find-task-word*for-replace
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-word*for-delete
 	const1 editors-edt-find-task-word-for-delete
 	const2 edt
@@ -891,8 +929,9 @@ pp {apply*editors*edt*find-task-word*for-delete
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-word*for-insert
 	const1 editors-edt-find-task-word-for-insert
 	const2 edt
@@ -916,8 +955,9 @@ pp {apply*editors*edt*find-task-word*for-insert
 	s.G.Gcontrol = const2
 	s.WM.slot2 = s.V.slot2
 	s.AC.action.slot1 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-word*next
 	const1 editors-edt-find-task-word-next
 	const2 edt
@@ -940,6 +980,7 @@ pp {apply*editors*edt*find-task-word*next
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-word*read
 	const1 editors-edt-find-task-word-read
 	const2 edt
@@ -962,6 +1003,7 @@ pp {apply*editors*edt*find-task-word*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr edt
 pp {propose*editors*edt*word-action*replace
 	const1 editors-edt-word-action-replace
 	const2 edt
@@ -985,6 +1027,7 @@ pp {apply*editors*edt*word-action*replace
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr edt
 pp {propose*editors*edt*word-action*delete
 	const1 editors-edt-word-action-delete
 	const2 edt
@@ -1008,6 +1051,7 @@ pp {apply*editors*edt*word-action*delete
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr edt
 pp {propose*editors*edt*word-action*insert
 	const1 editors-edt-word-action-insert
 	const2 edt
@@ -1031,6 +1075,7 @@ pp {apply*editors*edt*word-action*insert
 	s.AC.action.slot2 = s.V.slot2
 	s.AC.action.slot3 = s.V.slot3
 }
+# add-instr edt
 pp {propose*editors*edt*word-action*next
 	const1 editors-edt-word-action-next
 	const2 edt
@@ -1054,6 +1099,7 @@ pp {apply*editors*edt*word-action*next
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-line*delete
 	const1 editors-edt-find-task-line-delete
 	const2 edt
@@ -1077,6 +1123,7 @@ pp {apply*editors*edt*find-task-line*delete
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-line*insert
 	const1 editors-edt-find-task-line-insert
 	const2 edt
@@ -1101,6 +1148,7 @@ pp {apply*editors*edt*find-task-line*insert
 	s.WM.slot2 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-line*replace
 	const1 editors-edt-find-task-line-replace
 	const2 edt
@@ -1125,6 +1173,7 @@ pp {apply*editors*edt*find-task-line*replace
 	s.WM.slot2 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr edt
 pp {propose*editors*edt*find-task-line*type
 	const1 editors-edt-find-task-line-type
 	const2 edt
@@ -1147,6 +1196,7 @@ pp {apply*editors*edt*find-task-line*type
 	s.AC.action.slot2 = s.WM.slot2
 	s.G.Gcontrol = const3
 }
+# add-instr edt
 pp {propose*editors*edt*finish
 	const1 editors-edt-finish
 	const2 edt
@@ -1166,8 +1216,9 @@ pp {apply*editors*edt*finish
 	s.operator.name == const1
 -->
 	s.G.Gtask = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr emacs
 pp {propose*editors*emacs*init*start
 	const1 editors-emacs-init-start
 	const2 emacs
@@ -1190,6 +1241,7 @@ pp {apply*editors*emacs*init*start
 	s.WM.slot1 = const3
 	s.G.Gcontrol = const4
 }
+# add-instr emacs
 pp {propose*editors*emacs*init*find-goal
 	const1 editors-emacs-init-find-goal
 	const2 emacs
@@ -1214,6 +1266,7 @@ pp {apply*editors*emacs*init*find-goal
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-line*next
 	const1 editors-emacs-find-line-next
 	const2 emacs
@@ -1234,6 +1287,7 @@ pp {apply*editors*emacs*find-line*next
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-line*read
 	const1 editors-emacs-find-line-read
 	const2 emacs
@@ -1256,6 +1310,7 @@ pp {apply*editors*emacs*find-line*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-word*for-replace
 	const1 editors-emacs-find-task-word-for-replace
 	const2 emacs
@@ -1280,6 +1335,7 @@ pp {apply*editors*emacs*find-task-word*for-replace
 	s.WM.slot1 = s.V.slot2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-word*for-delete
 	const1 editors-emacs-find-task-word-for-delete
 	const2 emacs
@@ -1304,6 +1360,7 @@ pp {apply*editors*emacs*find-task-word*for-delete
 	s.WM.slot1 = s.V.slot2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-word*for-insert
 	const1 editors-emacs-find-task-word-for-insert
 	const2 emacs
@@ -1328,6 +1385,7 @@ pp {apply*editors*emacs*find-task-word*for-insert
 	s.WM.slot1 = s.V.slot2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-word*next
 	const1 editors-emacs-find-task-word-next
 	const2 emacs
@@ -1350,6 +1408,7 @@ pp {apply*editors*emacs*find-task-word*next
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-word*read
 	const1 editors-emacs-find-task-word-read
 	const2 emacs
@@ -1372,6 +1431,7 @@ pp {apply*editors*emacs*find-task-word*read
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*word-action*replace
 	const1 editors-emacs-word-action-replace
 	const2 emacs
@@ -1396,6 +1456,7 @@ pp {apply*editors*emacs*word-action*replace
 	s.WM.slot1 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*word-action*delete
 	const1 editors-emacs-word-action-delete
 	const2 emacs
@@ -1417,6 +1478,7 @@ pp {apply*editors*emacs*word-action*delete
 -->
 	s.AC.action.slot1 = const2
 }
+# add-instr emacs
 pp {propose*editors*emacs*word-action*insert
 	const1 editors-emacs-word-action-insert
 	const2 emacs
@@ -1439,6 +1501,7 @@ pp {apply*editors*emacs*word-action*insert
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = s.V.slot3
 }
+# add-instr emacs
 pp {propose*editors*emacs*word-action*post-insert
 	const1 editors-emacs-word-action-post-insert
 	const2 emacs
@@ -1461,6 +1524,7 @@ pp {apply*editors*emacs*word-action*post-insert
 	s.AC.action.slot2 = s.WM.slot1
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*word-action*next
 	const1 editors-emacs-word-action-next
 	const2 emacs
@@ -1484,6 +1548,7 @@ pp {apply*editors*emacs*word-action*next
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-line*delete
 	const1 editors-emacs-find-task-line-delete
 	const2 emacs
@@ -1507,6 +1572,7 @@ pp {apply*editors*emacs*find-task-line*delete
 	s.AC.action.slot1 = const2
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-line*insert
 	const1 editors-emacs-find-task-line-insert
 	const2 emacs
@@ -1531,6 +1597,7 @@ pp {apply*editors*emacs*find-task-line*insert
 	s.AC.action.slot2 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-line*replace
 	const1 editors-emacs-find-task-line-replace
 	const2 emacs
@@ -1555,6 +1622,7 @@ pp {apply*editors*emacs*find-task-line*replace
 	s.WM.slot1 = s.V.slot3
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*find-task-line*type
 	const1 editors-emacs-find-task-line-type
 	const2 emacs
@@ -1577,6 +1645,7 @@ pp {apply*editors*emacs*find-task-line*type
 	s.AC.action.slot2 = s.WM.slot1
 	s.G.Gcontrol = const3
 }
+# add-instr emacs
 pp {propose*editors*emacs*finish
 	const1 editors-emacs-finish
 	const2 emacs
@@ -1596,5 +1665,5 @@ pp {apply*editors*emacs*finish
 	s.operator.name == const1
 -->
 	s.G.Gtask = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }

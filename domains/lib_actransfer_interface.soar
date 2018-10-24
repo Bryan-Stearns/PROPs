@@ -22,15 +22,24 @@
 
 smem --set learning on
 
+# CHUNK SINGLETON COMMANDS ARE ESSENTIAL TO PREVENT CHUNKS MATCHING SEVERAL TIMES
 chunk singleton state G identifier
 chunk singleton state V identifier
 chunk singleton state WM identifier
+chunk singleton identifier slot1 identifier
+chunk singleton identifier slot2 identifier
 chunk singleton identifier slot3 identifier
 chunk singleton identifier slot4 identifier
+chunk singleton identifier slot1 constant
+chunk singleton identifier slot2 constant
+chunk singleton identifier slot3 constant
+chunk singleton identifier slot4 constant
 chunk singleton state NW identifier
 chunk singleton state RT identifier
 chunk singleton state Q identifier
 chunk singleton state AC identifier
+chunk singleton state flags identifier
+chunk singleton identifier props-agnostic-add constant
 
 
 # Buffer Init #
@@ -52,9 +61,11 @@ sp {lib*actr*apply*init
 			^NW <n>		# newWM
 			^RT <r>		# retrieval results
 			^Q <q>		# retrieval queries
-			^AC <a>)	# actions
+			^AC <a>		# actions
+			^flags <f>)	# meta commands for 'architectural' processes
 	(<a> ^props-agnostic-add true)	# Learned actions which add to AC don't test for or replace existing values
 	(<q> ^props-agnostic-add true)
+	(<f> ^props-agnostic-add true)
 	(write (crlf) INITTED (crlf))
 }
 
@@ -63,7 +74,7 @@ sp {lib*actr*apply*init
 sp {lib*actr*propose*finish
 	(state <s> ^G.Gtask finish)
 -->
-	(<s> ^operator <o> +)
+	(<s> ^operator <o> + >)
 	(<o> ^name actransfer-finish)
 }
 sp {lib*actr*apply*finish
@@ -71,7 +82,8 @@ sp {lib*actr*apply*finish
 				^G <g>
 				^WM <w>
 				^AC <a>
-				^RT <r>)
+				^RT <r>
+				^flags <f>)
 -->
 	# Reset buffers
 	(<s> ^G <g> -
@@ -81,8 +93,11 @@ sp {lib*actr*apply*finish
 		^RT <r> -	# FIXME: This wasn't reset before, why?
 		^RT <r2>
 		^AC <a> -
-		^AC <a2>)
+		^AC <a2>
+		^flags <f> -
+		^flags <f2>)
 	(<a2> ^props-agnostic-add true)
+	(<f2> ^props-agnostic-add true)
 	# Prompt to reset manual sequence
 	(<s> ^props-flag reset-manual-sequence)
 	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
@@ -264,7 +279,9 @@ sp {lib*actr*elaborate*wm-query*error
 sp {lib*actr*elaborate*retrieval
 	(state <s> ^Q <q>
 				^RT <rt>)
-	(<q> ^retrieve <r>)
+	(<q> ^retrieve <r>
+		 ^stamp.command <r>
+		-^retrieve <> <r>)		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
 	(<r> ^<attr> <val>)
 	#-{(<q> ^<< query retrieve wm-query >> <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
 -->
@@ -274,7 +291,9 @@ sp {lib*actr*elaborate*retrieval
 sp {lib*actr*elaborate*retrieval*id
 	(state <s> ^Q <q>
 				^RT <rt>)
-	(<q> ^retrieve <r>)
+	(<q> ^retrieve <r>
+		 ^stamp.command <r>
+		-^retrieve <> <r>)		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
 	(<r> ^<attr> <val>)
 -->
 	(<rt> ^RTid <r>)
@@ -362,11 +381,12 @@ sp {lib*actr*elaborate*query*failure*error
 sp {lib*actr*apply*clear-rt*clear-command
 	:o-support
 	(state <s> ^G <g>
+			^flags <f>
 			^Q <q>)
 	(<q> ^{<attr> << query retrieve wm-query >>} <rt>
 		^stamp <st>)
 	(<st> ^command <rt>)
-	(<g> ^clear-rt <any>)
+	(<f> ^clear-rt <any>)
 -->
 	(<q> ^<attr> <rt> -
 		^stamp <st> -)
@@ -374,11 +394,12 @@ sp {lib*actr*apply*clear-rt*clear-command
 sp {lib*actr*apply*smem-command*clear-empty
 	:o-support
 	(state <s> ^G <g>
+			^flags <f>
 			^Q <q>)
 	(<q> -^<< query retrieve wm-query >> <qry>)
-	(<g> ^clear-rt <any>)
+	(<f> ^clear-rt <any>)
 -->
-	(<g> ^clear-rt <any> -)
+	(<f> ^clear-rt <any> -)
 }
 
 

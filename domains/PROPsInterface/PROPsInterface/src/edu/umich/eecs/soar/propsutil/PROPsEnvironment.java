@@ -6,8 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import javafx.util.Pair;
@@ -44,6 +47,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 					agent_addresschunk_file = "",
 					agent_instruction_file = "",
 					agent_fetchseq_file = "",
+					agent_epset_file = "",
 					agent_genericsoar_file = "";
 	private String taskName = "TEST",
 					taskSequenceName = "TEST";
@@ -96,7 +100,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		outputs = new ArrayList<String>(numAgentOutputs);
 		delayedInputs = new PriorityQueue<ScheduledInput>(Comparator.comparing(ScheduledInput::getMoment));
 		
-		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
+		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
 		currentSampleNum = 0;
 		
 		//user_initEnvironment();
@@ -108,7 +112,24 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	}
 	
 
-	private boolean loadLearnProductions(LearnConfig mode) {
+	private boolean loadConfigProductions(LearnConfig mode) {
+		// Check 'm'
+		if (currentLearnMode.usesManual()) {
+			if (agent_fetchseq_file == "") {
+				System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
+				initOkay = false;
+				return false;
+			}
+			agent.LoadProductions(props_dir + "props_static.soar");
+			agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
+		}
+		
+		// Check 's'
+		if (currentLearnMode.learnsSpreading()) {
+			agent.LoadProductions(props_dir + "props_learn_conds.soar");
+		}
+		
+		// Check if condition chunks should be sourced
 		if (mode.learnsSpreading() && !mode.learnsAllConditions()) {
 			if (agent_condchunk_file == "") {
 				System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
@@ -117,21 +138,33 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			agent.LoadProductions(agent_condchunk_file);
 		}
 		
+		// Check 'e'
+		if (mode.usesEpsets()) {
+			if (agent_epset_file != "") {
+				agent.LoadProductions(agent_epset_file);
+			}
+			agent.LoadProductions(props_dir + "props_epsets.soar");
+		}
+		
+		// Check 'a'
 		if (mode.learnsAddressChunks()) {
 			// Learn addressing chunks only (and save them for later sourcing)
 			agent.LoadProductions(props_dir + "props_learn_l1.soar");
 			return true;
 		}
 		
+		// Check 'q'
 		if (mode.learnsManualSeqs()) {
 			agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
 		}
 		
+		// Check '3', w/ no '1' or '2'
 		if (mode.learnsAutos() && !mode.learnsAddresses() && !mode.learnsProposals()) {
 			agent.LoadProductions(props_dir + "props_learn_l3only.soar");
 			return true;
 		}
 		
+		// Check '1' - whether addressing chunks should be sourced
 		if (!mode.learnsAddresses()) {
 			if (agent_addresschunk_file == "") {
 				System.err.println("ERROR: User did not provide the addressing chunk file! Aborting.");
@@ -139,9 +172,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			}
 			agent.LoadProductions(agent_addresschunk_file);
 		}
+		
+		// Check '2'
 		if (mode.learnsProposals()) {
 			agent.LoadProductions(props_dir + "props_learn_l2.soar");
 		}
+		
+		// Check '3'
 		if (mode.learnsAutos()) {
 			agent.LoadProductions(props_dir + "props_learn_l3.soar");
 		}
@@ -201,22 +238,10 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			
 			agent.LoadProductions(props_dir + "_firstload_props.soar");			// props library
 			agent.LoadProductions(agent_instruction_file);		// The props instructions
-			
-			if (currentLearnMode.usesManual()) {
-				if (agent_fetchseq_file == "") {
-					System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
-					initOkay = false;
-					return false;
-				}
-				agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
-			}
-			if (currentLearnMode.learnsSpreading()) {
-				agent.LoadProductions(props_dir + "props_learn_conds.soar");
-			}
 
 			agent.ExecuteCommandLine("chunk confidence-threshold " + currentLearnMode.getChunkThreshold());
 			
-			if (!loadLearnProductions(currentLearnMode)) {
+			if (!loadConfigProductions(currentLearnMode)) {
 				initOkay = false;
 				return false;
 			}
@@ -283,6 +308,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	public void setAddressChunkFile(String filename) { agent_addresschunk_file = filename; }
 	public void setInstructionsFile(String filename) { agent_instruction_file = filename; }
 	public void setFetchSeqFile(String filename) { agent_fetchseq_file = filename; }
+	public void setFetchSetFile(String filename) { agent_epset_file = filename; }
 	public void setSoarAgentFile(String filename) { agent_genericsoar_file = filename; }
 	
 	public void setAgentName(String name) { agentName = name; }
@@ -666,7 +692,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		
 		testing = true;
 		outFileName = "make_condition_chunks.txt";
-		currentLearnMode.set(true, false, false, true, true, useManualSeq, false, false);
+		currentLearnMode.set(true, false, false, true, true, useManualSeq, false, false, false);
 		currentLearnMode.setChunkThreshold(1);
 
 		System.out.println("Starting condition chunking run...");
@@ -682,7 +708,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		
 		testing = true;
 		outFileName = "make_address_chunks.txt";
-		currentLearnMode.set(false, false, false, false, false, useManualSeq, false, true);
+		currentLearnMode.set(false, false, false, false, false, useManualSeq, false, true,false);
 		currentLearnMode.setChunkThreshold(1);
 		
 		System.out.println("Starting address chunking run...");
@@ -746,7 +772,114 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			System.err.println("ERROR: Unable to write to file '" + fname + "'");
 		}
 	}
+	
+	/**
+	 * Return the given string, with the span of [first,last] inclusive removed, if it exists.
+	 * The first instance of <first> and the last instance of <last> are used as bounds.
+	 * If one bound exists but not the other, no extraction is made.
+	 * @param str The string to use for returning
+	 * @param first The character for the beginning of the extract
+	 * @param last The character for the end of the extract
+	 * @return Same as <str>, minus the extract
+	 */
+	/*private String removeStringComment(String str, char first, char last) {
+		int firstInd = str.indexOf(first);
+		int lastInd = str.lastIndexOf(last);
+		
+		if (firstInd == -1 || lastInd == -1) {
+			return str;
+		}
+		
+		return str.substring(0, firstInd) + str.substring(lastInd+1, str.length());
+	}
 
+	private void saveSmemSnip(List<String> toSave, int start) {
+		List<String> smem = Arrays.asList(agent.ExecuteCommandLine("p @").split("\n"));
+		smem = smem.subList(start, smem.size());
+		
+		Map<String, String> idMap = new HashMap<String, String>();
+		
+		toSave.add("smem --add {");
+		for (String s : smem) {
+			// Remove activation printout
+			String line = removeStringComment(s, '[', ']');
+			if (!line.contains("^")) {
+				continue;
+			}
+			
+			// Replace IDs with variables
+			int nextID = 1;
+			int atInd = line.indexOf('@');
+			while (atInd != -1) {
+				String id = line.substring(atInd).split(" ")[0];
+				if (!idMap.containsKey(id)) {
+					idMap.put(id, "<E" + nextID++ + ">");
+				}
+				line = line.replace(id, idMap.get(id));
+				
+				atInd = line.indexOf('@');
+			}
+			
+			// Add this smem entry
+			toSave.add(line);
+		}
+		toSave.add("}");
+		
+	}
+	
+	@SuppressWarnings("restriction")
+	public void makeFetchSets(List<Pair<String,String>> taskSeqs, String fname, boolean useSpreading) {
+		if (taskSeqs.size() == 0) {
+			System.err.println("No tasks given to makeFetchSets. Nothing to do.");
+			return;
+		}
+		
+		testing = true;
+		outFileName = "makeFetchSets_log.txt";
+		currentLearnMode.set(false, false, false, false, useSpreading, false, false, false, true);
+		currentLearnMode.setChunkThreshold(1);
+		clearOutputFile();
+
+		ArrayList<String> toSave = new ArrayList<String>();
+		
+		System.out.println("Starting fetch-set learning run...");
+		
+		// Get the end line for initial smem
+		int smemLen = agent.ExecuteCommandLine("p @").split("\n").length;
+		
+		for (Pair<String,String> task : taskSeqs) {
+			if (!initAgent()) {
+				System.err.println("ERROR: Could not init agent for task '" + task + "'");
+				return;
+			}
+
+			setTask(task.getKey(), task.getValue());
+			
+			runAgent();
+			
+			System.out.println("Completed " + task.getKey() + " : " + task.getValue() );
+			
+			// Get the new smem contents
+			saveSmemSnip(toSave, smemLen);
+		}
+		
+		// Save to file
+		try(FileWriter fw = new FileWriter(fname, false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw))
+		{
+			for (String s : toSave) {
+				out.println(s);
+			}
+		}
+		catch (IOException e) {
+			System.err.println("ERROR: Unable to write to file '" + fname + "'");
+		}
+		
+		System.out.println("\nDone! Fetch sets saved to: " + fname);
+		
+	}*/
+	
 	public void runExperiments(String exp_name, int samples, List<LearnConfig> modes) {
 		// For each parameter combination
 		for (LearnConfig m : modes) {

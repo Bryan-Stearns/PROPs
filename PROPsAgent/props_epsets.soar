@@ -1,19 +1,24 @@
 #####    Author: Bryan Stearns, October 2018
 #   This code enables the use of delta sets at the topstate to guide instruction fetching.
-#   This would not make sense alongside a manual task sequence.
+#   This is intended to be an alternate to the fixed "manual" task sequence.
+#   If sourced, the agent will load an epset (set of deltas / instructions / WM transition descriptions) to match the current task context.
+#   This assumes a G.Gtask structure on the topstate, according to the Actransfer model.
+#   This is intended to be a temporary assumption until deeper theory provides a more general context source.
+#
 ##        OPERATORS
 #   props-load-epset                        | Load a set of deltas for the task
 #   props-retrieve-epset                    | Collect the smem retrieval results
 #   
 ##        STRUCTURE
-#  (<s> ^superstate nil                     | In the topstate
+#  (<s> ^G.Gtask <taskname>                 | The source of the epset name (task context)
 #       ^props-epset (<pe>                  | The 'buffer' set of deltas
 #          [^delta (<d>                     | Corresponds to a single instruction set
 #               ^name <name>                | The instruction's name
-#               ^spread-id <ltinum>         | The smem lti id to spread to if all conditions are true
+#               ^instructions (<i>          | An intermediate edge, so depth-3 query doesn't fetch all instructions (for efficiency)
+#                   ^spread-id <ltinum>)    | The smem lti of instructions to spread to if all conditions are true
 #               ^spreader (<xs>             | Created if all conditions are true
 #                   ^spread-id <ltinum>)    | An augmentation so spread executes properly. Allows multiple spreaders in future. 
-#               ^consts <dc>                | Holds constants for the rule
+#               ^const <dc>                 | Holds constants for the rule
 #              [^condition (<c>             | Corresponds to a single condition of the delta
 #                   ^address1 <ts-attr1>    | A cached/provided attribute path from the topstate to find <id1>
 #                   ^address2 <ts-attr2>    | A cached/provided attribute path from the topstate to find <id2>
@@ -33,33 +38,36 @@
 ### 
 
 sp {propose*props*eval*query*epset
-    "Load the static struct to begin the fetch process"    # The struct includes prohibits needed during fetching
-    (state <s> ^WM
+    "Load an epset to bias fetching for the task"
+    (state <s> ^G.Gtask {<task> <> finish}    # Finish triggers interface response
               -^smem.result.<< retrieved failure >>
-              -^props-epset)
+              -^props-epset.props-epset-name <task>)
 -->
     (<s> ^operator <o> + >)
-    (<o> ^name props-load-epset)
+    (<o> ^name props-load-epset
+         ^taskName <task>)
 }
 
 sp {apply*props*eval*query*epset*task-named
-    (state <s> ^operator.name props-load-epset
-               ^io.input-link.task-sequence-name <taskname>
+    (state <s> ^operator <o>
                ^smem.command <scmd>)
+    (<o> ^name props-load-epset
+         ^taskName <taskname>)
 -->
     (<scmd> ^query <q>
             ^depth 3)
     (<q> ^props-epset-name <taskname>)
 }
-sp {apply*props*eval*query*epset*task-unnamed
-    (state <s> ^operator.name props-load-epset
-               -^io.input-link.task-sequence-name
-               ^smem.command <scmd>)
--->
-    (<scmd> ^query <q>
-            ^depth 3)
-    (<q> ^props-epset-name <any>)
-}
+#sp {apply*props*eval*query*epset*task-unnamed
+#    (state <s> ^operator <o>
+#               ^smem.command <scmd>)
+#    (<o> ^name props-load-epset
+#         -^taskName <taskname>)
+#-->
+#    (<scmd> ^query <q>
+#            ^depth 3)
+#    (<q> ^props-epset-name <any>)
+#}
 
 
 ### OPERATOR ### 
@@ -68,9 +76,9 @@ sp {apply*props*eval*query*epset*task-unnamed
 # Pull the query result
 ### 
 
-sp {propose*props*eval*retrieve*epset
-    (state <s> ^superstate nil
-              -^props-epset <pe>
+sp {propose*props*retrieve-epset
+    (state <s> ^G.Gtask <taskname>
+              -^props-epset.props-epset-name <taskname>
                ^smem.result.<< success failure >> <q>)
     (<q> ^props-epset-name )
 -->
@@ -78,35 +86,67 @@ sp {propose*props*eval*retrieve*epset
     (<o> ^name props-retrieve-epset)
 }
 
-sp {apply*props*eval*retrieve*epset*success
-    (state <s> ^operator <o>
-               ^smem.result.retrieved <e>)
-    (<o> ^name props-retrieve-epset)
+sp {apply*props*retrieve-epset*success*new
+    (state <s> ^operator.name props-retrieve-epset
+               ^smem <smem>
+              -^props-epset)
+    (<smem> ^command <scmd>
+           ^result.retrieved <e>)
+    (<scmd> ^query <q>)
 -->
     (<s> ^props-epset <e>)
+    (<scmd> ^query <q> -)
 }
-sp {apply*props*eval*retrieve*epset*failure*task-named
-    "On failure, make a new empty epset"
-    (state <s> ^operator <o>
-               ^io.input-link.task-sequence-name <taskname>
-               ^smem (^command <scmd> ^result.failure) )
-    (<o> ^name props-retrieve-epset)
+sp {apply*props*retrieve-epset*success*replace
+    (state <s> ^operator.name props-retrieve-epset
+               ^smem <smem>
+               ^props-epset <eold>)
+    (<smem> ^command <scmd>
+           ^result.retrieved <e>)
+    (<scmd> ^query <q>)
+    (<eold> ^props-epset-name <> <taskname>)
+    (<e> ^props-epset-name <taskname>)
 -->
-    (<s> ^props-epset <enew>)
-    (<scmd> ^props-epset <enew>)
-    (<enew> ^props-epset-name <taskname>)
+    (<s> ^props-epset <eold> -
+         ^props-epset <e>)
+    (<scmd> ^query <q> -)
 }
-sp {apply*props*eval*retrieve*epset*failure*task-unnamed
-    "On failure, make a new empty epset"
-    (state <s> ^operator <o>
-               -^io.input-link.task-sequence-name
-               ^smem (^command <scmd> ^result.failure) )
-    (<o> ^name props-retrieve-epset)
--->
-    (<s> ^props-epset <enew>)
-    (<scmd> ^props-epset <enew>)
-    (<enew> ^props-epset-name |unnamed|)
-}
+#sp {apply*props*retrieve-epset*failure*task-named
+#    "On failure, make a new empty epset"
+#    (state <s> ^operator <o>
+#               ^G.Gtask <taskname>
+#               ^smem (^command <scmd> ^result.failure) )
+#    (<o> ^name props-retrieve-epset)
+#    (<scmd> ^query <q>)
+#-->
+#    (<s> ^props-epset <enew>)
+#    (<enew> ^props-epset-name <taskname>)
+#    (<scmd> ^store <enew>
+#            ^query <q> -)
+#}
+#sp {apply*props*retrieve-epset*failure*task-unnamed
+#    "On failure, make a new empty epset"
+#    (state <s> ^operator <o>
+#               -^io.input-link.task-sequence-name
+#               ^smem (^command <scmd> ^result.failure) )
+#    (<o> ^name props-retrieve-epset)
+#    (<scmd> ^query <q>)
+#-->
+#    (<s> ^props-epset <enew>)
+#    (<enew> ^props-epset-name |unnamed|)
+#    (<scmd> ^store <enew>
+#            ^query <q> -)
+#}
+#sp {set*props*retrieve-epset*clean-store
+#    :o-support
+#    (state <s> ^props-epset <pe>
+#               ^smem <smem>)
+#    (<smem> ^command <sc>
+#            ^result.<< success failure >> <pe>)
+#    (<sc> ^store <pe>)
+#-->
+#    (<sc> ^store <pe> -)
+#}
 
 ### OPERATOR ### 
 # (props-init-evaluation)
@@ -114,75 +154,45 @@ sp {apply*props*eval*retrieve*epset*failure*task-unnamed
 # Create epset items for the current instructions if they don't yet exist.
 # (props-init-evaluation) defined in props_instruction_init.soar.
 ### 
-sp {apply*props*init-evaluation*epset*create-delta
-    "Create an instruction delta reference if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^const <consts>)
-    (<rs> ^props-epset <pe>)
-    -{(<pe> ^delta <d>)
-      (<d> ^name <name>)}    # It is not the case that the current epset has these instructions
--->
-    (<es> ^delta <dnew>)
-    (<dnew> ^name <name>
-            ^spread-id (@ <ins>)
-            ^consts <consts>)
-}
-sp {apply*props*init-evaluation*epset*create-delta*condition*1arg
-    "Create a delta condition if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^condition <cname>
-           ^prop-link <pl>)
-    (<pl> ^lti-name <cname>
-          ^prop-type <type>
-          ^attr1 <attr1>
-          -^attr2)
-    (<rs> ^props-epset.delta <d>)
-    (<d> ^name <name>)
-    -{(<d> ^condition <cond>)
-      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
--->
-    (<d> ^condition <cnew>)
-    (<cnew> ^lti-name <cname>
-            ^prop-type <type>
-            ^attr1 <attr1>)
-}
-sp {apply*props*init-evaluation*epset*create-delta*condition*2arg
-    "Create a delta condition if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^condition <cname>
-           ^prop-link <pl>)
-    (<pl> ^lti-name <cname>
-          ^prop-type <type>
-          ^attr1 <attr1>
-          ^attr2 <attr2>)
-    (<rs> ^props-epset.delta <d>)
-    (<d> ^name <name>)
-    -{(<d> ^condition <cond>)
-      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
--->
-    (<d> ^condition <cnew>)
-    (<cnew> ^lti-name <cname>
-            ^prop-type <type>
-            ^attr1 <attr1>
-            ^attr2 <attr2>)
-}
-#sp {apply*props*init-evaluation*epset*create-delta*condition*augs
-#    "Copy a deltas condition augmentations if they dont yet exist."
+#sp {apply*props*init-evaluation*epset*create-delta
+#    "Create an instruction delta reference if it doesnt yet exist."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^const <consts>)
+#    (<rs> ^props-epset <pe>)
+#    -{(<pe> ^delta <d>)
+#      (<d> ^name <name>)}         # It is not the case that the current epset has these instructions
+#-->
+#    (<pe> ^delta <dnew>)
+#    (<dnew> ^name <name>
+#            ^spread-id (@ <ins>)
+#            ^elabs <enew>
+#            ^const <cnew>)        # Make a separate copy of consts, so isn't an intermediate result that confuses chunking
+#    (<s> ^props-to-store <dnew>
+#         ^props-to-store <pe>)    # Mark for storing after init-evaluation completes
+#}
+#sp {apply*props*init-evaluation*epset*create-delta*copy-consts
+#    "Copy to the superstate delta struct any consts from these instructions."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^const <consts>)
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^const <c>)
+#    (<consts> ^<attr> <val>)
+#    (<c> -^<attr> <val>)
+#-->
+#    (<c> ^<attr> <val>)
+#}
+#sp {apply*props*init-evaluation*epset*create-delta*condition*1arg
+#    "Create a delta condition if it doesnt yet exist."
 #    (state <s> ^operator <o>
 #               ^quiescence t
 #               ^rootstate <rs>)
@@ -192,61 +202,132 @@ sp {apply*props*init-evaluation*epset*create-delta*condition*2arg
 #           ^condition <cname>
 #           ^prop-link <pl>)
 #    (<pl> ^lti-name <cname>
-#          ^<attr> {<val> <=> <name>}) # Copy over any constant augmentations
-#    (<rs> ^props-epset.delta (^name <name> ^condition <cond>) )
-#    (<cond> ^lti-name <cname>
-#           -^<attr> <val>)
+#          ^prop-type {<type> <> |condition|}
+#          ^attr1 <attr1>
+#          -^attr2)
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^name <name>)
+#    -{(<d> ^condition <cond>)
+#      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
 #-->
-#    (<d> ^<attr> <val>)
+#    (<d> ^condition <cnew>)
+#    (<cnew> ^lti-name <cname>
+#            ^prop-type <type>
+#            ^elabs <enew>
+#            ^attr1 <attr1>)
+#    (<s> ^props-to-store <cnew>)    # Mark it for storing after init-evaluation completes
 #}
-sp {apply*props*init-evaluation*epset*create-delta*condition*address1
-    "Create condition address info if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^condition <cname>
-           ^prop-link (^lti-name <cname> ^sub1-link.chain-attr <addr>)
-    (<rs> ^props-epset.delta.condition <cond>)
-    (<cond> ^lti-name <cname>
-           -^address1)
--->
-    (<cond> ^address1 <addr>)
-}
-sp {apply*props*init-evaluation*epset*create-delta*condition*address2
-    "Create condition address info if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^condition <cname>
-           ^prop-link (^lti-name <cname> ^sub2-link.chain-attr <addr>)
-    (<rs> ^props-epset.delta.condition <cond>)
-    (<cond> ^lti-name <cname>
-           -^address2)
--->
-    (<cond> ^address2 <addr>)
-}
-sp {apply*props*init-evaluation*epset*create-delta*condition*address2
-    "Create condition address info if it doesnt yet exist."
-    (state <s> ^operator <o>
-               ^quiescence t
-               ^rootstate <rs>)
-    (<o> ^name props-init-evaluation
-         ^props-instructions <ins>)
-    (<ins> ^name <name>
-           ^condition <cname>
-           ^prop-link (^lti-name <cname> -^sub2-link)
-    (<rs> ^props-epset.delta ( ^const <const> ^condition <cond>) )
-    (<cond> ^lti-name <cname>
-           -^address2)
--->
-    (<cond> ^address2 <const>)
-}
+#sp {apply*props*init-evaluation*epset*create-delta*condition*2arg
+#    "Create a delta condition if it doesnt yet exist."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^condition <cname>
+#           ^prop-link <pl>)
+#    (<pl> ^lti-name <cname>
+#          ^prop-type {<type> <> |condition|}
+#          ^attr1 <attr1>
+#          ^attr2 <attr2>)
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^name <name>)
+#    -{(<d> ^condition <cond>)
+#      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
+#-->
+#    (<d> ^condition <cnew>)
+#    (<cnew> ^lti-name <cname>
+#            ^prop-type <type>
+#            ^elabs <enew>
+#            ^attr1 <attr1>
+#            ^attr2 <attr2>)
+#    (<s> ^props-to-store <cnew>)    # Mark it for storing after init-evaluation completes
+#}
+
+#sp {apply*props*init-evaluation*epset*create-delta*condition*address1
+#    "Create condition address info if it doesnt yet exist."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^condition <cname>
+#           ^prop-link (^lti-name <cname> ^sub1-link.chain-attr <addr>) )
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^name <name>
+#         ^condition <cond>)
+#    (<cond> ^lti-name <cname>
+#           -^address1)
+#-->
+#    (<cond> ^address1 <addr>)
+#}
+#sp {apply*props*init-evaluation*epset*create-delta*condition*address2*provided
+#    "Create condition address info if it doesnt yet exist."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^condition <cname>
+#           ^prop-link (^lti-name <cname> ^sub2-link.chain-attr <addr>) )
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^name <name>
+#         ^condition <cond>)
+#    (<cond> ^lti-name <cname>
+#           -^address2)
+#-->
+#    (<cond> ^address2 <addr>)
+#}
+#sp {apply*props*init-evaluation*epset*create-delta*condition*address2*const
+#    "Create condition address info if it doesnt yet exist."
+#    (state <s> ^operator <o>
+#               ^quiescence t
+#               ^rootstate <rs>)
+#    (<o> ^name props-init-evaluation
+#         ^props-instructions <ins>)
+#    (<ins> ^name <name>
+#           ^condition <cname>
+#           ^prop-link <pl>)
+#    (<pl> ^lti-name <cname>
+#          ^attr2 
+#         -^sub2-link)
+#    (<rs> ^props-epset.delta <d>)
+#    (<d> ^name <name>
+#         ^const <const> 
+#         ^condition <cond>)
+#    (<cond> ^lti-name <cname>
+#           -^address2)
+#-->
+#    (<cond> ^address2 |constant|)
+#}
+
+# OVERWRITES FROM props_instruction_init.soar
+#sp {apply*props*init-evaluation*originals-ready
+#    "Wait until delta is created before ending"
+#    (state <s> ^operator.name props-init-evaluation
+#               ^rootstate.props-epset <pe>
+#               ^smem.command <scmd>
+#              -^props-to-store
+#               ^props-flag originals-not-ready
+#               ^props-buffer)
+#   (<pe> ^delta.condition.address1 <any>)
+#-->
+#    (<s> ^props-flag originals-not-ready -)
+#}
+#sp {apply*props*init-evaluation*originals-ready*store-new
+#    "Store any newly created epset augmentations"
+#    (state <s> ^operator.name props-init-evaluation
+#               ^rootstate.props-epset <pe>
+#               ^smem.command <scmd>
+#               ^props-to-store <new>
+#               ^props-buffer)
+#-->
+#    (<scmd> ^store <new>)
+#    (<s> ^props-to-store <new> -)
+#}
 
 ### 
 # Elaborate upon matching rule descriptions in the epset to stimulate spread
@@ -256,20 +337,31 @@ sp {elaborate*props*epset*delta*all-true
     "Create a spreader if all conditions are true"
     (state <s> ^props-epset <pe>)
     (<pe> ^delta <d>)
-    (<d> ^spread-id <ltinum>)
+    (<d> ^instructions.spread-id <lti>)
     -{(<d> ^condition <c>)
       (<c> -^result success)} # It is not the case that this delta has untrue conditions
 -->
-    (<d> ^result success
-         ^spreader <xs>)
-    (<xs> ^spread-id <ltinum>)        # some augmentation just to allow spread
-    (link-stm-to-ltm <xs> <ltinum>)
+    (<lti> ^active-spread true)        # some augmentation just to allow spread
 }
+#sp {elaborate*props*epset*delta*all-true
+#    "Create a spreader if all conditions are true"
+#    (state <s> ^props-epset <pe>)
+#    (<pe> ^delta <d>)
+#    (<d> ^instructions.spread-id <ltinum>)
+#    -{(<d> ^condition <c>)
+#      (<c> -^result success)} # It is not the case that this delta has untrue conditions
+#-->
+#    (<d> ^result success
+#         ^spreader <xs>)
+#    (<xs> ^spread-id <ltinum>)        # some augmentation just to allow spread
+#    (link-stm-to-ltm <xs> <ltinum>)
+#}    # Use this instead if spread-id is a number only rather than an lti
 
 # SUPPLY CACHED ADDRESSES:
 
 sp {elaborate*props*epset*delta*cond*address1*buffer
     (state <s> ^props-epset.delta.condition <c>
+              #-^smem.command.store <c>    # don't include the id in smem
                ^<buff> <buff-id>)
     (<c> ^address1 <buff>)
 -->
@@ -277,24 +369,17 @@ sp {elaborate*props*epset*delta*cond*address1*buffer
 }
 sp {elaborate*props*epset*delta*cond*address2*buffer
     (state <s> ^props-epset.delta.condition <c>
+              #-^smem.command.store <c>    # don't include the id in smem
                ^<buff> <buff-id>)
     (<c> ^address2 <buff>)
 -->
     (<c> ^id2 <buff-id>)
 }
-sp {elaborate*props*epset*delta*cond*address1*const
-    (state <s> ^props-epset.delta <d>)
-    (<d> ^consts <dc>
-         ^condition <c>)
-    (<c> ^address1 constant)
--->
-    (<c> ^id1 <dc>)
-}
 sp {elaborate*props*epset*delta*cond*address2*const
     (state <s> ^props-epset.delta <d>)
-    (<d> ^consts <dc>
+    (<d> ^const <dc>
          ^condition <c>)
-    (<c> ^address2 constant)
+    (<c> ^address2 |props$const|)
 -->
     (<c> ^id2 <dc>)
 }
@@ -388,11 +473,12 @@ sp {elaborate*props*epset*delta*cond*greater-equal
 #sp {elaborate*props*epset*delta*cond*inexistence
 #    (state <s> ^props-epset.delta.condition <c>)
 #    (<c> ^prop-type inexistence
-#         ^id1 <id1>
+#         ^elabs (<ce>
+#             ^id1 <id1>)
 #         ^attr1 <attr1>)
 #    (<id1> -^<attr1> <val>)
 #-->
-#    (<c> ^result success)
+#    (<ce> ^result success)
 #}
 sp {elaborate*props*epset*delta*cond*negation
     (state <s> ^props-epset.delta.condition <c>)

@@ -2,9 +2,9 @@ chunk only
 chunk add-ltm-links on
 chunk confidence-threshold 1
 
-#explain all on
-#explain justifications on
-#vis color on
+explain all on
+explain justifications on
+vis color on
 
 #watch --learn 2
 #watch --learning print
@@ -31,7 +31,7 @@ source lib_smem_clean.soar
 source lib_smem_prohibit_store.soar
 
 source props_fetch.soar
-source props_static.soar
+#source props_static.soar
 source props_instruction_init.soar
 source props_instruction_eval.soar
 source props_primitives.soar
@@ -40,7 +40,7 @@ source props_shared.soar
 #source props_build_proposals.soar        # Is sourced with props_learn_l2.soar
 #source props_condition_spread.soar       # Source this optionally on your own to enable condition spread learning
 #source props_tie.soar
-source props_epsets.soar
+#source props_epsets.soar
 
 multi-attributes condition 4
 multi-attributes action 4

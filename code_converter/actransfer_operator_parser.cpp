@@ -38,6 +38,7 @@ actransfer_operator_parser::actransfer_operator_parser(std::string in_path, std:
 actransfer_operator_parser::~actransfer_operator_parser() {
 }
 const std::string actransfer_operator_parser::CONST_NAME = "const";
+const std::string actransfer_operator_parser::CLEAR_RT_PATH = "s.flags.clear-rt";
 
 void actransfer_operator_parser::printParseError(std::string msg, bool showLine = true) {
 	std::cout << "ERROR PARSING INPUT:" << std::endl << "  ";
@@ -420,7 +421,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		// Check RT test conditions, indicating need to clear RT after reading
 		if (/*sToken.compare("nil") && sToken.compare("error") && std::find(specClears.begin(), specClears.end(), p1) != specClears.end()*/
 				!p1.compare(0,5, "s.RT.") || (!p1.compare(0,16, "s.smem.rt-result") && op.compare("-")) ) {
-			clearAction = (Primitive("=", "s.G.clear-rt", "const1"));
+			clearAction = (Primitive("=", CLEAR_RT_PATH, "const1"));
 		}
 
 
@@ -613,7 +614,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				if (!p2.compare(0,4,"s.Q."))
 					clearAction.path1 = "";
 				else if (!p2.compare("s.G.Gtask"))
-					clearAction = (Primitive("=", "s.G.clear-rt", "const1"));
+					clearAction = (Primitive("=", CLEAR_RT_PATH, "const1"));
 			}
 			else {
 				printParseError("Unrecognized action token '" + sToken + "'");
@@ -651,7 +652,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			|| !currRule_h2.compare("for-insert"))
 			&& (!currTaskName.compare("ed") || !currTaskName.compare("edt"))))
 	{
-		actions.push_back(Primitive("=", "s.G.clear-rt", "const1"));
+		actions.push_back(Primitive("=", CLEAR_RT_PATH, "const1"));
 	}
 
 	ss.str(""); 	// clear any remaining tokens from this line
@@ -807,12 +808,12 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 				retRefs.push_back("state <s> ^NW <nw>");
 			}*/
 		}
-		else if (!a.path1.compare("s.G.clear-rt")) {
-			if (!retval.count("s.G")) {
+		else if (!a.path1.compare(CLEAR_RT_PATH)) {
+			if (!retval.count("s.flags")) {
 				id1 = "<c" + toString(idnum++) + ">";
-				retval["s.G"] = id1;
+				retval["s.flags"] = id1;
 
-				retRefs.push_back("state <s> ^G " + id1);
+				retRefs.push_back("state <s> ^flags " + id1);
 			}
 		}
 		else if (!p11.compare(0,2, "s.")) {
@@ -870,7 +871,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 		// Add action to remove the old value
 		if (std::find(negTestRefs.begin(), negTestRefs.end(), a.path1) == negTestRefs.end()
-				&& a.path1.compare(0,10, "s.operator") && a.path1.compare("s.G.clear-rt")
+				&& a.path1.compare(0,10, "s.operator") && a.path1.compare(CLEAR_RT_PATH)
 				&& a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,4, "s.NW")
 				&& a.path1.compare(0,4, "s.RT")) {
 			// Add reference to the old value
@@ -1085,6 +1086,7 @@ std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<st
 void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &propRules, std::vector<std::string> &soarRules) {
 	std::stringstream ss;
 	lineNumber = 1;
+	std::string lastTaskName = "";
 
 	nextLine(ss);	// needed to init nextToken usage
 
@@ -1116,6 +1118,9 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		// Construct PROPs code
 		std::string proposeRule = "", applyRule = "";
 		buildPropOperator(proposeRule, applyRule, condConsts, actConsts, conditions, actions);
+		if (currTaskName.compare(lastTaskName)) {
+			propRules.push_back("# add-instr " + currTaskName + "\n");
+		}
 		propRules.push_back(proposeRule);
 		propRules.push_back(applyRule);
 

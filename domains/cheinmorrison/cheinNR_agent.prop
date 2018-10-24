@@ -3,6 +3,7 @@
 # FROM 'CheinMorrison-no-rehearsal.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
 #####
 
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*init
 	const1 cheinNR-verbal-CWM-init
 	const2 verbal-CWM
@@ -20,6 +21,7 @@ pp {apply*cheinNR*verbal-CWM*init
 -->
 	s.G.Gtop = s.WM
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*lexical*retrieve
 	const1 cheinNR-verbal-CWM-lexical-retrieve
 	const2 verbal-CWM
@@ -42,6 +44,7 @@ pp {apply*cheinNR*verbal-CWM*lexical*retrieve
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.V.slot2
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*lexical*success
 	const1 cheinNR-verbal-CWM-lexical-success
 	const2 verbal-CWM
@@ -64,8 +67,9 @@ pp {apply*cheinNR*verbal-CWM*lexical*success
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*lexical*fail
 	const1 cheinNR-verbal-CWM-lexical-fail
 	const2 verbal-CWM
@@ -88,8 +92,9 @@ pp {apply*cheinNR*verbal-CWM*lexical*fail
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*remember-letter
 	const1 cheinNR-verbal-CWM-remember-letter
 	const2 verbal-CWM
@@ -113,6 +118,7 @@ pp {apply*cheinNR*verbal-CWM*remember-letter
 	s.NW.wm.slot2 = s.WM
 	s.AC.action.slot1 = const2
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*report*start
 	const1 cheinNR-verbal-CWM-report-start
 	const2 verbal-CWM
@@ -132,6 +138,7 @@ pp {apply*cheinNR*verbal-CWM*report*start
 -->
 	s.Q.retrieve = s.G.Gtop
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*report*report
 	const1 cheinNR-verbal-CWM-report-report
 	const2 verbal-CWM
@@ -154,6 +161,7 @@ pp {apply*cheinNR*verbal-CWM*report*report
 	s.AC.action.slot2 = s.RT.slot1
 	s.Q.wm-query.root = s.RT.RTid
 }
+# add-instr verbal-CWM
 pp {propose*cheinNR*verbal-CWM*report*finish
 	const1 cheinNR-verbal-CWM-report-finish
 	const2 verbal-CWM
@@ -176,8 +184,9 @@ pp {apply*cheinNR*verbal-CWM*report*finish
 -->
 	s.AC.action.slot1 = const2
 	s.G.Gtask = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*init
 	const1 cheinNR-stroop-init
 	const2 stroop
@@ -198,6 +207,7 @@ pp {apply*cheinNR*stroop*init
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*object-seen*focus-color
 	const1 cheinNR-stroop-object-seen-focus-color
 	const2 stroop
@@ -221,6 +231,7 @@ pp {apply*cheinNR*stroop*object-seen*focus-color
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*object-seen*focus-all
 	const1 cheinNR-stroop-object-seen-focus-all
 	const2 stroop
@@ -245,6 +256,7 @@ pp {apply*cheinNR*stroop*object-seen*focus-all
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*report*retrieve
 	const1 cheinNR-stroop-report-retrieve
 	const2 stroop
@@ -266,6 +278,7 @@ pp {apply*cheinNR*stroop*report*retrieve
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.V.slot2
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*report*say
 	const1 cheinNR-stroop-report-say
 	const2 stroop
@@ -287,8 +300,9 @@ pp {apply*cheinNR*stroop*report*say
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = s.RT.slot3
 	s.G.Gcontrol = const3
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*idle*focus
 	const1 cheinNR-stroop-idle-focus
 	const2 stroop
@@ -312,6 +326,7 @@ pp {apply*cheinNR*stroop*idle*focus
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*idle*no-focus
 	const1 cheinNR-stroop-idle-no-focus
 	const2 stroop
@@ -335,6 +350,7 @@ pp {apply*cheinNR*stroop*idle*no-focus
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
+# add-instr stroop
 pp {propose*cheinNR*stroop*finish
 	const1 cheinNR-stroop-finish
 	const2 stroop
@@ -353,5 +369,5 @@ pp {apply*cheinNR*stroop*finish
 	s.operator.name == const1
 -->
 	s.G.Gtask = const2
-	s.G.clear-rt = const1
+	s.flags.clear-rt = const1
 }

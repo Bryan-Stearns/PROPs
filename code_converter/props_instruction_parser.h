@@ -47,6 +47,7 @@ private:
 	int maxPropNumber;
 	int chainNumber;
 	std::string currRuleName;
+	std::string currTaskName;
 	bool currRuleHasOpRef;
 
 	std::map<size_t, int> propIds;

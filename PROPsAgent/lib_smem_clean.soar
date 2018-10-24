@@ -8,7 +8,7 @@
 
 sp {set*clean*retrieves
     :o-support
-    (state <s> ^name << props-eval instruction props-combine-search sub-props >>
+    (state <s> ^name << props-eval instruction sub-props >>
 				^smem <smem>)
 	(<smem>		^command <sc>
                 ^result.<< success failure >> <cue>)
@@ -19,7 +19,7 @@ sp {set*clean*retrieves
 }
 sp {set*clean*queries
     :o-support
-    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+    (state <s> ^name << props-eval instruction sub-props props-reset-sequence >>
 				^smem <smem>)
 	(<smem>		^command <sc>
                 ^result.<< success failure >> <cue>)
@@ -30,7 +30,7 @@ sp {set*clean*queries
 }
 sp {set*clean*stores
     :o-support
-    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+    (state <s> ^name << props-eval instruction sub-props props-reset-sequence >>
 				^smem <smem>)
 	(<smem>	^command <sc>
             ^result.<< success failure >> <cue>)
@@ -42,7 +42,7 @@ sp {set*clean*stores
 
 sp {set*clean*query*depth
     :o-support
-    (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+    (state <s> ^name << props-eval instruction sub-props props-reset-sequence >>
 				^smem <smem>)
 	(<smem>		^command <sc>
 				^result.<< success failure >> <cue>)
@@ -54,7 +54,7 @@ sp {set*clean*query*depth
 
 #sp {set*clean*query*prohibits
 #   :o-support
-#   (state <s> ^name << props-eval instruction props-combine-search sub-props props-reset-sequence >>
+#   (state <s> ^name << props-eval instruction sub-props props-reset-sequence >>
 #				^smem <smem>)
 #	(<smem>		^command <sc>
 #               ^result.<< success failure >> <cue>)

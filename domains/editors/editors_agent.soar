@@ -93,10 +93,11 @@ sp {apply*editors*ed*line-strategy*enter
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
+	(state <s> ^flags <c4>)
 	(<c1> ^name editors-ed-line-strategy-enter)
 	-->
 	(<c2> ^Gcontrol find-line)
-	(<c2> ^clear-rt const1)
+	(<c4> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 }
 sp {propose*editors*ed*line-strategy*pcmd
@@ -117,6 +118,7 @@ sp {apply*editors*ed*line-strategy*pcmd
 	(<c3> ^slot1 <c5>)
 	(state <s> ^G <c6>)
 	(<c6> ^Gcontrol <c7>)
+	(state <s> ^flags <c8>)
 	(<c1> ^name editors-ed-line-strategy-pcmd)
 	-->
 	(<c2> ^action <n1>)
@@ -124,7 +126,7 @@ sp {apply*editors*ed*line-strategy*pcmd
 	(<n1> ^slot2 <c4>)
 	(<c3> ^slot1 <c4>)
 	(<c6> ^Gcontrol find-line)
-	(<c6> ^clear-rt const1)
+	(<c8> ^clear-rt const1)
 	(<c3> ^slot1 <c5> -)
 	(<c6> ^Gcontrol <c7> -)
 }
@@ -260,13 +262,14 @@ sp {apply*editors*ed*find-task-word*for-replace
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-ed-find-task-word-for-replace)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -289,13 +292,14 @@ sp {apply*editors*ed*find-task-word*for-delete
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-ed-find-task-word-for-delete)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -318,13 +322,14 @@ sp {apply*editors*ed*find-task-word*for-insert
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-ed-find-task-word-for-insert)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -579,10 +584,11 @@ sp {apply*editors*ed*finish
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
 	(<c1> ^name editors-ed-finish)
 	-->
 	(<c2> ^Gtask finish)
-	(<c2> ^clear-rt const1)
+	(<c4> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }
 sp {propose*editors*edt*init*start
@@ -675,10 +681,11 @@ sp {apply*editors*edt*line-strategy*enter
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gcontrol <c3>)
+	(state <s> ^flags <c4>)
 	(<c1> ^name editors-edt-line-strategy-enter)
 	-->
 	(<c2> ^Gcontrol find-line)
-	(<c2> ^clear-rt const1)
+	(<c4> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 }
 sp {propose*editors*edt*line-strategy*read-instruction
@@ -696,12 +703,13 @@ sp {apply*editors*edt*line-strategy*read-instruction
 	(state <s> ^AC <c2>)
 	(state <s> ^G <c3>)
 	(<c3> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
 	(<c1> ^name editors-edt-line-strategy-read-instruction)
 	-->
 	(<c2> ^action <n1>)
 	(<n1> ^slot1 read-instruction)
 	(<c3> ^Gcontrol word-strategy)
-	(<c3> ^clear-rt const1)
+	(<c5> ^clear-rt const1)
 	(<c3> ^Gcontrol <c4> -)
 }
 sp {propose*editors*edt*line-strategy*look
@@ -920,13 +928,14 @@ sp {apply*editors*edt*find-task-word*for-replace
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-edt-find-task-word-for-replace)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -949,13 +958,14 @@ sp {apply*editors*edt*find-task-word*for-delete
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-edt-find-task-word-for-delete)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -978,13 +988,14 @@ sp {apply*editors*edt*find-task-word*for-insert
 	(<c5> ^slot2 <c6>)
 	(<c4> ^slot2 <c7>)
 	(state <s> ^AC <c8>)
+	(state <s> ^flags <c9>)
 	(<c1> ^name editors-edt-find-task-word-for-insert)
 	-->
 	(<c2> ^Gcontrol find-word)
 	(<c4> ^slot2 <c6>)
 	(<c8> ^action <n1>)
 	(<n1> ^slot1 read-screen)
-	(<c2> ^clear-rt const1)
+	(<c9> ^clear-rt const1)
 	(<c2> ^Gcontrol <c3> -)
 	(<c4> ^slot2 <c7> -)
 }
@@ -1239,10 +1250,11 @@ sp {apply*editors*edt*finish
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
 	(<c1> ^name editors-edt-finish)
 	-->
 	(<c2> ^Gtask finish)
-	(<c2> ^clear-rt const1)
+	(<c4> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }
 sp {propose*editors*emacs*init*start
@@ -1692,9 +1704,10 @@ sp {apply*editors*emacs*finish
 	(state <s> ^operator <c1>)
 	(state <s> ^G <c2>)
 	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
 	(<c1> ^name editors-emacs-finish)
 	-->
 	(<c2> ^Gtask finish)
-	(<c2> ^clear-rt const1)
+	(<c4> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
 }

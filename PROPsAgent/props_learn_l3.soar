@@ -43,7 +43,7 @@ sp {apply*props*dont-learn*snc
 -->
     (write (crlf) | *** NOT LEARNING STATE | <s> |***| )
     (dont-learn <s>)
-}
+}    # Should overwrite props_learn_conds.soar if both used
 sp {apply*props*dont-learn*onc
     (state <s> ^operator.name props-result-success
                ^proposals <ppls>
@@ -56,4 +56,4 @@ sp {apply*props*dont-learn*onc
 -->
     (write (crlf) | *** NOT LEARNING STATE | <state> |***| )
     (dont-learn <state>)
-}
+}    # Should overwrite props_learn_conds.soar if both used

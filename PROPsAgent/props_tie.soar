@@ -18,7 +18,8 @@ sp {elaborate*props*fetched-enough
                ^props-instructions <ins1>
                ^props-instructions <> <ins1>)
 -->
-    (<s> ^props-flag fetched-enough)
+    (<s> ^props-flag fetched-enough
+         ^props-flag originals-not-ready)
 }
 sp {elaborate*props*fetched-enough*allow-plan-b
     "After the first fails, try the second if still around"
@@ -27,7 +28,8 @@ sp {elaborate*props*fetched-enough*allow-plan-b
                ^props-instructions <ins1>
                -^props-instructions <> <ins1>)
 -->
-    (<s> ^props-flag fetched-enough)
+    (<s> ^props-flag fetched-enough
+         ^props-flag originals-not-ready)
 }
 
 

@@ -244,7 +244,7 @@ sp {propose*props*manual*next-rule
     (state <s> ^selected-instructions <ins>
                #^props-flag has-failed-instructions  # Enable by sourcing props_learn_conds.soar
               -^props-flag incremented-manual-seq
-               ^props-flag originals-ready
+              -^props-flag originals-not-ready
                ^props-static <> none)
 -->
     (<s> ^operator <o> + >)
@@ -341,3 +341,80 @@ sp {apply*props*manual*next-rule*reset
 #}
 
 
+### OPERATOR ### 
+# (props-query)
+##
+# Query for explicit instructions if using a sequence
+### 
+
+production excise apply*props*query    # Remove rather than overwrite so props_learn_conds.soar can also overwrite
+
+# DO A CUED RECALL IF A FREE RECALL HAS ALREADY FAILED (AFTER THE RECALLED INSTRUCTIONS WERE EVALUATED)
+sp {apply*props*query*manual
+    (state <s> ^operator.name props-query
+               #^props-flag has-failed-instructions   # Enabled by sourcing props_condition_spread.soar
+               ^props-static.manual-next-rule <name>
+               ^smem.command <scmd>)
+-->
+    (<scmd> ^query <q>
+            ^depth 4)                        # Retrieve down to constants
+    (<q>    ^prop-type |instruction|
+            ^name <name>)
+    (write |   * CUED RECALL FOR | <name> | * | )
+}    # Overwritten by props_learn_conds.soar
+
+
+# QUIT IF NO MORE INSTRUCTIONS TO TRY 
+# (The impasse flag does nothing here; it is a signal for the rootstate to use if it wants. Interrupting is the main thing here.)
+#sp {apply*props*query*quit*depleted
+#    (state <s>  ^operator.name props-query
+#                ^props-static <ps>
+#                ^smem.result.failure <cue>
+#                ^props-flag dont-reset
+#                ^rootstate <rs>)
+#    (<ps> -^manual-next-rule)
+#    #-(<rs> ^props-fetch-reset <> search*lhs*quit)
+#-->
+#    (<rs>   ^props-flag impasse)
+#    # TODO: remove any other props-related structures at this time - if any?
+#    (write (crlf) | *** NO MORE INSTRUCTIONS TO TRY - YOU'VE REACHED A PROPER STATE NO-CHANGE *** | )
+#    (interrupt)
+#}    # Overwrites from props_fetch.soar
+sp {apply*props*query*quit*manual-error
+    (state <s>  ^operator.name props-query
+                ^props-static <ps>
+                ^smem.result.failure <cue>
+                ^props-flag dont-reset
+                ^rootstate <rs>)
+    (<ps> ^manual-next-rule)
+    #-(<rs> ^props-fetch-reset <> search*lhs*quit)
+-->
+    (<rs>   ^props-flag impasse)
+    (write (crlf) | *** ERROR: Depleted instruction sequence without any matches! *** | )
+    (interrupt)
+}
+
+
+### OPERATOR ### 
+# (props-reset)
+##
+# Add rules to reset the static struct during each fetch reset 
+### 
+
+# Allow a reset of instructions before fetching if can look ahead in the sequence
+#sp {propose*props*reset
+#    (state <s> ^name props-eval
+#                ^props-static
+#               #^props-fetch-reset <blink>)
+#                -^props-flag dont-reset)
+#-->
+#    (<s> ^operator <o> + > !)
+#    (<o> ^name props-reset)
+#}    # Overwrites from props_fetch.soar
+
+sp {apply*props*reset*static
+    (state <s> ^operator.name props-reset
+               ^props-static <ps>)
+-->
+    (<s> ^props-static <ps> -)
+}

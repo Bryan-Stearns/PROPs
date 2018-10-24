@@ -57,6 +57,7 @@ sp {prefer*props*query*instructions
 
 sp {propose*props*substate*build-proposals
     (state <s> ^name props-eval
+               ^proposals.conds-counted > 0
                ^operator <o1> +
               #-^prop-condition-xp
               -^props-flag propose-ready)

@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="sml.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Bryan/Documents/Mich/Soar/repos/development/Soar/out/java/soar-debugger.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/PROPsInterface.jar"/>
+	<classpathentry kind="lib" path="/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/workspace/Environment/sml.jar"/>
+	<classpathentry kind="lib" path="/home/bryan/Soar/development/Soar/out/SoarJavaDebugger.jar"/>
+	<classpathentry kind="lib" path="/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/PROPsInterface.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
