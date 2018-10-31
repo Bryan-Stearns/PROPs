@@ -128,7 +128,7 @@ def main():
     actions = ['next-instruction']
     '''
     
-    conv_types = ['l123se']
+    conv_types = ['l12se']
     samples = ['8']
     
     T = ['10']
