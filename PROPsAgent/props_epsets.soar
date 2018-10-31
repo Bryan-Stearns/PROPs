@@ -329,17 +329,40 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<s> ^props-to-store <new> -)
 #}
 
+
+### 
+# Propose matching rule descriptions in the epset
+###
+
+sp {propose*props*epset*delta*all-true
+    "Propose the operator if all conditions are true."
+    (state <s> ^props-epset <pe>)
+    (<pe> ^delta <d>)
+    (<d> ^instructions.op-name <name>
+        -^missing )
+    -{(<d> ^condition <c>
+           ^cond-id1 <cid1>)
+      (<c> ^name <cname>)
+      (<cid1> -^result success)} # It is not the case that this delta has untrue conditions
+-->
+    (<s> ^operator <o> + =)
+    (<o> ^name <name>)
+}
+
 ### 
 # Elaborate upon matching rule descriptions in the epset to stimulate spread
 ###
 
-sp {elaborate*props*epset*delta*all-true
+sp {elaborate*props*epset*delta*all-true*spread
     "Create a spreader if all conditions are true"
     (state <s> ^props-epset <pe>)
     (<pe> ^delta <d>)
-    (<d> ^instructions.spread-id <lti>)
-    -{(<d> ^condition <c>)
-      (<c> -^result success)} # It is not the case that this delta has untrue conditions
+    (<d> ^instructions.spread-id <lti>
+        -^missing )
+    -{(<d> ^condition <c>
+           ^cond-id1 <cid1>)
+      (<c> ^name <cname>)
+      (<cid1> -^result success)} # It is not the case that this delta has untrue conditions
 -->
     (<lti> ^active-spread true)        # some augmentation just to allow spread
 }
@@ -360,141 +383,222 @@ sp {elaborate*props*epset*delta*all-true
 # SUPPLY CACHED ADDRESSES:
 
 sp {elaborate*props*epset*delta*cond*address1*buffer
-    (state <s> ^props-epset.delta.condition <c>
+    (state <s> ^props-epset.delta <d>
               #-^smem.command.store <c>    # don't include the id in smem
                ^<buff> <buff-id>)
-    (<c> ^address1 <buff>)
+    (<d> ^condition <c>)
+    (<c> ^address1 <buff>
+         ^name <cname>)
 -->
-    (<c> ^id1 <buff-id>)
+    (<d> ^cond-id1 <dcid>)
+    (<dcid> ^name <cname>
+            ^id1 <buff-id>)
 }
 sp {elaborate*props*epset*delta*cond*address2*buffer
-    (state <s> ^props-epset.delta.condition <c>
+    (state <s> ^props-epset.delta <d>
               #-^smem.command.store <c>    # don't include the id in smem
                ^<buff> <buff-id>)
-    (<c> ^address2 <buff>)
+    (<d> ^condition <c>)
+    (<c> ^address2 <buff>
+         ^name <cname>)
 -->
-    (<c> ^id2 <buff-id>)
+    (<d> ^cond-id2 <dcid>)
+    (<dcid> ^name <cname>
+            ^id2 <buff-id>)
 }
 sp {elaborate*props*epset*delta*cond*address2*const
     (state <s> ^props-epset.delta <d>)
     (<d> ^const <dc>
          ^condition <c>)
-    (<c> ^address2 |props$const|)
+    (<c> ^address2 |props$const|
+         ^name <cname>)
 -->
-    (<c> ^id2 <dc>)
+    (<d> ^cond-id2 <dcid>)
+    (<dcid> ^name <cname>
+            ^id2 <dc>)
+}
+
+sp {elaborate*props*epset*delta*cond*address1*missing
+    (state <s> ^props-epset.delta <d>
+              -^<buff> <buff-id>)
+    (<d> ^condition <c>)
+    (<c> ^address1 <buff>)
+-->
+    (<d> ^missing |id1|)
+}
+sp {elaborate*props*epset*delta*cond*address2*missing*buffer
+    (state <s> ^props-epset.delta <d>
+              -^<buff> <buff-id>)
+    (<d> ^condition <c>)
+    (<c> ^address2 {<buff> <> |props$const|})
+-->
+    (<d> ^missing |id2|)
 }
 
 # EPSET PRELS: (PRimitive ELabs)
 
 sp {elaborate*props*epset*delta*cond*eq
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type equality
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*neq
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type inequality
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*teq
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type type-equality
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <=> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*less
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type less-than
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> < <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*greater
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type greater-than
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> > <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*less-equal
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type less-equal
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> <= <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*greater-equal
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>
+         ^cond-id2 <cid2>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
+    (<cid2> ^name <cname>
+            ^id2 <id2>)
     (<c> ^prop-type greater-equal
-         ^id1 <id1>
-         ^id2 <id2>
+         ^name <cname>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id1> ^<attr1> <= <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 #sp {elaborate*props*epset*delta*cond*inexistence
-#    (state <s> ^props-epset.delta.condition <c>)
+#    (state <s> ^props-epset.delta <d>)
+#    (<d> ^condition <c>
+#         ^cond-id1 <cid1>)
+#    (<cid1> ^name <cname>
+#            ^id1 <id1>)
 #    (<c> ^prop-type inexistence
-#         ^elabs (<ce>
-#             ^id1 <id1>)
+#         ^name <cname>
 #         ^attr1 <attr1>)
 #    (<id1> -^<attr1> <val>)
 #-->
 #    (<ce> ^result success)
 #}
 sp {elaborate*props*epset*delta*cond*negation
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
     (<c> ^prop-type negation
-         ^id1 <id1>
+         ^name <cname>
          ^attr1 <attr1>)
     (<id1> -^<attr1> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }
 sp {elaborate*props*epset*delta*cond*existence
-    (state <s> ^props-epset.delta.condition <c>)
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^condition <c>
+         ^cond-id1 <cid1>)
+    (<cid1> ^name <cname>
+            ^id1 <id1>)
     (<c> ^prop-type existence
-         ^id1 <id1>
+         ^name <cname>
          ^attr1 <attr1>)
     (<id1> ^<attr1> <val>)
 -->
-    (<c> ^result success)
+    (<cid1> ^result success)
 }

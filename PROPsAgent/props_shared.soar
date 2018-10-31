@@ -6,44 +6,53 @@
 
 ### RECOGNIZE INITIAL STATE NO-CHANGE ###
 # THIS BEGINS THE PROPS FETCH AND EXECUTE PROCESSING
+#sp {elaborate*props*eval*state
+#    (state <s> ^impasse no-change
+#               ^attribute state
+#              -^superstate.name props-eval)
+#-->
+#    (<s> ^name props-eval
+#         ^proposals <p>)
+#}
 sp {elaborate*props*eval*state
     (state <s> ^impasse no-change
-               ^attribute state
-              -^superstate.name props-eval)
+               ^attribute << state operator >>
+              -^superstate.rootstate)
 -->
     (<s> ^name props-eval
          ^proposals <p>)
 }
 
-# CLEANUP PROPS STRUCTURES ON PROPS IMPASSE
-#sp {set*props*clean*quit*instructions
-#    :o-support
-#    (state <s> ^props-flag impasse
-#               ^props-instructions <any>)
-#-->
-#    (<s> ^props-instructions <any> -)
-#}
 
 
 ### PROPAGATE MARKERS FOR VARIOUS INSTRUCTION EVALUATION STATE STACKS ###
 
 ### DEFINE AND PROPAGATE THE ROOTSTATE ###
 
+#sp {elaborate*props*rootstate*init-onc
+#	(state <s> ^name props-eval
+#			   ^superstate <ss>)
+#	(<ss> ^impasse no-change
+#		  ^attribute operator
+#		  ^superstate <sss>)
+#-->
+#	(<s> ^rootstate <sss>
+#         ^force-learn-onc-state <ss>)
+#}
 sp {elaborate*props*rootstate*init-onc
-	(state <s> ^name props-eval
-			   ^superstate <ss>)
-	(<ss> ^impasse no-change
-		  ^attribute operator
-		  ^superstate <sss>)
+    (state <s> ^name props-eval
+               ^superstate <ss>
+               ^impasse no-change
+               ^attribute operator)
 -->
-	(<s> ^rootstate <sss>
-         ^force-learn-onc-state <ss>)
+    (<s> ^rootstate <ss>
+         ^force-learn-onc-state <s>)
 }
+
 sp {elaborate*props*rootstate*init-snc
 	(state <s> ^name props-eval
               -^force-learn-onc-state
 			   ^superstate <ss>)
-	#(<ss> -^impasse )
 -->
 	(<s> ^rootstate <ss>)
 }

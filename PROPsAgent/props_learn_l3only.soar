@@ -22,11 +22,12 @@ sp {apply*props*force-learn*all*d2
 }
 sp {elaborate*props*build-proposals*finalized
     "Bypass the build-proposals substate"
-    (state <s> ^operator.name props-init-evaluation
-              -^props-flag propose-ready)
+    (state <s> ^name props-eval
+               ^operator <o1> +)
+    (<o1> ^name << props-result-success props-result-fail >>)
 -->
     (<s> ^props-flag propose-ready)
-}
+} # Overwritten by props_build_proposals.soar
 
 # Remove from props_learn_conds.soar or props_learn_l3.soar
 production excise apply*props*dont-learn*snc

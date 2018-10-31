@@ -2,9 +2,9 @@ chunk only
 chunk add-ltm-links on
 chunk confidence-threshold 1
 
-explain all on
-explain justifications on
-vis color on
+#explain all on
+#explain justifications on
+#vis color on
 
 #watch --learn 2
 #watch --learning print

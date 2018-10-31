@@ -62,7 +62,7 @@ public class ElioWorld extends PROPsEnvironment {
 		//		 proj_dir + "elio_agent_smem.soar"));
 
 
-		etask = new ETask("", 1,1,0);
+		etask = new ETask("", 1,1,this.getElapsedTime());
 	}
 	
 	@Override
@@ -86,8 +86,13 @@ public class ElioWorld extends PROPsEnvironment {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			if (val2.equals("limemax") || val2.equals("limemin")
+					|| val2.equals("toxinmax") || val2.equals("toxinmin")) {
+				this.addAgentLatency(1000);
+			}
 		}
 		else if (val1.compareTo("enter") == 0) {
+			this.addAgentLatency(300);
 			// Clear inputs
 			this.clearPerception();
 			// Get the current number of chunks
@@ -96,12 +101,12 @@ public class ElioWorld extends PROPsEnvironment {
 			int DC = agent.GetDecisionCycleCounter();
 			//results.add(new Result(etask, val2, DC - lastDC, chunkCount));
 			this.addReport(String.format("%1$s \t%2$d \t%3$d \t%4$.3f \t%5$s \t%6$d \t%7$d",
-					this.getTask().toUpperCase(), etask.trial, etask.line, (System.nanoTime() - etask.start)/1000000000.0, val2, (DC - lastDC), chunkCount, etask.sample));
+					this.getTask().toUpperCase(), etask.trial, etask.line, this.milliToSec(this.getElapsedTime() - etask.start), val2, (DC - lastDC), chunkCount, this.getCurrentSample()));
 			
 			lastDC = DC;
 			// Start next task
 			etask.line++;
-			etask.start = System.nanoTime();
+			etask.start = this.getElapsedTime();
 
 			System.out.println("# Enter " + val2 + " #");
 		}
@@ -118,16 +123,15 @@ public class ElioWorld extends PROPsEnvironment {
 		// Reset for next trial
 		etask.line = 1;
 		etask.trial++;
-		etask.start = System.nanoTime();
+		etask.start = this.getElapsedTime();
 	}
 
 	@Override
 	protected void user_doExperiment() {
 		List<String> tasks = new ArrayList<>(Arrays.asList("procedure-b", "procedure-c", "procedure-d"));
-		int NUM_TRIALS = 6;
+		int NUM_TRIALS = 50;
 		
-		
-		etask.sample = current_sample++;
+		//etask.sample = current_sample++;
 		lastDC = 0;
 		
 		// Alternate NUM_TRIALS trials of procedure-A with NUM_TRIALS trials of each of the others

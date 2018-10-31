@@ -70,6 +70,7 @@ sp {propose*props*substate*build-proposals
 sp {elaborate*props*build-proposals*bypass-one-fail
     "Bypass the build substate if theres only one item due to condition failure"
     (state <s> ^name props-eval
+               ^operator <o1> +
                ^proposals ( <ps> ^propose <p1>) )
     (<p1> #-^original true
            ^used true
@@ -78,19 +79,23 @@ sp {elaborate*props*build-proposals*bypass-one-fail
      (<p2> ^status
           #-^original true
            ^used true )}
+    (<o1> ^name << props-result-success props-result-fail >>)
 -->
     (<s> ^props-flag propose-ready)
 }
 sp {elaborate*props*build-proposals*finalized
     "Bypass the build substate if the complete instruction set has been learned"
     (state <s> ^name props-eval
+               ^operator <o1> +
                ^proposals ( ^cond-count <ccnt> 
                             ^act-count <acnt>
+                            ^conds-counted > 0
                             ^propose <p>) )
     (<p> ^size {> <ccnt> > <acnt>})
+    (<o1> ^name << props-result-success props-result-fail >>)
 -->
     (<s> ^props-flag propose-ready)
-}
+} # Overwritten by props_learn_l3only.soar
 
 
 ### OPERATOR ### 

@@ -65,6 +65,7 @@ sp {lib*actr*apply*init
 			^flags <f>)	# meta commands for 'architectural' processes
 	(<a> ^props-agnostic-add true)	# Learned actions which add to AC don't test for or replace existing values
 	(<q> ^props-agnostic-add true)
+	(<n> ^props-agnostic-add true)
 	(<f> ^props-agnostic-add true)
 	(write (crlf) INITTED (crlf))
 }
@@ -404,19 +405,57 @@ sp {lib*actr*apply*smem-command*clear-empty
 
 
 # NEWWM #
+sp {lib*actr*set*newwm*stamp
+	:o-support
+	(state <s> ^NW <n>)
+	(<n> ^wm <cmd>)
+	-{(<n> ^stamp <st>)
+	  (<st> ^command <cmd>)}
+-->
+	(<n> ^stamp <stnew>)
+	(<stnew> ^command <cmd>
+			^dc (dc))
+}
 sp {lib*actr*set*newwm*swap
 	:o-support
 	(state <s> ^NW <n>
-				#^smem.command <scmd>
 				^WM <w>)
-	(<n> ^wm <nw>)
+	(<n> ^wm <nw>
+		^stamp <st>
+		-^swapped-dc <dc>)	# Only perform one newWM swap per decision cycle (so chunks that create commands don't fire infinitely)
+	(<st> ^command <nw>
+		^dc <dc>)
 -->
 	(<s> ^WM <w> -
 		^WM <nw>)
 	(<w> ^WMnext <nw>)	# Save the forward pointer, rather than the Actransfer-esque backwards pointer
-	(<n> ^wm <nw> -)
+	(<n> ^wm <nw> -
+		^stamp <st> -
+		^swapped-dc <dc>)
 	#(write (crlf) |*** WM-STORE: | <w> )
 }
+sp {lib*actr*set*newwm*clear-swapped
+	"Keep only the most recent swap on record."
+	:o-support
+	(state <s> ^NW <n>)
+	(<n> ^swapped-dc <dcold>
+		^swapped-dc > <dcold>)
+-->
+	(<n> ^swapped-dc <dcold> -)
+}
+sp {lib*actr*set*newwm*remove-duplicates
+	"A failsafe in case the user makes a chunk that would infinitely remake newWM commands, if conditioned on WM."
+	:o-support
+	(state <s> ^NW <n>)
+	(<n> ^swapped-dc <dc>
+		^wm <cmd>
+		^stamp <st>)
+	(<st> ^command <cmd>
+		^dc <dc>)		# If there's an unprocessed command but there has already been a swap this cycle
+-->
+	(<n> ^wm <cmd> -)	# Then remove the extra command. Only one allowed per cycle.
+}
+
 sp {lib*actr*set*update-wmnext*add
 	:o-support
 	(state <s> ^WM <w>)

@@ -9,7 +9,8 @@ sp {apply*props*force-learn*all*d1
             ^act-count <acnt>
             ^propose <p>)
     (<p> ^size {> <ccnt> > <acnt>}    # If greater than both, can only be the combo of both
-         ^status success)
+         ^status success
+         ^used true)
 -->
     (write (crlf) | *** LEARNING ALL - STATE | <s> |***| )
     (force-learn <s>)
@@ -23,7 +24,8 @@ sp {apply*props*force-learn*all*d2
             ^act-count <acnt>
             ^propose <p>)
     (<p> ^size {> <ccnt> > <acnt>}    # If greater than both, can only be the combo of both
-         ^status success)
+         ^status success
+         ^used true)
 -->
     (write (crlf) | *** LEARNING ALL - STATE | <state> |***| )
     (force-learn <state>)
@@ -39,7 +41,8 @@ sp {apply*props*dont-learn*snc
             ^act-count <acnt>)
    -{(<ppls> ^propose <p>)
      (<p> ^size {> <ccnt> > <acnt>}    # If greater than both, can only be the combo of both
-          ^status success)}
+          ^status success
+          ^used true)}
 -->
     (write (crlf) | *** NOT LEARNING STATE | <s> |***| )
     (dont-learn <s>)
@@ -52,7 +55,8 @@ sp {apply*props*dont-learn*onc
             ^act-count <acnt>)
    -{(<ppls> ^propose <p>)
      (<p> ^size {> <ccnt> > <acnt>}    # If greater than both, can only be the combo of both
-          ^status success)}
+          ^status success
+          ^used true)}
 -->
     (write (crlf) | *** NOT LEARNING STATE | <state> |***| )
     (dont-learn <state>)
