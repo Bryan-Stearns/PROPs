@@ -1,13 +1,14 @@
 # R-file to plot the data from the Elio experiment and model.
 
-plot_elio_data <- function(auto, free, f_pch) {
+plot_elio_data <- function(auto, cog, f_pch) {
   # This function assume the global workspace variables used at the time it is called below
   
-  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),"2",ifelse(auto, "3",""), ifelse(free, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(PLOT_LC, "c", ""), ifelse(PLOT_EPSETS, "e", ""), "_t", T, "_s", samples, sep="")
+  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),"2",ifelse(auto, "3",""), ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(cog, "c", ""), ifelse(PLOT_EPSETS, "e", ""), "_t", T, "_s", samples, sep="")
   f_inpath <- paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/verbose_elio_props_", f_graphname,"_X",".dat", sep="")
   f_data <- read.table(f_inpath)
-  f_data <- data.frame(f_data[1:11], f_data[4]+f_data[9])
-  names(f_data) <- c("task","trial","line","RT","answer", "DC1s", "chunks", "DCs", "LTtime", "LTcount", "fails", "ST")
+  f_data <- data.frame(f_data[1:11], f_data[4] - 0.05*f_data[6])  # Action Latencies = RT - DC_time
+  f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+f_data[9]+0.05*f_data[8]))  # ST = Actions + LTtime + counted_DCs
+  names(f_data) <- c("task","trial","line","RT","answer", "DC1s", "chunks", "DCs", "LTtime", "LTcount", "fails", "ACT", "ST")
   
   f_data$type <- ifelse((f_data$task %in% c("PROCEDURE-A","PROCEDURE-C") & (f_data$line %in% c(1,2,4))) | (f_data$task %in% c("PROCEDURE-B","PROCEDURE-D") & (f_data$line < 4)), "component","integrative")
   f_data$block <- trunc((f_data$trial+4)/5)
@@ -21,7 +22,7 @@ plot_elio_data <- function(auto, free, f_pch) {
   train_points <- f_data.m[1,,1]
   mse <- mean((t - train_points)^2)
   print(train_points)
-  print(paste(ifelse(auto,"Auto,","Control,"),ifelse(free,"Free","Cued"), " MSE: ",mse,sep = ""))
+  print(paste(ifelse(auto,"Auto,","Control,"),ifelse(cog,"Learned","Known"), " MSE: ",mse,sep = ""))
 }
 
 # Plot of the model data
@@ -115,7 +116,7 @@ yscale <- ifelse(PLOT_ST, 15, 240)
 
 yfloor <- 0
 legendY <- 0.99
-savename = paste("test_fig2_elio_",ifelse(PLOT_ACTR, "m",""),"v",ifelse(PLOT_PROPv1, "1",""),ifelse(PLOT_PROPv2, "2",""),ifelse(PLOT_PROPv240, "240",""),ifelse(PLOT_SPREADING,"_","_"),sep="")
+savename = paste("fig_elio_",ifelse(PLOT_ACTR, "m",""),ifelse(PLOT_PROPv1, "1",""),ifelse(PLOT_PROPv2, "2",""),ifelse(PLOT_PROPv240, "240",""),ifelse(PLOT_PROPdev, "3",""),ifelse(PLOT_SPREADING,"_","_"),sep="")
 prefix <- ifelse(PLOT_ST, paste("STpr",ifelse(PLOT_PROPv240,DC_MODE,""),sep=""), "DC")
 
 title <- ifelse(PLOT_L1,
@@ -145,13 +146,13 @@ if (PLOT_PROPv2) {lines((1:10*5),prop2_data.m[1,,taskInd],type="b",pch=1,lty=1,y
 if (PLOT_PROPv240) {lines((1:10*5),prop240_data.m[1,,taskInd],type="b",pch=5,lty=1,ylim=c(yfloor,yscale),xlim=c(0,xscale),main=title,col="black")}
 
 if (PLOT_PROPdev) {
-  plot_elio_data(PLOT_L3, TRUE, 2); legendText <- c(legendText, paste("LEARNED",sep="")); legendPch <- c(legendPch, 2);
-  #plot_elio_data(PLOT_L3, FALSE, 1); legendText <- c(legendText, paste("KNOWN",sep="")); legendPch <- c(legendPch, 1);
+  #plot_elio_data(PLOT_L3, TRUE, 2); legendText <- c(legendText, paste("LEARNED",sep="")); legendPch <- c(legendPch, 2);
+  plot_elio_data(PLOT_L3, FALSE, 1); legendText <- c(legendText, paste("KNOWN",ifelse(PLOT_EPSETS," proposals 50ms",""),sep="")); legendPch <- c(legendPch, 1);
 }
 
 title(xlab="Trial", ylab=ylabel, line=2)
 
-legend(ifelse(PLOT_SPREADING,15,15),legendY*yscale,legend=legendText,lty=c(1,1,1,1,1),pch=legendPch, col=c("gray37","black","black","black","black"), pt.cex=1, cex=1.2)
+legend(ifelse(PLOT_SPREADING,5,15),legendY*yscale,legend=legendText,lty=c(1,1,1,1,1),pch=legendPch, col=c("gray37","black","black","black","black"), pt.cex=1, cex=1.0)
 dev.off() # Finalize image
 
 if (PLOT_ACTR) {

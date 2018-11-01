@@ -9,12 +9,13 @@ import re
 
 def convertData(path, timepath, domain, actions):
     
-    DC_TIME = 0.05
+    #DC_TIME = 0.05
     
     DELIM = "\t"
-    COUNT_IMPASSES = True
+    COUNT_IMPASSES = False
     
-    PRIM_TIME = 0.4     # Add DECLARATIVE retrieval time for each primitive
+    #PRIM_TIME = 0.4     # Add DECLARATIVE retrieval time for each primitive
+    LTM_TIME = 0.4
     
     printing = False
     lastProc = ""
@@ -23,7 +24,7 @@ def convertData(path, timepath, domain, actions):
     proc_dc = 0
     ltmTimeBuff = 0.0
     ltm_count = 0
-    prim_count = 0
+    #prim_count = 0
     p_count = 0
     fail_count = 0
     
@@ -35,7 +36,7 @@ def convertData(path, timepath, domain, actions):
     if timepath:
         actrfile = open(timepath)
         #PRIM_TIME = float(actrfile.readline().split()[-1])
-    LTM_TIME = PRIM_TIME - (DC_TIME * 2.0)
+        #LTM_TIME = float(actrfile.readline().split()[-1]) #PRIM_TIME - (DC_TIME * 2.0)
     
     for line in infile:
         opLabInd = line.find(' O: ')
@@ -48,11 +49,12 @@ def convertData(path, timepath, domain, actions):
             if COUNT_IMPASSES or opLabInd != -1:
                 proc_dc += 1
             # Count simulated LTM retrieval time, separate from decision cycle time
-            if re.match(r'props-query', line[opNameInd+1:]):
+            if re.match(r'props-load|props-query', line[opNameInd+1:]):
                 ltm_count += 1
+                proc_dc -= 2    # Undo the count for the query and for the corresponding 'retrieve' operator            
             # Count simulated instruction element retrieval time, separate from decision cycle time
-            if re.match(r'props-evaluate', line[opNameInd+1:]):
-                prim_count += 1
+            #if re.match(r'props-evaluate', line[opNameInd+1:]):
+            #    prim_count += 1
         # Count new productions
         elif line.startswith("Learning new rule chunk"):
             p_count += 1
@@ -66,15 +68,15 @@ def convertData(path, timepath, domain, actions):
         elif line.startswith("Say: "):
             if any(a in line[5:] for a in actions):
                 # Calculate the appropriate fetching latencies
-                PRIM_TIME = float(actrfile.readline().split()[-1])
-                LTM_TIME = PRIM_TIME - (DC_TIME * 2.0)     # This could give a negative number, but that still offsets the 2 DCs for each query/collect
-                ltmTimeBuff = PRIM_TIME*prim_count + LTM_TIME*ltm_count
+                LTM_TIME = float(actrfile.readline().split()[-1])
+                #LTM_TIME = PRIM_TIME - (DC_TIME * 2.0)     # This could give a negative number, but that still offsets the 2 DCs for each query/collect
+                ltmTimeBuff = LTM_TIME*ltm_count # + PRIM_TIME*prim_count
                 # Add data point - each corresponds to a completed procedure
                 rows += [(proc_dc, p_count, sample, ltmTimeBuff, ltm_count, fail_count)]
                 # Reset for the next entry
                 ltmTimeBuff = 0.0;
                 ltm_count = 0
-                prim_count = 0
+                #prim_count = 0
                 proc_dc = 0
                 fail_count = 0
         # Notice change in procedure

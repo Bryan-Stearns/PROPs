@@ -90,6 +90,9 @@ public class ElioWorld extends PROPsEnvironment {
 					|| val2.equals("toxinmax") || val2.equals("toxinmin")) {
 				this.addAgentLatency(1000);
 			}
+			else {
+				this.addAgentLatency(300);
+			}
 		}
 		else if (val1.compareTo("enter") == 0) {
 			this.addAgentLatency(300);
@@ -149,6 +152,7 @@ public class ElioWorld extends PROPsEnvironment {
 
 			this.setTask(task, task);
 			etask.init(task);
+			etask.start = this.getElapsedTime();
 			for (int i=0; i<NUM_TRIALS; ++i) {
 				this.runAgent();
 			}

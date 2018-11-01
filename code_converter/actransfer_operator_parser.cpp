@@ -31,6 +31,7 @@ actransfer_operator_parser::actransfer_operator_parser(std::string in_path, std:
 	currRule_h1 = "";
 	currRule_h2 = "";
 	currTaskName = "";
+	wmprev_ind = 2;		// default as the third slot
 
 	initSlotRefMap();
 }
@@ -146,9 +147,15 @@ void actransfer_operator_parser::getSlotNames(std::stringstream &ss, std::map<st
 		sToken = nextToken(ss);
 	}
 
+	int i = 0;
 	while (sToken.compare(")")) {
 		// Add this token to the map
 		nameMap.insert(std::make_pair(sToken, slotPath + "slot" + toString(addrInd++)));
+
+		// Remember this slot if it is the special "WMprev" name
+		if (!sToken.compare("WMprev")) {
+			wmprev_ind = i;
+		}
 
 		// Get the next token
 		sToken = nextToken(ss);
@@ -161,6 +168,8 @@ void actransfer_operator_parser::getSlotNames(std::stringstream &ss, std::map<st
 			if (!sToken.compare("("))
 				sToken = nextToken(ss);
 		}
+
+		i++;
 	}
 }
 
@@ -238,79 +247,9 @@ std::string actransfer_operator_parser::getBuffSlot(const std::string &buff, con
 bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions)
 {
 	// TODO: Make automatic using "(add-instr"
-	const int wmprev_ind = 2;	// starting from 0
-	/*const std::map<std::string, std::string> condSlotRefs = {
-			{"Gcontrol","s.G.Gcontrol"},
-			{"Gtop","s.G.Gtop"},
-			{"Gtask", "s.G.Gtask"},
-			{"Gparent", "s.G.Gparent"},
-			//{"Vlabel", "s.V.in1"},
-			//{"Vvalue", "s.V.in2"},
-			//{"Vtype", "s.V.in1"},
-			//{"Vword1", "s.V.in2"},
-			//{"Vword2", "s.V.in3"},
-			//{"Vline", "s.V.in4"},
-			{"WMid", "s.WM"},
-			//{"WMatt", "s.WM.slot1"},
-			//{"WMvalue", "s.WM.slot2"},
-			{"WMprev", "s.WM.WMprev"},
-			{"WMnext", "s.WM.WMnext"},
-			//{"WMcurline", "s.WM.slot1"},
-			//{"WMsearch-goal", "s.WM.slot2"},
-			//{"RTtype", "s.RT.slot1"},
-			//{"RTarg1", "s.RT.slot2"},
-			//{"RTarg2", "s.RT.slot3"},
-			//{"RTans", "s.RT.slot4"},
-			//{"RTatt", "s.RT.slot1"},
-			//{"RTvalue", "s.RT.slot2"},
-			{"RTprev", "s.RT.WMprev"},
-			{"RTnext", "s.RT.WMnext"},
-			{"RT1", "s.smem.rt-result"},
-			//{"RTcount-fact", "s.RT.slot1"},
-			//{"RTfirst", "s.RT.slot2"},
-			//{"RTsecond", "s.RT.slot3"},
-			//{"RTdiff-3-fact", "s.RT.slot1"},
-			//{"RTnum1", "s.RT.slot2"},
-			//{"RTnum2", "s.RT.slot3"},
-			{"RTid", "s.RT"}
-	};
-	const std::map<std::string, std::string> actSlotRefs = {
-			{"Gcontrol","s.G.Gcontrol"},
-			{"Gtop","s.G.Gtop"},
-			{"Gtask", "s.G.Gtask"},
-			{"Gparent", "s.G.Gparent"},
-			{"WMid", "s.WM"},
-			//{"WMatt", "s.WM.slot1"},
-			//{"WMvalue", "s.WM.slot2"},
-			{"WMprev", "s.WM.WMprev"},
-			//{"WMcurline", "s.WM.slot1"},
-			//{"WMsearch-goal", "s.WM.slot2"},
-			//{"RTtype", "s.Q.query.slot1"},
-			//{"RTarg1", "s.Q.query.slot2"},
-			//{"RTarg2", "s.Q.query.slot3"},
-			//{"RTans", "s.Q.query.slot4"},
-			//{"RTatt", "s.Q.query.slot1"},
-			//{"RTvalue", "s.Q.query.slot2"},
-			{"RTprev", "s.Q.query.WMprev"},
-			//{"RT1", "s.Q.query.slot1"},
-			//{"RTcount-fact", "s.Q.query.slot1"},
-			//{"RTfirst", "s.Q.query.slot2"},
-			//{"RTsecond", "s.Q.query.slot3"},
-			//{"RTdiff-3-fact", "s.Q.query.slot1"},
-			//{"RTnum1", "s.Q.query.slot2"},
-			//{"RTnum2", "s.Q.query.slot3"},
-			{"AC1", "s.AC.action.slot1"},
-			{"RTid", "s.Q.retrieve"}
-	};*/
+	//const int wmprev_ind = 2;	// starting from 0
 
-
-
-	// Special case negation conditions
-	//const std::vector<std::string> specNegs = {"s.V.Vlabel", "s.V.Vvalue"/*, "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"*/};
-
-	// Special case clear-rt conditions
-	//const std::vector<std::string> specClears = {"s.RT.result", "s.RT.slot1", "s.RT.slot2", "s.RT.slot3", "s.RT.slot4"};
-	Primitive clearAction("","","");
+	Primitive clearAction("","","");	// Special case: populated args if need clear-rt
 
 	// Read first task name
 	std::string sToken = nextToken(ss);	// "(" or ";~"
@@ -450,19 +389,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	std::vector<std::string> src_bufferIDs = {
 			{"s.RT"},
 			{"s.WM"},
-			//{"RTid", {"s.RT.slot4.slot1", "s.RT.slot4.slot2", "s.RT.slot4.slot3", "s.RT.slot4.slot4"}},    // This is hacky specific for Elio.
-			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
 			{"s.G.Gtop"}
 	};
-	/*std::map<std::string, std::vector<std::string>> dst_buffers = {
-			{"AC", {"s.AC.action.slot1", "s.AC.action.slot2", "s.AC.action.slot3"}},
-			{"RT", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
-			{"RTid", {"s.Q.query.slot1", "s.Q.query.slot2", "s.Q.query.slot3", "s.Q.query.slot4"}},
-			//{"RTprev", {"s.RT.slot4.slot1", "s.RT.slot4.slot2", "s.RT.slot4.slot3", "s.RT.slot4.slot4"}},  // This is hacky specific for Elio.
-			//{"WMprev", {"s.WM.slot3.slot1", "s.WM.slot3.slot2", "s.WM.slot3.slot3", "s.WM.slot3.slot4"}},  // This is hacky specific for Elio.
-			{"newWM", {"s.NW.wm.slot1", "s.NW.wm.slot2", "s.NW.wm.slot3", "s.NW.wm.slot4"}},
-			{"Gtop", {"s.G.Gtop.slot1", "s.G.Gtop.slot2", "s.G.Gtop.slot3", "s.G.Gtop.slot4"}}
-	};*/
 
 	while (sToken.compare(")")) {
 		// Check for group action (e.g., (div RTvalue WMvalue) -> RT)
@@ -472,48 +400,34 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			auto sources = std::vector<std::string>();
 			std::string pRef, op, buff;
 
-			//if (src_buffers.find(sToken) == src_buffers.end()) {
-				sToken = nextToken(ss); // read first item
+			sToken = nextToken(ss); // read first item
 
-				while (sToken.compare(")")) {
-					// Add each item within the ()'s to the source list
-					auto it = slotRefMap.find(sToken);
-					if (it != slotRefMap.end()) {
-						if (sToken.compare("RTid") == 0) {
-							// Special case: If (? ? RTid) -> RT, replace RT with RT.WMnext
-							specialRT = it->second;
-						}
-						pRef = it->second;
+			while (sToken.compare(")")) {
+				// Add each item within the ()'s to the source list
+				auto it = slotRefMap.find(sToken);
+				if (it != slotRefMap.end()) {
+					if (sToken.compare("RTid") == 0) {
+						// Special case: If (? ? RTid) -> RT, replace RT with RT.WMnext
+						specialRT = it->second;
 					}
-					else {
-						// (should only happen for constants)
-						pRef = sToken;
-						/*if (!pRef.compare("?"))
-							pRef = "nil";*/
-						if (pRef.compare("?") != 0)
-							actConsts.push_back(pRef);
-					}
-					sources.push_back(pRef);
-					sToken = nextToken(ss);
+					pRef = it->second;
 				}
-			/*}
-			else {
-				// Use the buffer id to infer the source list
-				for (std::string next : src_buffers.at(sToken)) {
-					sources.push_back(next);
+				else {
+					// (should only happen for constants)
+					pRef = sToken;
+					/*if (!pRef.compare("?"))
+						pRef = "nil";*/
+					if (pRef.compare("?") != 0)
+						actConsts.push_back(pRef);
 				}
-			}*/
+				sources.push_back(pRef);
+				sToken = nextToken(ss);
+			}
 
 			nextToken(ss);	// read "->"
 			op = "=";
 			// Read destination buffer
 			buff = nextToken(ss);
-			/*if (dst_buffers.find(buff) == dst_buffers.end()) {
-				std::cout << "ERROR: Unexpected target buffer '" + buff + "' for group value assignment." << std::endl;
-				throw;
-			}
-
-			auto buffList = dst_buffers.at(buff);*/
 
 			// Check for use of queries - if so, don't clear-rt
 			if (!buff.compare("RT"))
@@ -564,12 +478,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 					dst = "s.NW.wm.WMprev";
 				}
 				else {
-					dst = getBuffSlot(buff,i+1); //buffList.at(i);
-				} /*catch (...) {
-					printParseError("Too many values sent to buffer!", true);
-					throw;
-				}*/	 // If this fails, it's either a bad instruction or the buffers map is bad.
-
+					dst = getBuffSlot(buff,i+1);
+				}
 
 				if (!src.compare("nil")) {
 					actions.push_back(Primitive("-", dst, ""));		// Remove WME rather than set to nil

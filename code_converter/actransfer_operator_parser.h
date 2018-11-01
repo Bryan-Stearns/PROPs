@@ -24,6 +24,7 @@ public:
 	int convertToPropsInstructions();
 
 private:
+	int wmprev_ind;
 	const static std::string CONST_NAME;
 	const static std::string CLEAR_RT_PATH;
 	std::string inPath,
