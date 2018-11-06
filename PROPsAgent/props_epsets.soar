@@ -29,6 +29,8 @@
 #                   ^result success)])])    | Created if the condition is true
 #####
 
+source props_epsets_combos.soar
+
 # PROPAGATE THE TOPSTATE
 sp {elaborate*topstate
     (state <s> ^superstate nil)
@@ -409,7 +411,7 @@ sp {propose*props*epset*delta*all-true
     -{(<d> ^condition.name <cname>
           -^cond-result.name <cname>)} # It is not the case that this delta has untrue conditions
 -->
-    (<s> ^operator <o> + =)
+    (<s> ^operator <o> + )    # Make indifferent to bypass proposal composition
     (<o> ^name <name>
          ^delta <d>)
 }

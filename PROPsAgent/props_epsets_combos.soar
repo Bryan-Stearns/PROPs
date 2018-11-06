@@ -1,0 +1,169 @@
+
+### ON TIE IMPASSE PROPOSE EACH PAIR OF CANDIDATES ###
+sp {prefer*props*deltas*subsume
+    (state <s> ^operator <o1> +
+               ^operator <o2> +
+               ^new-proposal <name1>)
+    (<o1> ^name <name1>
+          ^source-name <name2>)
+    (<o2> ^name <name2>)
+-->
+    (<s> ^operator <o2> < <o1>)
+}
+sp {prefer*props*deltas*best-complete
+    "Prefer a proposal that applies all deltas"
+    (state <s> ^operator <o1> +
+               ^props-epset <pe>)
+    -{(<pe> ^delta <d>)
+      (<o1> -^delta <d>)}
+-->
+    (<s> ^operator <o1> > =)
+}
+sp {prefer*props*deltas*indifferent-new
+    (state <s> ^operator <o1> +
+               ^new-proposal <name>)
+    (<o1> ^name <name>)
+-->
+    (<s> ^operator <o1> =)
+}
+
+sp {elaborate*props*delta-tie*state
+    (state <s> ^impasse tie)
+-->
+    (<s> ^name props-delta-tie)
+        # ^combos-incomplete true)    # Remove this to end the combine operator
+    (force-learn <s>)
+}
+sp {propose*props*delta-tie*combine
+    (state <s> ^name props-delta-tie
+               -^combos-applied 4)    # Require at least 3 elab cycles for application
+-->
+    (<s> ^operator <o1> + )
+    (<o1> ^name props-delta-tie-combine)
+}
+# Apply cycle 1: Form main structs for new combos
+sp {apply*props*delta-tie*combine*step-1
+    (state <s> ^operator.name props-delta-tie-combine
+               -^combos-applied 1)
+-->
+    (<s> ^combos-applied 1)
+}
+sp {apply*props*delta-tie*combine
+    (state <s> ^operator.name props-delta-tie-combine
+              -^new-items-made true
+               ^item <o1>
+               ^item {<o2> > <o1>})
+    (<o1> ^name <n1>)
+    (<o2> ^name <n2>)
+-->
+    (<s> ^new-item <o3>
+         ^new-literalization <lnew>
+         ^new-items-made true)
+    (<o3> ^source-name <n1>
+          ^source-name <n2>
+          ^name (concat <n1> |*| <n2>))
+    (<lnew> ^new-item <o3>
+            ^literalize (+ 1 (int <n1>) (int <n2>)) )
+}
+# Apply cycle 2: Copy the component deltas into new combos
+sp {apply*props*delta-tie*combine*step-2
+    (state <s> ^operator.name props-delta-tie-combine
+               ^combos-applied 1
+              -^combos-applied 2)
+-->
+    (<s> ^combos-applied 2)
+}
+#sp {apply*props*delta-tie*combine*deltas
+#    (state <s> ^operator.name props-delta-tie-combine
+#               ^item <o1>
+#               ^new-item <ni>)
+#    (<ni> ^source-name <n1>)
+#    (<o1> ^name <n1>
+#          ^delta <d1>)
+#    (<d1> ^op-name <name>)    # Condition on name so it ends up in chunk
+#-->
+#    (<ni> ^delta <d1>)
+#    #(<s> ^combos-incomplete true -)    # Negation so backtracing doesn't hit random ^items per result
+#}
+# Apply cycle 3: Remove any useless or redundant new combos
+# (Remove instead of prevent creation to avoid making the superstate negation test part of chunks)
+sp {apply*props*delta-tie*combine*step-3
+    (state <s> ^operator.name props-delta-tie-combine
+               ^combos-applied 2
+              -^combos-applied 3)
+-->
+    (<s> ^combos-applied 3)
+}
+sp {apply*props*delta-tie*combine*remove-rejoins
+    "Remove new proposals whose sources overlap in composition"
+    (state <s> ^operator.name props-delta-tie-combine
+               ^item <i1>
+               ^item <i2>
+               ^new-item <ni>)
+    (<ni> ^source-name <n1>
+          ^source-name {<n2> <> <n1>})
+    (<i1> ^name <n1>
+          ^delta <d>)
+    (<i2> ^name <n2>
+          ^delta <d>)
+-->
+    (<s> ^new-item <ni> -)
+}
+sp {apply*props*delta-tie*combine*remove-duplicates
+    "Remove new proposals that are the same as originals"
+    (state <s> ^operator.name props-delta-tie-combine
+               ^item <o1>
+               ^new-item <ni>)
+    (<ni> ^name <n1>)
+    (<o1> ^name <n1>)
+-->
+    (<s> ^new-item <ni> -)
+}
+sp {apply*props*delta-tie*combine*remove-subsumed
+    "Remove components of existing proposals"
+    (state <s> ^operator.name props-delta-tie-combine
+               ^item <o1>
+               ^new-item <n1>)
+    (<o1> ^source-name <n1>)
+-->
+    (<s> ^new-item <n1> -)
+}
+# Apply cycle 4: Return the names of the new proposals
+sp {apply*props*delta-tie*combine*step-4
+    (state <s> ^operator.name props-delta-tie-combine
+               ^combos-applied 3
+              -^combos-applied 4)
+-->
+    (<s> ^combos-applied 4)
+}
+
+sp {elaborate*props*delta-tie*mark-new
+    (state <s> ^operator.name props-delta-tie-combine
+               ^combos-applied 3
+               ^superstate <ss>
+               ^quiescence t            # Don't chunk this marking
+               ^new-item <ni>)
+    (<ni> ^name <name>)
+-->
+    (<ss> ^new-proposal <name>)
+}
+sp {elaborate*props*delta-tie*return
+    (state <s> ^name props-delta-tie
+               ^combos-applied 3
+               ^superstate <ss>
+               ^new-item <ni>
+               ^new-literalization <nl>)
+    (<nl> ^new-item <ni>
+          ^literalize <l>)            # Condition on this to backtrace through the literalization of names
+-->
+    (<ss> ^operator <ni> + )
+}
+sp {elaborate*props*delta-combos
+    (state <s> ^operator <o1> +
+               ^operator <osource> +)
+    (<o1> ^source-name <n1>)
+    (<osource> ^name <n1>
+              ^delta <d>)
+-->
+    (<o1> ^delta <d>)
+}
