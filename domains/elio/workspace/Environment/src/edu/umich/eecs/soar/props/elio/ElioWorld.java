@@ -51,12 +51,12 @@ public class ElioWorld extends PROPsEnvironment {
 		this.setCondChunkFile(proj_dir + "elio_agent_condspread_chunks.soar");
 		this.setAddressChunkFile(proj_dir + "elio_agent_L1_chunks.soar");
 		this.setFetchSeqFile(proj_dir + "elio_agent_fetch_procedures.soar");
-		this.setInstructionsFile(proj_dir + "elio_agent_instructions.soar");
+		this.setInstructionsFile(proj_dir + "elio_agent3_instructions.soar");
 		this.setSoarAgentFile(proj_dir + "elio_agent.soar");
 		
 		this.setIOSize(2, 2);
 		
-		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
 											 proj_dir + "elio_agent_smem.soar"));
 		//this.setUserAgentFiles(Arrays.asList("C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\domains\\lib_actransfer_interface.soar", 
 		//		 proj_dir + "elio_agent_smem.soar"));

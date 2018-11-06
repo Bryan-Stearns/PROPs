@@ -19,10 +19,10 @@ public class SMLClient {
 		//expList.add(new LearnConfig("123se", 10));
 
 		ElioWorld world = new ElioWorld();
-		world.runExperiments("elio_props", 8, expList);
+		//world.runExperiments("elio_props", 8, expList);
 		
-		//world.setVerbose(false);
-		//world.runDebug("procedure-c","procedure-c", new LearnConfig("123se", 1));
+		world.setVerbose(false);
+		world.runDebug("procedure-a","procedure-a", new LearnConfig("123sce", 1));
 
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String, String>("procedure-a","procedure-a"));

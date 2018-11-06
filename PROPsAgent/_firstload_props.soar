@@ -18,7 +18,7 @@ smem --set activate-on-query off
 
 smem --set spreading-continue-probability 0.95
 smem --set spreading-limit 300
-smem --set spreading-depth-limit 3
+smem --set spreading-depth-limit 1 # 3
 #smem --set spreading-loop-avoidance on
 smem --set spreading on
 smem --set learning on
@@ -27,16 +27,16 @@ output callbacks on
 output console on
 
 
-source lib_smem_clean.soar
+#source lib_smem_clean.soar
 source lib_smem_prohibit_store.soar
 
-source props_fetch.soar
-#source props_static.soar
-source props_instruction_init.soar
-source props_instruction_eval.soar
-source props_primitives.soar
-source props_primitive_addressing.soar
-source props_shared.soar
+#source props_fetch.soar
+#source props_instruction_init.soar
+#source props_instruction_eval.soar
+#source props_primitives.soar
+#source props_primitive_addressing.soar
+#source props_shared.soar
+
 #source props_build_proposals.soar        # Is sourced with props_learn_l2.soar
 #source props_condition_spread.soar       # Source this optionally on your own to enable condition spread learning
 #source props_tie.soar
