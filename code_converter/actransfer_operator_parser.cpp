@@ -244,9 +244,8 @@ std::string actransfer_operator_parser::getBuffSlot(const std::string &buff, con
 // Get the conditions and actions of the next rule in the file in raw format.
 // Constants will still have raw values.
 // Returns success, and modifies the given stuctures.
-bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions)
+bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
 {
-	// TODO: Make automatic using "(add-instr"
 	//const int wmprev_ind = 2;	// starting from 0
 
 	Primitive clearAction("","","");	// Special case: populated args if need clear-rt
@@ -267,9 +266,11 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		else if (!sToken.compare(";~")) {
 			currRule_h1 = nextToken(ss);
 			currRule_h2 = "";
+			cmtDirectives.push_back(";~ " + currRule_h1);
 		}
 		else if (!sToken.compare(";~~")) {
 			currRule_h2 = nextToken(ss);
+			cmtDirectives.push_back(";~~ " + currRule_h2);
 		}
 		do {
 			sToken = nextToken(ss);
@@ -279,8 +280,9 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	// Begin instruction
 
 	/*if (currTaskName.compare("part-mult*index1") && !currRule_h1.compare("mult")) {
-		sToken = "";
+		sToken = ""; // For debugging
 	}*/
+
 	// Skip next "ins"
 	sToken = nextToken(ss);
 
@@ -438,6 +440,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				// Add the id attribute being queried
 				actions.push_back(Primitive("+","s.Q.wm-query",""));
 				actions.push_back(Primitive("=","s.Q.wm-query.root",specialRT));
+				actions.push_back(Primitive("=","s.Q.wm-query.q-type","wm-query"));
+				actConsts.push_back("wm-query");
 				usedQ = true;
 				// Add any extra attributes the id should have
 				for (size_t i=0; i<sources.size(); ++i) {
@@ -458,6 +462,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			// Check for need for query that creates an Q query cluster
 			if (!usedQ && !buff.compare("RT")) {
 				actions.push_back(Primitive("+","s.Q.query",""));
+				actions.push_back(Primitive("=","s.Q.query.q-type","query"));
+				actConsts.push_back("query");
 				usedQ = true;
 			}
 			// Check for a newWM wm cluster
@@ -515,6 +521,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				if (!sToken.compare("RTid")) {
 					// Special case: RTid is the retrieve command if on the action side, and the RTid wme if on the condition side
 					p2 = "s.Q.retrieve";
+					actions.push_back(Primitive("=","s.Q.retrieve.q-type","retrieve"));
+					actConsts.push_back("retrieve");
 				}
 				else {
 					p2 = makeActionRef(it->second);
@@ -539,6 +547,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			// Check for need for action that creates an Q query cluster
 			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q.")) && p2.compare(2,10, "Q.retrieve")) {
 				actions.push_back(Primitive("+","s.Q.query",""));
+				actions.push_back(Primitive("=","s.Q.query.q-type","query"));
+				actConsts.push_back("query");
 				usedQ = true;
 			}
 			// Check for a newWM cluster
@@ -1008,9 +1018,10 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		auto rawActions = std::vector<Primitive>();
 		auto conditions = std::vector<Primitive>();
 		auto actions = std::vector<Primitive>();
+		auto cmtDirectives = std::vector<std::string>();			// Any ordered comment directives before this rule
 
 		// Get the conditions and actions
-		if (!getRawProps(ss, condRawConsts, actRawConsts, rawConditions, rawActions)) {
+		if (!getRawProps(ss, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
 			propRules.clear();
 			return;
 		}
@@ -1030,6 +1041,9 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		buildPropOperator(proposeRule, applyRule, condConsts, actConsts, conditions, actions);
 		if (currTaskName.compare(lastTaskName)) {
 			propRules.push_back("# add-instr " + currTaskName + "\n");
+		}
+		for (const std::string &d : cmtDirectives) {
+			propRules.push_back("# " + d + "\n");
 		}
 		propRules.push_back(proposeRule);
 		propRules.push_back(applyRule);

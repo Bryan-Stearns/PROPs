@@ -35,8 +35,13 @@ private:
 	bool substituteConstants(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions);
 	bool formatConditions(std::vector<arg_id_chain> &conditions);
 	bool formatActions(std::vector<arg_id_chain> &actions);
-	void printSubChain(arg_id_chain &s, std::stringstream &instrs, int propNumber);
-	std::vector<std::string> parsePropsFile();
+	void printSubChain(arg_id_chain &s, std::stringstream &instrs, std::string propID);
+	bool getProposedOperator(const std::vector<arg_chain> &consts, const std::vector<arg_id_chain> &actions, std::string &op_name);
+	bool getAppliedOperator(const std::vector<arg_chain> &consts, const std::vector<arg_id_chain> &conditions, std::string &op_name);
+	bool parsePropsFile(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions);
+	std::string makeDelta(const arg_id_chain &cond, const std::string deltaID);
+	std::vector<std::string> buildProps2Instructions();
+	std::vector<std::string> buildProps3Instructions();
 
 	std::string inPath,
 		outPath;
@@ -48,6 +53,7 @@ private:
 	int chainNumber;
 	std::string currRuleName;
 	std::string currTaskName;
+	//std::string currEpsetName;
 	bool currRuleHasOpRef;
 
 	std::map<size_t, int> propIds;
