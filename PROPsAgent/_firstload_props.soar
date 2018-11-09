@@ -12,7 +12,7 @@ vis color on
 
 smem --set activation-mode base-level
 smem --set base-update-policy naive
-smem --set base-decay 0.5
+smem --set base-decay 0.9
 #smem --set base-inhibition on
 smem --set activate-on-query off
 
@@ -28,7 +28,7 @@ output console on
 
 
 #source lib_smem_clean.soar
-source lib_smem_prohibit_store.soar
+#source lib_smem_prohibit_store.soar
 
 #source props_fetch.soar
 #source props_instruction_init.soar

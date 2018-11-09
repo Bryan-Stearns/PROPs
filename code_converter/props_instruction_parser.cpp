@@ -928,7 +928,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 				}*/
 
 				// Add attribute chain
-				printSubChain(s, instrs, "PC" + toString(propNumber));
+				//printSubChain(s, instrs, "PC" + toString(propNumber));
 
 			}
 		}
@@ -936,6 +936,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 		// Add actions
 		if (!isProposal) {
 			instrs << "(<epset-" << instNumber << "> ^props-epset-name " << currOpName << ")" << std::endl
+					//<< "(<epset-" << instNumber << "> ^terminal |true|)" << std::endl
 					<< "(<epset-" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
 
 			for (auto &s : actions) {
@@ -958,8 +959,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 
 				// Add this action as a delta in the op-apply epset
-				instrs << "(<epset-" << instNumber << "> ^delta <d-prop" << propNumber << ">)" << std::endl;
-
+				instrs << "(<epset-" << instNumber << "> ^apply <a-prop" << propNumber << ">)" << std::endl;
 
 
 				// Don't print PROP details if defined earlier
@@ -967,19 +967,28 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					continue;
 
 				// Add delta condition for this action prop in the rule
-				instrs << "(<d-prop" << propNumber << "> ^condition <da" << propNumber << ">)" << std::endl
+				/*instrs << "(<d-prop" << propNumber << "> ^condition <da" << propNumber << ">)" << std::endl
 						<< "(<d-prop" << propNumber << "> ^op-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
 						<< "(<d-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl
-						<< "(<da" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
+						<< "(<da" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;*/
+				instrs << "(<a-prop" << propNumber << "> ^application <cbz" << propNumber << ">)" << std::endl
+						<< "(<a-prop" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
+						<< "(<cbz" << propNumber << "> ^unretrieved <cbzz" << propNumber << ">)" << std::endl
+						<< "(<cbzz" << propNumber << "> ^spread-link <cbset-" << propNumber << ">)" << std::endl;
+
+				instrs << "(<cbset-" << propNumber << "> ^action <cba" << propNumber << ">)" << std::endl
+						//<< "(<cbset-" << propNumber << "> ^size 1)" << std::endl
+						<< "(<cbset-" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|)" << std::endl;
 
 				// TODO: Make <PC_> complement condition per action
 				//arg_id_chain acond = makeActionCond(s);
 
 				// Add PROP action's condition delta
-				instrs << makeDelta(s, "da" + toString(propNumber));
+				instrs << makeDelta(s, "cba" + toString(propNumber))
+						<< "(<cba" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl;
 
 				// Add complementing condition attribute chain
-				printSubChain(s, instrs, "PA" + toString(propNumber));
+				//printSubChain(s, instrs, "PA" + toString(propNumber));
 
 
 				// Print action prop
