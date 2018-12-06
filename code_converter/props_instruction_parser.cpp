@@ -959,7 +959,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 
 				// Add this action as a delta in the op-apply epset
-				instrs << "(<epset-" << instNumber << "> ^apply <a-prop" << propNumber << ">)" << std::endl;
+				instrs << "(<epset-" << instNumber << "> ^delta <a-prop" << propNumber << ">)" << std::endl;
 
 
 				// Don't print PROP details if defined earlier
@@ -972,13 +972,17 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 						<< "(<d-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl
 						<< "(<da" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;*/
 				instrs << "(<a-prop" << propNumber << "> ^application <cbz" << propNumber << ">)" << std::endl
-						<< "(<a-prop" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
+						//<< "(<a-prop" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
+						<< "(<a-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl
 						<< "(<cbz" << propNumber << "> ^unretrieved <cbzz" << propNumber << ">)" << std::endl
 						<< "(<cbzz" << propNumber << "> ^spread-link <cbset-" << propNumber << ">)" << std::endl;
 
-				instrs << "(<cbset-" << propNumber << "> ^action <cba" << propNumber << ">)" << std::endl
+				instrs << "(<a-prop" << propNumber << "> ^condition <cba" << propNumber << ">)" << std::endl
 						//<< "(<cbset-" << propNumber << "> ^size 1)" << std::endl
-						<< "(<cbset-" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|)" << std::endl;
+						<< "(<a-prop" << propNumber << "> ^op-name |_PA" << propNumber << "|)" << std::endl;
+
+				instrs << "(<cbset-" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|)" << std::endl
+					   << "(<cbset-" << propNumber << "> ^op-name |_PA" << propNumber << "|)" << std::endl;
 
 				// TODO: Make <PC_> complement condition per action
 				//arg_id_chain acond = makeActionCond(s);
