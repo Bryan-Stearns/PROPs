@@ -2,9 +2,9 @@ chunk only
 chunk add-ltm-links on
 chunk confidence-threshold 1
 
-explain all on
-explain justifications on
-vis color on
+#explain all on
+#explain justifications on
+#vis color on
 
 #watch --learn 2
 #watch --learning print
@@ -12,7 +12,7 @@ vis color on
 
 smem --set activation-mode base-level
 smem --set base-update-policy naive
-smem --set base-decay 0.9
+#smem --set base-decay 0.9
 #smem --set base-inhibition on
 smem --set activate-on-query off
 

@@ -29,18 +29,18 @@
 #                   ^result success)])])    | Created if the condition is true
 #####
 
-source props_epsets_combos.soar
+#source props_epsets_combos.soar
 
 # MANAGE THE PROHIBIT LIST
-sp {elaborate*props*prohibit-list
+sp {elaborate*props*inhibit-list
     (state <s> ^smem <smem>)
 -->
-    (<smem> ^prohibit-list <pl>)
+    (<smem> ^inhibit-list <pl>)
 }
-sp {elaborate*props*prohibit-list*epset-commands
+sp {elaborate*props*inhibit-list*epset-commands
     "Only use epset prohibits if thats the kind of query in use, else would prohibit activation badly"
     (state <s> ^smem <smem>)
-    (<smem> ^prohibit-list.prohibit <p>
+    (<smem> ^inhibit-list.inhibit <p>
             ^command <scmd>)
     (<scmd> -^store
              ^query.props-epset-name )
@@ -48,9 +48,9 @@ sp {elaborate*props*prohibit-list*epset-commands
 -->
     (<scmd> ^prohibit <p>)
 }
-sp {elaborate*props*prohibit-list*cbset-commands
+sp {elaborate*props*inhibit-list*cbset-commands
     (state <s> ^smem <smem>)
-    (<smem> ^prohibit-list.prohibit <p>
+    (<smem> ^inhibit-list.inhibit <p>
             ^command <scmd>)
     (<scmd> -^store)
     (<p> ^props-cbset-name ) 
@@ -81,16 +81,16 @@ sp {elaborate*apply-buffer
 # PROHIBIT EPSETS CURRENTLY IN USE UP STATE STACK
 sp {elaborate*props*epset*prohibit-used
     (state <s> ^props-epset <ep>
-               ^smem.prohibit-list <pl>)
+               ^smem.inhibit-list <pl>)
 -->
-    (<pl> ^prohibit <ep>)
+    (<pl> ^inhibit <ep>)
 }
-sp {elaborate*props*epset*prohibits*copy
-    (state <s> ^superstate.smem.prohibit-list.prohibit <phbt>
+sp {elaborate*props*inhibit-list*copy
+    (state <s> ^superstate.smem.inhibit-list.inhibit <phbt>
                ^smem <smem>)
-    (<smem> ^prohibit-list <pl>)
+    (<smem> ^inhibit-list <pl>)
 -->
-    (<pl> ^prohibit <phbt>)
+    (<pl> ^inhibit <phbt>)
 }
 
 # RESET THE BUFFER ON TASK FINISH
@@ -447,13 +447,12 @@ sp {propose*props*epset*delta*condition*all-true
 sp {propose*props*epset*delta*action*all-true
     "Propose the operator if it hasnt been applied yet."
     (state <s> ^props-epset <pe>
+              -^set-applied.op-name <name>
                ^prop-apply-buffer <pb>)
     (<pe> ^delta <d>)
     (<d> ^op-name <name>
         -^no-propose true    # Not if this was just created
          ^prop-apply)          # Only for actions
-    -{(<pb> ^delta-action.name <cname>)
-      (<d> ^condition.name <cname>)}
 -->
     (<s> ^operator <o> + )    # Make indifferent to bypass proposal composition
     (<o> ^name <name>
@@ -493,20 +492,20 @@ sp {prefer*props*epset*delta*larger
 # Elaborate upon matching rule descriptions in the epset to stimulate spread
 ###
 
-sp {elaborate*props*epset*delta*all-true*spread
-    "Create a spreader if all conditions are true"
-    (state <s> ^props-epset <pe>)
-    (<pe> ^delta <d>)
-    (<d> ^application.unretrieved <lti>
-         ^cond-id1 <any>         # To make sure this doesn't fire before conditions can be evaluated
-        -^missing )
-    -{(<d> ^condition <c>
-           ^cond-id1 <cid1>)
-      (<c> ^name <cname>)
-      (<cid1> -^result success)} # It is not the case that this delta has untrue conditions
--->
-    (<lti> ^active-spread <cname>)        # some augmentation just to allow spread
-}
+#sp {elaborate*props*epset*delta*all-true*spread
+#    "Create a spreader if all conditions are true"
+#    (state <s> ^props-epset <pe>)
+#    (<pe> ^delta <d>)
+#    (<d> ^application.unretrieved <lti>
+#         ^cond-id1 <any>         # To make sure this doesn't fire before conditions can be evaluated
+#        -^missing )
+#    -{(<d> ^condition <c>
+#           ^cond-id1 <cid1>)
+#      (<c> ^name <cname>)
+#      (<cid1> -^result success)} # It is not the case that this delta has untrue conditions
+#-->
+#    (<lti> ^active-spread <cname>)        # some augmentation just to allow spread
+#}
 #sp {elaborate*props*epset*delta*all-true
 #    "Create a spreader if all conditions are true"
 #    (state <s> ^props-epset <pe>)
@@ -520,6 +519,54 @@ sp {elaborate*props*epset*delta*all-true*spread
 #    (<xs> ^spread-id <ltinum>)        # some augmentation just to allow spread
 #    (link-stm-to-ltm <xs> <ltinum>)
 #}    # Use this instead if spread-id is a number only rather than an lti
+
+sp {apply*props*cbset*add
+    (state <s> ^operator <o>
+               ^prop-apply-buffer <b>)
+    (<o> ^delta <d>)
+    (<d> ^condition <a>
+         ^op-name <dname>
+         ^cond-id1.id1 <id1>
+         ^cond-id2.id2 <id2>)
+    (<a> ^prop-type add
+         ^name <cname>
+         ^attr1 <attr1>
+         ^attr2 <attr2>)
+    (<id2> ^<attr2> <val>)
+-->
+    (<b> ^delta-action <dnew>)
+    (<dnew> ^prop-type add
+            ^name <cname>
+            ^id1 <id1>
+            ^attr1 <attr1>
+            ^val <val>)
+    (<s> ^set-applied <anew>
+         ^combine-cbset <dname>)    # Make single combo entry. If is only one, combine will skip
+    (<anew> ^op-name <dname>
+            ^set-name <dname>)
+}
+sp {apply*props*cbset*remove
+    (state <s> ^operator <o>
+               ^prop-apply-buffer <b>)
+    (<o> ^delta <d>)
+    (<d> ^condition <a>
+         ^op-name <dname>
+         ^cond-id1.id1 <id1>)
+    (<a> ^prop-type remove
+         ^name <cname>
+         ^id1 <id1>
+         ^attr1 <attr1>)
+-->
+    (<b> ^delta-action <dnew>)
+    (<dnew> ^prop-type remove
+            ^name <cname>
+            ^id1 <id1>
+            ^attr1 <attr1>)
+    (<s> ^set-applied <anew>
+         ^combine-cbset <dname>)
+    (<anew> ^op-name <dname>
+            ^set-name <dname>)
+}
 
 # SUPPLY CACHED ADDRESSES:
 
@@ -791,6 +838,17 @@ sp {elaborate*props*epset*delta*cond*existence
 
 # ACTIONS (COMPLEMENTARY CONDITIONS FOR ACTIONS)
 
+sp {elaborate*props*epset*delta*action*available
+    "The proposal condition for actions is that they are not yet on the return buffer."
+    (state <s> ^props-epset.delta <d>
+               ^prop-apply-buffer <b>)
+    (<b> -^delta-action.name <cname>)
+    (<d> ^prop-apply 
+         ^condition <c>)
+    (<c> ^name <cname>)
+-->
+    (<d> ^cond-success <cname>)
+}
 
 ### Stimulate spread from all unapplied actions to their relevant apply structures
 sp {elaborate*props*cbset*apply*spread
@@ -798,10 +856,11 @@ sp {elaborate*props*cbset*apply*spread
     (state <s> ^props-epset <pe>
               -^cbset-combine-done true  # Don't let the active-spread wme get saved to smem
                ^prop-apply-buffer <ab>)
-    (<pe> ^apply <a>)
+    (<pe> ^delta <a>)
     (<ab> -^delta-action.name <aname>)
     (<a> ^application.unretrieved <lti>
-         ^name <aname>)
+         ^prop-apply
+         ^op-name <aname>)
 -->
     (<lti> ^active-spread <aname>)        # some augmentation just to allow spread
 }
@@ -816,12 +875,14 @@ sp {elaborate*props*cbset*apply*spread
 
 sp {propose*props*cbset*query
     "Load a cbset to apply a parent delta (operator)"
-    (state <s> ^props-epset <pe>
-               ^prop-apply-buffer <b>
+    (state <s> ^superstate <ss>
+               ^impasse tie
+               #^item <i>
               -^smem.result.<< retrieved failure >>
               -^props-cbset )
-    (<pe> ^apply.name <name>)
-    (<b> -^delta-action.name <name>)
+    #(<ss> ^prop-apply-buffer <b>)
+    #(<i> ^delta.op-name <name>)
+    #(<b> -^delta-action.name <name>)
 -->
     (<s> ^operator <o> + > =)
     (<o> ^name props-load-cbset)
@@ -865,36 +926,58 @@ sp {elaborate*props*retrieve-cbset*failure
 sp {apply*props*retrieve-cbset*success
     (state <s> ^operator.name props-retrieve-cbset
                ^smem <smem>
-               ^props-epset <pe>
+               ^superstate <ss>
               -^props-cbset)
+    (<ss> ^props-epset <ep>
+          ^smem.inhibit-list <pl>)
     (<smem> ^command <scmd>
-            ^result.retrieved <e>
-            ^prohibit-list <pl>)
+            #^inhibit-list <pl>
+            ^result.retrieved <cb>)
     (<scmd> ^query <q>)
-  -{(<e> ^action.name <name>)
-   -(<pe> ^apply.name <name>)} # It is not the case that it has unintended actions
+  -{(<cb> ^op-name <name>)
+   -(<ep> ^delta.op-name <name>)}         # It is not the case that it has unintended actions
+  -{(<cb> ^op-name <opn>)
+    (<ss> ^set-applied.op-name <opn>)}     # It is not the case that it has already-used actions
 -->
-    (<s> ^props-cbset <e>)
+    (<ss> ^props-cbset <cb>)
     (<scmd> ^query <q> -)
-    (<pl> ^prohibit <e>)
+    (<pl> ^inhibit <cb>)
 }
 
-sp {apply*props*retrieve-cbset*incorrect
+sp {apply*props*retrieve-cbset*incorrect*unintended
     "If the cbset has an unintended action, try again."
     (state <s> ^operator.name props-retrieve-cbset
-               ^smem <smem> 
-               ^props-epset <pe>
-              -^props-cbset <pc>)
-    (<smem> ^command <scmd>
-            ^prohibit-list <pl>
-            ^result.retrieved <pc>)
-    (<pc> ^action.name <aname>
+               ^smem <smem>
+               #^props-cbset <cb>
+               ^superstate <ss>)
+    (<ss> ^props-epset <ep>)
+    (<smem> ^inhibit-list <pl>
+    #        ^command <scmd>
+            ^result.retrieved <cb>)
+    (<cb> ^op-name <aname>
           ^props-cbset-name <name>)
-    -(<pe> ^apply.name <aname>)
+    -(<ep> ^delta.op-name <aname>)
 -->
-    (<s> ^props-cbset <pc> -)
-    (<pl> ^prohibit <pc>)
+    #(<s> ^props-cbset <cb> -)
+    (<pl> ^inhibit <cb>)
     (write |  RETRACTING CBSET | <name> |: | <aname> | NOT INTENDED.| (crlf) )
+    #(interrupt)
+}
+sp {apply*props*retrieve-cbset*incorrect*reused
+    "If the cbset has an alread-used action, try again."
+    (state <s> ^operator.name props-retrieve-cbset
+               ^smem <smem>
+               #^props-cbset <cb>
+               ^superstate <ss>)
+    (<smem> ^inhibit-list <pl>
+            ^result.retrieved <cb>)
+    (<cb> ^op-name <aname>
+          ^props-cbset-name <name>)
+    (<ss> ^set-applied.op-name <aname>)
+-->
+    #(<s> ^props-cbset <cb> -)
+    (<pl> ^inhibit <cb>)
+    (write |  RETRACTING CBSET | <name> |: | <aname> | ALREADY USED.| (crlf) )
     #(interrupt)
 }
 
@@ -978,21 +1061,27 @@ sp {propose*props*cbset
     (state <s> ^props-cbset <cb>)
     (<cb> ^props-cbset-name <name>)
 -->
-    (<s> ^operator <o> + )
+    (<s> ^operator <o> + >)
     (<o> ^name <name>
          ^cbset <cb>)
 }
 
-sp {apply*props*cbset*add
+sp {apply*props*cbset*add*cbset-preferred
     (state <s> ^operator <o>
+               #^superstate <ss>)
+               ^props-epset.delta <d>
                ^prop-apply-buffer <b>)
     (<o> ^cbset <cb>)
-    (<cb> ^action <a>
+    (<cb> ^op-name <dname>
           ^props-cbset-name <set>)
+    (<d> ^condition <a>
+         ^op-name <dname>
+         ^cond-id1.id1 <id1>
+         ^cond-id2.id2 <id2>)
     (<a> ^prop-type add
          ^name <cname>
-         ^id1 <id1>
-         ^id2 <id2>
+         #^id1 <id1>
+         #^id2 <id2>
          ^attr1 <attr1>
          ^attr2 <attr2>)
     (<id2> ^<attr2> <val>)
@@ -1004,15 +1093,20 @@ sp {apply*props*cbset*add
             ^attr1 <attr1>
             ^val <val>)
     (<s> ^set-applied <anew>)
-    (<anew> ^action <a>
+    (<anew> ^op-name <dname>
             ^set-name <set>)
 }
-sp {apply*props*cbset*remove
+sp {apply*props*cbset*remove*cbset-preferred
     (state <s> ^operator <o>
+               #^superstate <ss>)
+               ^props-epset.delta <d>
                ^prop-apply-buffer <b>)
     (<o> ^cbset <cb>)
-    (<cb> ^action <a>
+    (<cb> ^op-name <dname>
           ^props-cbset-name <set>)
+    (<d> ^condition <a>
+         ^op-name <dname>
+         ^cond-id1.id1 <id1>)
     (<a> ^prop-type remove
          ^name <cname>
          ^id1 <id1>
@@ -1024,19 +1118,20 @@ sp {apply*props*cbset*remove
             ^id1 <id1>
             ^attr1 <attr1>)
     (<s> ^set-applied <anew>)
-    (<anew> ^action <a>
+    (<anew> ^op-name <dname>
             ^set-name <set>)
 }
 
 sp {apply*props*cbset*clear-applied
-    (state <s> ^operator.cbset <cb>
-               ^props-cbset <cb>)
+    (state <s> ^operator.cbset <cb>)
+               #^superstate <ss>)
+               #^props-cbset <cb>)
     (<cb> ^props-cbset-name <setname>)
-  -{(<cb> ^action <a>)
-    (<s> -^set-applied.action <a>)} # It is not the case that there is an action that is not yet applied
+  -{(<cb> ^op-name <dname>)
+    (<s> -^set-applied.op-name <dname>)} # It is not the case that there is an action that is not yet applied
 -->
-    (<s> ^props-cbset <cb> -
-         ^combine-cbset <setname>)
+    (<s> ^props-cbset <cb> - )
+    (<s> ^combine-cbset <setname>)
 }
 
 
@@ -1047,12 +1142,13 @@ sp {apply*props*cbset*clear-applied
 ### 
 
 sp {elaborate*props*cbsets*combine-done
+    "Mark when the hierarchy of combinations is complete"
     (state <s> ^combine-cbset <n1>
               -^combine-cbset <> <n1>
-              -^props-flag epset-incomplete
-              -^operator ) # Wait until operator completes, proposal phase only
+              -^props-flag epset-incomplete)
+  -(<s> ^operator.name props-cbsets-combine) # Wait until operator completes, proposal phase only
 -->
-    (<s> ^cbset-combine-done true)
+    (<s> ^cbset-combine-done skipped)
 }
 
 sp {propose*props*cbsets-combine
@@ -1060,7 +1156,7 @@ sp {propose*props*cbsets-combine
               -^props-cbset 
               -^cbset-combine-done )
 -->
-    (<s> ^operator <o> + =)
+    (<s> ^operator <o> + < =)
     (<o> ^name props-cbsets-combine)
 }
 
@@ -1079,36 +1175,39 @@ sp {apply*props*cbsets-combine*collect-actions
                ^props-epset <pe>
                ^new-cbset <c>
                ^set-applied <sa>)
-    (<pe> ^apply <app>)
-    (<app> ^name <aname>
+    (<pe> ^delta <app>)
+    (<app> ^op-name <aname>
            ^application <k>)
     (<c> ^source-cbset <sname>)
     (<sa> ^set-name <sname>
-          ^action <a>)
-    (<a> ^name <aname>)
+          ^op-name <aname>)
 -->
-    (<c> ^action <a>
+    (<c> ^op-name <aname>
          ^source-cbset <sname> -)
     # Make spreading struct from epset to new cbset 
     (<k> ^unretrieved <unew>)
     (<unew> ^spread-link <c>)
     (<s> ^props-to-store <k>
          ^props-to-store <unew>
-         ^props-to-store <c>)
+         ^props-to-store <c>
+         ^props-flag to-store-waiting)    # An optimization to avoid combinatorial rule firing in cbsets-combine*done.
 #         ^new-cbset <c> -
 #         ^set-applied <sa> -)    # Could remove, but might actually be less efficient since state about to blow away anyway
 }
 sp {apply*props*cbsets-combine*store
     (state <s> ^operator.name props-cbsets-combine
                ^smem.command <scmd>
-               ^props-to-store <new>)
+               ^props-to-store <new>
+               ^props-flag to-store-waiting)
 -->
     (<scmd> ^store <new>)
-    (<s> ^props-to-store <new> -)
+    (<s> ^props-to-store <new> -
+         ^props-flag to-store-waiting -)
 }
 sp {apply*props*cbsets-combine*done
+    "Once store is requested remove combine objects and report finished"
     (state <s> ^operator.name props-cbsets-combine
-               ^props-to-store <cb>
+               ^props-flag to-store-waiting
                ^combine-cbset <cname>)
 -->
     (<s> ^combine-cbset <cname> -
@@ -1144,17 +1243,39 @@ sp {elaborate*props*epset-incomplete
 -->
     (<s> ^props-flag epset-incomplete)
 }
-sp {elaborate*props*epset*return
+#sp {elaborate*props*epset*return
+#    (state <s> ^prop-apply-buffer <b>
+#               ^props-flag apply-buffer-nonempty
+#              -^props-flag epset-incomplete
+#               ^cbset-combine-done true
+#               ^superstate <ss>
+#               ^props-epset <pe>)
+#    (<ss> ^operator.delta
+#          ^prop-apply-buffer <sb>)
+#  -{(<pe> ^delta.condition.name <cname>)
+#    (<b> -^delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
+#-->
+#    (<sb> ^apply <b>)
+#    (<b> ^dc-stamp (dc))
+#}
+sp {propose*props*epset-return
     (state <s> ^prop-apply-buffer <b>
                ^props-flag apply-buffer-nonempty
               -^props-flag epset-incomplete
-               ^cbset-combine-done true
-               ^superstate <ss>
+               ^cbset-combine-done <ccd-any>    # << true skipped >>
+               ^superstate.operator.delta # For chunk condition
                ^props-epset <pe>)
-    (<ss> ^operator.delta
-          ^prop-apply-buffer <sb>)
   -{(<pe> ^delta.condition.name <cname>)
     (<b> -^delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
+-->
+    (<s> ^operator <o> +)
+    (<o> ^name props-epset-return)
+}
+sp {apply*props*epset-return
+    (state <s> ^operator.name props-epset-return
+               ^prop-apply-buffer <b>
+               ^superstate.prop-apply-buffer <sb>
+               ^props-epset <pe>)
 -->
     (<sb> ^apply <b>)
     (<b> ^dc-stamp (dc))
