@@ -114,7 +114,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 
 	private boolean loadConfigProductions(LearnConfig mode) {
 		// Check 'm'
-		if (currentLearnMode.usesManual()) {
+		if (mode.usesManual()) {
 			if (agent_fetchseq_file == "") {
 				System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
 				initOkay = false;
@@ -124,20 +124,6 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
 		}
 		
-		// Check 's'
-		if (currentLearnMode.learnsSpreading()) {
-			agent.LoadProductions(props_dir + "props_learn_conds.soar");
-		}
-		
-		// Check if condition chunks should be sourced
-		if (mode.learnsSpreading() && !mode.learnsAllConditions()) {
-			if (agent_condchunk_file == "") {
-				System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
-				return false;
-			}
-			agent.LoadProductions(agent_condchunk_file);
-		}
-		
 		// Check 'e'
 		if (mode.usesEpsets()) {
 			if (agent_epset_file != "") {
@@ -145,17 +131,33 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 			}
 			agent.LoadProductions(props_dir + "props_epsets.soar");
 		}
-		
-		// Check 'a'
-		if (mode.learnsAddressChunks()) {
-			// Learn addressing chunks only (and save them for later sourcing)
-			agent.LoadProductions(props_dir + "props_learn_l1.soar");
-			return true;
-		}
-		
-		// Check 'q'
-		if (mode.learnsManualSeqs()) {
-			agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
+		else {
+			// Check 's'
+			if (mode.learnsSpreading()) {
+				agent.LoadProductions(props_dir + "props_learn_conds.soar");
+			}
+			
+			// Check if condition chunks should be sourced
+			if (mode.learnsSpreading() && !mode.learnsAllConditions()) {
+				if (agent_condchunk_file == "") {
+					System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
+					return false;
+				}
+				agent.LoadProductions(agent_condchunk_file);
+			}
+			
+			
+			// Check 'a'
+			if (mode.learnsAddressChunks()) {
+				// Learn addressing chunks only (and save them for later sourcing)
+				agent.LoadProductions(props_dir + "props_learn_l1.soar");
+				return true;
+			}
+			
+			// Check 'q'
+			if (mode.learnsManualSeqs()) {
+				agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
+			}
 		}
 		
 		// Check '3', w/ no '1' or '2'

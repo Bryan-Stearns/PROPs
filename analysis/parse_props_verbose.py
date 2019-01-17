@@ -130,8 +130,8 @@ def main():
     actions = ['next-instruction']
     '''
     
-    conv_types = ['l12se']
-    samples = ['8']
+    conv_types = ['l1e']
+    samples = ['2']
     
     T = ['10']
     

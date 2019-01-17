@@ -1,0 +1,608 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'CheinMorrison_hier.lisp' INTO SOURCEABLE SOAR PRODUCTIONS.
+#####
+
+sp {propose*chein*verbal-CWM*init
+	(state <s> ^G <c1>)
+	(<c1> ^Gtask verbal-CWM)
+	(<c1> -^Gtop )
+	(<c1> -^Gcontrol )
+	-->
+	(<o1> ^name chein-verbal-CWM-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*verbal-CWM*init
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<s> ^WM <c3>)
+	(<c1> ^name chein-verbal-CWM-init)
+	-->
+	(<c2> ^Gtop <c3>)
+}
+sp {propose*chein*verbal-CWM*ready
+	(state <s> ^G <c1>)
+	(<c1> ^Gtask verbal-CWM)
+	(<c1> ^Gtop )
+	-->
+	(<o1> ^name chein-verbal-CWM-ready)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*verbal-CWM*ready
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name chein-verbal-CWM-ready)
+	-->
+	(<c2> ^Gtask VCWM)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*chein*VCWM*word
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask VCWM)
+	(<c2> ^slot1 word)
+	(<c1> ^Gcontrol <> word-answered)
+	-->
+	(<o1> ^name chein-VCWM-word)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM*word
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(<c2> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-word)
+	-->
+	(<c2> ^Gtask VCWM-word)
+	(<c2> ^Gcontrol word-dec)
+	(<c5> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+	(<c2> ^Gcontrol <c4> -)
+}
+sp {propose*chein*VCWM*letter
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask VCWM)
+	(<c2> ^slot1 letter)
+	(<c1> ^Gcontrol <> letter-stored)
+	-->
+	(<o1> ^name chein-VCWM-letter)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM*letter
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(<c2> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-letter)
+	-->
+	(<c2> ^Gtask VCWM-letter)
+	(<c2> ^Gcontrol letter-dec)
+	(<c5> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+	(<c2> ^Gcontrol <c4> -)
+}
+sp {propose*chein*VCWM*rehearse
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask VCWM)
+	(<c2> ^slot1 pending)
+	-->
+	(<o1> ^name chein-VCWM-rehearse)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM*rehearse
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name chein-VCWM-rehearse)
+	-->
+	(<c2> ^Gtask prepare)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*chein*VCWM*wait
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask VCWM)
+	(<c2> ^slot1 pending)
+	-->
+	(<o1> ^name chein-VCWM-wait)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM*wait
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name chein-VCWM-wait)
+	-->
+	(<c2> ^Gtask idle)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*chein*VCWM*report
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask VCWM)
+	(<c2> ^slot1 report)
+	-->
+	(<o1> ^name chein-VCWM-report)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM*report
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(<c2> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-report)
+	-->
+	(<c2> ^Gtask VCWM-report)
+	(<c2> ^Gcontrol start-report)
+	(<c5> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+	(<c2> ^Gcontrol <c4> -)
+}
+sp {propose*chein*VCWM-word*retrieve
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask VCWM-word)
+	(<c2> -^rt-result )
+	(<c1> ^Gcontrol word-dec)
+	-->
+	(<o1> ^name chein-VCWM-word-retrieve)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-word*retrieve
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name chein-VCWM-word-retrieve)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 is-word)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*chein*VCWM-word*success
+	(state <s> ^G <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^Gtask VCWM-word)
+	(<c2> ^slot3 yes)
+	(<c1> ^Gcontrol word-dec)
+	-->
+	(<o1> ^name chein-VCWM-word-success)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-word*success
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^G <c3>)
+	(<c3> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-word-success)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 type)
+	(<n1> ^slot2 Y)
+	(<c3> ^Gcontrol answered)
+	(<c5> ^clear-rt const1)
+	(<c3> ^Gcontrol <c4> -)
+}
+sp {propose*chein*VCWM-word*fail
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask VCWM-word)
+	(<c2> ^rt-result error)
+	(<c1> ^Gcontrol word-dec)
+	-->
+	(<o1> ^name chein-VCWM-word-fail)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-word*fail
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^G <c3>)
+	(<c3> ^Gcontrol <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-word-fail)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 type)
+	(<n1> ^slot2 N)
+	(<c3> ^Gcontrol answered)
+	(<c5> ^clear-rt const1)
+	(<c3> ^Gcontrol <c4> -)
+}
+sp {propose*chein*VCWM-letter*store-wm
+	(state <s> ^G <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^Gtask VCWM-letter)
+	(<c2> -^slot1 )
+	-->
+	(<o1> ^name chein-VCWM-letter-store-wm)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-letter*store-wm
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(state <s> ^G <c5>)
+	(<c5> ^Gcontrol <c6>)
+	(state <s> ^AC <c7>)
+	(<c1> ^name chein-VCWM-letter-store-wm)
+	-->
+	(<c2> ^slot1 <c4>)
+	(<c5> ^Gcontrol letter-stored)
+	(<c7> ^action <n1>)
+	(<n1> ^slot1 wait)
+	(<c5> ^Gcontrol <c6> -)
+}
+sp {propose*chein*VCWM-letter*store-dm
+	(state <s> ^G <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^Gtask VCWM-letter)
+	(<c2> ^slot1 )
+	-->
+	(<o1> ^name chein-VCWM-letter-store-dm)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-letter*store-dm
+	(state <s> ^operator <c1>)
+	(state <s> ^NW <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<s> ^WM <c5>)
+	(state <s> ^G <c6>)
+	(<c6> ^Gcontrol <c7>)
+	(state <s> ^AC <c8>)
+	(<c1> ^name chein-VCWM-letter-store-dm)
+	-->
+	(<c2> ^wm <n1>)
+	(<n1> ^slot1 <c4>)
+	(<n1> ^WMprev <c5>)
+	(<c6> ^Gcontrol letter-stored)
+	(<c8> ^action <n2>)
+	(<n2> ^slot1 wait)
+	(<c6> ^Gcontrol <c7> -)
+}
+sp {propose*chein*prepare*VCWM-start
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask prepare)
+	(<c2> -^rt-result )
+	-->
+	(<o1> ^name chein-prepare-VCWM-start)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*prepare*VCWM-start
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c1> ^name chein-prepare-VCWM-start)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+}
+sp {propose*chein*prepare*VCWM-next
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask prepare)
+	(<c2> -^rt-result error)
+	-->
+	(<o1> ^name chein-prepare-VCWM-next)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*prepare*VCWM-next
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^RTid <c4>)
+	(<c1> ^name chein-prepare-VCWM-next)
+	-->
+	(<c2> ^wm-query <n1>)
+	(<n1> ^root <c4>)
+	(<n1> ^q-type wm-query)
+}
+sp {propose*chein*prepare*VCWM-restart
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask prepare)
+	(<c2> ^rt-result error)
+	-->
+	(<o1> ^name chein-prepare-VCWM-restart)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*prepare*VCWM-restart
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c1> ^name chein-prepare-VCWM-restart)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+}
+sp {propose*chein*prepare*stroop-focus-color
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask prepare)
+	(<c2> ^slot1 yes)
+	(<c1> ^Gcontrol prepare)
+	-->
+	(<o1> ^name chein-prepare-stroop-focus-color)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*prepare*stroop-focus-color
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name chein-prepare-stroop-focus-color)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 color-property)
+}
+sp {propose*chein*VCWM-report*start
+	(state <s> ^G <c1>)
+	(<c1> ^Gtask VCWM-report)
+	(<c1> ^Gcontrol start-report)
+	-->
+	(<o1> ^name chein-VCWM-report-start)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-report*start
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c4> ^Gcontrol <c6>)
+	(<c1> ^name chein-VCWM-report-start)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+	(<c4> ^Gcontrol report)
+	(<c4> ^Gcontrol <c6> -)
+}
+sp {propose*chein*VCWM-report*report
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask VCWM-report)
+	(<c2> ^rt-result <> error)
+	(<c1> ^Gcontrol report)
+	-->
+	(<o1> ^name chein-VCWM-report-report)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-report*report
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot1 <c4>)
+	(state <s> ^Q <c5>)
+	(<c3> ^RTid <c6>)
+	(<c1> ^name chein-VCWM-report-report)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 type)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^wm-query <n2>)
+	(<n2> ^root <c6>)
+	(<n2> ^q-type wm-query)
+}
+sp {propose*chein*VCWM-report*finish
+	(state <s> ^G <c1>)
+	(state <s> ^smem <c2>)
+	(<c1> ^Gtask VCWM-report)
+	(<c2> ^rt-result error)
+	(<c1> ^Gcontrol report)
+	-->
+	(<o1> ^name chein-VCWM-report-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*VCWM-report*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^G <c3>)
+	(<c3> ^Gtask <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name chein-VCWM-report-finish)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 enter)
+	(<c3> ^Gtask finish)
+	(<c5> ^clear-rt const1)
+	(<c3> ^Gtask <c4> -)
+}
+sp {propose*chein*stroop*focus
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot1 pending)
+	-->
+	(<o1> ^name chein-stroop-focus)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*focus
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(<c2> ^Gcontrol <c4>)
+	(state <s> ^AC <c5>)
+	(state <s> ^flags <c6>)
+	(<c1> ^name chein-stroop-focus)
+	-->
+	(<c2> ^Gtask prepare)
+	(<c2> ^Gcontrol prepare)
+	(<c5> ^action <n1>)
+	(<n1> ^slot1 wait)
+	(<c6> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+	(<c2> ^Gcontrol <c4> -)
+}
+sp {propose*chein*stroop*no-focus
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot1 pending)
+	-->
+	(<o1> ^name chein-stroop-no-focus)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*no-focus
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(<c2> ^Gcontrol <c4>)
+	(state <s> ^AC <c5>)
+	(state <s> ^flags <c6>)
+	(<c1> ^name chein-stroop-no-focus)
+	-->
+	(<c2> ^Gtask idle)
+	(<c2> ^Gcontrol neutral)
+	(<c5> ^action <n1>)
+	(<n1> ^slot1 wait)
+	(<c6> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+	(<c2> ^Gcontrol <c4> -)
+}
+sp {propose*chein*stroop*focus-color
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot1 yes)
+	(<c1> ^Gcontrol prepare)
+	-->
+	(<o1> ^name chein-stroop-focus-color)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*focus-color
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name chein-stroop-focus-color)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 color-property)
+}
+sp {propose*chein*stroop*focus-all
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot1 yes)
+	(<c1> ^Gcontrol <> prepare)
+	-->
+	(<o1> ^name chein-stroop-focus-all)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*focus-all
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name chein-stroop-focus-all)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 both)
+}
+sp {propose*chein*stroop*report
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot2 )
+	(<c1> ^Gcontrol <> reported)
+	-->
+	(<o1> ^name chein-stroop-report)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*report
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name chein-stroop-report)
+	-->
+	(<c2> ^Gtask stroop-report)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*chein*stroop*finish
+	(state <s> ^G <c1>)
+	(state <s> ^V <c2>)
+	(<c1> ^Gtask stroop)
+	(<c2> ^slot1 last)
+	-->
+	(<o1> ^name chein-stroop-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name chein-stroop-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*chein*stroop-report*retrieve
+	(state <s> ^G <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^Gtask stroop-report)
+	(<c1> ^Gcontrol )
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name chein-stroop-report-retrieve)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop-report*retrieve
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name chein-stroop-report-retrieve)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 s-mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*chein*stroop-report*say
+	(state <s> ^G <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^Gtask stroop-report)
+	(<c1> ^Gcontrol )
+	(<c2> ^slot3 )
+	-->
+	(<o1> ^name chein-stroop-report-say)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*chein*stroop-report*say
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^G <c5>)
+	(<c5> ^Gcontrol <c6>)
+	(state <s> ^flags <c7>)
+	(<c1> ^name chein-stroop-report-say)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 say)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^Gcontrol reported)
+	(<c7> ^clear-rt const1)
+	(<c5> ^Gcontrol <c6> -)
+}

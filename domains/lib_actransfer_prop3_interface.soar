@@ -248,7 +248,7 @@ sp {lib*actr*set*wm-query*search
 	(<q> ^object <wmq>)
 	(<wmq> ^root.WMnext <cand>
 		   ^q-type wm-query)
-	-{(<wmq> ^{<attr> <> root <> result} <val>)
+	-{(<wmq> ^{<attr> <> root <> result <> dc-stamp <> q-type} <val>)
 	  (<cand> -^<attr> <val>)}				# It is not the case that the query has an attribute value that the candidate does not have
 -->
 	(<wmq> ^result <cand>)

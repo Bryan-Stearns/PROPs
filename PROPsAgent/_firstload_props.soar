@@ -1,6 +1,8 @@
 chunk only
 chunk add-ltm-links on
-chunk confidence-threshold 1
+#chunk add-osk off
+
+chunk confidence-threshold 3
 
 #explain all on
 #explain justifications on
@@ -10,9 +12,11 @@ chunk confidence-threshold 1
 #watch --learning print
 #watch --backtracing
 
+decide set-random-seed 42
+
 smem --set activation-mode base-level
 smem --set base-update-policy naive
-#smem --set base-decay 0.9
+smem --set base-decay 0.9
 #smem --set base-inhibition on
 smem --set activate-on-query off
 

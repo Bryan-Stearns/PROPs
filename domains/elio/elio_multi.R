@@ -3,7 +3,7 @@
 plot_elio_data <- function(auto, cog, f_pch) {
   # This function assume the global workspace variables used at the time it is called below
   
-  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),"2",ifelse(auto, "3",""), ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(cog, "c", ""), ifelse(PLOT_EPSETS, "e", ""), "_t", T, "_s", samples, sep="")
+  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),ifelse(PLOT_L2,"2",""),ifelse(auto, "3",""), ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(cog, "c", ""), ifelse(PLOT_EPSETS, "e", ""), "_t", T, "_s", samples, sep="")
   f_inpath <- paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/verbose_elio_props_", f_graphname,"_X",".dat", sep="")
   f_data <- read.table(f_inpath)
   f_data <- data.frame(f_data[1:11], f_data[4] - 0.05*f_data[6])  # Action Latencies = RT - DC_time
@@ -36,16 +36,16 @@ PLOT_PROPv240 <- FALSE
 PLOT_PROPdev <- TRUE
 
 PLOT_L1 <- TRUE           # The case where chunks were pre-included for memory reference tracing (false) or not (true)
-PLOT_L2 <- TRUE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
+PLOT_L2 <- FALSE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
 PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
-PLOT_SPREADING <- TRUE    # The case where instructions are recalled according to activation and condition spread (plotted on v240)
+PLOT_SPREADING <- FALSE    # The case where instructions are recalled according to activation and condition spread (plotted on v240)
 PLOT_MANUAL <- FALSE      # The case where a manual sequence is used (true) or not (false)
 PLOT_LC <- FALSE          # The case where chunks that trigger condition spreading are to be learned (true) or pre-loaded (false)
 PLOT_EPSETS <- TRUE       # The case where fetch-guiding sets are used (true) or not (false)
 
 DC_MODE <- ""    # "" = 50ms, "40" = 40ms
 T <- "10"
-samples <- "8"
+samples <- "2"
 
 graphname = paste("l", ifelse(PLOT_L3 && !PLOT_L2 && !PLOT_L1, 
                               paste("3only", ifelse(PLOT_LC, "c", ""), sep=""),
