@@ -39,7 +39,8 @@ private:
 	bool getProposedOperator(const std::vector<arg_chain> &consts, const std::vector<arg_id_chain> &actions, std::string &op_name);
 	bool getAppliedOperator(const std::vector<arg_chain> &consts, const std::vector<arg_id_chain> &conditions, std::string &op_name);
 	bool parsePropsFile(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions);
-	std::string makeDelta(const arg_id_chain &cond, const std::string deltaID);
+	std::string makeProp(const arg_id_chain &cond, const std::string propID, const std::string propName);
+	std::string makeActionDeltaHierarchy(std::map<std::string, std::vector<std::string>> &ruleDeltas);
 	std::vector<std::string> buildProps2Instructions();
 	std::vector<std::string> buildProps3Instructions();
 

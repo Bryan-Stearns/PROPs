@@ -5,6 +5,10 @@
 #include <vector>
 #include <sstream>
 #include <map>
+//#include <unordered_map>
+//#include <boost/functional/hash.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp> // Include boost::for is_any_of
 #include <cctype>
 #include <algorithm>
 
@@ -496,31 +500,34 @@ bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants,
 	return true;
 }
 
-std::string props_instruction_parser::makeDelta(const arg_id_chain &cond, const std::string deltaID) {
+std::string props_instruction_parser::makeProp(const arg_id_chain &cond, const std::string propID, const std::string propName) {
 	std::stringstream ss;
 	auto c = cond.first;
+
+	// Add the name attribute to the PROP
+	ss << "(<" << propID << "> ^name " << propName;
 
 	// Add prop-type flag
 	if (!c.at(0).compare("add") && c.size() < 4) {
 		// "add" && -^attr2 --> "indifferent"
-		ss << "(<" << deltaID << "> ^prop-type indifferent)" << std::endl;
+		ss << std::endl << "\t^prop-type indifferent";
 	}
 	else if (!c.at(0).compare("better") && c.size() < 4) {
 		// "better" && -^attr2 --> "best"
-		ss << "(<" << deltaID << "> ^prop-type best)" << std::endl;
+		ss << std::endl << "\t^prop-type best";
 	}
 	else if (!c.at(0).compare("worse") && c.size() < 4) {
 		// "worse" && -^attr2 --> "worst"
-		ss << "(<" << deltaID << "> ^prop-type worst)" << std::endl;
+		ss << std::endl << "\t^prop-type worst";
 	}
 	else {
 		// Default
-		ss << "(<" << deltaID << "> ^prop-type " << c.at(0) << ")" << std::endl;
+		ss << std::endl << "\t^prop-type " << c.at(0);
 	}
 
 	// Add attributes
 	for (std::size_t i = 1; i < c.size(); i += 2) {
-		ss << "(<" << deltaID << "> ^attr" << (i + 1) / 2 << " " << c.at(i + 1) << ")" << std::endl;
+		ss << std::endl << "\t^attr" << (i + 1) / 2 << " " << c.at(i + 1);
 	}
 
 	// Add the name of id1
@@ -530,7 +537,7 @@ std::string props_instruction_parser::makeDelta(const arg_id_chain &cond, const 
 	} catch (...) {
 		tempStr = ROOT_MARKER;
 	}
-	ss << "(<" << deltaID << "> ^address1 " << tempStr << ")" << std::endl;
+	ss << std::endl << "\t^address1 " << tempStr;
 
 	// Add the name of id2, if applicable
 	if (c.size() > 3) {
@@ -542,7 +549,129 @@ std::string props_instruction_parser::makeDelta(const arg_id_chain &cond, const 
 		} catch (...) {
 			tempStr = ROOT_MARKER;
 		}
-		ss << "(<" << deltaID << "> ^address2 " << tempStr << ")" << std::endl;
+		ss << std::endl << "\t^address2 " << tempStr;
+	}
+
+	ss << ")" << std::endl;
+
+	return ss.str();
+}
+
+/**
+ * Split the given source string into a vector of tokens using the given delimiter, and concatenate that vector into the given destination vector.
+ */
+void addSplitStringItems(std::vector<std::string> &dst, const std::string src, const std::string delim) {
+	std::vector<std::string> items;
+	boost::split(items, src, boost::is_any_of(delim), boost::token_compress_on);
+	dst.insert(dst.end(), items.begin()+1, items.end());
+}
+
+/**
+ * Take the given rule-grouped deltas and build a binary hierarchy of component deltas.
+ * Takes a map of delta names, per instruction rule, mapped to the list of action PROPs for that rule.
+ * (The vector<string> of PROP ids in each given map entry needs to be already sorted!)
+ * Returns the string command that defines the given deltas and the newly built deltas, to go inside an smem --add statement.
+ * (It is assumed the action PROP deltas have already been defined elsewhere, but none others.)
+ */
+std::string props_instruction_parser::makeActionDeltaHierarchy(std::map<std::string, std::vector<std::string>> &ruleDeltas) {
+	std::stringstream ss;	// Stream to turn into the returned string
+
+	auto unfinishedDeltas = ruleDeltas;	// Work with a copy
+
+	while (unfinishedDeltas.size()) {
+		std::map<std::string, std::vector<std::string>> nextDeltas;		// Buffer for the next pass of the loop
+		std::map<std::string, std::pair<std::string, std::string>> compositions;
+		// Wanted to use an unordered_map for this, but compiler giving too much trouble with defining hash function:
+		std::map<std::pair<std::string,std::string>, int> assocs;	// Co-occurrence counts for pairs of deltas
+
+		// Preprocess: make the deltas for the current layer of prop compositions
+		for (auto mappings : unfinishedDeltas) {
+			if (mappings.second.size() > 1) {
+				//ss << "(<delta" << mappings.first << "> ^prop-apply true" << std::endl
+				//   << "\t^op-name |" << mappings.first << "|";
+
+				for (unsigned int i = 0; i<mappings.second.size(); ++i) {
+					//ss << std::endl << "\t^item-name |" << mappings.second.at(i) << "|";
+					// Increment counts of co-occurrences
+					for (unsigned int j=i+1; j < mappings.second.size(); ++j) {
+						auto thisAssoc = make_pair(mappings.second.at(i), mappings.second.at(j));
+						assocs[thisAssoc]++;	// If doesn't exist, is initialized to 0 and then incremented
+					}
+				}
+
+				//ss << ")" << std::endl;
+			}
+		}
+
+		// Sort the assocs by value: copy into a vector and sort it
+		std::vector<std::pair<std::pair<std::string,std::string>, int>> sortedAssocs;
+		for (auto it = assocs.begin(); it != assocs.end(); ++it)
+			sortedAssocs.push_back(*it);
+		std::sort(sortedAssocs.begin(), sortedAssocs.end(), [=](std::pair<std::pair<std::string,std::string>, int>& a, std::pair<std::pair<std::string,std::string>, int>& b){return a.second > b.second;} );
+
+		// Pass through delta sets replacing with most common combos
+		for (auto it = unfinishedDeltas.begin(); it != unfinishedDeltas.end(); ++it) {
+			int dCount = it->second.size();
+			if (dCount < 2)
+				continue;
+
+			bool repeat = false;	// Keep compressing delta sets until all pairwise hierarchical
+			// Ouch: Check each assoc for a match while there's a match left to make
+			for (auto assoc : sortedAssocs) {
+				auto ait1 = std::find(it->second.begin(), it->second.end(), assoc.first.first);
+				auto ait2 = std::find(it->second.begin(), it->second.end(), assoc.first.second);
+				// If the associated pair is in this delta,
+				if (ait1 != it->second.end() && ait2 != it->second.end()) {
+					repeat = true;
+					// Be sure the combo string stays sorted
+					std::vector<std::string> items;
+					addSplitStringItems(items, *ait1, "_");
+					addSplitStringItems(items, *ait2, "_");
+					std::sort(items.begin(), items.end());
+					std::string itemStr = "";
+					for (auto const& s : items) {itemStr += "_" + s;}
+					// Replace them with the combination of these two
+					*ait1 = itemStr;
+					it->second.erase(ait2);
+					// Mark to print this new combo at end of this pass, if not already marked
+					compositions.emplace(*ait1, assoc.first);
+				}
+				// Go to next rule instance if combined all that can be combined in this delta this pass
+				if ((int)it->second.size() <= (dCount+1)/2) {
+					break;
+				}
+			}
+
+			if (repeat) {
+				// Add this composition for combos next time
+				std::string newname = "";
+				for (std::string s : it->second) {
+					newname += s;
+				}
+				nextDeltas.emplace(newname, it->second);
+			}
+		}
+
+		// For each intermediate delta-pair composition, make the epset that composes them
+		for (auto comp : compositions) {
+			ss << "(<delta" << comp.first << "> ^prop-apply true" << std::endl
+			   << "\t^op-name |" << comp.first << "|";
+
+			// Add the semantic items described in each half of the association
+			std::vector<std::string> items;
+			addSplitStringItems(items, comp.second.first, "_");
+			addSplitStringItems(items, comp.second.second, "_");
+			for (std::string s : items) {
+				ss << std::endl << "\t^item-name |_" << s << "|";}
+			ss << ")" << std::endl;
+
+			// Make the epset that applies this delta
+			ss << "(<epset" << comp.first << "> ^props-epset-name |" << comp.first << "|" << std::endl
+				<< "\t ^delta <delta" << comp.second.first << ">" << std::endl
+				<< "\t ^delta <delta" << comp.second.second << ">" << ")" << std::endl;
+		}
+
+		unfinishedDeltas = nextDeltas;
 	}
 
 	return ss.str();
@@ -822,6 +951,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 	lineNumber = 1;
 	std::string prevTaskName = "default";
 	std::map<std::string, std::pair<std::string,std::string>> proposalMap;	// Maps operator names to their <proposal,application> rule instance numbers
+	std::map<std::string, std::vector<std::string>> actionDeltas;			// Maps delta names to list of prop action numbers contained therein
 
 	while (inFile.good()) {
 		auto constants = std::vector<arg_chain>();
@@ -877,16 +1007,20 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 		instrs << "(<Z" << instNumber << "> ^spread-source <S" << instNumber << ">)" << std::endl;
 		*/
 		// Add const values
-		for (auto &s : constants) {
-			instrs << "(<Q" << constNumber << "> ^" << s.at(0) << " " << s.at(1) << ")" << std::endl;
+		if (constants.size()) {
+			instrs << "(<Q" << constNumber << "> ";
+			for (auto &s : constants) {
+				instrs << " ^" << s.at(0) << " " << s.at(1);
+			}
+			instrs << ")" << std::endl;
 		}
 
 		// Add conditions
 		if (isProposal) {
 			// Add this operator as a delta in the task epset
-			instrs << "(<epset-" << currTaskName << "> ^delta <d-op" << instNumber << ">)" << std::endl
-					<< "(<d-op" << instNumber << "> ^name " << currRuleName << ")" << std::endl
-					<< "(<d-op" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
+			instrs << "(<epset-task-" << currTaskName << "> ^delta <delta-rule" << instNumber << ">)" << std::endl
+					<< "(<delta-rule" << instNumber << "> ^op-name " << currOpName << std::endl
+					<< "\t^const <Q" << constNumber << ">)" << std::endl;
 
 			// Add each condition to the operator delta
 			for (auto &s : conditions) {
@@ -905,7 +1039,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 				}
 
 				// Add epset condition
-				instrs << "(<d-op" << instNumber << "> ^condition <dc" << propNumber << ">)" << std::endl;
+				instrs << "(<delta-rule" << instNumber << "> ^prop <prop-C" << propNumber << ">)" << std::endl;
 						//<< "(<d-op" << instNumber << "> ^item-name |_PC" << propNumber << "|)" << std::endl;
 
 				// Add condition to instructions
@@ -915,8 +1049,8 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					continue;
 
 				// Add epset condition details
-				instrs << makeDelta(s, "dc" + toString(propNumber)) << std::endl
-						<< "(<dc" << propNumber << "> ^name |_PC" << propNumber << "|)" << std::endl;
+				instrs << makeProp(s, "prop-C" + toString(propNumber), "|_PA" + toString(propNumber) + "|") << std::endl;
+						//<< "(<dc" << propNumber << "> ^name |_PC" << propNumber << "|)" << std::endl;
 
 				/*auto c = s.first;
 				instrs << "(<P" << propNumber << "> ^lti-name |_P" << propNumber << "|)" << std::endl;
@@ -936,9 +1070,8 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Add actions
 		if (!isProposal) {
-			instrs << "(<epset-" << instNumber << "> ^props-epset-name " << currOpName << ")" << std::endl
-					//<< "(<epset-" << instNumber << "> ^terminal |true|)" << std::endl
-					<< "(<epset-" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
+			std::string deltaName = "";	 			// The name for the whole group of actions, concatenating the prop names ("_PA1_PA2")
+			auto actionIds = std::vector<std::string>();	// Each action PROP name used in this rule
 
 			for (auto &s : actions) {
 				int propNumber = maxPropNumber;
@@ -955,32 +1088,28 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					maxPropNumber++;
 				}
 
-				//instrs << "(<Z" << instNumber << "> ^action |_P" << propNumber << "|)" << std::endl;
-				//instrs << "(<Z" << instNumber << "> ^prop-link <P" << propNumber << ">)" << std::endl;
-
-
 				// Add this action as a delta in the op-apply epset
-				instrs << "(<epset-" << instNumber << "> ^delta <a-prop" << propNumber << ">)" << std::endl;
+				//instrs << "(<epset-rule" << instNumber << "> ^delta <delta-PA" << propNumber << ">)" << std::endl;
 
+				actionIds.push_back("_PA" + toString(propNumber));
 
 				// Don't print PROP details if defined earlier
 				if (skip)
 					continue;
 
 				// Add delta condition for this action prop in the rule
-				/*instrs << "(<d-prop" << propNumber << "> ^condition <da" << propNumber << ">)" << std::endl
+				/*instrs << "(<d-prop" << propNumber << "> ^prop <da" << propNumber << ">)" << std::endl
 						<< "(<d-prop" << propNumber << "> ^op-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
 						<< "(<d-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl
 						<< "(<da" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;*/
-				instrs //<< "(<a-prop" << propNumber << "> ^application <cbz" << propNumber << ">)" << std::endl
+				//instrs << "(<a-prop" << propNumber << "> ^application <cbz" << propNumber << ">)" << std::endl
 						//<< "(<a-prop" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
-						<< "(<a-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl;
 				//		<< "(<cbz" << propNumber << "> ^unretrieved <cbzz" << propNumber << ">)" << std::endl
 				//		<< "(<cbzz" << propNumber << "> ^spread-link <cbset-" << propNumber << ">)" << std::endl;
-
-				instrs << "(<a-prop" << propNumber << "> ^condition <cba" << propNumber << ">)" << std::endl
-					   << "(<a-prop" << propNumber << "> ^item-name |_PA" << propNumber << "|)" << std::endl
-					   << "(<a-prop" << propNumber << "> ^op-name |_PA" << propNumber << "|)" << std::endl;
+				instrs << "(<delta_PA" << propNumber << "> ^prop-apply true" << std::endl	// One prop-apply flag to mark this as containing actions
+							<< "\t^prop <prop-A" << propNumber << ">" << std::endl
+							<< "\t^item-name |_PA" << propNumber << "|" << std::endl	// One item-name for each ^condition in the delta
+							<< "\t^op-name |_PA" << propNumber << "|)" << std::endl;		// One op-name per apply delta
 						//<< "(<cbset-" << propNumber << "> ^size 1)" << std::endl
 						//<< "(<a-prop" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
 
@@ -991,9 +1120,9 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 				//arg_id_chain acond = makeActionCond(s);
 
 				// Add PROP action's condition delta
-				instrs << makeDelta(s, "cba" + toString(propNumber))
-						<< "(<cba" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl
-						<< "(<cba" << propNumber << "> ^action-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl;
+				instrs << makeProp(s, "prop-A" + toString(propNumber), "|_PA" + toString(propNumber) + "|");
+						//<< "(<cba" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
+						//<< "(<cba" << propNumber << "> ^action-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl;
 
 				// Add complementing condition attribute chain
 				//printSubChain(s, instrs, "PA" + toString(propNumber));
@@ -1014,6 +1143,17 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 				propNumber++;
 			}
+			// Sort the actionIds before making the delta name. Sorts by string: "1" < "32" < "6", but as long as consistent ordering it's fine.
+			std::sort(actionIds.begin(), actionIds.end());
+			for (std::string s : actionIds) {
+				deltaName += s;
+			}
+
+			// Add the delta for fully-composed general apply operator to an epset for the individual rule's instruction
+			instrs << "(<epset-rule" << instNumber << "> ^props-epset-name " << currOpName << std::endl
+					<< "\t^const <Q" << constNumber << ">" << std::endl
+					<< "\t^delta <delta" << deltaName << ">)" << std::endl;
+			actionDeltas.emplace(deltaName, actionIds);
 		}
 
 		// Store converted instruction set for later printing
@@ -1025,12 +1165,13 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Add task-level epset head structure
 		if (currTaskName.compare(prevTaskName)) {
-			insList.push_back("(<epset-" + currTaskName + "> ^props-epset-name " + currTaskName + ")");
+			insList.push_back("(<epset-task-" + currTaskName + "> ^props-epset-name " + currTaskName + ")");
 			prevTaskName = currTaskName;
 		}
 	}
+
 	// Connect the epset delta for the operator proposal to the application instructions
-	std::stringstream instrs;
+	/*std::stringstream instrs;
 	for (auto mappings : proposalMap) {
 		std::string proposalNumber = mappings.second.first;
 		if (proposalNumber.compare("") && mappings.second.second.compare("")) {
@@ -1044,7 +1185,10 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 		}
 	}
 	proposalMap.clear();
-	insList.push_back(instrs.str());
+	insList.push_back(instrs.str());*/
+
+	// Fill out the binary hierarchy of action deltas
+	insList.push_back(makeActionDeltaHierarchy(actionDeltas));
 
 	return insList;
 }

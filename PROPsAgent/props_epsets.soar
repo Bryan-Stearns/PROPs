@@ -18,7 +18,7 @@
 #                   ^unretrieved (          | An intermediate edge, so depth-3 query doesn't default fetch application spread source
 #                       ^spread-link <lti>) | The epset to spread to if all conditions are true. This edge should not ever be in WM.
 #               ^const <dc>                 | Holds constants for the rule
-#              [^condition (<c>             | Corresponds to a single condition of the delta
+#              [^prop (<c>             | Corresponds to a single condition of the delta
 #                   ^address1 <ts-attr1>    | A cached/provided attribute path from the topstate to find <id1>
 #                   ^address2 <ts-attr2>    | A cached/provided attribute path from the topstate to find <id2>
 #                   ^prop-type << ... >>    | The operation type
@@ -32,12 +32,12 @@
 #source props_epsets_combos.soar
 
 # MANAGE THE PROHIBIT LIST
-sp {elaborate*props*inhibit-list
-    (state <s> ^smem <smem>)
--->
-    (<smem> ^inhibit-list <pl>)
-    (<pl> ^negate <n>)
-}
+#sp {elaborate*props*inhibit-list
+#    (state <s> ^smem <smem>)
+#-->
+#    (<smem> ^inhibit-list <pl>)
+#    (<pl> ^negate <n>)
+#}
 sp {elaborate*props*inhibit-list*copy-inhibit
     (state <s> ^superstate.smem.inhibit-list.inhibit <phbt>
                ^smem <smem>)
@@ -70,7 +70,7 @@ sp {elaborate*props*inhibit-list*deltas
     (<smem> ^inhibit-list.inhibit <p>
             ^command <scmd>)
     (<scmd> -^store)
-    (<p> ^condition ) 
+    (<p> ^prop ) 
 -->
     (<scmd> ^prohibit <p>)
 }
@@ -96,12 +96,33 @@ sp {elaborate*rootstate*cascade
     (<s> ^topstate <ts>)
 }
 
+# INHERIT CONST STRUCTS FROM SUPERSTATE EPSETS
+sp {elaborate*superstate-epset*consts
+    (state <s> ^superstate.props-epset.const <c>)
+-->
+    (<s> ^const <c>)
+}
+sp {elaborate*superstate*consts
+    (state <s> ^superstate.const <c>)
+-->
+    (<s> ^const <c>)
+}
+
 # GIVE EACH SUBSTATE AN APPLY BUFFER IN WHICH TO STAGE BATCH RESULTS
 sp {elaborate*apply-buffer
     (state <s> ^type state)
 -->
     (<s> ^prop-apply-buffer <b>
          ^locks <k>)
+}
+sp {elaborate*apply-buffer*working-apply
+    "Make the empty apply structure that substate application ops will build onto."
+    (state <s> ^prop-apply-buffer <b>
+               ^superstate {<ss> <> nil})
+-->
+    (<b> ^apply <a>)
+    # If we've entered an impasse, we need to chunk this state before chunking the superstate.
+    (dont-learn <ss>)
 }
 
 # PROHIBIT EPSETS AND DELTAS CURRENTLY IN USE UP STATE STACK
@@ -115,7 +136,7 @@ sp {elaborate*props*delta*prohibit-used
     (state <s> ^props-epset.delta <d>
                ^set-applied.item-name <dname>
                ^smem.inhibit-list <pl>)
-    (<d> ^condition.name <dname>)
+    (<d> ^prop.name <dname>)
 -->
     (<pl> ^inhibit <d>)
 }
@@ -217,6 +238,7 @@ sp {apply*props*retrieve-epset*success*new
            ^result.retrieved <e>)
     (<scmd> ^query <q>)
 -->
+    (force-learn <s>)
     (<s> ^props-epset <e>)
     (<scmd> ^query <q> -)
 }
@@ -228,6 +250,7 @@ sp {apply*props*retrieve-epset*success*replace
            ^result.retrieved <e>)
     (<scmd> ^query <q>)
 -->
+    (force-learn <s>)
     (<s> ^props-epset <e>
          ^props-epset <olde> -)
     (<scmd> ^query <q> -)
@@ -322,7 +345,7 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<o> ^name props-init-evaluation
 #         ^props-instructions <ins>)
 #    (<ins> ^name <name>
-#           ^condition <cname>
+#           ^prop <cname>
 #           ^prop-link <pl>)
 #    (<pl> ^lti-name <cname>
 #          ^prop-type {<type> <> |condition|}
@@ -330,10 +353,10 @@ sp {apply*props*retrieve-epset*success*replace
 #          -^attr2)
 #    (<rs> ^props-epset.delta <d>)
 #    (<d> ^name <name>)
-#    -{(<d> ^condition <cond>)
+#    -{(<d> ^prop <cond>)
 #      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
 #-->
-#    (<d> ^condition <cnew>)
+#    (<d> ^prop <cnew>)
 #    (<cnew> ^lti-name <cname>
 #            ^prop-type <type>
 #            ^elabs <enew>
@@ -348,7 +371,7 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<o> ^name props-init-evaluation
 #         ^props-instructions <ins>)
 #    (<ins> ^name <name>
-#           ^condition <cname>
+#           ^prop <cname>
 #           ^prop-link <pl>)
 #    (<pl> ^lti-name <cname>
 #          ^prop-type {<type> <> |condition|}
@@ -356,10 +379,10 @@ sp {apply*props*retrieve-epset*success*replace
 #          ^attr2 <attr2>)
 #    (<rs> ^props-epset.delta <d>)
 #    (<d> ^name <name>)
-#    -{(<d> ^condition <cond>)
+#    -{(<d> ^prop <cond>)
 #      (<cond> ^lti-name <cname>)}  # It is not the case that this delta has this condition recorded
 #-->
-#    (<d> ^condition <cnew>)
+#    (<d> ^prop <cnew>)
 #    (<cnew> ^lti-name <cname>
 #            ^prop-type <type>
 #            ^elabs <enew>
@@ -376,11 +399,11 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<o> ^name props-init-evaluation
 #         ^props-instructions <ins>)
 #    (<ins> ^name <name>
-#           ^condition <cname>
+#           ^prop <cname>
 #           ^prop-link (^lti-name <cname> ^sub1-link.chain-attr <addr>) )
 #    (<rs> ^props-epset.delta <d>)
 #    (<d> ^name <name>
-#         ^condition <cond>)
+#         ^prop <cond>)
 #    (<cond> ^lti-name <cname>
 #           -^address1)
 #-->
@@ -394,11 +417,11 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<o> ^name props-init-evaluation
 #         ^props-instructions <ins>)
 #    (<ins> ^name <name>
-#           ^condition <cname>
+#           ^prop <cname>
 #           ^prop-link (^lti-name <cname> ^sub2-link.chain-attr <addr>) )
 #    (<rs> ^props-epset.delta <d>)
 #    (<d> ^name <name>
-#         ^condition <cond>)
+#         ^prop <cond>)
 #    (<cond> ^lti-name <cname>
 #           -^address2)
 #-->
@@ -412,7 +435,7 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<o> ^name props-init-evaluation
 #         ^props-instructions <ins>)
 #    (<ins> ^name <name>
-#           ^condition <cname>
+#           ^prop <cname>
 #           ^prop-link <pl>)
 #    (<pl> ^lti-name <cname>
 #          ^attr2 
@@ -420,7 +443,7 @@ sp {apply*props*retrieve-epset*success*replace
 #    (<rs> ^props-epset.delta <d>)
 #    (<d> ^name <name>
 #         ^const <const> 
-#         ^condition <cond>)
+#         ^prop <cond>)
 #    (<cond> ^lti-name <cname>
 #           -^address2)
 #-->
@@ -436,7 +459,7 @@ sp {apply*props*retrieve-epset*success*replace
 #              -^props-to-store
 #               ^props-flag originals-not-ready
 #               ^props-buffer)
-#   (<pe> ^delta.condition.address1 <any>)
+#   (<pe> ^delta.prop.address1 <any>)
 #-->
 #    (<s> ^props-flag originals-not-ready -)
 #}
@@ -463,7 +486,7 @@ sp {propose*props*epset*delta*condition*all-true
     (<pe> ^delta <d>)
     (<d> ^op-name <name>
         -^prop-apply)    # Only for conditions
-    -{(<d> ^condition.name <cname>
+    -{(<d> ^prop.name <cname>
           -^cond-success <cname>)} # It is not the case that this delta has untrue conditions
 -->
     (<s> ^operator <o> + )    # Make indifferent to bypass proposal composition
@@ -478,10 +501,10 @@ sp {propose*props*epset*delta*action*all-true
     (<pe> ^delta <d>)
     (<d> ^prop-apply           # Only for actions
          ^op-name <dname>)
-    -{(<s> ^set-applied.item-name <name>)
+    -{(<pb> ^apply.delta-action.name <name>)
       (<d> ^item-name <name>)}  # It is not the case that this operator contains used actions
 -->
-    (<s> ^operator <o> + )    # Make indifferent to bypass proposal composition
+    (<s> ^operator <o> + > =)    # Make indifferent to bypass proposal composition
     (<o> ^name <dname>
          ^delta <d>)
 }
@@ -508,7 +531,7 @@ sp {prefer*props*epset*delta*larger
 #    (<d> ^application.unretrieved <lti>
 #         ^cond-id1 <any>         # To make sure this doesn't fire before conditions can be evaluated
 #        -^missing )
-#    -{(<d> ^condition <c>
+#    -{(<d> ^prop <c>
 #           ^cond-id1 <cid1>)
 #      (<c> ^name <cname>)
 #      (<cid1> -^result success)} # It is not the case that this delta has untrue conditions
@@ -520,7 +543,7 @@ sp {prefer*props*epset*delta*larger
 #    (state <s> ^props-epset <pe>)
 #    (<pe> ^delta <d>)
 #    (<d> ^instructions.spread-id <ltinum>)
-#    -{(<d> ^condition <c>)
+#    -{(<d> ^prop <c>)
 #      (<c> -^result success)} # It is not the case that this delta has untrue conditions
 #-->
 #    (<d> ^result success
@@ -531,9 +554,9 @@ sp {prefer*props*epset*delta*larger
 
 sp {apply*props*cbset*add
     (state <s> ^operator <o>
-               ^prop-apply-buffer <b>)
+               ^prop-apply-buffer.apply <ba>)
     (<o> ^delta <d>)
-    (<d> ^condition <a>
+    (<d> ^prop <a>
          ^op-name <dname>
          ^cond-id1 (^id1 <id1> ^name <cname> )
          ^cond-id2 (^id2 <id2> ^name <cname> ) )
@@ -543,7 +566,7 @@ sp {apply*props*cbset*add
          ^attr2 <attr2>)
     (<id2> ^<attr2> <val>)
 -->
-    (<b> ^delta-action <dnew>)
+    (<ba> ^delta-action <dnew>)
     (<dnew> ^prop-type add
             ^name <cname>
             ^id1 <id1>
@@ -556,9 +579,9 @@ sp {apply*props*cbset*add
 }
 sp {apply*props*cbset*remove
     (state <s> ^operator <o>
-               ^prop-apply-buffer <b>)
+               ^prop-apply-buffer.apply <ba>)
     (<o> ^delta <d>)
-    (<d> ^condition <a>
+    (<d> ^prop <a>
          ^op-name <dname>
          ^cond-id1 (^id1 <id1> ^name <cname> ) )
     (<a> ^prop-type remove
@@ -566,7 +589,7 @@ sp {apply*props*cbset*remove
          ^id1 <id1>
          ^attr1 <attr1>)
 -->
-    (<b> ^delta-action <dnew>)
+    (<ba> ^delta-action <dnew>)
     (<dnew> ^prop-type remove
             ^name <cname>
             ^id1 <id1>
@@ -584,7 +607,7 @@ sp {elaborate*props*epset*delta*cond*address1*buffer
               #-^smem.command.store <c>    # don't include the id in smem
               -^no-propose <d>         # don't bother for new action deltas
                ^topstate.<buff> <buff-id>)
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address1 <buff>
          ^name <cname>)
 -->
@@ -597,7 +620,7 @@ sp {elaborate*props*epset*delta*cond*address2*buffer
               #-^smem.command.store <c>    # don't include the id in smem
               -^no-propose <d>         # don't bother for new action deltas
                ^topstate.<buff> <buff-id>)
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address2 <buff>
          ^name <cname>)
 -->
@@ -608,7 +631,7 @@ sp {elaborate*props*epset*delta*cond*address2*buffer
 sp {elaborate*props*epset*delta*cond*address2*cond-const
     (state <s> ^props-epset (^delta <d> -^generated ) )
     (<d> ^const <dc>
-         ^condition <c>)
+         ^prop <c>)
     (<c> ^address2 |props$const|
          ^name <cname>)
 -->
@@ -618,11 +641,11 @@ sp {elaborate*props*epset*delta*cond*address2*cond-const
 }
 sp {elaborate*props*epset*delta*cond*address2*act-const
     (state <s> ^props-epset <pe>
-              -^no-propose <d>)         # don't bother for new action deltas
+              -^no-propose <d>         # don't bother for new action deltas
+               ^const <dc>)
     (<pe> ^delta <d>
-         -^generated
-          ^const <dc>)
-    (<d> ^condition <c>)
+         -^generated)
+    (<d> ^prop <c>)
     (<c> ^address2 |props$const|
          ^name <cname>)
 -->
@@ -636,7 +659,7 @@ sp {elaborate*props*epset*delta*cond*address1*rootstate
                ^topstate <ts>)
     (<pe> ^delta <d>
           -^generated)
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address1 |props$rootstate|
          ^name <cname>)
 -->
@@ -650,7 +673,7 @@ sp {elaborate*props*epset*delta*cond*address2*rootstate
                ^topstate <ts>)
     (<pe> ^delta <d>
           -^generated )
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address2 |props$rootstate|
          ^name <cname>)
 -->
@@ -662,7 +685,7 @@ sp {elaborate*props*epset*delta*cond*address2*rootstate
 sp {elaborate*props*epset*delta*cond*address1*missing
     (state <s> ^props-epset (^delta <d> -^generated )
               -^topstate.<buff> <buff-id>)
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address1 {<buff> <> |props$rootstate|})
 -->
     (<d> ^missing |id1|)
@@ -670,7 +693,7 @@ sp {elaborate*props*epset*delta*cond*address1*missing
 sp {elaborate*props*epset*delta*cond*address2*missing*buffer
     (state <s> ^props-epset (^delta <d> -^generated )
               -^topstate.<buff> <buff-id>)
-    (<d> ^condition <c>)
+    (<d> ^prop <c>)
     (<c> ^address2 {<buff> <> |props$const| <> |props$rootstate|})
 -->
     (<d> ^missing |id2|)
@@ -683,7 +706,7 @@ sp {elaborate*props*epset*delta*cond*address2*missing*buffer
 
 sp {elaborate*props*epset*delta*cond*eq
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -701,7 +724,7 @@ sp {elaborate*props*epset*delta*cond*eq
 }
 sp {elaborate*props*epset*delta*cond*neq
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -719,7 +742,7 @@ sp {elaborate*props*epset*delta*cond*neq
 }
 sp {elaborate*props*epset*delta*cond*teq
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -737,7 +760,7 @@ sp {elaborate*props*epset*delta*cond*teq
 }
 sp {elaborate*props*epset*delta*cond*less
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -755,7 +778,7 @@ sp {elaborate*props*epset*delta*cond*less
 }
 sp {elaborate*props*epset*delta*cond*greater
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -773,7 +796,7 @@ sp {elaborate*props*epset*delta*cond*greater
 }
 sp {elaborate*props*epset*delta*cond*less-equal
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -791,7 +814,7 @@ sp {elaborate*props*epset*delta*cond*less-equal
 }
 sp {elaborate*props*epset*delta*cond*greater-equal
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>
          ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
@@ -809,7 +832,7 @@ sp {elaborate*props*epset*delta*cond*greater-equal
 }
 #sp {elaborate*props*epset*delta*cond*inexistence
 #    (state <s> ^props-epset.delta <d>)
-#    (<d> ^condition <c>
+#    (<d> ^prop <c>
 #         ^cond-id1 <cid1>)
 #    (<cid1> ^name <cname>
 #            ^id1 <id1>)
@@ -822,7 +845,7 @@ sp {elaborate*props*epset*delta*cond*greater-equal
 #}
 sp {elaborate*props*epset*delta*cond*negation
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
@@ -835,7 +858,7 @@ sp {elaborate*props*epset*delta*cond*negation
 }
 sp {elaborate*props*epset*delta*cond*existence
     (state <s> ^props-epset.delta <d>)
-    (<d> ^condition <c>
+    (<d> ^prop <c>
          ^cond-id1 <cid1>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
@@ -854,9 +877,9 @@ sp {elaborate*props*epset*delta*action*available
     "The proposal condition for actions is that they are not yet on the return buffer."
     (state <s> ^props-epset.delta <d>
                ^prop-apply-buffer <b>)
-    (<b> -^delta-action.name <cname>)
+    (<b> -^apply.delta-action.name <cname>)
     (<d> ^prop-apply 
-         ^condition <c>)
+         ^prop <c>)
     (<c> ^name <cname>)
 -->
     (<d> ^cond-success <cname>)
@@ -869,7 +892,7 @@ sp {elaborate*props*cbset*apply*spread
               -^cbset-combine-done true  # Don't let the active-spread wme get saved to smem
                ^prop-apply-buffer <ab>)
     (<pe> ^delta <a>)
-    (<ab> -^delta-action.name <aname>)
+    (<ab> -^apply.delta-action.name <aname>)
     (<a> ^application.unretrieved <lti>
          ^prop-apply
          ^op-name <aname>)
@@ -907,7 +930,7 @@ sp {apply*props*delta*query
     (<scmd> ^query <q>
             #^neg-query <neg>
             ^depth 3)
-    (<q> ^condition <any>    # Any apply delta, even higher level op compositions
+    (<q> ^prop <any>    # Any apply delta, even higher level op compositions
          ^prop-apply <any2>)
 }
 # ADD NEG-QUERY ITEMS PER USED PROP ACTION
@@ -940,7 +963,7 @@ sp {propose*props*retrieve-delta
     (state <s> ^smem <smem>
               -^selected-delta )
     (<smem> ^result.retrieved <d>
-            ^command.query.condition )
+            ^command.query.prop )
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-retrieve-delta)
@@ -948,7 +971,7 @@ sp {propose*props*retrieve-delta
 sp {elaborate*props*retrieve-delta*failure
     (state <s> ^smem.result.failure <q>
                ^topstate.io.output-link <ol>)
-    (<q> ^condition )
+    (<q> ^prop )
 -->
     (<ol> ^error <e>)
     (<e> ^msg |DELTA RETRIEVAL FAILED| )
@@ -971,9 +994,9 @@ sp {apply*props*retrieve-delta*success*old-delta
             ^result.retrieved <d>)
     (<d> ^op-name <dname>)
     (<scmd> ^query <q>)
-  -{(<d> ^condition.name <name>)
-   -(<ss> ^props-epset.delta.condition.name <name>)}   # It is not the case that it has unintended actions
-  -{(<d> ^condition.name <opn>)
+  -{(<d> ^prop.name <name>)
+   -(<ss> ^props-epset.delta.prop.name <name>)}   # It is not the case that it has unintended actions
+  -{(<d> ^prop.name <opn>)
     (<ss> ^set-applied.item-name <opn>)}     # It is not the case that it has already-used actions
 -->
     (<s> ^selected-delta <d>)
@@ -996,9 +1019,9 @@ sp {apply*props*retrieve-delta*success*new-delta
             ^result.retrieved <d>)
     (<d> ^op-name <dname>
          ^is-combo true)
-  -{(<d> ^condition.name <name>)
-   -(<ss> ^props-epset.delta.condition.name <name>)}   # It is not the case that it has unintended actions
-  -{(<d> ^condition.name <opn>)
+  -{(<d> ^prop.name <name>)
+   -(<ss> ^props-epset.delta.prop.name <name>)}   # It is not the case that it has unintended actions
+  -{(<d> ^prop.name <opn>)
     (<ss> ^set-applied.item-name <opn>)}     # It is not the case that it has already-used actions
 -->
     (<s> ^selected-delta <d>)
@@ -1020,8 +1043,8 @@ sp {apply*props*retrieve-delta*incorrect*unintended*none-okay
             ^command <scmd>)
     (<scmd> ^query <q>)
     (<d> ^op-name <name>)
-    -{(<spe> ^delta.condition.name <aname>)
-      (<d> ^condition.name <aname>)}
+    -{(<spe> ^delta.prop.name <aname>)
+      (<d> ^prop.name <aname>)}
 -->
     (<scmd> ^query <q> -)
     (<spl> ^inhibit <d>)
@@ -1040,11 +1063,11 @@ sp {apply*props*retrieve-delta*incorrect*unintended*some-okay
     (<smem> ^result.retrieved <d>
             ^command <scmd>)
     (<scmd> ^query <q>)
-    (<d> ^condition.name <aname1>
-         #^condition.name <aname2>
+    (<d> ^prop.name <aname1>
+         #^prop.name <aname2>
          ^op-name <name>)
-    -(<spe> ^delta.condition.name <aname1>)
-     #(<spe> ^delta.condition.name <aname2>)    # It has at least one of the conditions
+    -(<spe> ^delta.prop.name <aname1>)
+     #(<spe> ^delta.prop.name <aname2>)    # It has at least one of the conditions
 -->
     (<scmd> ^query <q> -)
     (<neg> ^item-name <aname1>)
@@ -1059,11 +1082,11 @@ sp {apply*props*retrieve-delta*incorrect*unintended*some-okay
 #    (<ss> ^impasse tie
 #          ^smem <ssmem>
 #          ^superstate <sss>)
-#    (<sss> ^props-epset.delta.condition.name <aname>
+#    (<sss> ^props-epset.delta.prop.name <aname>
 #           ^set-applied.item-name <aname>)
 #    (<ssmem> ^result.retrieved <d>
 #             ^inhibit-list <spl>)
-#    (<d> ^condition.name <aname>
+#    (<d> ^prop.name <aname>
 #          ^op-name <name>)
 #-->
 #    (<s> ^to-negate <neg>)
@@ -1190,11 +1213,11 @@ sp {apply*props*cbset*add*cbset-preferred
     (state <s> ^operator <o>
                #^superstate <ss>)
                ^props-epset.delta <d>
-               ^prop-apply-buffer <b>)
+               ^prop-apply-buffer.apply <ba>)
     (<o> ^cbset <cb>)
     (<cb> ^op-name <dname>
           ^props-cbset-name <set>)
-    (<d> ^condition <a>
+    (<d> ^prop <a>
          ^op-name <dname>
          ^cond-id1.id1 <id1>
          ^cond-id2.id2 <id2>)
@@ -1206,7 +1229,7 @@ sp {apply*props*cbset*add*cbset-preferred
          ^attr2 <attr2>)
     (<id2> ^<attr2> <val>)
 -->
-    (<b> ^delta-action <dnew>)
+    (<ba> ^delta-action <dnew>)
     (<dnew> ^prop-type add
             ^name <cname>
             ^id1 <id1>
@@ -1220,11 +1243,11 @@ sp {apply*props*cbset*remove*cbset-preferred
     (state <s> ^operator <o>
                #^superstate <ss>)
                ^props-epset.delta <d>
-               ^prop-apply-buffer <b>)
+               ^prop-apply-buffer.apply <ba>)
     (<o> ^cbset <cb>)
     (<cb> ^op-name <dname>
           ^props-cbset-name <set>)
-    (<d> ^condition <a>
+    (<d> ^prop <a>
          ^op-name <dname>
          ^cond-id1.id1 <id1>)
     (<a> ^prop-type remove
@@ -1232,7 +1255,7 @@ sp {apply*props*cbset*remove*cbset-preferred
          ^id1 <id1>
          ^attr1 <attr1>)
 -->
-    (<b> ^delta-action <dnew>)
+    (<ba> ^delta-action <dnew>)
     (<dnew> ^prop-type remove
             ^name <cname>
             ^id1 <id1>
@@ -1271,14 +1294,14 @@ sp {elaborate*props*cbsets*combine-done
     (<s> ^cbset-combine-done skipped)
 }
 
-sp {propose*props*cbsets-combine
-    (state <s> ^combine-cbset <name>
-              -^props-cbset 
-              -^cbset-combine-done )
--->
-    (<s> ^operator <o> + < =)
-    (<o> ^name props-cbsets-combine)
-}
+#sp {propose*props*cbsets-combine
+#    (state <s> ^combine-cbset <name>
+#              -^props-cbset 
+#              -^cbset-combine-done )
+#-->
+#    (<s> ^operator <o> + < =)
+#    (<o> ^name props-cbsets-combine)
+#}
 
 sp {apply*props*cbsets-combine*new-sets
     (state <s> ^operator.name props-cbsets-combine
@@ -1296,11 +1319,11 @@ sp {apply*props*cbsets-combine*collect-actions
                ^new-delta <combo>)
     (<pe> ^delta <app>)
     (<app> ^op-name <src1>
-           ^condition <c>)
+           ^prop <c>)
     (<c> ^name <cname>)
     (<combo> ^source-cbset <src1>)
 -->
-    (<combo> ^condition <c>
+    (<combo> ^prop <c>
              ^item-name <cname>) # Include so neg-queries can test it
 }
 sp {apply*props*cbsets-combine*link
@@ -1368,7 +1391,8 @@ sp {apply*props*cbsets-combine*final-combo
 
 sp {elaborate*props*buffer-staging*dest-id
     "Compile record of ids referenced (for object bundling)"
-    (state <s> ^prop-apply-buffer.apply <ba>)
+    (state <s> ^prop-apply-buffer.apply <ba>
+               ^superstate nil)
     (<ba> ^delta-action <da>)
     (<da> ^prop-type add
           ^id1 <id>)
@@ -1379,8 +1403,7 @@ sp {elaborate*props*buffer-staging*dest-id
 
 ## WHEN ALL ACTIONS ARE STAGED, RETURN THEM
 sp {elaborate*props*apply-buffer*nonempty
-    (state <s> ^prop-apply-buffer <b>)
-    (<b> ^delta-action <any>)
+    (state <s> ^prop-apply-buffer.apply.delta-action <any>)
 -->
     (<s> ^props-flag apply-buffer-nonempty)
 }
@@ -1388,7 +1411,7 @@ sp {elaborate*props*epset-incomplete
     (state <s> ^prop-apply-buffer <b>
                ^props-epset <pe>)
     (<pe> ^<< apply delta >>.name <pname>)
-    (<b> -^delta-action.name <pname>)
+    (<b> -^apply.delta-action.name <pname>)
 -->
     (<s> ^props-flag epset-incomplete)
 }
@@ -1401,8 +1424,8 @@ sp {elaborate*props*epset-incomplete
 #               ^props-epset <pe>)
 #    (<ss> ^operator.delta
 #          ^prop-apply-buffer <sb>)
-#  -{(<pe> ^delta.condition.name <cname>)
-#    (<b> -^delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
+#  -{(<pe> ^delta.prop.name <cname>)
+#    (<b> -^apply.delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
 #-->
 #    (<sb> ^apply <b>)
 #    (<b> ^dc-stamp (dc))
@@ -1410,43 +1433,87 @@ sp {elaborate*props*epset-incomplete
 sp {propose*props*epset-return
     (state <s> ^prop-apply-buffer <b>
                ^props-flag apply-buffer-nonempty
-              -^props-flag epset-incomplete
-               ^cbset-combine-done <ccd-any>    # << true skipped >>
+              #-^props-flag epset-incomplete
+               #^cbset-combine-done <ccd-any>    # << true skipped >>
                ^superstate.operator.delta # For chunk condition
                ^props-epset <pe>)
-  -{(<pe> ^delta.condition.name <cname>)
-    (<b> -^delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
+  -{(<pe> ^delta.prop.name <cname>)
+    (<b> -^apply.delta-action.name <cname>)}    # It is not the case that an operator delta has not been staged
 -->
     (<s> ^operator <o> +)
     (<o> ^name props-epset-return)
 }
 sp {apply*props*epset-return
     (state <s> ^operator.name props-epset-return
-               ^prop-apply-buffer <b>
-               ^superstate.prop-apply-buffer <sb>
-               ^props-epset <pe>)
+               ^topstate <> <ss>
+               ^superstate <ss>)
+    (<ss> ^prop-apply-buffer.apply <sba>)
 -->
-    (<sb> ^apply <b>)
-    (<b> ^dc-stamp (dc))
+    (<sba> ^dc-stamp (dc))
+}
+sp {apply*props*epset-return*delta-action
+    (state <s> ^operator.name props-epset-return
+               ^prop-apply-buffer.apply.delta-action <da>
+               ^topstate <> <ss>
+               ^superstate <ss>)
+    (<ss> ^prop-apply-buffer.apply <sba>)
+-->
+    (<sba> ^delta-action <da>)
+}
+sp {apply*props*epset-return*to-topstate
+    "When finished composing actions, simply return the apply buffer."
+    (state <s> ^operator.name props-epset-return
+               ^prop-apply-buffer.apply <pa>
+               ^topstate <ss>
+               ^superstate <ss>)
+    (<ss> ^prop-apply-buffer <sb>)
+-->
+    (<sb> ^apply <pa>)
     (write | | (crlf) (crlf))
 }
 
-sp {elaborate*props*epset-return*force-learn
-    (state <s> ^operator <o1> +
-               ^cbset-combine-done skipped
-               ^superstate.operator.name <oname>)
-    (<o1> ^name props-epset-return)
+sp {set*apply-buffer*trim-dc-stamp
+    "Remove old dc-stamps within the same apply struct"
+    :o-support
+    (state <s> ^prop-apply-buffer.apply <pa>)
+    (<pa> ^dc-stamp <dc1>
+          ^dc-stamp > <dc1>)
 -->
-    (force-learn <s>)
-    (write |*** WILL LEARN OP: | <oname> (crlf) )
-    #(interrupt)
+    (<pa> ^dc-stamp <dc1> -)
 }
+
+#sp {elaborate*props*epset-return*cascade
+#    "Return finished applications for chunking and superstate application."
+#    (state <s> ^prop-apply-buffer <b>
+#               ^superstate.prop-apply-buffer <sb>
+#               ^props-epset <pe>)
+#    (<b> ^apply <ba>)
+#    (<ba> ^dc-stamp )
+#    -{(<pe> ^delta.prop.name <cname>)
+#      (<b> -^apply.delta-action.name <cname>)}
+#-->
+#    (<sb> ^apply <ba>)
+#}
+
+#sp {elaborate*props*epset-return*force-learn
+#    (state <s> ^operator <o1> +
+#               ^cbset-combine-done skipped
+#               ^superstate.operator.name <oname>)
+#    (<o1> ^name props-epset-return)
+#-->
+#    (force-learn <s>)
+#    (write |*** WILL LEARN OP: | <oname> (crlf) )
+#    #(interrupt)
+#}
 
 # Implement locks
 sp {elaborate*props*apply-buffer*locks
     "For each apply, lock the slot from perceptual interference"
-    (state <s> ^prop-apply-buffer.apply.delta-action <da>
-               ^locks <locks>)
+    (state <s> ^prop-apply-buffer.apply <ba>
+               ^locks <locks>
+               ^superstate nil)
+    (<ba> ^delta-action <da>
+          ^dc-stamp )
     (<da> ^id1 <id1>
           ^attr1 <attr1>)
    -(<id1> ^props-agnostic-add true)    # Bundled object creation doesn't lock
@@ -1478,7 +1545,7 @@ sp {set*props*apply-buffer*overwrite
     :o-support
     (state <s> ^prop-apply-buffer <b>)
     (<b> ^apply <b1>
-         ^apply <b2>)
+         ^apply {<b2> <> <b1>})
     (<b1> ^delta-action <d1any>
           ^dc-stamp <dc>)
     (<b2> ^delta-action <d2any>
@@ -1507,7 +1574,8 @@ sp {set*props*apply-buffer*remove-empty
 #  In this context those are considered architectural.)
 
 sp {elaborate*props*apply-delta*add
-    (state <s> ^prop-apply-buffer.apply <pa>)
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
     (<pa> ^delta-action <d>)
     (<d> ^name <cname>
          ^prop-type add
@@ -1519,7 +1587,8 @@ sp {elaborate*props*apply-delta*add
     (<id1> ^<attr1> <val>)
 }
 sp {elaborate*props*apply-delta*remove
-    (state <s> ^prop-apply-buffer.apply <pa>)
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
     (<pa> ^delta-action <d>)
     (<d> ^name <cname>
          ^prop-type remove
@@ -1533,7 +1602,8 @@ sp {elaborate*props*apply-delta*remove
 sp {set*props*apply-delta*add-object
     "Add object for bundling created wmes from this apply"
     :o-support
-    (state <s> ^prop-apply-buffer.apply <pa>)
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
     (<pa> ^dest-id <id>
           ^dc-stamp <dc>)
     (<id> ^props-agnostic-add true)
@@ -1563,7 +1633,8 @@ sp {set*props*apply-delta*add-object-aug
 # Special case: if a WM aug was created via newWM, then it has o-support and needs to be removed explicitly when a locking action is made
 sp {set*props*apply-delta*remove-old
     :o-support
-    (state <s> ^prop-apply-buffer <pab>)
+    (state <s> ^prop-apply-buffer <pab>
+               ^superstate nil)
     (<pab> ^apply.delta-action <d>)
     (<d> ^name <cname>
          ^prop-type add
@@ -1589,7 +1660,7 @@ sp {set*props*apply-delta*remove-old
 #    (<id> ^props-agnostic-add true
 #          ^object <obj>)
 #    (<obj> ^dc-stamp <dc>)
-#    (<d> ^condition <c>)
+#    (<d> ^prop <c>)
 #    (<c> ^address1 <id>
 #         ^prop-type add)
 #-->
