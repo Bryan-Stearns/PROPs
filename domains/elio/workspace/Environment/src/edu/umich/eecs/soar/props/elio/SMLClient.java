@@ -15,7 +15,7 @@ public class SMLClient {
 		expList.add(new LearnConfig("12smc", 1));
 		expList.add(new LearnConfig("123m", 1));
 		expList.add(new LearnConfig("123smc", 1));*/
-		expList.add(new LearnConfig("1e", 10));
+		expList.add(new LearnConfig("1", 10));
 		//expList.add(new LearnConfig("123se", 10));
 
 		ElioWorld world = new ElioWorld();
@@ -23,7 +23,7 @@ public class SMLClient {
 		
 		world.setVerbose(false);
 		//world.setSavePercepts(true);
-		world.runDebug("procedure-c","procedure-c", new LearnConfig("1e", 2));
+		world.runDebug("procedure-c","procedure-c", new LearnConfig("1", 2));
 
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String, String>("procedure-a","procedure-a"));

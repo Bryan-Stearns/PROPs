@@ -1,0 +1,231 @@
+#####    Author: Bryan Stearns, 2018-2019
+#   This code handles the PROPs system apply buffer.
+#   The apply buffer holds all actions currently in use, or being staged for return during instruction evaluation.
+#   Each topstate apply object in its buffer corresponds to an operator application.
+#   Each substate buffer contains a default empty apply object for staging results in.
+#   Copying this staged apply object into the topstate buffer effects the result return.
+#   Intermediate substates return results by copying action-deltas across state apply objects.
+#
+#   If the apply object describes an applicable action for this state, then elaborations apply the action.
+#   Otherwise, the apply structure can be returned to a superstate to resolve that state's operator.
+#   Action application uses a locking system, whereby elaborations only modify the slot being manipulated if they can claim the lock.
+#   Apply buffer contents are o-supported. Their elaborations to change WM are i-supported.
+#   An exception is made for actions that represent module command messages.
+#   Such commands are treated as one-time bundles, with o-support, but not tracked within the apply buffer.
+#   It is assumed that such bundles will be deleted by the command recipient once received.
+#
+##        OPERATORS
+#   (There are no operators. The buffer is handled through elaborations, in support of the operators that place contents into this buffer.)
+#   
+##        STRUCTURE
+#  (<s> ^prop-apply-buffer (<b>             | The apply buffer - one per state
+#          [^apply (<ba>                    | A bundle of actions from a single operator
+#              [^delta-action (<da>         | A single primitive action within the bundle
+#                   ^name <name>            | The name of the primitive used
+#                   ^prop-type <ptype>      | The type of the primitive used << add remove >>
+#                   ^id1 <id1>              | The WM id to elaborate onto 
+#                   ^attr1 <attr>           | The attribute of the augmentation to create on <id1>
+#                   ^val <val>)]            | The value to give the augmentation
+#              [^dest-id <id1>]             | A pointer to any ids being added by any child delta-actions
+#               ^dc-stamp <dc>)])           | The decision cycle number when the bundle is created, taken from the most recent delta-action's dc-stamp
+#       ^locks (<k>                         | The collection of WM slot locks held by apply-buffer commands
+#          [^lock (<kl>                     | An individual lock object
+#               ^id1 <id>                   | The WM id for this lock
+#               ^attr1 <attr>)])            | The attribute under that id for this lock
+#       ^props-flag apply-buffer-nonempty)  | Indicates that there is at least one delta-action in the buffer (to reduce matches of rules that need to test this)
+#####
+
+
+# GIVE EACH SUBSTATE AN APPLY BUFFER IN WHICH TO STAGE BATCH RESULTS
+
+sp {elaborate*apply-buffer
+    (state <s> ^type state)
+-->
+    (<s> ^prop-apply-buffer <b>
+         ^locks <k>)
+}
+sp {elaborate*apply-buffer*working-apply
+    "Make the empty apply structure that substate application ops will build onto."
+    (state <s> ^prop-apply-buffer <b>
+               ^superstate {<ss> <> nil})
+-->
+    (<b> ^apply <a>)
+    # If we've entered an impasse, we need to chunk this state before chunking the superstate.
+    (dont-learn <ss>)
+}
+
+sp {elaborate*props*apply-buffer*nonempty
+    (state <s> ^prop-apply-buffer.apply.delta-action <any>)
+-->
+    (<s> ^props-flag apply-buffer-nonempty)
+}
+
+
+# RESET THE BUFFER ON TASK FINISH
+sp {lib*actr*apply*finish*apply-buffer
+    (state <s> ^operator.name actransfer-finish
+                ^prop-apply-buffer <b>)
+    (<b> ^apply <a>)
+-->
+    # Reset buffers
+    (<b> ^apply <a> - )
+}
+
+
+# GENERATE LOCKS
+sp {elaborate*props*apply-buffer*locks
+    "For each apply, lock the slot from perceptual interference"
+    (state <s> ^prop-apply-buffer.apply <ba>
+               ^locks <locks>
+               ^superstate nil)
+    (<ba> ^delta-action <da>
+          ^dc-stamp )
+    (<da> ^id1 <id1>
+          ^attr1 <attr1>)
+   -(<id1> ^props-agnostic-add true)    # Bundled object creation doesn't lock
+-->
+    (<locks> ^lock <knew>)
+    (<knew> ^id1 <id1>
+            ^attr1 <attr1>)
+}
+
+
+# REMOVE OLD APPLY OBJECTS
+
+#sp {apply*props*apply-buffer*overwrite
+#    "If new apply uses previously locked slots, remove old competing apply"
+#    (state <s> ^prop-apply-buffer <b>
+#               ^operator <oany>)
+#    (<b> ^apply <b1>
+#         ^apply <b2>)
+#    (<b1> ^delta-action <d1any>
+#          ^dc-stamp <dc>)
+#    (<b2> ^delta-action <d2any>
+#          ^dc-stamp < <dc>)    # <b2> is older
+#    (<d1any> ^id1 <id>
+#             ^attr1 <attr>)
+#    (<d2any> ^id1 <id>         # they share a target address
+#             ^attr1 <attr>)
+#-->
+#    (<b> ^apply <b2> -)
+#} # Use this rule if assuming joint actions share support, not independent
+sp {set*props*apply-buffer*overwrite
+    "If new apply uses previously locked slots, remove old competing apply"
+    :o-support
+    (state <s> ^prop-apply-buffer <b>)
+    (<b> ^apply <b1>
+         ^apply {<b2> <> <b1>})
+    (<b1> ^delta-action <d1any>
+          ^dc-stamp <dc>)
+    (<b2> ^delta-action <d2any>
+          ^dc-stamp > <dc>)    # <b1> is older
+    (<d1any> ^id1 <id>
+             ^attr1 <attr>)
+    (<d2any> ^id1 <id>         # they share a target address
+             ^attr1 <attr>)
+-->
+    (<b1> ^delta-action <d1any> -)
+}
+sp {set*props*apply-buffer*remove-empty
+    "Clean up if all delta-actions for apply are gone from overwriting"
+    :o-support
+    (state <s> ^prop-apply-buffer <b>)
+    (<b> ^apply <b1>)
+    (<b1> -^delta-action 
+          ^dc-stamp <dc>)
+-->
+    (<b> ^apply <b1> -)
+}
+
+
+# INTERMEDIATE PROCESSING TO ENABLE APPLICATION
+sp {elaborate*props*buffer-staging*dest-id
+    "Compile record of ids referenced (for object bundling)"
+    (state <s> ^prop-apply-buffer.apply <ba>
+               ^superstate nil)
+    (<ba> ^delta-action <da>)
+    (<da> ^prop-type add
+          ^id1 <id>)
+-->
+    (<ba> ^dest-id <id>)
+}
+
+# ELABORATE DESCRIBED DELTAS BY CHANGING WM
+# (Not including operator proposal/preference actions. In this context those are considered architectural.)
+
+sp {elaborate*props*apply-delta*add
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
+    (<pa> ^delta-action <d>)
+    (<d> ^name <cname>
+         ^prop-type add
+         ^id1 <id1>
+         ^attr1 <attr1>
+         ^val <val>)
+   -(<id1> ^props-agnostic-add true) # Don't add directly for bundled object actions
+-->
+    (<id1> ^<attr1> <val>)
+}
+sp {elaborate*props*apply-delta*remove
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
+    (<pa> ^delta-action <d>)
+    (<d> ^name <cname>
+         ^prop-type remove
+         ^id1 <id1>
+         ^attr1 <attr1>)
+-->
+    (<id1> ^<attr1> <val> -)
+}  # This might never be used, but it provides theoretical closure
+
+# Special case: adding object clusters/commands; make o-supported without apply-buffer support
+sp {set*props*apply-delta*add-object
+    "Add object for bundling created wmes from this apply"
+    :o-support
+    (state <s> ^prop-apply-buffer.apply <pa>
+               ^superstate nil)
+    (<pa> ^dest-id <id>
+          ^dc-stamp <dc>)
+    (<id> ^props-agnostic-add true)
+-->
+    (<id> ^object <jnew>)
+    (<jnew> ^dc-stamp <dc>)
+}
+sp {set*props*apply-delta*add-object-aug
+    "Add augmentation for bundled object from this apply"
+    :o-support
+    (state <s> ^prop-apply-buffer.apply <pa>)
+    (<pa> ^delta-action <d>
+          ^dest-id <id1>
+          ^dc-stamp <dc>)
+    (<d> ^prop-type add
+         ^id1 <id1>
+         ^attr1 <attr1>
+         ^val <val>)
+    (<id1> ^props-agnostic-add true
+           ^object <obj>)
+    (<obj> ^dc-stamp <dc>)
+-->
+    (<obj> ^<attr1> <val>)
+    (<pa> ^delta-action <d> -)
+}
+
+# Special case: if a WM aug was created via newWM, then it has o-support and needs to be removed explicitly when a locking action is made
+sp {set*props*apply-delta*remove-old
+    :o-support
+    (state <s> ^prop-apply-buffer <pab>
+               ^superstate nil)
+    (<pab> ^apply.delta-action <d>)
+    (<d> ^name <cname>
+         ^prop-type add
+         ^id1 <id1>
+         ^attr1 <attr1>
+         ^val <val>)
+    -{(<pab> ^apply.delta-action <d2>)
+      (<d2> ^id1 <id1>
+            ^attr1 <attr1>
+            ^val <vold>) }
+    (<id1> ^<attr1> {<vold> <> <val>})
+-->
+    (<id1> ^<attr1> <vold> -)
+}

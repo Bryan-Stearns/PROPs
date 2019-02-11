@@ -298,7 +298,7 @@ sp {lib*actr*elaborate*retrieval
 	  (<r2> ^q-type retrieve)}		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
 	(<r> ^retrieve <ret>)
 	(<ret> ^<attr> <val>)
-	#-{(<q> ^<< query retrieve wm-query >> <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
+	-{(<q> ^object <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
 -->
 	(<rt> ^<attr> <val>)
 	#(write (crlf) |*** WM-RETRIEVE: | <r> )

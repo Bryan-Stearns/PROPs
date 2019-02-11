@@ -1,0 +1,96 @@
+
+# MANAGE THE PROHIBIT LIST
+#sp {elaborate*props*inhibit-list
+#    (state <s> ^smem <smem>)
+#-->
+#    (<smem> ^inhibit-list <pl>)
+#    (<pl> ^negate <n>)
+#}
+#sp {elaborate*props*return-negation
+#    (state <s> ^superstate <ss>
+#               ^to-negate <neg>)
+#    (<ss> ^impasse tie
+#          ^smem.command <sscmd>)
+#-->
+#    (<sscmd> ^neg-query <neg>)
+#}
+#sp {elaborate*props*return-inhibit
+#    (state <s> ^superstate <ss>
+#               ^to-inhibit <d>)
+#    (<ss> ^impasse tie
+#          ^inhibit-list <spl>)
+#-->
+#    (<spl> ^inhibit <d>) 
+#}
+
+#sp {elaborate*props*inhibit-list*copy-inhibit
+#    (state <s> ^superstate.smem.inhibit-list.inhibit <phbt>
+#               ^smem <smem>)
+#    (<smem> ^inhibit-list <pl>)
+#-->
+#    (<pl> ^inhibit <phbt>)
+#}
+#sp {elaborate*props*inhibit-list*copy-negates
+#    (state <s> ^superstate.smem.inhibit-list.negate <sneg>
+#               ^smem <smem>)
+#    (<smem> ^inhibit-list.negate <neg>)
+#    (<sneg> ^<any> <item>)
+#-->
+#    (<neg> ^<any> <item>)
+#}
+
+#sp {elaborate*props*inhibit-list*epset-commands
+#    "Only use epset prohibits if thats the kind of query in use, else would prohibit activation badly"
+#    (state <s> ^smem <smem>)
+#    (<smem> ^inhibit-list.inhibit <p>
+#            ^command <scmd>)
+#    (<scmd> -^store
+#             ^query.props-epset-name )
+#    (<p> ^props-epset-name ) 
+#-->
+#    (<scmd> ^prohibit <p>)
+#}
+#sp {elaborate*props*inhibit-list
+#    (state <s> ^smem <smem>)
+#    (<smem> ^inhibit-list.inhibit <p>
+#            ^command <scmd>)
+#    (<scmd> -^store)
+#-->
+#    (<scmd> ^prohibit <p>)
+#}
+#sp {elaborate*props*inhibit-list*negations
+#    (state <s> ^smem <smem>)
+#    (<smem> ^inhibit-list.negate <neg>
+#            ^command <scmd>)
+#    (<scmd> -^store)
+#   -{(<neg> -^<attr> )} # There is something to negate
+#-->
+#   (<scmd> ^neg-query <neg>)
+#}
+
+# PROHIBIT EPSETS AND DELTAS CURRENTLY IN USE UP STATE STACK
+#sp {elaborate*props*epset*prohibit-used
+#    (state <s> ^props-epset <ep>
+#               ^smem.inhibit-list <pl>)
+#-->
+#    (<pl> ^inhibit <ep>)
+#}
+#sp {elaborate*props*delta*prohibit-used
+#    (state <s> ^props-epset.delta <d>
+#               ^set-applied.item-name <dname>
+#               ^smem.inhibit-list <pl>)
+#    (<d> ^prop.name <dname>)
+#-->
+#    (<pl> ^inhibit <d>)
+#}
+
+# ADD NEG-QUERY ITEMS PER USED PROP ACTION
+#sp {apply*props*delta*query*negate-used*item
+#    (state <s> ^operator <o>
+#               ^superstate.set-applied.item-name <name>
+#               ^smem.inhibit-list <pl>)
+#    (<o> ^name props-load-delta)
+#    (<pl> ^negate <neg>)
+#-->
+#    (<neg> ^item-name <name>)
+#}

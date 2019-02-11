@@ -6,11 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import javafx.util.Pair;
@@ -19,10 +16,8 @@ import sml.Identifier;
 import sml.Kernel;
 import sml.Kernel.UpdateEventInterface;
 import sml.WMElement;
-import sml.smlRunEventId;
 import sml.smlUpdateEventId;
 import sml.Agent;
-import sml.Agent.RunEventInterface;
 import edu.umich.soar.debugger.SWTApplication;
 
 public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEventInterface*/ {

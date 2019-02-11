@@ -12,7 +12,7 @@ chunk confidence-threshold 3
 #watch --learning print
 #watch --backtracing
 
-decide set-random-seed 42
+#decide set-random-seed 42
 
 smem --set activation-mode base-level
 smem --set base-update-policy naive
@@ -30,21 +30,10 @@ smem --set learning on
 output callbacks on
 output console on
 
-
-#source lib_smem_clean.soar
-#source lib_smem_prohibit_store.soar
-
-#source props_fetch.soar
-#source props_instruction_init.soar
-#source props_instruction_eval.soar
-#source props_primitives.soar
-#source props_primitive_addressing.soar
-#source props_shared.soar
-
-#source props_build_proposals.soar        # Is sourced with props_learn_l2.soar
-#source props_condition_spread.soar       # Source this optionally on your own to enable condition spread learning
-#source props_tie.soar
-#source props_epsets.soar
+source props_epsets.soar
+source props_primitives.soar
+source props_apply_buffer.soar
+source props_auto_addressing.soar
 
 multi-attributes condition 4
 multi-attributes action 4
