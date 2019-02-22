@@ -283,7 +283,7 @@ bool props_instruction_parser::formatConditions(std::vector<arg_id_chain> &condi
 		{ "=", "equality" },
 		{ "==", "equality" },
 		{ "<>", "inequality" },
-		{ "!=", "negation" },
+		{ "!=", "inexistence" },
 		{ "<=>", "type-equality" },
 		{ "<", "less-than" },
 		{ ">", "greater-than" },
@@ -666,7 +666,7 @@ std::string props_instruction_parser::makeActionDeltaHierarchy(std::map<std::str
 			ss << ")" << std::endl;
 
 			// Make the epset that applies this delta
-			ss << "(<epset" << comp.first << "> ^props-epset-name |" << comp.first << "|" << std::endl
+			ss << "(<cbset" << comp.first << "> ^props-cbset-name |" << comp.first << "|" << std::endl
 				<< "\t ^delta <delta" << comp.second.first << ">" << std::endl
 				<< "\t ^delta <delta" << comp.second.second << ">" << ")" << std::endl;
 		}
@@ -1098,29 +1098,19 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					continue;
 
 				// Add delta condition for this action prop in the rule
-				/*instrs << "(<d-prop" << propNumber << "> ^prop <da" << propNumber << ">)" << std::endl
-						<< "(<d-prop" << propNumber << "> ^op-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
-						<< "(<d-prop" << propNumber << "> ^prop-apply |_PA" << propNumber << "|)" << std::endl
-						<< "(<da" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;*/
-				//instrs << "(<a-prop" << propNumber << "> ^application <cbz" << propNumber << ">)" << std::endl
-						//<< "(<a-prop" << propNumber << "> ^name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl
-				//		<< "(<cbz" << propNumber << "> ^unretrieved <cbzz" << propNumber << ">)" << std::endl
-				//		<< "(<cbzz" << propNumber << "> ^spread-link <cbset-" << propNumber << ">)" << std::endl;
 				instrs << "(<delta_PA" << propNumber << "> ^prop-apply true" << std::endl	// One prop-apply flag to mark this as containing actions
-							<< "\t^prop <prop-A" << propNumber << ">" << std::endl
+							//<< "\t^prop <prop-A" << propNumber << ">" << std::endl
 							<< "\t^item-name |_PA" << propNumber << "|" << std::endl	// One item-name for each ^condition in the delta
 							<< "\t^op-name |_PA" << propNumber << "|)" << std::endl;		// One op-name per apply delta
-						//<< "(<cbset-" << propNumber << "> ^size 1)" << std::endl
-						//<< "(<a-prop" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
-
-				//instrs << "(<cbset-" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|)" << std::endl
-				//	   << "(<cbset-" << propNumber << "> ^op-name |_PA" << propNumber << "|)" << std::endl;
-
-				// TODO: Make <PC_> complement condition per action
-				//arg_id_chain acond = makeActionCond(s);
+				// Add final epset and delta for executing the prop
+				instrs << "(<cbset_PA" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|" << std::endl
+						<< "\t^delta <delta-null_PA" << propNumber << ">)" << std::endl;
+				instrs << "(<delta-null_PA" << propNumber << "> ^prop-apply true" << std::endl
+						<< "\t^prop <prop-A" << propNumber << ">)" << std::endl;
 
 				// Add PROP action's condition delta
 				instrs << makeProp(s, "prop-A" + toString(propNumber), "|_PA" + toString(propNumber) + "|");
+				//instrs << "(<prop-A" << propNumber << "> ^props-epset-name |_PA" << propNumber << "|)" << std::endl;
 						//<< "(<cba" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
 						//<< "(<cba" << propNumber << "> ^action-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl;
 
@@ -1150,7 +1140,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 			}
 
 			// Add the delta for fully-composed general apply operator to an epset for the individual rule's instruction
-			instrs << "(<epset-rule" << instNumber << "> ^props-epset-name " << currOpName << std::endl
+			instrs << "(<pre-cbset-rule" << instNumber << "> ^props-epset-name " << currOpName << std::endl
 					<< "\t^const <Q" << constNumber << ">" << std::endl
 					<< "\t^delta <delta" << deltaName << ">)" << std::endl;
 			actionDeltas.emplace(deltaName, actionIds);

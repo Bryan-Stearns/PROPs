@@ -253,89 +253,87 @@
 
 ;; Initialize the pointer into declarative memory by pointing it at working memory. This will become the first memory item
 ;~ init
-(ins :condition (Gtop = nil Gcontrol = nil) :action (WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
+(ins :condition (Gtop = nil Gcontrol = nil) :action (lexdec -> Gcontrol WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
 
-;~ ready
-(ins :condition (Gtop <> nil) :action (VCWM -> Gtask) :description "Switch to the main task state now that WM is initialized")
-
-
-(add-instr VCWM :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
-:pm-function VCWM-action
-
-;; This is just waiting for the first stimulus, otherwise there is no break between lexical decision items
-;;~ wait
-;;(ins :condition (Vobject = pending Gcontrol = lexdec) :action ((wait) -> AC) :description "Wait for the next word")
-
-;; If we are rehearsing and a word appears, switch to lexical decision (new to PROP model: clear RT after rehearsal, different from stopping before rehearsal)
-;;~ stop-rehearsal
-;;~~ pre-rehearse
-;;(ins :condition (Vobject = word Gcontrol = rehearse RT1 = nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Interrupted before rehearsal began
-;;~~ post-rehearse
-;;(ins :condition (Vobject = word Gcontrol = rehearse RT1 <> nil) :action (lexdec -> Gcontrol) :description "Next word appeared so we stop rehearsing") ;; Test RT1 to clear RT, in prep for lexical-retrieve
-
-;~ word
-(ins :condition (Vobject = word Gcontrol <> word-answered) :action (VCWM-word -> Gtask word-dec -> Gcontrol) :description "Start lexical subgoal")
-;~ letter
-(ins :condition (Vobject = letter Gcontrol <> letter-stored) :action (VCWM-letter -> Gtask letter-dec -> Gcontrol) :description "Start lexical subgoal")
-;~ rehearse
-(ins :condition (Vobject = pending) :action (prepare -> Gtask) :description "Start rehearsing")
-;~ wait
-(ins :condition (Vobject = pending) :action (idle -> Gtask) :description "Start idling")
-;~ report
-(ins :condition (Vobject = report) :action (VCWM-report -> Gtask start-report -> Gcontrol) :description "Start reporting")
-
-
-(add-instr VCWM-word :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
-:pm-function VCWM-action
 
 ;; Do lexical decision
 ;;~ lexical
 ;~ retrieve
-(ins :condition (RT1 = nil Gcontrol = word-dec) :action ( (is-word Videntity) -> RT) :description "Retrieve the word")
+(ins :condition (Vobject = word Gcontrol = lexdec) :action (word -> Gcontrol (is-word Videntity) -> RT) :description "Retrieve the word")
 ;~ success
-(ins :condition (RTanswer = yes Gcontrol = word-dec) :action ((type Y) -> AC answered -> Gcontrol) :description "Successful retrieve: respond 'yes'")
+(ins :condition (RTanswer = yes Gcontrol = word) :action (lexdec -> Gcontrol (type Y) -> AC) :description "Successful retrieve: respond 'yes'")
 ;~ fail
-(ins :condition (RT1 = error Gcontrol = word-dec) :action ((type N) -> AC answered -> Gcontrol) :description "Retrieval failure: respond 'no'")
-
-
-(add-instr VCWM-letter :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
-:pm-function VCWM-action
+(ins :condition (RT1 = error Gcontrol = word) :action (lexdec -> Gcontrol (type N) -> AC) :description "Retrieval failure: respond 'no'")
+;;~ return
+;(ins :condition (Vobject <> word) :action (Gparent -> Gtask) :description "Return to the parent task if the word disappears before we're ready.")
 
 ;; When a letter appears, put it in WM and prepare to rehearse
 ;;~ letter-seen
 ;~ store-wm
-(ins :condition (WMconcept = nil) :action (Videntity -> WMconcept letter-stored -> Gcontrol (wait) -> AC) :description "A letter is presented: put it in WM")
+(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept = nil) :action (Videntity -> WMconcept (wait) -> AC) :description "A letter is presented: put it in WM")
 ;~ store-dm
-(ins :condition (WMconcept <> nil) :action ((Videntity WMid) -> newWM letter-stored -> Gcontrol (wait) -> AC) :description "A letter is presented: put it in DM")
+(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept <> nil) :action ((Videntity WMid) -> newWM (wait) -> AC) :description "A letter is presented: put it in DM")
+
+
+;~ rehearse
+(ins :condition (Vobject = pending WMconcept <> nil) :subgoal "prepare" :action (Gtask -> Gparent prepare -> Gtask) :description "Start rehearsing")
+;;~ wait
+;(ins :condition (Vobject = pending) :subgoal "idle" :action (Gtask -> Gparent idle -> Gtask) :description "Start idling")
+;~ report
+(ins :condition (Vobject = report) :subgoal "VCWM-report" :action (Gtask -> Gparent VCWM-report -> Gtask start-report -> Gcontrol) :description "Start reporting")
+
+)
+
+
+(add-instr VCWM-rehearse :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
+:pm-function VCWM-action
+
+;; Do rehearsal as long as the letter is still on the screen
+;~ start
+(ins :condition (RT1 = nil) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
+;~ next
+(ins :condition (RT1 <> error) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
+;~ restart
+(ins :condition (RT1 = error) :action (Gtop -> RTid) :description "End of list, return to top")
+
+;;~ return
+;(ins :condition (Vobject <> pending) :action (Gparent -> Gtask) :description "Interupted, return to task.")
+)
 
 
 (add-instr prepare :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
 :pm-function VCWM-action
-;; Do rehearsal as long as the letter is still on the screen
-;;~ rehearse
-;~ VCWM-start
-(ins :condition (RT1 = nil) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
-;~ VCWM-next
-(ins :condition (RT1 != error) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
-;~ VCWM-restart
-(ins :condition (RT1 = error) :action (Gtop -> RTid) :description "End of list, return to top")
+
+;; For VCWM, prepare by rehearsing
+;~ VCWM
+(ins :condition (Vtask = verbal-CWM) :subgoal "VCWM-rehearse" :description "Prepare for VCWM by rehearsing the list")
 
 ;; When the stroop stimulus arrives, the model can use its preparation to focus on just color, or it can process both properties after all
-;;~ object-seen
-;~ stroop-focus-color
-(ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
+;~ stroop
+(ins :condition (Vtask = stroop) :subgoal "stroop-focus" :description "Prepare for stroop by focusing on color")
+)
 
 
-(add-instr VCWM-report :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
+(add-instr idle :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
+
+;~ wait
+(ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait until something happens.")
+;;~ wake
+;(ins :condition (Vobject <> pending) :action (Gparent -> Gtask) :description "Wake from idling and return to the parent task.")
+
+)
+
+
+(add-instr VCWM-report :input (Vobject Videntity) :working-memory (WMconcept WMprev WMvar) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
 :pm-function VCWM-action
 ;; Do the report
 ;;~ report
 ;~ start
-(ins :condition (Gcontrol = start-report) :action (Gtop -> RTid report -> Gcontrol) :description "Report prompt came up: retrieve first item")
+(ins :condition (WMvar != report) :action (Gtop -> RTid report -> WMvar) :description "Report prompt came up: retrieve first item")
 ;~ report
-(ins :condition (RT1 <> error Gcontrol = report) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
+(ins :condition (RT1 <> error WMvar = report) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
 ;~ finish
-(ins :condition (RT1 = error Gcontrol = report) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+(ins :condition (RT1 = error WMvar = report) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
 
 
 )
@@ -364,18 +362,19 @@
              
              )
 
-;;~ init
-;(ins :condition (Gcontrol = nil) :action (prepare -> Gcontrol  (wait) -> AC) :description "Start Stroop task, wait for stimulus")
+;~ init
+(ins :condition (Gcontrol = nil) :action (neutral -> Gcontrol (wait) -> AC) :description "Start Stroop task, wait for stimulus")
 
 ;~ focus
-(ins :condition (Vobject = pending) :action (prepare -> Gtask prepare -> Gcontrol (wait) -> AC) :description "Prepare while waiting for stimulus")
+(ins :condition (Vobject = pending Gcontrol <> nil) :subgoal "prepare" :action (prepare -> Gtask prepare -> Gcontrol (wait) -> AC) :description "Prepare while waiting for stimulus")
 ;~ no-focus
-(ins :condition (Vobject = pending) :action (idle -> Gtask neutral -> Gcontrol (wait) -> AC) :description "Do nothing while waiting for stimulus")
+(ins :condition (Vobject = pending Gcontrol <> nil) :subgoal "idle" :action (idle -> Gtask neutral -> Gcontrol (wait) -> AC) :description "Do nothing while waiting for stimulus")
 
 ;; When the stimulus arrives, the model can use its preparation to focus on just color, or it can process both properties after all
 ;;~ object-seen
-;~ focus-color
-(ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
+;;~ focus-color
+;(ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
+
 ;~ focus-all
 (ins :condition (Vobject = yes Gcontrol <> prepare) :action ((get-property both) -> AC) :description "Object seen, focus on all")
 
@@ -387,6 +386,17 @@
 ;~ finish
 (ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")
 
+)
+
+
+(add-instr stroop-focus :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
+:pm-function stroop-pm
+
+;~ stroop-focus-color
+(ins :condition (Vobject = yes) :action ((get-property color-property) -> AC Gparent -> Gtask) :description "Object seen, focus on just color") 
+
+
+)
 
 (add-instr stroop-report :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
 :pm-function stroop-pm

@@ -287,7 +287,7 @@
 ;~~ start
 (ins :condition (Vobject = pending RT1 = nil Gcontrol = rehearse) :action (Gtop -> RTid) :description "Start rehearsal by retrieving first item")
 ;~~ next
-(ins :condition (Vobject = pending RT1 != error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
+(ins :condition (Vobject = pending RT1 <> error Gcontrol = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
 ;~~ restart
 (ins :condition (Vobject = pending RT1 = error  Gcontrol = rehearse) :action (Gtop -> RTid) :description "End of list, return to top")
 

@@ -39,6 +39,7 @@ chunk singleton state RT identifier
 chunk singleton state Q identifier
 chunk singleton state AC identifier
 chunk singleton state flags identifier
+chunk singleton identifier RTid identifier
 chunk singleton identifier props-agnostic-add constant
 
 
@@ -52,7 +53,6 @@ sp {lib*actr*propose*init
 }
 sp {lib*actr*apply*init
 	(state <s> ^operator.name buffer-init
-				#^smem.command <scmd>
 				^io.output-link <ol>)
 -->
 	(<s> 	^G <g>		# control
@@ -101,8 +101,6 @@ sp {lib*actr*apply*finish
 		^flags <f2>)
 	(<a2> ^props-agnostic-add true)
 	(<f2> ^props-agnostic-add true)
-	# Prompt to reset manual sequence
-	(<s> ^props-flag reset-manual-sequence)
 	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
 }
 
@@ -262,6 +260,7 @@ sp {lib*actr*elaborate*wm-query*return-result
 		   ^q-type wm-query)
 	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
 	(<res> ^<attr> <val>)
+	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
 -->
 	(<rt> ^<attr> <val>)
 }
@@ -273,6 +272,7 @@ sp {lib*actr*elaborate*wm-query*return-result*id
 		   ^q-type wm-query)
 	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
 	(<res> ^<attr> <val>)
+	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
 -->
 	(<rt> ^RTid <res>)
 }
@@ -308,8 +308,8 @@ sp {lib*actr*elaborate*retrieval*id
 				^RT <rt>)
 	(<q> ^object <r>
 		 ^stamp.command <r>)
-	-{(<q> ^object {<r2> <> <r>})
-	  (<r2> ^q-type retrieve)}		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
+	-{(<q> ^object {<r2> <> <r>})}
+	#  (<r2> ^q-type retrieve)}		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
 	(<r> ^retrieve <ret>)
 	(<ret> ^<attr> <val>)
 -->
@@ -354,15 +354,19 @@ sp {lib*actr*elaborate*query*transfer-augs
 # TRANSFER QUERY RESULTS FROM SMEM
 sp {lib*actr*elaborate*query*collect
 	(state <s> ^smem.result.retrieved <sret>
+				^Q <q>
 				^RT <r>)
 	(<sret> ^<slot> <val>)
+	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
 -->
 	(<r> ^<slot> <val> )
 }
 sp {lib*actr*elaborate*query*collect*id
 	(state <s> ^smem.result.retrieved <sret>
+				^Q <q>
 				^RT <r>)
 	(<sret> ^<slot> <val>)
+	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
 -->
 	(<r> ^RTid <sret>)
 }

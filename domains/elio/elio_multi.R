@@ -3,11 +3,12 @@
 plot_elio_data <- function(auto, cog, f_pch) {
   # This function assume the global workspace variables used at the time it is called below
   
-  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),ifelse(PLOT_L2,"2",""),ifelse(auto, "3",""), ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(cog, "c", ""), ifelse(PLOT_EPSETS, "e", ""), "_t", T, "_s", samples, sep="")
+  f_graphname <- paste("l",ifelse(PLOT_L1,"1",""),ifelse(PLOT_L2,"2",""),ifelse(auto, "3",""), ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(cog, "c", ""), ifelse(PLOT_EPSETS, "", ""), "_t", T, "_s", samples, sep="")
   f_inpath <- paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/verbose_elio_props_", f_graphname,"_X",".dat", sep="")
   f_data <- read.table(f_inpath)
   f_data <- data.frame(f_data[1:11], f_data[4] - 0.05*f_data[6])  # Action Latencies = RT - DC_time
-  f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+f_data[9]+0.05*f_data[8]))  # ST = Actions + LTtime + counted_DCs
+  f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+0.05*f_data[8]))  # ST = Actions + counted_DCs
+  #f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+f_data[9]+0.05*f_data[8]))  # ST = Actions + LTtime + counted_DCs
   names(f_data) <- c("task","trial","line","RT","answer", "DC1s", "chunks", "DCs", "LTtime", "LTcount", "fails", "ACT", "ST")
   
   f_data$type <- ifelse((f_data$task %in% c("PROCEDURE-A","PROCEDURE-C") & (f_data$line %in% c(1,2,4))) | (f_data$task %in% c("PROCEDURE-B","PROCEDURE-D") & (f_data$line < 4)), "component","integrative")
@@ -36,7 +37,7 @@ PLOT_PROPv240 <- FALSE
 PLOT_PROPdev <- TRUE
 
 PLOT_L1 <- TRUE           # The case where chunks were pre-included for memory reference tracing (false) or not (true)
-PLOT_L2 <- FALSE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
+PLOT_L2 <- TRUE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
 PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
 PLOT_SPREADING <- FALSE    # The case where instructions are recalled according to activation and condition spread (plotted on v240)
 PLOT_MANUAL <- FALSE      # The case where a manual sequence is used (true) or not (false)
@@ -50,7 +51,7 @@ samples <- "2"
 graphname = paste("l", ifelse(PLOT_L3 && !PLOT_L2 && !PLOT_L1, 
                               paste("3only", ifelse(PLOT_LC, "c", ""), sep=""),
                               paste(ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
-                                    ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(PLOT_LC, "c", ""), ifelse(PLOT_EPSETS, "e", ""), sep="")), 
+                                    ifelse(PLOT_SPREADING, "s", ""), ifelse(PLOT_MANUAL, "m", ""), ifelse(PLOT_LC, "c", ""), ifelse(PLOT_EPSETS, "", ""), sep="")), 
                   "_t", T, "_s", samples, sep="")
 
 if (PLOT_ACTR) {
@@ -147,12 +148,12 @@ if (PLOT_PROPv240) {lines((1:10*5),prop240_data.m[1,,taskInd],type="b",pch=5,lty
 
 if (PLOT_PROPdev) {
   #plot_elio_data(PLOT_L3, TRUE, 2); legendText <- c(legendText, paste("LEARNED",sep="")); legendPch <- c(legendPch, 2);
-  plot_elio_data(PLOT_L3, FALSE, 1); legendText <- c(legendText, paste("KNOWN",ifelse(PLOT_EPSETS," proposals 50ms",""),sep="")); legendPch <- c(legendPch, 1);
+  plot_elio_data(PLOT_L3, FALSE, 1); legendText <- c(legendText, paste("KNOWN",ifelse(PLOT_EPSETS," proposals",""),sep="")); legendPch <- c(legendPch, 1);
 }
 
 title(xlab="Trial", ylab=ylabel, line=2)
 
-legend(ifelse(PLOT_SPREADING,5,15),legendY*yscale,legend=legendText,lty=c(1,1,1,1,1),pch=legendPch, col=c("gray37","black","black","black","black"), pt.cex=1, cex=1.0)
+legend(ifelse(PLOT_SPREADING,3,15),legendY*yscale,legend=legendText,lty=c(1,1,1,1,1),pch=legendPch, col=c("gray37","black","black","black","black"), pt.cex=1, cex=1.0)
 dev.off() # Finalize image
 
 if (PLOT_ACTR) {

@@ -7,9 +7,7 @@
 # ;~ step-1
 pp {propose*elio*procedure-a*step-1
 	const1 elio-procedure-a-step-1
-	const2 procedure-a
 	--
-	s.G.Gtask == const2
 	s.G.Gtop -
 -->
 	s.const1 +
@@ -30,11 +28,9 @@ pp {apply*elio*procedure-a*step-1
 # ;~ step-2
 pp {propose*elio*procedure-a*step-2
 	const1 elio-procedure-a-step-2
-	const2 procedure-a
-	const3 solid-lime-diff
+	const2 solid-lime-diff
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -58,11 +54,9 @@ pp {apply*elio*procedure-a*step-2
 # ;~ step-3
 pp {propose*elio*procedure-a*step-3
 	const1 elio-procedure-a-step-3
-	const2 procedure-a
-	const3 greater-algae
+	const2 greater-algae
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -85,11 +79,9 @@ pp {apply*elio*procedure-a*step-3
 # ;~ step-4
 pp {propose*elio*procedure-a*step-4
 	const1 elio-procedure-a-step-4
-	const2 procedure-a
-	const3 part-plus-mineral
+	const2 part-plus-mineral
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -113,11 +105,9 @@ pp {apply*elio*procedure-a*step-4
 # ;~ step-5
 pp {propose*elio*procedure-a*step-5
 	const1 elio-procedure-a-step-5
-	const2 procedure-a
-	const3 mean-toxin
+	const2 mean-toxin
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -140,11 +130,9 @@ pp {apply*elio*procedure-a*step-5
 # ;~ step-6
 pp {propose*elio*procedure-a*step-6
 	const1 elio-procedure-a-step-6
-	const2 procedure-a
-	const3 index1-div-marine
+	const2 index1-div-marine
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -167,11 +155,9 @@ pp {apply*elio*procedure-a*step-6
 # ;~ step-7
 pp {propose*elio*procedure-a*step-7
 	const1 elio-procedure-a-step-7
-	const2 procedure-a
-	const3 index2-min-mineral
+	const2 index2-min-mineral
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -192,9 +178,7 @@ pp {apply*elio*procedure-a*step-7
 # ;~ step-1
 pp {propose*elio*solid-lime-diff*step-1
 	const1 elio-solid-lime-diff-step-1
-	const2 solid-lime-diff
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -214,11 +198,9 @@ pp {apply*elio*solid-lime-diff*step-1
 # ;~ step-2
 pp {propose*elio*solid-lime-diff*step-2
 	const1 elio-solid-lime-diff-step-2
-	const2 solid-lime-diff
-	const3 lime4
+	const2 lime4
 	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -238,12 +220,10 @@ pp {apply*elio*solid-lime-diff*step-2
 # ;~ diff
 pp {propose*elio*solid-lime-diff*diff
 	const1 elio-solid-lime-diff-diff
-	const2 solid-lime-diff
-	const3 lime2
+	const2 lime2
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -268,13 +248,11 @@ pp {apply*elio*solid-lime-diff*diff
 # ;~ mult
 pp {propose*elio*solid-lime-diff*mult
 	const1 elio-solid-lime-diff-mult
-	const2 solid-lime-diff
-	const3 subtract
-	const4 solid
+	const2 subtract
+	const3 solid
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.V.slot1 == const4
+	s.RT.slot1 == const2
+	s.V.slot1 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -295,11 +273,9 @@ pp {apply*elio*solid-lime-diff*mult
 # ;~ finish
 pp {propose*elio*solid-lime-diff*finish
 	const1 elio-solid-lime-diff-finish
-	const2 solid-lime-diff
-	const3 mult
+	const2 mult
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -319,9 +295,7 @@ pp {apply*elio*solid-lime-diff*finish
 # ;~ start
 pp {propose*elio*greater-algae*start
 	const1 elio-greater-algae-start
-	const2 greater-algae
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -341,12 +315,10 @@ pp {apply*elio*greater-algae*start
 # ;~ div-2
 pp {propose*elio*greater-algae*div-2
 	const1 elio-greater-algae-div-2
-	const2 greater-algae
-	const3 algae
+	const2 algae
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -368,12 +340,10 @@ pp {apply*elio*greater-algae*div-2
 # ;~ read-solid
 pp {propose*elio*greater-algae*read-solid
 	const1 elio-greater-algae-read-solid
-	const2 greater-algae
-	const3 algae
+	const2 algae
 	--
-	s.G.Gtask == const2
 	s.RT.slot4 
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -394,12 +364,10 @@ pp {apply*elio*greater-algae*read-solid
 # ;~ div-3
 pp {propose*elio*greater-algae*div-3
 	const1 elio-greater-algae-div-3
-	const2 greater-algae
-	const3 solid
+	const2 solid
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -421,13 +389,11 @@ pp {apply*elio*greater-algae*div-3
 # ;~ greater
 pp {propose*elio*greater-algae*greater
 	const1 elio-greater-algae-greater
-	const2 greater-algae
-	const3 div
-	const4 solid
+	const2 div
+	const3 solid
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.V.slot1 == const4
+	s.RT.slot1 == const2
+	s.V.slot1 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -448,11 +414,9 @@ pp {apply*elio*greater-algae*greater
 # ;~ finish
 pp {propose*elio*greater-algae*finish
 	const1 elio-greater-algae-finish
-	const2 greater-algae
-	const3 greater-of
+	const2 greater-of
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -472,9 +436,7 @@ pp {apply*elio*greater-algae*finish
 # ;~ start
 pp {propose*elio*part-plus-mineral*start
 	const1 elio-part-plus-mineral-start
-	const2 part-plus-mineral
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -493,11 +455,9 @@ pp {apply*elio*part-plus-mineral*start
 # ;~ add
 pp {propose*elio*part-plus-mineral*add
 	const1 elio-part-plus-mineral-add
-	const2 part-plus-mineral
-	const3 particulate
+	const2 particulate
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -519,11 +479,9 @@ pp {apply*elio*part-plus-mineral*add
 # ;~ finish
 pp {propose*elio*part-plus-mineral*finish
 	const1 elio-part-plus-mineral-finish
-	const2 part-plus-mineral
-	const3 add
+	const2 add
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -544,9 +502,7 @@ pp {apply*elio*part-plus-mineral*finish
 # ;~ start
 pp {propose*elio*mean-toxin*start
 	const1 elio-mean-toxin-start
-	const2 mean-toxin
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -566,11 +522,9 @@ pp {apply*elio*mean-toxin*start
 # ;~ toxinmin
 pp {propose*elio*mean-toxin*toxinmin
 	const1 elio-mean-toxin-toxinmin
-	const2 mean-toxin
-	const3 toxinmax
+	const2 toxinmax
 	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -590,12 +544,10 @@ pp {apply*elio*mean-toxin*toxinmin
 # ;~ add
 pp {propose*elio*mean-toxin*add
 	const1 elio-mean-toxin-add
-	const2 mean-toxin
-	const3 toxinmin
+	const2 toxinmin
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -616,11 +568,9 @@ pp {apply*elio*mean-toxin*add
 # ;~ divide
 pp {propose*elio*mean-toxin*divide
 	const1 elio-mean-toxin-divide
-	const2 mean-toxin
-	const3 add
+	const2 add
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -642,11 +592,9 @@ pp {apply*elio*mean-toxin*divide
 # ;~ finish
 pp {propose*elio*mean-toxin*finish
 	const1 elio-mean-toxin-finish
-	const2 mean-toxin
-	const3 div
+	const2 div
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -666,9 +614,7 @@ pp {apply*elio*mean-toxin*finish
 # ;~ start
 pp {propose*elio*index1-div-marine*start
 	const1 elio-index1-div-marine-start
-	const2 index1-div-marine
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -687,11 +633,9 @@ pp {apply*elio*index1-div-marine*start
 # ;~ next
 pp {propose*elio*index1-div-marine*next
 	const1 elio-index1-div-marine-next
-	const2 index1-div-marine
-	const3 mineral
+	const2 mineral
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -709,11 +653,9 @@ pp {apply*elio*index1-div-marine*next
 # ;~ divide
 pp {propose*elio*index1-div-marine*divide
 	const1 elio-index1-div-marine-divide
-	const2 index1-div-marine
-	const3 index1
+	const2 index1
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -734,11 +676,9 @@ pp {apply*elio*index1-div-marine*divide
 # ;~ finish
 pp {propose*elio*index1-div-marine*finish
 	const1 elio-index1-div-marine-finish
-	const2 index1-div-marine
-	const3 div
+	const2 div
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -758,9 +698,7 @@ pp {apply*elio*index1-div-marine*finish
 # ;~ start
 pp {propose*elio*index2-min-mineral*start
 	const1 elio-index2-min-mineral-start
-	const2 index2-min-mineral
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -779,11 +717,9 @@ pp {apply*elio*index2-min-mineral*start
 # ;~ subtract
 pp {propose*elio*index2-min-mineral*subtract
 	const1 elio-index2-min-mineral-subtract
-	const2 index2-min-mineral
-	const3 mineral
+	const2 mineral
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -804,11 +740,9 @@ pp {apply*elio*index2-min-mineral*subtract
 # ;~ finish
 pp {propose*elio*index2-min-mineral*finish
 	const1 elio-index2-min-mineral-finish
-	const2 index2-min-mineral
-	const3 subtract
+	const2 subtract
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -828,9 +762,7 @@ pp {apply*elio*index2-min-mineral*finish
 # ;~ start
 pp {propose*elio*mineral-div-marine*start
 	const1 elio-mineral-div-marine-start
-	const2 mineral-div-marine
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -849,11 +781,9 @@ pp {apply*elio*mineral-div-marine*start
 # ;~ skip
 pp {propose*elio*mineral-div-marine*skip
 	const1 elio-mineral-div-marine-skip
-	const2 mineral-div-marine
-	const3 particulate
+	const2 particulate
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -873,11 +803,9 @@ pp {apply*elio*mineral-div-marine*skip
 # ;~ divide
 pp {propose*elio*mineral-div-marine*divide
 	const1 elio-mineral-div-marine-divide
-	const2 mineral-div-marine
-	const3 mineral
+	const2 mineral
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -898,11 +826,9 @@ pp {apply*elio*mineral-div-marine*divide
 # ;~ finish
 pp {propose*elio*mineral-div-marine*finish
 	const1 elio-mineral-div-marine-finish
-	const2 mineral-div-marine
-	const3 div
+	const2 div
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -922,9 +848,7 @@ pp {apply*elio*mineral-div-marine*finish
 # ;~ start
 pp {propose*elio*part-mult-index1*start
 	const1 elio-part-mult-index1-start
-	const2 part-mult-index1
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -943,11 +867,9 @@ pp {apply*elio*part-mult-index1*start
 # ;~ mult
 pp {propose*elio*part-mult-index1*mult
 	const1 elio-part-mult-index1-mult
-	const2 part-mult-index1
-	const3 particulate
+	const2 particulate
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -971,11 +893,9 @@ pp {apply*elio*part-mult-index1*mult
 # ;~ finish
 pp {propose*elio*part-mult-index1*finish
 	const1 elio-part-mult-index1-finish
-	const2 part-mult-index1
-	const3 mult
+	const2 mult
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -993,9 +913,7 @@ pp {apply*elio*part-mult-index1*finish
 # ;~ start
 pp {propose*elio*index1-plus-index2*start
 	const1 elio-index1-plus-index2-start
-	const2 index1-plus-index2
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
 -->
 	s.const1 +
@@ -1014,11 +932,9 @@ pp {apply*elio*index1-plus-index2*start
 # ;~ add
 pp {propose*elio*index1-plus-index2*add
 	const1 elio-index1-plus-index2-add
-	const2 index1-plus-index2
-	const3 index1
+	const2 index1
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1039,11 +955,9 @@ pp {apply*elio*index1-plus-index2*add
 # ;~ finish
 pp {propose*elio*index1-plus-index2*finish
 	const1 elio-index1-plus-index2-finish
-	const2 index1-plus-index2
-	const3 add
+	const2 add
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1063,9 +977,7 @@ pp {apply*elio*index1-plus-index2*finish
 # ;~ start
 pp {propose*elio*procedure-b*start
 	const1 elio-procedure-b-start
-	const2 procedure-b
 	--
-	s.G.Gtask == const2
 	s.G.Gtop -
 -->
 	s.const1 +
@@ -1086,11 +998,9 @@ pp {apply*elio*procedure-b*start
 # ;~ step-2
 pp {propose*elio*procedure-b*step-2
 	const1 elio-procedure-b-step-2
-	const2 procedure-b
-	const3 mean-toxin
+	const2 mean-toxin
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1114,11 +1024,9 @@ pp {apply*elio*procedure-b*step-2
 # ;~ step-3
 pp {propose*elio*procedure-b*step-3
 	const1 elio-procedure-b-step-3
-	const2 procedure-b
-	const3 solid-lime-diff
+	const2 solid-lime-diff
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1142,11 +1050,9 @@ pp {apply*elio*procedure-b*step-3
 # ;~ step-4
 pp {propose*elio*procedure-b*step-4
 	const1 elio-procedure-b-step-4
-	const2 procedure-b
-	const3 greater-algae
+	const2 greater-algae
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1169,11 +1075,9 @@ pp {apply*elio*procedure-b*step-4
 # ;~ step-5
 pp {propose*elio*procedure-b*step-5
 	const1 elio-procedure-b-step-5
-	const2 procedure-b
-	const3 mineral-div-marine
+	const2 mineral-div-marine
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1196,11 +1100,9 @@ pp {apply*elio*procedure-b*step-5
 # ;~ step-6
 pp {propose*elio*procedure-b*step-6
 	const1 elio-procedure-b-step-6
-	const2 procedure-b
-	const3 part-mult-index1
+	const2 part-mult-index1
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1223,11 +1125,9 @@ pp {apply*elio*procedure-b*step-6
 # ;~ finish
 pp {propose*elio*procedure-b*finish
 	const1 elio-procedure-b-finish
-	const2 procedure-b
-	const3 index1-plus-index2
+	const2 index1-plus-index2
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1248,9 +1148,7 @@ pp {apply*elio*procedure-b*finish
 # ;~ start
 pp {propose*elio*triple-lime*start
 	const1 elio-triple-lime-start
-	const2 triple-lime
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -1270,12 +1168,10 @@ pp {apply*elio*triple-lime*start
 # ;~ mult
 pp {propose*elio*triple-lime*mult
 	const1 elio-triple-lime-mult
-	const2 triple-lime
-	const3 limemin
+	const2 limemin
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1297,12 +1193,10 @@ pp {apply*elio*triple-lime*mult
 # ;~ read
 pp {propose*elio*triple-lime*read
 	const1 elio-triple-lime-read
-	const2 triple-lime
-	const3 limemin
+	const2 limemin
 	--
-	s.G.Gtask == const2
 	s.RT.slot4 
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1323,12 +1217,10 @@ pp {apply*elio*triple-lime*read
 # ;~ add
 pp {propose*elio*triple-lime*add
 	const1 elio-triple-lime-add
-	const2 triple-lime
-	const3 algae
+	const2 algae
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1349,11 +1241,9 @@ pp {apply*elio*triple-lime*add
 # ;~ finish
 pp {propose*elio*triple-lime*finish
 	const1 elio-triple-lime-finish
-	const2 triple-lime
-	const3 add
+	const2 add
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1373,9 +1263,7 @@ pp {apply*elio*triple-lime*finish
 # ;~ read-solid
 pp {propose*elio*lesser-evil*read-solid
 	const1 elio-lesser-evil-read-solid
-	const2 lesser-evil
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -1395,11 +1283,9 @@ pp {apply*elio*lesser-evil*read-solid
 # ;~ read-lime1
 pp {propose*elio*lesser-evil*read-lime1
 	const1 elio-lesser-evil-read-lime1
-	const2 lesser-evil
-	const3 solid
+	const2 solid
 	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1419,12 +1305,10 @@ pp {apply*elio*lesser-evil*read-lime1
 # ;~ add-lime1
 pp {propose*elio*lesser-evil*add-lime1
 	const1 elio-lesser-evil-add-lime1
-	const2 lesser-evil
-	const3 lime1
+	const2 lime1
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1445,13 +1329,11 @@ pp {apply*elio*lesser-evil*add-lime1
 # ;~ read-algae
 pp {propose*elio*lesser-evil*read-algae
 	const1 elio-lesser-evil-read-algae
-	const2 lesser-evil
-	const3 add
-	const4 lime1
+	const2 add
+	const3 lime1
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.V.slot1 == const4
+	s.RT.slot1 == const2
+	s.V.slot1 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -1475,11 +1357,9 @@ pp {apply*elio*lesser-evil*read-algae
 # ;~ read-toxin3
 pp {propose*elio*lesser-evil*read-toxin3
 	const1 elio-lesser-evil-read-toxin3
-	const2 lesser-evil
-	const3 algae
+	const2 algae
 	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1499,12 +1379,10 @@ pp {apply*elio*lesser-evil*read-toxin3
 # ;~ add-toxin3
 pp {propose*elio*lesser-evil*add-toxin3
 	const1 elio-lesser-evil-add-toxin3
-	const2 lesser-evil
-	const3 toxin3
+	const2 toxin3
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1525,13 +1403,11 @@ pp {apply*elio*lesser-evil*add-toxin3
 # ;~ toxin3
 pp {propose*elio*lesser-evil*toxin3
 	const1 elio-lesser-evil-toxin3
-	const2 lesser-evil
-	const3 add
-	const4 toxin3
+	const2 add
+	const3 toxin3
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.V.slot1 == const4
+	s.RT.slot1 == const2
+	s.V.slot1 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -1550,11 +1426,9 @@ pp {apply*elio*lesser-evil*toxin3
 # ;~ read-intermediate
 pp {propose*elio*lesser-evil*read-intermediate
 	const1 elio-lesser-evil-read-intermediate
-	const2 lesser-evil
-	const3 intermediate
+	const2 intermediate
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1576,13 +1450,11 @@ pp {apply*elio*lesser-evil*read-intermediate
 # ;~ greater-than-true
 pp {propose*elio*lesser-evil*greater-than-true
 	const1 elio-lesser-evil-greater-than-true
-	const2 lesser-evil
-	const3 greater-than
-	const4 true
+	const2 greater-than
+	const3 true
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.RT.slot4 == const4
+	s.RT.slot1 == const2
+	s.RT.slot4 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -1602,13 +1474,11 @@ pp {apply*elio*lesser-evil*greater-than-true
 # ;~ greater-than-false
 pp {propose*elio*lesser-evil*greater-than-false
 	const1 elio-lesser-evil-greater-than-false
-	const2 lesser-evil
-	const3 greater-than
-	const4 false
+	const2 greater-than
+	const3 false
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
-	s.RT.slot4 == const4
+	s.RT.slot1 == const2
+	s.RT.slot4 == const3
 -->
 	s.const1 +
 	s.const1 =
@@ -1628,9 +1498,7 @@ pp {apply*elio*lesser-evil*greater-than-false
 # ;~ read-solid
 pp {propose*elio*solid-div-lime*read-solid
 	const1 elio-solid-div-lime-read-solid
-	const2 solid-div-lime
 	--
-	s.G.Gtask == const2
 	s.V.slot1 -
 -->
 	s.const1 +
@@ -1650,11 +1518,9 @@ pp {apply*elio*solid-div-lime*read-solid
 # ;~ read-lime1
 pp {propose*elio*solid-div-lime*read-lime1
 	const1 elio-solid-div-lime-read-lime1
-	const2 solid-div-lime
-	const3 solid
+	const2 solid
 	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1674,12 +1540,10 @@ pp {apply*elio*solid-div-lime*read-lime1
 # ;~ div-lime1
 pp {propose*elio*solid-div-lime*div-lime1
 	const1 elio-solid-div-lime-div-lime1
-	const2 solid-div-lime
-	const3 lime1
+	const2 lime1
 	--
-	s.G.Gtask == const2
 	s.smem.rt-result -
-	s.V.slot1 == const3
+	s.V.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1700,11 +1564,9 @@ pp {apply*elio*solid-div-lime*div-lime1
 # ;~ finish
 pp {propose*elio*solid-div-lime*finish
 	const1 elio-solid-div-lime-finish
-	const2 solid-div-lime
-	const3 div
+	const2 div
 	--
-	s.G.Gtask == const2
-	s.RT.slot1 == const3
+	s.RT.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1724,9 +1586,7 @@ pp {apply*elio*solid-div-lime*finish
 # ;~ start
 pp {propose*elio*procedure-c*start
 	const1 elio-procedure-c-start
-	const2 procedure-c
 	--
-	s.G.Gtask == const2
 	s.G.Gtop -
 -->
 	s.const1 +
@@ -1747,11 +1607,9 @@ pp {apply*elio*procedure-c*start
 # ;~ step-2
 pp {propose*elio*procedure-c*step-2
 	const1 elio-procedure-c-step-2
-	const2 procedure-c
-	const3 triple-lime
+	const2 triple-lime
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1775,11 +1633,9 @@ pp {apply*elio*procedure-c*step-2
 # ;~ step-3
 pp {propose*elio*procedure-c*step-3
 	const1 elio-procedure-c-step-3
-	const2 procedure-c
-	const3 lesser-evil
+	const2 lesser-evil
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1802,11 +1658,9 @@ pp {apply*elio*procedure-c*step-3
 # ;~ step-4
 pp {propose*elio*procedure-c*step-4
 	const1 elio-procedure-c-step-4
-	const2 procedure-c
-	const3 part-plus-mineral
+	const2 part-plus-mineral
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1830,11 +1684,9 @@ pp {apply*elio*procedure-c*step-4
 # ;~ step-5
 pp {propose*elio*procedure-c*step-5
 	const1 elio-procedure-c-step-5
-	const2 procedure-c
-	const3 solid-div-lime
+	const2 solid-div-lime
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1857,11 +1709,9 @@ pp {apply*elio*procedure-c*step-5
 # ;~ step-6
 pp {propose*elio*procedure-c*step-6
 	const1 elio-procedure-c-step-6
-	const2 procedure-c
-	const3 index1-div-marine
+	const2 index1-div-marine
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1884,11 +1734,9 @@ pp {apply*elio*procedure-c*step-6
 # ;~ step-7
 pp {propose*elio*procedure-c*step-7
 	const1 elio-procedure-c-step-7
-	const2 procedure-c
-	const3 index2-min-mineral
+	const2 index2-min-mineral
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1909,9 +1757,7 @@ pp {apply*elio*procedure-c*step-7
 # ;~ start
 pp {propose*elio*procedure-d*start
 	const1 elio-procedure-d-start
-	const2 procedure-d
 	--
-	s.G.Gtask == const2
 	s.G.Gtop -
 -->
 	s.const1 +
@@ -1932,11 +1778,9 @@ pp {apply*elio*procedure-d*start
 # ;~ step-2
 pp {propose*elio*procedure-d*step-2
 	const1 elio-procedure-d-step-2
-	const2 procedure-d
-	const3 triple-lime
+	const2 triple-lime
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1960,11 +1804,9 @@ pp {apply*elio*procedure-d*step-2
 # ;~ step-3
 pp {propose*elio*procedure-d*step-3
 	const1 elio-procedure-d-step-3
-	const2 procedure-d
-	const3 lesser-evil
+	const2 lesser-evil
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -1988,11 +1830,9 @@ pp {apply*elio*procedure-d*step-3
 # ;~ step-4
 pp {propose*elio*procedure-d*step-4
 	const1 elio-procedure-d-step-4
-	const2 procedure-d
-	const3 solid-div-lime
+	const2 solid-div-lime
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -2015,11 +1855,9 @@ pp {apply*elio*procedure-d*step-4
 # ;~ step-5
 pp {propose*elio*procedure-d*step-5
 	const1 elio-procedure-d-step-5
-	const2 procedure-d
-	const3 mineral-div-marine
+	const2 mineral-div-marine
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -2042,11 +1880,9 @@ pp {apply*elio*procedure-d*step-5
 # ;~ step-6
 pp {propose*elio*procedure-d*step-6
 	const1 elio-procedure-d-step-6
-	const2 procedure-d
-	const3 part-mult-index1
+	const2 part-mult-index1
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =
@@ -2069,11 +1905,9 @@ pp {apply*elio*procedure-d*step-6
 # ;~ step-7
 pp {propose*elio*procedure-d*step-7
 	const1 elio-procedure-d-step-7
-	const2 procedure-d
-	const3 index1-plus-index2
+	const2 index1-plus-index2
 	--
-	s.G.Gtask == const2
-	s.WM.slot1 == const3
+	s.WM.slot1 == const2
 -->
 	s.const1 +
 	s.const1 =

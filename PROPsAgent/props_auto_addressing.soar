@@ -8,27 +8,27 @@
 ##        STRUCTURE
 #  (<s> ^topstate <ts>                      | The topstate pointer, elaborated to all states
 #       ^const <c>                          | The object containing task-specific literals for a delta, elaborated here once the delta is selected
-#       ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
+#       ^<< props-epset props-cbset >> (<pe>                  | A set of instructed proposals, fetched from SMEM
 #          [^delta (<d>                     | Corresponds to a proposable operator
 #               ^const <dc>                 | If this exists, this delta is for a specific task-specific operator proposal.
 #              [^prop (<prop>               | Corresponds to a single condition of the delta
 #                   ^name <cname>           | The name of the primitive
 #                   ^address1 <ts-attr1>    | A cached/provided attribute name from the topstate to find <id1>
 #                   ^address2 <ts-attr2>)]  | A cached/provided attribute name from the topstate to find <id2>
-#               ^cond-id1 (<dcid1>          | Generated: The result of finding the id referenced by <ts>.<ts-attr1>  (SEE: props_auto_addressing.soar)
+#              [^cond-id1 (<dcid1>          | Generated: The result of finding the id referenced by <ts>.<ts-attr1>  (SEE: props_auto_addressing.soar)
 #                   ^name <cname>           | The name of the condition prop that this address is for
-#                   ^id1 <id1>)             | The pointer to the specified address
-#               ^cond-id2 (<dcid2>          | Generated: The result of finding the id referenced by <ts>.<ts-attr2>
+#                   ^id1 <id1>)]            | The pointer to the specified address
+#              [^cond-id2 (<dcid2>          | Generated: The result of finding the id referenced by <ts>.<ts-attr2>
 #                   ^name <cname>           | The name of the condition prop that this address is for
-#                   ^id2 <id2>)             | The pointer to the specified address
-#               ^missing <what>]))          | Generated: Where <what> is << |id1| |id2| >>. Created if the id couldn't be found in WM.
+#                   ^id2 <id2>)]            | The pointer to the specified address
+#              [^missing <what>])]))        | Generated: Where <what> is << |id1| |id2| >>. Created if the id couldn't be found in WM.
 #####
 
 
 # SUPPLY CACHED ADDRESSES:
 
-sp {elaborate*props*epset*delta*cond*address1*buffer
-    (state <s> ^props-epset (^delta <d> )
+sp {elaborate*props*address1*buffer
+    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address1 <buff>
@@ -38,8 +38,8 @@ sp {elaborate*props*epset*delta*cond*address1*buffer
     (<dcid> ^name <cname>
             ^id1 <buff-id>)
 }
-sp {elaborate*props*epset*delta*cond*address2*buffer
-    (state <s> ^props-epset (^delta <d> )
+sp {elaborate*props*address2*buffer
+    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address2 <buff>
@@ -49,8 +49,8 @@ sp {elaborate*props*epset*delta*cond*address2*buffer
     (<dcid> ^name <cname>
             ^id2 <buff-id>)
 }
-sp {elaborate*props*epset*delta*cond*address2*cond-const
-    (state <s> ^props-epset (^delta <d> ) )
+sp {elaborate*props*address2*cond-const
+    (state <s> ^<< props-epset props-cbset >> (^delta <d> ) )
     (<d> ^const <dc>
          ^prop <c>)
     (<c> ^address2 |props$const|
@@ -60,8 +60,8 @@ sp {elaborate*props*epset*delta*cond*address2*cond-const
     (<dcid> ^name <cname>
             ^id2 <dc>)
 }
-sp {elaborate*props*epset*delta*cond*address2*act-const
-    (state <s> ^props-epset <pe>
+sp {elaborate*props*address2*act-const
+    (state <s> ^<< props-epset props-cbset >> <pe>
                ^const <dc>)
     (<pe> ^delta <d>)
     (<d> ^prop <c>)
@@ -72,8 +72,8 @@ sp {elaborate*props*epset*delta*cond*address2*act-const
     (<dcid> ^name <cname>
             ^id2 <dc>)
 }
-sp {elaborate*props*epset*delta*cond*address1*rootstate
-    (state <s> ^props-epset <pe>
+sp {elaborate*props*address1*rootstate
+    (state <s> ^<< props-epset props-cbset >> <pe>
                ^topstate <ts>)
     (<pe> ^delta <d>)
     (<d> ^prop <c>)
@@ -84,8 +84,8 @@ sp {elaborate*props*epset*delta*cond*address1*rootstate
     (<dcid> ^name <cname>
             ^id1 <ts>)
 }
-sp {elaborate*props*epset*delta*cond*address2*rootstate
-    (state <s> ^props-epset <pe>
+sp {elaborate*props*address2*rootstate
+    (state <s> ^<< props-epset props-cbset >> <pe>
                ^topstate <ts>)
     (<pe> ^delta <d> )
     (<d> ^prop <c>)
@@ -97,16 +97,16 @@ sp {elaborate*props*epset*delta*cond*address2*rootstate
             ^id2 <ts>)
 }
 
-sp {elaborate*props*epset*delta*cond*address1*missing
-    (state <s> ^props-epset (^delta <d>  )
+sp {elaborate*props*address1*missing
+    (state <s> ^<< props-epset props-cbset >> (^delta <d>  )
               -^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address1 {<buff> <> |props$rootstate|})
 -->
     (<d> ^missing |id1|)
 }
-sp {elaborate*props*epset*delta*cond*address2*missing*buffer
-    (state <s> ^props-epset (^delta <d>  )
+sp {elaborate*props*address2*missing*buffer
+    (state <s> ^<< props-epset props-cbset >> (^delta <d>  )
               -^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address2 {<buff> <> |props$const| <> |props$rootstate|})

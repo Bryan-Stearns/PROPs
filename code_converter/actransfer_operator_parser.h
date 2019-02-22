@@ -52,8 +52,8 @@ private:
 	void buildPropCode(std::string &retval, const std::string rulename, const std::vector<std::string> &consts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
 	void buildSoarCode(std::string &retval, const std::string rulename, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, std::vector<std::string> &negTestRefs);
 	void buildPropOperator(std::string &prpRule, std::string &aplRule, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
-	void buildSoarOperator(std::string &prpRule, std::string &aplRule, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
-	std::vector<std::string> refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives);
+	void buildSoarOperator(std::string &prpRule, std::string &aplRule, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, const std::string &opName);
+	std::vector<std::string> refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, bool addOpName);
 	void parseActransferFile(std::vector<std::string> &propRules, std::vector<std::string> &soarRules);
 };
 

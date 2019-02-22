@@ -1,6 +1,6 @@
 #####
 # THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
-# FROM 'CheinMorrison_hier.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+# FROM 'CheinMorrison.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
 #####
 
 # add-instr verbal-CWM
@@ -18,168 +18,83 @@ pp {propose*chein*verbal-CWM*init
 }
 pp {apply*chein*verbal-CWM*init
 	const1 chein-verbal-CWM-init
+	const2 lexdec
 	--
 	s.operator.name == const1
 -->
+	s.G.Gcontrol = const2
 	s.G.Gtop = s.WM
 }
 # add-instr verbal-CWM
-# ;~ ready
-pp {propose*chein*verbal-CWM*ready
-	const1 chein-verbal-CWM-ready
-	const2 verbal-CWM
-	--
-	s.G.Gtask == const2
-	s.G.Gtop 
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*verbal-CWM*ready
-	const1 chein-verbal-CWM-ready
-	const2 VCWM
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM
-# ;~ word
-pp {propose*chein*VCWM*word
-	const1 chein-VCWM-word
-	const2 VCWM
-	const3 word
-	const4 word-answered
-	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
-	s.G.Gcontrol <> const4
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM*word
-	const1 chein-VCWM-word
-	const2 VCWM-word
-	const3 word-dec
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.G.Gcontrol = const3
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM
-# ;~ letter
-pp {propose*chein*VCWM*letter
-	const1 chein-VCWM-letter
-	const2 VCWM
-	const3 letter
-	const4 letter-stored
-	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
-	s.G.Gcontrol <> const4
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM*letter
-	const1 chein-VCWM-letter
-	const2 VCWM-letter
-	const3 letter-dec
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.G.Gcontrol = const3
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM
-# ;~ rehearse
-pp {propose*chein*VCWM*rehearse
-	const1 chein-VCWM-rehearse
-	const2 VCWM
-	const3 pending
-	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM*rehearse
-	const1 chein-VCWM-rehearse
-	const2 prepare
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM
 # ;~ wait
-pp {propose*chein*VCWM*wait
-	const1 chein-VCWM-wait
-	const2 VCWM
-	const3 pending
+# ;~ stop-rehearsal
+# ;~~ pre-rehearse
+pp {propose*chein*verbal-CWM*stop-rehearsal*pre-rehearse
+	const1 chein-verbal-CWM-stop-rehearsal-pre-rehearse
+	const2 verbal-CWM
+	const3 word
+	const4 rehearse
 	--
 	s.G.Gtask == const2
 	s.V.slot1 == const3
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM*wait
-	const1 chein-VCWM-wait
-	const2 idle
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM
-# ;~ report
-pp {propose*chein*VCWM*report
-	const1 chein-VCWM-report
-	const2 VCWM
-	const3 report
-	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM*report
-	const1 chein-VCWM-report
-	const2 VCWM-report
-	const3 start-report
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.G.Gcontrol = const3
-	s.flags.clear-rt = const1
-}
-# add-instr VCWM-word
-# ;~ retrieve
-pp {propose*chein*VCWM-word*retrieve
-	const1 chein-VCWM-word-retrieve
-	const2 VCWM-word
-	const3 word-dec
-	--
-	s.G.Gtask == const2
+	s.G.Gcontrol == const4
 	s.smem.rt-result -
-	s.G.Gcontrol == const3
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-word*retrieve
-	const1 chein-VCWM-word-retrieve
+pp {apply*chein*verbal-CWM*stop-rehearsal*pre-rehearse
+	const1 chein-verbal-CWM-stop-rehearsal-pre-rehearse
+	const2 lexdec
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+}
+# add-instr verbal-CWM
+# ;~~ post-rehearse
+pp {propose*chein*verbal-CWM*stop-rehearsal*post-rehearse
+	const1 chein-verbal-CWM-stop-rehearsal-post-rehearse
+	const2 verbal-CWM
+	const3 word
+	const4 rehearse
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+	s.smem.rt-result 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*verbal-CWM*stop-rehearsal*post-rehearse
+	const1 chein-verbal-CWM-stop-rehearsal-post-rehearse
+	const2 lexdec
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.flags.clear-rt = const1
+}
+# add-instr verbal-CWM
+# ;~ lexical
+# ;~~ retrieve
+pp {propose*chein*verbal-CWM*lexical*retrieve
+	const1 chein-verbal-CWM-lexical-retrieve
+	const2 verbal-CWM
+	const3 word
+	const4 lexdec
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result -
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*verbal-CWM*lexical*retrieve
+	const1 chein-verbal-CWM-lexical-retrieve
 	const2 is-word
 	const3 query
 	--
@@ -189,13 +104,13 @@ pp {apply*chein*VCWM-word*retrieve
 	s.Q.query.slot1 = const2
 	s.Q.query.slot2 = s.V.slot2
 }
-# add-instr VCWM-word
-# ;~ success
-pp {propose*chein*VCWM-word*success
-	const1 chein-VCWM-word-success
-	const2 VCWM-word
+# add-instr verbal-CWM
+# ;~~ success
+pp {propose*chein*verbal-CWM*lexical*success
+	const1 chein-verbal-CWM-lexical-success
+	const2 verbal-CWM
 	const3 yes
-	const4 word-dec
+	const4 lexdec
 	--
 	s.G.Gtask == const2
 	s.RT.slot3 == const3
@@ -204,26 +119,24 @@ pp {propose*chein*VCWM-word*success
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-word*success
-	const1 chein-VCWM-word-success
+pp {apply*chein*verbal-CWM*lexical*success
+	const1 chein-verbal-CWM-lexical-success
 	const2 type
 	const3 Y
-	const4 answered
 	--
 	s.operator.name == const1
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
-	s.G.Gcontrol = const4
 	s.flags.clear-rt = const1
 }
-# add-instr VCWM-word
-# ;~ fail
-pp {propose*chein*VCWM-word*fail
-	const1 chein-VCWM-word-fail
-	const2 VCWM-word
+# add-instr verbal-CWM
+# ;~~ fail
+pp {propose*chein*verbal-CWM*lexical*fail
+	const1 chein-verbal-CWM-lexical-fail
+	const2 verbal-CWM
 	const3 error
-	const4 word-dec
+	const4 lexdec
 	--
 	s.G.Gtask == const2
 	s.smem.rt-result == const3
@@ -232,57 +145,62 @@ pp {propose*chein*VCWM-word*fail
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-word*fail
-	const1 chein-VCWM-word-fail
+pp {apply*chein*verbal-CWM*lexical*fail
+	const1 chein-verbal-CWM-lexical-fail
 	const2 type
 	const3 N
-	const4 answered
 	--
 	s.operator.name == const1
 -->
 	s.AC.action.slot1 = const2
 	s.AC.action.slot2 = const3
-	s.G.Gcontrol = const4
 	s.flags.clear-rt = const1
 }
-# add-instr VCWM-letter
-# ;~ store-wm
-pp {propose*chein*VCWM-letter*store-wm
-	const1 chein-VCWM-letter-store-wm
-	const2 VCWM-letter
+# add-instr verbal-CWM
+# ;~ letter-seen
+# ;~~ store-wm
+pp {propose*chein*verbal-CWM*letter-seen*store-wm
+	const1 chein-verbal-CWM-letter-seen-store-wm
+	const2 verbal-CWM
+	const3 letter
+	const4 lexdec
 	--
 	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
 	s.WM.slot1 -
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-letter*store-wm
-	const1 chein-VCWM-letter-store-wm
-	const2 letter-stored
-	const3 wait
+pp {apply*chein*verbal-CWM*letter-seen*store-wm
+	const1 chein-verbal-CWM-letter-seen-store-wm
+	const2 wait
 	--
 	s.operator.name == const1
 -->
 	s.WM.slot1 = s.V.slot2
-	s.G.Gcontrol = const2
-	s.AC.action.slot1 = const3
+	s.AC.action.slot1 = const2
 }
-# add-instr VCWM-letter
-# ;~ store-dm
-pp {propose*chein*VCWM-letter*store-dm
-	const1 chein-VCWM-letter-store-dm
-	const2 VCWM-letter
+# add-instr verbal-CWM
+# ;~~ store-dm
+pp {propose*chein*verbal-CWM*letter-seen*store-dm
+	const1 chein-verbal-CWM-letter-seen-store-dm
+	const2 verbal-CWM
+	const3 letter
+	const4 lexdec
 	--
 	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
 	s.WM.slot1 
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-letter*store-dm
-	const1 chein-VCWM-letter-store-dm
-	const2 letter-stored
+pp {apply*chein*verbal-CWM*letter-seen*store-dm
+	const1 chein-verbal-CWM-letter-seen-store-dm
+	const2 rehearse
 	const3 wait
 	--
 	s.operator.name == const1
@@ -292,20 +210,25 @@ pp {apply*chein*VCWM-letter*store-dm
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
 }
-# add-instr prepare
-# ;~ VCWM-start
-pp {propose*chein*prepare*VCWM-start
-	const1 chein-prepare-VCWM-start
-	const2 prepare
+# add-instr verbal-CWM
+# ;~ rehearse
+# ;~~ start
+pp {propose*chein*verbal-CWM*rehearse*start
+	const1 chein-verbal-CWM-rehearse-start
+	const2 verbal-CWM
+	const3 pending
+	const4 rehearse
 	--
 	s.G.Gtask == const2
+	s.V.slot1 == const3
 	s.smem.rt-result -
+	s.G.Gcontrol == const4
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*prepare*VCWM-start
-	const1 chein-prepare-VCWM-start
+pp {apply*chein*verbal-CWM*rehearse*start
+	const1 chein-verbal-CWM-rehearse-start
 	const2 retrieve
 	--
 	s.operator.name == const1
@@ -313,21 +236,25 @@ pp {apply*chein*prepare*VCWM-start
 	s.Q.retrieve.q-type = const2
 	s.Q.retrieve = s.G.Gtop
 }
-# add-instr prepare
-# ;~ VCWM-next
-pp {propose*chein*prepare*VCWM-next
-	const1 chein-prepare-VCWM-next
-	const2 prepare
-	const3 error
+# add-instr verbal-CWM
+# ;~~ next
+pp {propose*chein*verbal-CWM*rehearse*next
+	const1 chein-verbal-CWM-rehearse-next
+	const2 verbal-CWM
+	const3 pending
+	const4 error
+	const5 rehearse
 	--
 	s.G.Gtask == const2
-	s.smem.rt-result != const3
+	s.V.slot1 == const3
+	s.smem.rt-result <> const4
+	s.G.Gcontrol == const5
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*prepare*VCWM-next
-	const1 chein-prepare-VCWM-next
+pp {apply*chein*verbal-CWM*rehearse*next
+	const1 chein-verbal-CWM-rehearse-next
 	const2 wm-query
 	--
 	s.operator.name == const1
@@ -335,21 +262,25 @@ pp {apply*chein*prepare*VCWM-next
 	s.Q.wm-query.root = s.RT.RTid
 	s.Q.wm-query.q-type = const2
 }
-# add-instr prepare
-# ;~ VCWM-restart
-pp {propose*chein*prepare*VCWM-restart
-	const1 chein-prepare-VCWM-restart
-	const2 prepare
-	const3 error
+# add-instr verbal-CWM
+# ;~~ restart
+pp {propose*chein*verbal-CWM*rehearse*restart
+	const1 chein-verbal-CWM-rehearse-restart
+	const2 verbal-CWM
+	const3 pending
+	const4 error
+	const5 rehearse
 	--
 	s.G.Gtask == const2
-	s.smem.rt-result == const3
+	s.V.slot1 == const3
+	s.smem.rt-result == const4
+	s.G.Gcontrol == const5
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*prepare*VCWM-restart
-	const1 chein-prepare-VCWM-restart
+pp {apply*chein*verbal-CWM*rehearse*restart
+	const1 chein-verbal-CWM-rehearse-restart
 	const2 retrieve
 	--
 	s.operator.name == const1
@@ -357,45 +288,24 @@ pp {apply*chein*prepare*VCWM-restart
 	s.Q.retrieve.q-type = const2
 	s.Q.retrieve = s.G.Gtop
 }
-# add-instr prepare
-# ;~ stroop-focus-color
-pp {propose*chein*prepare*stroop-focus-color
-	const1 chein-prepare-stroop-focus-color
-	const2 prepare
-	const3 yes
+# add-instr verbal-CWM
+# ;~ report
+# ;~~ start-from-rehearse
+pp {propose*chein*verbal-CWM*report*start-from-rehearse
+	const1 chein-verbal-CWM-report-start-from-rehearse
+	const2 verbal-CWM
+	const3 report
+	const4 rehearse
 	--
 	s.G.Gtask == const2
 	s.V.slot1 == const3
-	s.G.Gcontrol == const2
+	s.G.Gcontrol == const4
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*prepare*stroop-focus-color
-	const1 chein-prepare-stroop-focus-color
-	const2 get-property
-	const3 color-property
-	--
-	s.operator.name == const1
--->
-	s.AC.action.slot1 = const2
-	s.AC.action.slot2 = const3
-}
-# add-instr VCWM-report
-# ;~ start
-pp {propose*chein*VCWM-report*start
-	const1 chein-VCWM-report-start
-	const2 VCWM-report
-	const3 start-report
-	--
-	s.G.Gtask == const2
-	s.G.Gcontrol == const3
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*VCWM-report*start
-	const1 chein-VCWM-report-start
+pp {apply*chein*verbal-CWM*report*start-from-rehearse
+	const1 chein-verbal-CWM-report-start-from-rehearse
 	const2 retrieve
 	const3 report
 	--
@@ -405,23 +315,50 @@ pp {apply*chein*VCWM-report*start
 	s.Q.retrieve = s.G.Gtop
 	s.G.Gcontrol = const3
 }
-# add-instr VCWM-report
-# ;~ report
-pp {propose*chein*VCWM-report*report
-	const1 chein-VCWM-report-report
-	const2 VCWM-report
-	const3 error
-	const4 report
+# add-instr verbal-CWM
+# ;~~ start-from-lexical
+pp {propose*chein*verbal-CWM*report*start-from-lexical
+	const1 chein-verbal-CWM-report-start-from-lexical
+	const2 verbal-CWM
+	const3 report
+	const4 lexdec
 	--
 	s.G.Gtask == const2
-	s.smem.rt-result <> const3
+	s.V.slot1 == const3
 	s.G.Gcontrol == const4
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-report*report
-	const1 chein-VCWM-report-report
+pp {apply*chein*verbal-CWM*report*start-from-lexical
+	const1 chein-verbal-CWM-report-start-from-lexical
+	const2 retrieve
+	const3 report
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+	s.G.Gcontrol = const3
+}
+# add-instr verbal-CWM
+# ;~~ report
+pp {propose*chein*verbal-CWM*report*report
+	const1 chein-verbal-CWM-report-report
+	const2 verbal-CWM
+	const3 report
+	const4 error
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.smem.rt-result <> const4
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*verbal-CWM*report*report
+	const1 chein-verbal-CWM-report-report
 	const2 type
 	const3 wm-query
 	--
@@ -432,23 +369,24 @@ pp {apply*chein*VCWM-report*report
 	s.Q.wm-query.root = s.RT.RTid
 	s.Q.wm-query.q-type = const3
 }
-# add-instr VCWM-report
-# ;~ finish
-pp {propose*chein*VCWM-report*finish
-	const1 chein-VCWM-report-finish
-	const2 VCWM-report
-	const3 error
-	const4 report
+# add-instr verbal-CWM
+# ;~~ finish
+pp {propose*chein*verbal-CWM*report*finish
+	const1 chein-verbal-CWM-report-finish
+	const2 verbal-CWM
+	const3 report
+	const4 error
 	--
 	s.G.Gtask == const2
-	s.smem.rt-result == const3
-	s.G.Gcontrol == const4
+	s.V.slot1 == const3
+	s.smem.rt-result == const4
+	s.G.Gcontrol == const3
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*VCWM-report*finish
-	const1 chein-VCWM-report-finish
+pp {apply*chein*verbal-CWM*report*finish
+	const1 chein-verbal-CWM-report-finish
 	const2 enter
 	const3 finish
 	--
@@ -459,60 +397,33 @@ pp {apply*chein*VCWM-report*finish
 	s.flags.clear-rt = const1
 }
 # add-instr stroop
-# ;~ focus
-pp {propose*chein*stroop*focus
-	const1 chein-stroop-focus
+# ;~ finish
+# ;~ init
+pp {propose*chein*stroop*init
+	const1 chein-stroop-init
 	const2 stroop
-	const3 pending
 	--
 	s.G.Gtask == const2
-	s.V.slot1 == const3
+	s.G.Gcontrol -
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*stroop*focus
-	const1 chein-stroop-focus
+pp {apply*chein*stroop*init
+	const1 chein-stroop-init
 	const2 prepare
 	const3 wait
 	--
 	s.operator.name == const1
 -->
-	s.G.Gtask = const2
 	s.G.Gcontrol = const2
 	s.AC.action.slot1 = const3
-	s.flags.clear-rt = const1
 }
 # add-instr stroop
-# ;~ no-focus
-pp {propose*chein*stroop*no-focus
-	const1 chein-stroop-no-focus
-	const2 stroop
-	const3 pending
-	--
-	s.G.Gtask == const2
-	s.V.slot1 == const3
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*stroop*no-focus
-	const1 chein-stroop-no-focus
-	const2 idle
-	const3 neutral
-	const4 wait
-	--
-	s.operator.name == const1
--->
-	s.G.Gtask = const2
-	s.G.Gcontrol = const3
-	s.AC.action.slot1 = const4
-	s.flags.clear-rt = const1
-}
-# add-instr stroop
-# ;~ focus-color
-pp {propose*chein*stroop*focus-color
-	const1 chein-stroop-focus-color
+# ;~ object-seen
+# ;~~ focus-color
+pp {propose*chein*stroop*object-seen*focus-color
+	const1 chein-stroop-object-seen-focus-color
 	const2 stroop
 	const3 yes
 	const4 prepare
@@ -524,8 +435,8 @@ pp {propose*chein*stroop*focus-color
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*stroop*focus-color
-	const1 chein-stroop-focus-color
+pp {apply*chein*stroop*object-seen*focus-color
+	const1 chein-stroop-object-seen-focus-color
 	const2 get-property
 	const3 color-property
 	--
@@ -535,9 +446,9 @@ pp {apply*chein*stroop*focus-color
 	s.AC.action.slot2 = const3
 }
 # add-instr stroop
-# ;~ focus-all
-pp {propose*chein*stroop*focus-all
-	const1 chein-stroop-focus-all
+# ;~~ focus-all
+pp {propose*chein*stroop*object-seen*focus-all
+	const1 chein-stroop-object-seen-focus-all
 	const2 stroop
 	const3 yes
 	const4 prepare
@@ -545,12 +456,13 @@ pp {propose*chein*stroop*focus-all
 	s.G.Gtask == const2
 	s.V.slot1 == const3
 	s.G.Gcontrol <> const4
+	s.G.Gcontrol 
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*stroop*focus-all
-	const1 chein-stroop-focus-all
+pp {apply*chein*stroop*object-seen*focus-all
+	const1 chein-stroop-object-seen-focus-all
 	const2 get-property
 	const3 both
 	--
@@ -561,28 +473,108 @@ pp {apply*chein*stroop*focus-all
 }
 # add-instr stroop
 # ;~ report
-pp {propose*chein*stroop*report
-	const1 chein-stroop-report
+# ;~~ retrieve
+pp {propose*chein*stroop*report*retrieve
+	const1 chein-stroop-report-retrieve
 	const2 stroop
-	const3 reported
 	--
 	s.G.Gtask == const2
+	s.G.Gcontrol 
 	s.V.slot2 
-	s.G.Gcontrol <> const3
+	s.RT.slot3 -
 -->
 	s.const1 +
 	s.const1 =
 }
-pp {apply*chein*stroop*report
-	const1 chein-stroop-report
-	const2 stroop-report
+pp {apply*chein*stroop*report*retrieve
+	const1 chein-stroop-report-retrieve
+	const2 s-mapping
+	const3 query
 	--
 	s.operator.name == const1
 -->
-	s.G.Gtask = const2
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr stroop
+# ;~~ say
+pp {propose*chein*stroop*report*say
+	const1 chein-stroop-report-say
+	const2 stroop
+	--
+	s.G.Gtask == const2
+	s.G.Gcontrol 
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*stroop*report*say
+	const1 chein-stroop-report-say
+	const2 say
+	const3 neutral
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.G.Gcontrol = const3
 	s.flags.clear-rt = const1
 }
 # add-instr stroop
+# ;~ idle
+# ;~~ focus
+pp {propose*chein*stroop*idle*focus
+	const1 chein-stroop-idle-focus
+	const2 stroop
+	const3 pending
+	const4 neutral
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*stroop*idle*focus
+	const1 chein-stroop-idle-focus
+	const2 prepare
+	const3 wait
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+}
+# add-instr stroop
+# ;~~ no-focus
+pp {propose*chein*stroop*idle*no-focus
+	const1 chein-stroop-idle-no-focus
+	const2 stroop
+	const3 pending
+	const4 neutral
+	--
+	s.G.Gtask == const2
+	s.V.slot1 == const3
+	s.G.Gcontrol == const4
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*chein*stroop*idle*no-focus
+	const1 chein-stroop-idle-no-focus
+	const2 noprepare
+	const3 wait
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+}
+# add-instr stroop
+# ;~~ wait
 # ;~ finish
 pp {propose*chein*stroop*finish
 	const1 chein-stroop-finish
@@ -602,54 +594,5 @@ pp {apply*chein*stroop*finish
 	s.operator.name == const1
 -->
 	s.G.Gtask = const2
-	s.flags.clear-rt = const1
-}
-# add-instr stroop-report
-# ;~ retrieve
-pp {propose*chein*stroop-report*retrieve
-	const1 chein-stroop-report-retrieve
-	const2 stroop-report
-	--
-	s.G.Gtask == const2
-	s.G.Gcontrol 
-	s.RT.slot3 -
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*stroop-report*retrieve
-	const1 chein-stroop-report-retrieve
-	const2 s-mapping
-	const3 query
-	--
-	s.operator.name == const1
--->
-	s.Q.query.q-type = const3
-	s.Q.query.slot1 = const2
-	s.Q.query.slot2 = s.V.slot2
-}
-# add-instr stroop-report
-# ;~ say
-pp {propose*chein*stroop-report*say
-	const1 chein-stroop-report-say
-	const2 stroop-report
-	--
-	s.G.Gtask == const2
-	s.G.Gcontrol 
-	s.RT.slot3 
--->
-	s.const1 +
-	s.const1 =
-}
-pp {apply*chein*stroop-report*say
-	const1 chein-stroop-report-say
-	const2 say
-	const3 reported
-	--
-	s.operator.name == const1
--->
-	s.AC.action.slot1 = const2
-	s.AC.action.slot2 = s.RT.slot3
-	s.G.Gcontrol = const3
 	s.flags.clear-rt = const1
 }

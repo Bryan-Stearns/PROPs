@@ -31,23 +31,23 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.setPropsDir(props_dir);
 		
 		if (rehearse)  {
-			this.setCondChunkFile(proj_dir + "chein_agent_condspread_chunks.soar");
-			this.setAddressChunkFile(proj_dir + "chein_agent_L1_chunks.soar");
+			//this.setCondChunkFile(proj_dir + "chein_agent_condspread_chunks.soar");
+			//this.setAddressChunkFile(proj_dir + "chein_agent_L1_chunks.soar");
 			//this.setFetchSeqFile(proj_dir + "chein_agent_fetch_procedures.soar");
-			this.setInstructionsFile(proj_dir + "chein_agent_instructions.soar");
-			this.setSoarAgentFile(proj_dir + "chein_agent.soar");
+			this.setInstructionsFile(proj_dir + "cheinH_agent3_instructions.soar");
+			this.setSoarAgentFile(proj_dir + "cheinH_agent3.soar");
 		}
 		else {
-			this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
-			this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
+			//this.setCondChunkFile(proj_dir + "cheinNR_agent_condspread_chunks.soar");
+			//this.setAddressChunkFile(proj_dir + "cheinNR_agent_L1_chunks.soar");
 			//this.setFetchSeqFile(proj_dir + "cheinNR_agent_fetch_procedures.soar");
-			this.setInstructionsFile(proj_dir + "cheinNR_agent_instructions.soar");
-			this.setSoarAgentFile(proj_dir + "cheinNR_agent.soar");
+			this.setInstructionsFile(proj_dir + "cheinNR_agent3_instructions.soar");
+			this.setSoarAgentFile(proj_dir + "cheinNR_agent3.soar");
 		}
 		
 		this.setIOSize(3, 2);
 
-		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
 												proj_dir + "chein_agent_smem.soar"));
 		
 		cstask = new VCWM();
@@ -136,6 +136,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 				cstask.stimuli.clear();
 				cstask.count = cstask.current_span - 1;		// keep a counter
 				cstask.start = this.getElapsedTime() + this.secToMilli(0.365);
+				set_perception("pending", null, null);
 				this.scheduleInput(0.5, Arrays.asList("word", get_rand_word()));
 			}
 		} else if (action.equals("wait")) {
@@ -203,6 +204,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	
 	private void reset_VCWM() {
 		cstask.start = this.getElapsedTime() + this.secToMilli(0.365);
+		set_perception("pending", null, null);
+		this.applyNewInputs();
 		this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
 	}
 	private void init_VCWM() {
@@ -212,6 +215,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	private void init_stroop() {
 		sttask.init();
 		sttask.starttime = this.getElapsedTime() + 1000l;
+		set_perception("pending", null, null);
+		this.applyNewInputs();
 		this.scheduleInput(1.0, Arrays.asList("yes", null, null));
 	}
 	
@@ -349,10 +354,12 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	@Override
 	protected void user_agentStop() {
 		if (inDebug) {
-			/*if (this.taskName.equals("verbal-CWM")) {
-				this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
+			if (this.getTask().equals("verbal-CWM")) {
+				set_perception("pending", null, null);
+				this.applyNewInputs();
+				//this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
 			}
-			else */if (this.getTask().equals("stroop")) {
+			else if (this.getTask().equals("stroop")) {
 				init_stroop();
 			}
 		}

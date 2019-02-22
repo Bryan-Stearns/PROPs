@@ -4,15 +4,15 @@ chunk add-ltm-links on
 
 chunk confidence-threshold 3
 
-#explain all on
+explain all on
 #explain justifications on
-#vis color on
+vis color on
 
 #watch --learn 2
 #watch --learning print
 #watch --backtracing
 
-#decide set-random-seed 42
+decide set-random-seed 42
 
 smem --set activation-mode base-level
 smem --set base-update-policy naive
@@ -44,16 +44,17 @@ multi-attributes prop-link 5
 multi-attributes prop-ltm 5
 multi-attributes propose 6
 
-chunk singleton state literalize constant
-chunk singleton identifier condition constant
-chunk singleton identifier action constant
-chunk singleton identifier prop identifier
+#chunk singleton state literalize constant
+#chunk singleton identifier condition constant
+#chunk singleton identifier action constant
+#chunk singleton identifier prop identifier
 chunk singleton state const identifier
-chunk singleton identifier prop-count constant
+#chunk singleton identifier prop-count constant
 chunk singleton identifier name constant
-chunk singleton identifier propose identifier
-chunk singleton state props-buffer identifier
+#chunk singleton identifier propose identifier
+#chunk singleton state props-buffer identifier
 chunk singleton operator items identifier
+chunk singleton operator delta identifier
 chunk singleton identifier prop-type constant
 chunk singleton identifier id1 identifier
 chunk singleton identifier id2 identifier

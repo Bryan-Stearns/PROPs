@@ -39,27 +39,40 @@
 # GIVE EACH SUBSTATE AN APPLY BUFFER IN WHICH TO STAGE BATCH RESULTS
 
 sp {elaborate*apply-buffer
-    (state <s> ^type state)
+    (state <s> ^superstate nil)
 -->
     (<s> ^prop-apply-buffer <b>
          ^locks <k>)
 }
-sp {elaborate*apply-buffer*working-apply
-    "Make the empty apply structure that substate application ops will build onto."
-    (state <s> ^prop-apply-buffer <b>
-               ^superstate {<ss> <> nil})
+sp {elaborate*apply-buffer*cascade
+    (state <s> ^props-epset
+               ^impasse )
 -->
+    (<s> ^prop-apply-buffer <b>)
+}
+
+sp {elaborate*working-buffer*begin
+    "Make the empty apply structure that substate application ops will build onto."
+    (state <s> ^superstate <ss>)
+    (<ss> ^const)
+-->
+    (<s> ^prop-working-buffer <b>)
     (<b> ^apply <a>)
     # If we've entered an impasse, we need to chunk this state before chunking the superstate.
     (dont-learn <ss>)
 }
+
 
 sp {elaborate*props*apply-buffer*nonempty
     (state <s> ^prop-apply-buffer.apply.delta-action <any>)
 -->
     (<s> ^props-flag apply-buffer-nonempty)
 }
-
+sp {elaborate*props*working-buffer*nonempty
+    (state <s> ^prop-working-buffer.apply.delta-action <any>)
+-->
+    (<s> ^props-flag working-buffer-nonempty)
+}
 
 # RESET THE BUFFER ON TASK FINISH
 sp {lib*actr*apply*finish*apply-buffer
@@ -109,6 +122,23 @@ sp {elaborate*props*apply-buffer*locks
 #-->
 #    (<b> ^apply <b2> -)
 #} # Use this rule if assuming joint actions share support, not independent
+
+# Mark that old applies need to be removed (so newer proposals don't get proposed until quiescent here)
+sp {elaborate*props*apply-buffer*not-quiescent
+    (state <s> ^prop-apply-buffer <b>)
+    (<b> ^apply <b1>
+         ^apply {<b2> <> <b1>})
+    (<b1> ^delta-action <d1any>
+          ^dc-stamp <dc>)
+    (<b2> ^delta-action <d2any>
+          ^dc-stamp > <dc>)    # <b1> is older
+    (<d1any> ^id1 <id>
+             ^attr1 <attr>)
+    (<d2any> ^id1 <id>         # they share a target address
+             ^attr1 <attr>)
+-->
+    (<d2any> ^apply-not-quiescent true)
+}
 sp {set*props*apply-buffer*overwrite
     "If new apply uses previously locked slots, remove old competing apply"
     :o-support
@@ -159,6 +189,7 @@ sp {elaborate*props*apply-delta*add
     (<pa> ^delta-action <d>)
     (<d> ^name <cname>
          ^prop-type add
+        -^apply-not-quiescent true
          ^id1 <id1>
          ^attr1 <attr1>
          ^val <val>)
@@ -172,6 +203,7 @@ sp {elaborate*props*apply-delta*remove
     (<pa> ^delta-action <d>)
     (<d> ^name <cname>
          ^prop-type remove
+        -^apply-not-quiescent true
          ^id1 <id1>
          ^attr1 <attr1>)
 -->
@@ -199,6 +231,7 @@ sp {set*props*apply-delta*add-object-aug
           ^dest-id <id1>
           ^dc-stamp <dc>)
     (<d> ^prop-type add
+        -^apply-not-quiescent true
          ^id1 <id1>
          ^attr1 <attr1>
          ^val <val>)

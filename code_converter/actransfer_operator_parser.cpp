@@ -127,7 +127,8 @@ void actransfer_operator_parser::initSlotRefMap() {
 		{"RTnext", "s.RT.WMnext"},
 		{"RT1", "s.smem.rt-result"},
 		{"RTid", "s.RT.RTid"},
-		{"AC1", "s.AC.action.slot1"}
+		{"AC1", "s.AC.action.slot1"},
+		{"Vtask", "s.V.task"}
 	};
 }
 
@@ -298,8 +299,8 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 	sToken = nextToken(ss);	// read first condition reference
 
 	// Add universal condition testing the current task
-	conditions.push_back(Primitive("==", "s.G.Gtask", currTaskName));
-	condConsts.push_back(currTaskName);
+	/*conditions.push_back(Primitive("==", "s.G.Gtask", currTaskName));
+	condConsts.push_back(currTaskName);*/
 
 	// Read conditions until finding closing parenthesis
 	while (sToken.compare(")") != 0) {
@@ -376,7 +377,17 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 
 	// Check syntax
 	sToken = nextToken(ss);
-	if (sToken.compare(":action")) {
+	if (!sToken.compare(":subgoal")) {
+		// This is an operator proposal only, without other actions (for an ONC subgoal).
+		// Get the operator name
+		nextToken(ss);			// read '"'
+		sToken = nextToken(ss); // read operator/subgoal name
+		condConsts.insert(condConsts.begin(), sToken);
+		// Skip to the next rule
+		actions.clear();
+		return true;
+	}
+	else if (sToken.compare(":action")) {
 		printParseError("Invalid instruction. Expected ':action'.", true);
 	}
 	nextToken(ss); 			// read "("
@@ -480,7 +491,7 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 					continue;
 
 				// If this is making a newWM, check for the WMprev value if any
-				if (i == wmprev_ind && buff.compare("newWM") == 0 && std::find(src_bufferIDs.begin(), src_bufferIDs.end(), src) != src_bufferIDs.end()) {
+				if ((int)i == wmprev_ind && !buff.compare("newWM") && std::find(src_bufferIDs.begin(), src_bufferIDs.end(), src) != src_bufferIDs.end()) {
 					dst = "s.NW.wm.WMprev";
 				}
 				else {
@@ -634,7 +645,7 @@ void actransfer_operator_parser::buildPropCode(std::string &retval, const std::s
 
 // Split a given dot-notation string at the last dot and return the segments
 bool splitDotChain(std::string const &original, std::string &front, std::string &back) {
-	int dotPos = original.find_last_of('.');
+	size_t dotPos = original.find_last_of('.');
 	if (dotPos == std::string::npos) {
 		dotPos = original.size();
 		front = original;
@@ -931,23 +942,25 @@ void actransfer_operator_parser::buildPropOperator(std::string &proposeRule, std
 	buildPropCode(proposeRule, currRuleName, condConsts, conditions, opActions);
 
 	// *** APPLY RULE ***
-	currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
-	// Make the operator-proposal action
-	std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", "const1")};
-	buildPropCode(applyRule, currRuleName, actConsts, opConds, actions);
+	if (actions.size() > 0) {	// Some proposals will be for subgoals/ONCs and won't have direct application rules
+		currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
+		//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+		// Make the operator-proposal action
+		std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", "const1")};
+		buildPropCode(applyRule, currRuleName, actConsts, opConds, actions);
+	}
 }
 
 // Build a pair of sp rules for an operator proposal+apply
 void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std::string &applyRule,
-		const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions)
+		const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, const std::string &opName)
 {
 	std::string currRuleName;
 	std::string h2 = "";
-	std::string opName = projectName + "-" + currTaskName + "-" + currRule_h1;
+	//std::string opName = projectName + "-" + currTaskName + "-" + currRule_h1;
 	if (currRule_h2.length() > 0) {
 		h2 = "*" + currRule_h2;
-		opName += "-" + currRule_h2;
+		//opName += "-" + currRule_h2;
 	}
 
 	auto negTestRefs = std::vector<std::string>();
@@ -961,26 +974,33 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 	buildSoarCode(proposeRule, currRuleName, conditions, opActions, negTestRefs);
 
 	// *** APPLY RULE ***
-	currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
-	//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
-	// Make the operator-proposal action
-	std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", opName)};
-	buildSoarCode(applyRule, currRuleName, opConds, actions, negTestRefs);
+	if (actions.size() > 0) {	// Some proposals will be for subgoals/ONCs and won't have direct application rules
+		currRuleName = "apply*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
+		//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
+		// Make the operator-proposal action
+		std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", opName)};
+		buildSoarCode(applyRule, currRuleName, opConds, actions, negTestRefs);
+	}
 }
 
-std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives) {
+std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, const bool insertOpName) {
 	int i = 2;
 	auto constIds = std::map<std::string, int>();
 	auto constDecls = std::vector<std::string>();	// Pre-generate the output const declarations
 	newprimitives = primitives;
 
-	// Insert the operator name constant - it's used by all rules we generate
-	std::string h2 = "";
-	if (currRule_h2.length() > 0)
-		h2 = "-" + currRule_h2;
-	std::string opName = projectName + "-" + currTaskName + "-" + currRule_h1 + h2;
-	constDecls.push_back(CONST_NAME + "1 " + opName);
-	constIds[opName] = 1;
+	if (insertOpName) {
+		// Insert the operator name constant - it's used by all rules we generate
+		std::string h2 = "";
+		if (currRule_h2.length() > 0)
+			h2 = "-" + currRule_h2;
+		std::string opName = projectName + "-" + currTaskName + "-" + currRule_h1 + h2;
+		constDecls.push_back(CONST_NAME + "1 " + opName);
+		constIds[opName] = 1;
+	}
+	else {
+		i = 1;
+	}
 
 	for (std::string &s : rawConsts) {
 		if (!constIds.count(s)) {
@@ -1007,6 +1027,7 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 	std::stringstream ss;
 	lineNumber = 1;
 	std::string lastTaskName = "";
+	std::string opName = "";
 
 	nextLine(ss);	// needed to init nextToken usage
 
@@ -1020,7 +1041,7 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		auto actions = std::vector<Primitive>();
 		auto cmtDirectives = std::vector<std::string>();			// Any ordered comment directives before this rule
 
-		// Get the conditions and actions
+		// Get the conditions and actions for the next rule
 		if (!getRawProps(ss, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
 			propRules.clear();
 			return;
@@ -1031,8 +1052,8 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		nextLine(ss);
 
 		// Find ordering of non-duplicate constants
-		auto condConsts = refineConsts(condRawConsts, rawConditions, conditions);
-		auto actConsts = refineConsts(actRawConsts, rawActions, actions);
+		auto condConsts = refineConsts(condRawConsts, rawConditions, conditions, (rawActions.size() > 0));
+		auto actConsts = refineConsts(actRawConsts, rawActions, actions, true);
 
 		// Separate id chains to
 
@@ -1051,8 +1072,18 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		// Construct Soar code
 		proposeRule = "";
 		applyRule = "";
+
+		if (actions.size() > 0) {
+			opName = projectName + "-" + currTaskName + "-" + currRule_h1;
+			if (currRule_h2.length() > 0) {
+				opName += "-" + currRule_h2;
+			}
+		}
+		else {
+			opName = condConsts.back();
+		}
 		try {
-			buildSoarOperator(proposeRule, applyRule, rawConditions, rawActions);
+			buildSoarOperator(proposeRule, applyRule, rawConditions, rawActions, opName);
 		} catch (...) {
 			std::cerr << "ERROR: Couldn't build Soar code.\n" << std::endl;
 			return;

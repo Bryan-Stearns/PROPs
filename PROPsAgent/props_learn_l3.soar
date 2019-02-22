@@ -1,0 +1,14 @@
+#####    Author: Bryan Stearns, 2019
+#   This code (a single rule) turns on learning of autonomous behavior. (called "L3" learning in PROP1)
+#	Without this enabled, all operators will required fetching to execute.
+#####
+
+sp {apply*props*retrieve-epset*success*force-learn
+	"Turn on learning for the state underneath the topstate."
+    (state <s> ^operator.name props-retrieve-epset
+               ^smem.result.retrieved <e>
+              -^props-epset)
+-->
+    (force-learn <s>)
+}
+

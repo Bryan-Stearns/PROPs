@@ -14,7 +14,7 @@ public class SMLClient {
 
 		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
 		//expList.add(new LearnConfig("12s", 10));
-		expList.add(new LearnConfig("123s", 10));
+		expList.add(new LearnConfig("1", 10));
 
 		CheinMorrisonWorld world = new CheinMorrisonWorld(true);
 		//world.setUseProps(false);
@@ -23,8 +23,8 @@ public class SMLClient {
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
-		world.runCheinDebug("verbal-CWM", 1, "s23");
-		//world.runCheinDebug("stroop", 1, "sc123");
+		world.runCheinDebug("verbal-CWM", 1, "1");
+		//world.runCheinDebug("stroop", 1, "13");
 		
 		//world.makePreChunks();
 	}

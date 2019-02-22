@@ -12,7 +12,7 @@ def convertData(path, timepath, domain, actions):
     #DC_TIME = 0.05
     
     DELIM = "\t"
-    COUNT_IMPASSES = False
+    COUNT_IMPASSES = True
     
     #PRIM_TIME = 0.4     # Add DECLARATIVE retrieval time for each primitive
     LTM_TIME = 0.4
@@ -49,7 +49,7 @@ def convertData(path, timepath, domain, actions):
             if COUNT_IMPASSES or opLabInd != -1:
                 proc_dc += 1
             # Count simulated LTM retrieval time, separate from decision cycle time
-            if re.match(r'props-load|props-query', line[opNameInd+1:]):
+            if re.match(r'props-load', line[opNameInd+1:]):
                 ltm_count += 1
                 proc_dc -= 2    # Undo the count for the query and for the corresponding 'retrieve' operator            
             # Count simulated instruction element retrieval time, separate from decision cycle time
@@ -130,7 +130,7 @@ def main():
     actions = ['next-instruction']
     '''
     
-    conv_types = ['l1e']
+    conv_types = ['l12']
     samples = ['2']
     
     T = ['10']
