@@ -203,7 +203,7 @@ sp {elaborate*props*epset*delta*cond*negation
          ^cond-id1 <cid1>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
-    (<c> ^prop-type negation
+    (<c> ^prop-type << negation inexistence >>  # Negation also satisfies inexistence
          ^name <cname>
          ^attr1 <attr1>)
     (<id1> -^<attr1> <val>)

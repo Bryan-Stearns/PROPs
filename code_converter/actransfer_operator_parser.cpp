@@ -120,6 +120,7 @@ void actransfer_operator_parser::initSlotRefMap() {
 		{"Gtop","s.G.Gtop"},
 		{"Gtask", "s.G.Gtask"},
 		{"Gparent", "s.G.Gparent"},
+		{"Ggoal", "s.G.Ggoal"},
 		{"WMid", "s.WM"},
 		{"WMprev", "s.WM.WMprev"},
 		{"WMnext", "s.WM.WMnext"},
@@ -339,13 +340,13 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				op = "";
 			}
 		}
-		else if (!op.compare("!=")) {
+		/*else if (!op.compare("!=")) {
 			// Special value-negation test (versus inequality test for existence of a different value)
 			p2 = sToken;
 			if (slotRefMap.find(sToken) == slotRefMap.end()) {
 				condConsts.push_back(p2);
 			}
-		}
+		}*/
 		else {
 			it = slotRefMap.find(sToken);
 			if (it != slotRefMap.end()) {

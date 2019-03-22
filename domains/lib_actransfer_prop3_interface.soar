@@ -132,10 +132,20 @@ sp {lib*actr*elaborate*visual*in
 	(<il> ^<attr> <val>)
 	-{(<s> ^locks.lock <l>)
 	  (<l> ^id1 <v>
-		   ^attr1 <attr>)}		# Locks enabled using props_epsets.soar
+		   ^attr1 <attr>)}		# Locks defined in props_apply_buffer.soar
 -->
 	(<v> ^<attr> <val>)
 	#(write |* Loading V.| <attr> | | <val> |  | )
+}
+sp {lib*actr*elaborate*visual*debug*in-1
+	(state <s> ^V <v>
+				^io.input-link <il>)
+	(<il> ^slot1 <i1>
+		-^slot2)
+-->
+	#(<v> ^Vlabel <i1>
+	#	^Vvalue <i2>)
+	(write (crlf) |Read: "| <i1> |"|)
 }
 sp {lib*actr*elaborate*visual*debug*in-2
 	(state <s> ^V <v>
@@ -144,8 +154,6 @@ sp {lib*actr*elaborate*visual*debug*in-2
 		^slot2 <i2>
 		-^slot3)
 -->
-	#(<v> ^Vlabel <i1>
-	#	^Vvalue <i2>)
 	(write (crlf) |Read: "| <i1> |" "| <i2> |"|)
 }
 sp {lib*actr*elaborate*visual*debug*in-3
@@ -183,6 +191,15 @@ sp {lib*actr*elaborate*input*task
 	(<g> ^Gtask <task>)
 	(write (crlf) |*** TASK SET TO | <task> | ***| )
 }
+
+# Elaborate operator names as task names
+#sp {lib*actr*elaborate*operator-goal
+#	(state <s> ^topstate <ts>
+#				^props-epset.props-epset-name <name>)
+#	(<ts> ^G <g>)
+#-->
+#	(<g> ^Ggoal <name>)
+#}
 
 # DEBUG PRINT OUTPUT: Assuming action slots follow certain format
 sp {lib*actr*elaborate*action*output-1
@@ -510,10 +527,17 @@ sp {lib*actr*set*update-wmnext*remove		# (Never fires apparently)
 
 # ADD WAIT OPERATOR BEHAVIOR
 sp {lib*actr*propose*wait
-	(state <s> ^io.input-link.slot1 |pending|
+	(state <s> ^topstate.io.input-link.slot1 |pending|
 				-^operator.name |wait-pending|)
 -->
 	(<s> ^operator <o> + = <)
+	(<o> ^name wait-pending)
+}
+sp {lib*actr*propose*idle
+	(state <s> ^superstate.operator.name |wait|
+				-^operator.name |wait-pending|)
+-->
+	(<s> ^operator <o> + > !)
 	(<o> ^name wait-pending)
 }
 

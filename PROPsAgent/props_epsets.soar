@@ -12,7 +12,7 @@
 #   props-epset-return                      | Return apply-buffer actions up to the superstate's apply-buffer
 #   
 ##        STRUCTURE
-#  (<s> ^G.Gtask <taskname>                 | The source of the epset name (task context)
+#  (<s> ^V.task <taskname>                  | The source of the epset name (task context)
 #       ^topstate <ts>                      | The topstate pointer, elaborated to all states
 #       ^const <c>                          | The object containing task-specific literals for a delta, elaborated here once the delta is selected
 #       ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
@@ -79,7 +79,8 @@ sp {elaborate*superstate*consts
 
 sp {propose*props*eval*query*epset*topstate
     "Load an epset to bias fetching for the task"
-    (state <s> ^G.Gtask {<task> <> finish}    # Finish triggers interface response
+    (state <s> ^V.task {<task> <> finish}    # Finish triggers interface response
+               ^superstate nil
               -^smem.result.<< retrieved failure >>
               -^props-epset.props-epset-name <task>)
 -->
@@ -254,11 +255,12 @@ sp {apply*props*retrieve-cbset*success*new
 sp {apply*props*retrieve-cbset*success*force-learn
     "Turn on learning for all substates except the one that returns to the topstate."
     (state <s> ^operator.name props-retrieve-cbset
-               ^superstate.superstate <> nil
+               ^superstate.superstate {<ss> <> nil}
                ^smem.result.retrieved <e>
               -^props-cbset)
 -->
     (force-learn <s>)
+    (force-learn <ss>)
 }
 # Source props_learn_l3.soar to enable chunking of the last layer.
 

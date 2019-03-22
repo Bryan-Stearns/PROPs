@@ -1,0 +1,496 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'CheinMorrisonNR_hier.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+# add-instr verbal-CWM
+# ;~ init
+pp {propose*cheinNRH*verbal-CWM*init
+	const1 cheinNRH-verbal-CWM-init
+	--
+	s.G.Gtop -
+	s.G.Gcontrol -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*init
+	const1 cheinNRH-verbal-CWM-init
+	const2 lexdec
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.G.Gtop = s.WM
+}
+# add-instr verbal-CWM
+# ;~ retrieve
+pp {propose*cheinNRH*verbal-CWM*retrieve
+	const1 cheinNRH-verbal-CWM-retrieve
+	const2 word
+	const3 lexdec
+	--
+	s.V.slot1 == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*retrieve
+	const1 cheinNRH-verbal-CWM-retrieve
+	const2 word
+	const3 is-word
+	const4 query
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.Q.query.q-type = const4
+	s.Q.query.slot1 = const3
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr verbal-CWM
+# ;~ success
+pp {propose*cheinNRH*verbal-CWM*success
+	const1 cheinNRH-verbal-CWM-success
+	const2 yes
+	const3 word
+	--
+	s.RT.slot3 == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*success
+	const1 cheinNRH-verbal-CWM-success
+	const2 lexdec
+	const3 type
+	const4 Y
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+	s.AC.action.slot2 = const4
+	s.flags.clear-rt = const1
+}
+# add-instr verbal-CWM
+# ;~ fail
+pp {propose*cheinNRH*verbal-CWM*fail
+	const1 cheinNRH-verbal-CWM-fail
+	const2 error
+	const3 word
+	--
+	s.smem.rt-result == const2
+	s.G.Gcontrol == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*fail
+	const1 cheinNRH-verbal-CWM-fail
+	const2 lexdec
+	const3 type
+	const4 N
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+	s.AC.action.slot2 = const4
+	s.flags.clear-rt = const1
+}
+# add-instr verbal-CWM
+# ;~ store-wm
+pp {propose*cheinNRH*verbal-CWM*store-wm
+	const1 cheinNRH-verbal-CWM-store-wm
+	const2 letter
+	const3 lexdec
+	--
+	s.V.slot1 == const2
+	s.G.Gcontrol == const3
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*store-wm
+	const1 cheinNRH-verbal-CWM-store-wm
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.V.slot2
+	s.AC.action.slot1 = const2
+}
+# add-instr verbal-CWM
+# ;~ store-dm
+pp {propose*cheinNRH*verbal-CWM*store-dm
+	const1 cheinNRH-verbal-CWM-store-dm
+	const2 letter
+	const3 lexdec
+	--
+	s.V.slot1 == const2
+	s.G.Gcontrol == const3
+	s.WM.slot1 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*verbal-CWM*store-dm
+	const1 cheinNRH-verbal-CWM-store-dm
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.NW.wm.slot1 = s.V.slot2
+	s.NW.wm.WMprev = s.WM
+	s.AC.action.slot1 = const2
+}
+# add-instr verbal-CWM
+# ;~ report
+pp {propose*cheinNRH*verbal-CWM*report
+	const1 VCWM-report
+	const2 report
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr VCWM-rehearse
+# ;~ start
+pp {propose*cheinNRH*VCWM-rehearse*start
+	const1 cheinNRH-VCWM-rehearse-start
+	--
+	s.smem.rt-result -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-rehearse*start
+	const1 cheinNRH-VCWM-rehearse-start
+	const2 retrieve
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+}
+# add-instr VCWM-rehearse
+# ;~ next
+pp {propose*cheinNRH*VCWM-rehearse*next
+	const1 cheinNRH-VCWM-rehearse-next
+	const2 error
+	--
+	s.smem.rt-result <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-rehearse*next
+	const1 cheinNRH-VCWM-rehearse-next
+	const2 wm-query
+	--
+	s.operator.name == const1
+-->
+	s.Q.wm-query.root = s.RT.RTid
+	s.Q.wm-query.q-type = const2
+}
+# add-instr VCWM-rehearse
+# ;~ restart
+pp {propose*cheinNRH*VCWM-rehearse*restart
+	const1 cheinNRH-VCWM-rehearse-restart
+	const2 error
+	--
+	s.smem.rt-result == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-rehearse*restart
+	const1 cheinNRH-VCWM-rehearse-restart
+	const2 retrieve
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+}
+# add-instr prepare
+# ;~ VCWM
+pp {propose*cheinNRH*prepare*VCWM
+	const1 VCWM-rehearse
+	const2 verbal-CWM
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr prepare
+# ;~ stroop
+pp {propose*cheinNRH*prepare*stroop
+	const1 stroop-focus
+	const2 stroop
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr idle
+# ;~ wait
+pp {propose*cheinNRH*idle*wait
+	const1 cheinNRH-idle-wait
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*idle*wait
+	const1 cheinNRH-idle-wait
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr VCWM-report
+# ;~ start
+pp {propose*cheinNRH*VCWM-report*start
+	const1 cheinNRH-VCWM-report-start
+	const2 report
+	--
+	s.WM.slot3 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-report*start
+	const1 cheinNRH-VCWM-report-start
+	const2 retrieve
+	const3 report
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+	s.WM.slot3 = const3
+}
+# add-instr VCWM-report
+# ;~ report
+pp {propose*cheinNRH*VCWM-report*report
+	const1 cheinNRH-VCWM-report-report
+	const2 error
+	const3 report
+	--
+	s.smem.rt-result <> const2
+	s.WM.slot3 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-report*report
+	const1 cheinNRH-VCWM-report-report
+	const2 type
+	const3 wm-query
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot1
+	s.Q.wm-query.root = s.RT.RTid
+	s.Q.wm-query.q-type = const3
+}
+# add-instr VCWM-report
+# ;~ finish
+pp {propose*cheinNRH*VCWM-report*finish
+	const1 cheinNRH-VCWM-report-finish
+	const2 error
+	const3 report
+	--
+	s.smem.rt-result == const2
+	s.WM.slot3 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*VCWM-report*finish
+	const1 cheinNRH-VCWM-report-finish
+	const2 enter
+	const3 finish
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.G.Gtask = const3
+	s.flags.clear-rt = const1
+}
+# add-instr stroop
+# ;~ init
+pp {propose*cheinNRH*stroop*init
+	const1 cheinNRH-stroop-init
+	--
+	s.G.Gcontrol -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop*init
+	const1 cheinNRH-stroop-init
+	const2 neutral
+	const3 wait
+	--
+	s.operator.name == const1
+-->
+	s.G.Gcontrol = const2
+	s.AC.action.slot1 = const3
+}
+# add-instr stroop
+# ;~ focus
+pp {propose*cheinNRH*stroop*focus
+	const1 prepare
+	const2 pending
+	--
+	s.V.slot1 == const2
+	s.G.Gcontrol 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop
+# ;~ no-focus
+pp {propose*cheinNRH*stroop*no-focus
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+	s.G.Gcontrol 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop
+# ;~ focus-all
+pp {propose*cheinNRH*stroop*focus-all
+	const1 cheinNRH-stroop-focus-all
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.V.slot2 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop*focus-all
+	const1 cheinNRH-stroop-focus-all
+	const2 get-property
+	const3 both
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+# add-instr stroop
+# ;~ report
+pp {propose*cheinNRH*stroop*report
+	const1 stroop-report
+	--
+	s.V.slot2 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop
+# ;~ finish
+pp {propose*cheinNRH*stroop*finish
+	const1 cheinNRH-stroop-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop*finish
+	const1 cheinNRH-stroop-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr stroop-focus
+# ;~ stroop-focus-color
+pp {propose*cheinNRH*stroop-focus*stroop-focus-color
+	const1 cheinNRH-stroop-focus-stroop-focus-color
+	const2 yes
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop-focus*stroop-focus-color
+	const1 cheinNRH-stroop-focus-stroop-focus-color
+	const2 get-property
+	const3 color-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+	s.G.Gtask = s.G.Gparent
+	s.flags.clear-rt = const1
+}
+# add-instr stroop-report
+# ;~ retrieve
+pp {propose*cheinNRH*stroop-report*retrieve
+	const1 cheinNRH-stroop-report-retrieve
+	--
+	s.G.Gcontrol 
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop-report*retrieve
+	const1 cheinNRH-stroop-report-retrieve
+	const2 s-mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr stroop-report
+# ;~ say
+pp {propose*cheinNRH*stroop-report*say
+	const1 cheinNRH-stroop-report-say
+	--
+	s.G.Gcontrol 
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*cheinNRH*stroop-report*say
+	const1 cheinNRH-stroop-report-say
+	const2 say
+	const3 reported
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.G.Gcontrol = const3
+	s.flags.clear-rt = const1
+}

@@ -1,0 +1,932 @@
+#####
+# THIS FILE TRANSLATES THE PROPS INSTRUCTIONS
+# FROM 'cheinNRH_agent3.prop' INTO SMEM INSTRUCTIONS USABLE
+# BY A PROPS SOAR AGENT.
+#####
+
+# BEGIN INSTRUCTIONS
+
+smem --add {
+(<delta_PA11_PA3> ^prop-apply true
+	^op-name |_PA11_PA3|
+	^item-name |_PA11|
+	^item-name |_PA3|)
+(<cbset_PA11_PA3> ^props-cbset-name |_PA11_PA3|
+	 ^delta <delta_PA11>
+	 ^delta <delta_PA3>)
+(<delta_PA12_PA13> ^prop-apply true
+	^op-name |_PA12_PA13|
+	^item-name |_PA12|
+	^item-name |_PA13|)
+(<cbset_PA12_PA13> ^props-cbset-name |_PA12_PA13|
+	 ^delta <delta_PA12>
+	 ^delta <delta_PA13>)
+(<delta_PA13_PA17> ^prop-apply true
+	^op-name |_PA13_PA17|
+	^item-name |_PA13|
+	^item-name |_PA17|)
+(<cbset_PA13_PA17> ^props-cbset-name |_PA13_PA17|
+	 ^delta <delta_PA13>
+	 ^delta <delta_PA17>)
+(<delta_PA13_PA38> ^prop-apply true
+	^op-name |_PA13_PA38|
+	^item-name |_PA13|
+	^item-name |_PA38|)
+(<cbset_PA13_PA38> ^props-cbset-name |_PA13_PA38|
+	 ^delta <delta_PA13>
+	 ^delta <delta_PA38>)
+(<delta_PA16_PA17> ^prop-apply true
+	^op-name |_PA16_PA17|
+	^item-name |_PA16|
+	^item-name |_PA17|)
+(<cbset_PA16_PA17> ^props-cbset-name |_PA16_PA17|
+	 ^delta <delta_PA16>
+	 ^delta <delta_PA17>)
+(<delta_PA17_PA32> ^prop-apply true
+	^op-name |_PA17_PA32|
+	^item-name |_PA17|
+	^item-name |_PA32|)
+(<cbset_PA17_PA32> ^props-cbset-name |_PA17_PA32|
+	 ^delta <delta_PA17>
+	 ^delta <delta_PA32>)
+(<delta_PA17_PA36> ^prop-apply true
+	^op-name |_PA17_PA36|
+	^item-name |_PA17|
+	^item-name |_PA36|)
+(<cbset_PA17_PA36> ^props-cbset-name |_PA17_PA36|
+	 ^delta <delta_PA17>
+	 ^delta <delta_PA36>)
+(<delta_PA19_PA20> ^prop-apply true
+	^op-name |_PA19_PA20|
+	^item-name |_PA19|
+	^item-name |_PA20|)
+(<cbset_PA19_PA20> ^props-cbset-name |_PA19_PA20|
+	 ^delta <delta_PA19>
+	 ^delta <delta_PA20>)
+(<delta_PA22_PA23> ^prop-apply true
+	^op-name |_PA22_PA23|
+	^item-name |_PA22|
+	^item-name |_PA23|)
+(<cbset_PA22_PA23> ^props-cbset-name |_PA22_PA23|
+	 ^delta <delta_PA22>
+	 ^delta <delta_PA23>)
+(<delta_PA25_PA26> ^prop-apply true
+	^op-name |_PA25_PA26|
+	^item-name |_PA25|
+	^item-name |_PA26|)
+(<cbset_PA25_PA26> ^props-cbset-name |_PA25_PA26|
+	 ^delta <delta_PA25>
+	 ^delta <delta_PA26>)
+(<delta_PA25_PA31> ^prop-apply true
+	^op-name |_PA25_PA31|
+	^item-name |_PA25|
+	^item-name |_PA31|)
+(<cbset_PA25_PA31> ^props-cbset-name |_PA25_PA31|
+	 ^delta <delta_PA25>
+	 ^delta <delta_PA31>)
+(<delta_PA36_PA39> ^prop-apply true
+	^op-name |_PA36_PA39|
+	^item-name |_PA36|
+	^item-name |_PA39|)
+(<cbset_PA36_PA39> ^props-cbset-name |_PA36_PA39|
+	 ^delta <delta_PA36>
+	 ^delta <delta_PA39>)
+(<delta_PA3_PA4> ^prop-apply true
+	^op-name |_PA3_PA4|
+	^item-name |_PA3|
+	^item-name |_PA4|)
+(<cbset_PA3_PA4> ^props-cbset-name |_PA3_PA4|
+	 ^delta <delta_PA3>
+	 ^delta <delta_PA4>)
+(<delta_PA3_PA9> ^prop-apply true
+	^op-name |_PA3_PA9|
+	^item-name |_PA3|
+	^item-name |_PA9|)
+(<cbset_PA3_PA9> ^props-cbset-name |_PA3_PA9|
+	 ^delta <delta_PA3>
+	 ^delta <delta_PA9>)
+(<delta_PA41_PA42> ^prop-apply true
+	^op-name |_PA41_PA42|
+	^item-name |_PA41|
+	^item-name |_PA42|)
+(<cbset_PA41_PA42> ^props-cbset-name |_PA41_PA42|
+	 ^delta <delta_PA41>
+	 ^delta <delta_PA42>)
+(<delta_PA44_PA45> ^prop-apply true
+	^op-name |_PA44_PA45|
+	^item-name |_PA44|
+	^item-name |_PA45|)
+(<cbset_PA44_PA45> ^props-cbset-name |_PA44_PA45|
+	 ^delta <delta_PA44>
+	 ^delta <delta_PA45>)
+(<delta_PA7_PA8> ^prop-apply true
+	^op-name |_PA7_PA8|
+	^item-name |_PA7|
+	^item-name |_PA8|)
+(<cbset_PA7_PA8> ^props-cbset-name |_PA7_PA8|
+	 ^delta <delta_PA7>
+	 ^delta <delta_PA8>)
+(<delta_PA11_PA12_PA13_PA3> ^prop-apply true
+	^op-name |_PA11_PA12_PA13_PA3|
+	^item-name |_PA11|
+	^item-name |_PA3|
+	^item-name |_PA12|
+	^item-name |_PA13|)
+(<cbset_PA11_PA12_PA13_PA3> ^props-cbset-name |_PA11_PA12_PA13_PA3|
+	 ^delta <delta_PA11_PA3>
+	 ^delta <delta_PA12_PA13>)
+(<delta_PA13_PA17_PA33> ^prop-apply true
+	^op-name |_PA13_PA17_PA33|
+	^item-name |_PA13|
+	^item-name |_PA17|
+	^item-name |_PA33|)
+(<cbset_PA13_PA17_PA33> ^props-cbset-name |_PA13_PA17_PA33|
+	 ^delta <delta_PA13_PA17>
+	 ^delta <delta_PA33>)
+(<delta_PA13_PA17_PA36_PA39> ^prop-apply true
+	^op-name |_PA13_PA17_PA36_PA39|
+	^item-name |_PA13|
+	^item-name |_PA17|
+	^item-name |_PA36|
+	^item-name |_PA39|)
+(<cbset_PA13_PA17_PA36_PA39> ^props-cbset-name |_PA13_PA17_PA36_PA39|
+	 ^delta <delta_PA13_PA17>
+	 ^delta <delta_PA36_PA39>)
+(<delta_PA13_PA17_PA44_PA45> ^prop-apply true
+	^op-name |_PA13_PA17_PA44_PA45|
+	^item-name |_PA13|
+	^item-name |_PA17|
+	^item-name |_PA44|
+	^item-name |_PA45|)
+(<cbset_PA13_PA17_PA44_PA45> ^props-cbset-name |_PA13_PA17_PA44_PA45|
+	 ^delta <delta_PA13_PA17>
+	 ^delta <delta_PA44_PA45>)
+(<delta_PA17_PA19_PA20> ^prop-apply true
+	^op-name |_PA17_PA19_PA20|
+	^item-name |_PA17|
+	^item-name |_PA19|
+	^item-name |_PA20|)
+(<cbset_PA17_PA19_PA20> ^props-cbset-name |_PA17_PA19_PA20|
+	 ^delta <delta_PA17>
+	 ^delta <delta_PA19_PA20>)
+(<delta_PA17_PA25_PA31_PA32> ^prop-apply true
+	^op-name |_PA17_PA25_PA31_PA32|
+	^item-name |_PA17|
+	^item-name |_PA32|
+	^item-name |_PA25|
+	^item-name |_PA31|)
+(<cbset_PA17_PA25_PA31_PA32> ^props-cbset-name |_PA17_PA25_PA31_PA32|
+	 ^delta <delta_PA17_PA32>
+	 ^delta <delta_PA25_PA31>)
+(<delta_PA22_PA23_PA29> ^prop-apply true
+	^op-name |_PA22_PA23_PA29|
+	^item-name |_PA22|
+	^item-name |_PA23|
+	^item-name |_PA29|)
+(<cbset_PA22_PA23_PA29> ^props-cbset-name |_PA22_PA23_PA29|
+	 ^delta <delta_PA22_PA23>
+	 ^delta <delta_PA29>)
+(<delta_PA3_PA7_PA8_PA9> ^prop-apply true
+	^op-name |_PA3_PA7_PA8_PA9|
+	^item-name |_PA3|
+	^item-name |_PA9|
+	^item-name |_PA7|
+	^item-name |_PA8|)
+(<cbset_PA3_PA7_PA8_PA9> ^props-cbset-name |_PA3_PA7_PA8_PA9|
+	 ^delta <delta_PA3_PA9>
+	 ^delta <delta_PA7_PA8>)
+(<delta_PA41_PA42_PA9> ^prop-apply true
+	^op-name |_PA41_PA42_PA9|
+	^item-name |_PA41|
+	^item-name |_PA42|
+	^item-name |_PA9|)
+(<cbset_PA41_PA42_PA9> ^props-cbset-name |_PA41_PA42_PA9|
+	 ^delta <delta_PA41_PA42>
+	 ^delta <delta_PA9>)
+
+(<Q44>  ^1 cheinNRH-stroop-report-say ^2 say ^3 reported)
+(<delta_PA44> ^prop-apply true
+	^item-name |_PA44|
+	^op-name |_PA44|)
+(<cbset_PA44> ^props-cbset-name |_PA44|
+	^delta <delta-null_PA44>)
+(<delta-null_PA44> ^prop-apply true
+	^prop <prop-A44>)
+(<prop-A44> ^name |_PA44|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 AC
+	^address2 RT)
+(<delta_PA45> ^prop-apply true
+	^item-name |_PA45|
+	^op-name |_PA45|)
+(<cbset_PA45> ^props-cbset-name |_PA45|
+	^delta <delta-null_PA45>)
+(<delta-null_PA45> ^prop-apply true
+	^prop <prop-A45>)
+(<prop-A45> ^name |_PA45|
+	^prop-type add
+	^attr1 Gcontrol
+	^attr2 3
+	^address1 G
+	^address2 props$const)
+(<pre-cbset-rule44> ^props-epset-name cheinNRH-stroop-report-say
+	^const <Q44>
+	^delta <delta_PA13_PA17_PA44_PA45>)
+
+(<Q43>  ^1 cheinNRH-stroop-report-say)
+(<epset-task-stroop-report> ^delta <delta-rule43>)
+(<delta-rule43> ^op-name cheinNRH-stroop-report-say
+	^const <Q43>)
+(<delta-rule43> ^prop <prop-C34>)
+(<delta-rule43> ^prop <prop-C43>)
+(<prop-C43> ^name |_PC43|
+	^prop-type existence
+	^attr1 slot3
+	^address1 RT)
+
+
+(<Q42>  ^1 cheinNRH-stroop-report-retrieve ^2 s-mapping ^3 query)
+(<delta_PA41> ^prop-apply true
+	^item-name |_PA41|
+	^op-name |_PA41|)
+(<cbset_PA41> ^props-cbset-name |_PA41|
+	^delta <delta-null_PA41>)
+(<delta-null_PA41> ^prop-apply true
+	^prop <prop-A41>)
+(<prop-A41> ^name |_PA41|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
+(<delta_PA42> ^prop-apply true
+	^item-name |_PA42|
+	^op-name |_PA42|)
+(<cbset_PA42> ^props-cbset-name |_PA42|
+	^delta <delta-null_PA42>)
+(<delta-null_PA42> ^prop-apply true
+	^prop <prop-A42>)
+(<prop-A42> ^name |_PA42|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<pre-cbset-rule42> ^props-epset-name cheinNRH-stroop-report-retrieve
+	^const <Q42>
+	^delta <delta_PA41_PA42_PA9>)
+
+(<epset-task-stroop-report> ^props-epset-name stroop-report)
+(<Q41>  ^1 cheinNRH-stroop-report-retrieve)
+(<epset-task-stroop-report> ^delta <delta-rule41>)
+(<delta-rule41> ^op-name cheinNRH-stroop-report-retrieve
+	^const <Q41>)
+(<delta-rule41> ^prop <prop-C34>)
+(<delta-rule41> ^prop <prop-C40>)
+(<prop-C40> ^name |_PC40|
+	^prop-type negation
+	^attr1 slot3
+	^address1 RT)
+
+
+(<Q40>  ^1 cheinNRH-stroop-focus-stroop-focus-color ^2 get-property ^3 color-property)
+(<delta_PA39> ^prop-apply true
+	^item-name |_PA39|
+	^op-name |_PA39|)
+(<cbset_PA39> ^props-cbset-name |_PA39|
+	^delta <delta-null_PA39>)
+(<delta-null_PA39> ^prop-apply true
+	^prop <prop-A39>)
+(<prop-A39> ^name |_PA39|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 Gparent
+	^address1 G
+	^address2 G)
+(<pre-cbset-rule40> ^props-epset-name cheinNRH-stroop-focus-stroop-focus-color
+	^const <Q40>
+	^delta <delta_PA13_PA17_PA36_PA39>)
+
+(<epset-task-stroop-focus> ^props-epset-name stroop-focus)
+(<Q39>  ^1 cheinNRH-stroop-focus-stroop-focus-color ^2 yes)
+(<epset-task-stroop-focus> ^delta <delta-rule39>)
+(<delta-rule39> ^op-name cheinNRH-stroop-focus-stroop-focus-color
+	^const <Q39>)
+(<delta-rule39> ^prop <prop-C5>)
+
+(<Q38>  ^1 cheinNRH-stroop-finish ^2 finish)
+(<delta_PA38> ^prop-apply true
+	^item-name |_PA38|
+	^op-name |_PA38|)
+(<cbset_PA38> ^props-cbset-name |_PA38|
+	^delta <delta-null_PA38>)
+(<delta-null_PA38> ^prop-apply true
+	^prop <prop-A38>)
+(<prop-A38> ^name |_PA38|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<pre-cbset-rule38> ^props-epset-name cheinNRH-stroop-finish
+	^const <Q38>
+	^delta <delta_PA13_PA38>)
+
+(<Q37>  ^1 cheinNRH-stroop-finish ^2 last)
+(<epset-task-stroop> ^delta <delta-rule37>)
+(<delta-rule37> ^op-name cheinNRH-stroop-finish
+	^const <Q37>)
+(<delta-rule37> ^prop <prop-C5>)
+
+(<Q36>  ^1 stroop-report)
+(<epset-task-stroop> ^delta <delta-rule36>)
+(<delta-rule36> ^op-name stroop-report
+	^const <Q36>)
+(<delta-rule36> ^prop <prop-C37>)
+(<prop-C37> ^name |_PC37|
+	^prop-type existence
+	^attr1 slot2
+	^address1 V)
+
+
+(<Q35>  ^1 cheinNRH-stroop-focus-all ^2 get-property ^3 both)
+(<delta_PA36> ^prop-apply true
+	^item-name |_PA36|
+	^op-name |_PA36|)
+(<cbset_PA36> ^props-cbset-name |_PA36|
+	^delta <delta-null_PA36>)
+(<delta-null_PA36> ^prop-apply true
+	^prop <prop-A36>)
+(<prop-A36> ^name |_PA36|
+	^prop-type add
+	^attr1 slot2
+	^attr2 3
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule35> ^props-epset-name cheinNRH-stroop-focus-all
+	^const <Q35>
+	^delta <delta_PA17_PA36>)
+
+(<Q34>  ^1 cheinNRH-stroop-focus-all ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule34>)
+(<delta-rule34> ^op-name cheinNRH-stroop-focus-all
+	^const <Q34>)
+(<delta-rule34> ^prop <prop-C5>)
+(<delta-rule34> ^prop <prop-C35>)
+(<prop-C35> ^name |_PC35|
+	^prop-type negation
+	^attr1 slot2
+	^address1 V)
+
+
+(<Q33>  ^1 idle ^2 pending)
+(<epset-task-stroop> ^delta <delta-rule33>)
+(<delta-rule33> ^op-name idle
+	^const <Q33>)
+(<delta-rule33> ^prop <prop-C5>)
+(<delta-rule33> ^prop <prop-C34>)
+
+(<Q32>  ^1 prepare ^2 pending)
+(<epset-task-stroop> ^delta <delta-rule32>)
+(<delta-rule32> ^op-name prepare
+	^const <Q32>)
+(<delta-rule32> ^prop <prop-C5>)
+(<delta-rule32> ^prop <prop-C34>)
+(<prop-C34> ^name |_PC34|
+	^prop-type existence
+	^attr1 Gcontrol
+	^address1 G)
+
+
+(<Q31>  ^1 cheinNRH-stroop-init ^2 neutral ^3 wait)
+(<pre-cbset-rule31> ^props-epset-name cheinNRH-stroop-init
+	^const <Q31>
+	^delta <delta_PA11_PA3>)
+
+(<epset-task-stroop> ^props-epset-name stroop)
+(<Q30>  ^1 cheinNRH-stroop-init)
+(<epset-task-stroop> ^delta <delta-rule30>)
+(<delta-rule30> ^op-name cheinNRH-stroop-init
+	^const <Q30>)
+(<delta-rule30> ^prop <prop-C2>)
+
+(<Q29>  ^1 cheinNRH-VCWM-report-finish ^2 enter ^3 finish)
+(<delta_PA33> ^prop-apply true
+	^item-name |_PA33|
+	^op-name |_PA33|)
+(<cbset_PA33> ^props-cbset-name |_PA33|
+	^delta <delta-null_PA33>)
+(<delta-null_PA33> ^prop-apply true
+	^prop <prop-A33>)
+(<prop-A33> ^name |_PA33|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 3
+	^address1 G
+	^address2 props$const)
+(<pre-cbset-rule29> ^props-epset-name cheinNRH-VCWM-report-finish
+	^const <Q29>
+	^delta <delta_PA13_PA17_PA33>)
+
+(<Q28>  ^1 cheinNRH-VCWM-report-finish ^2 error ^3 report)
+(<epset-task-VCWM-report> ^delta <delta-rule28>)
+(<delta-rule28> ^op-name cheinNRH-VCWM-report-finish
+	^const <Q28>)
+(<delta-rule28> ^prop <prop-C14>)
+(<delta-rule28> ^prop <prop-C30>)
+
+(<Q27>  ^1 cheinNRH-VCWM-report-report ^2 type ^3 wm-query)
+(<delta_PA31> ^prop-apply true
+	^item-name |_PA31|
+	^op-name |_PA31|)
+(<cbset_PA31> ^props-cbset-name |_PA31|
+	^delta <delta-null_PA31>)
+(<delta-null_PA31> ^prop-apply true
+	^prop <prop-A31>)
+(<prop-A31> ^name |_PA31|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot1
+	^address1 AC
+	^address2 RT)
+(<delta_PA32> ^prop-apply true
+	^item-name |_PA32|
+	^op-name |_PA32|)
+(<cbset_PA32> ^props-cbset-name |_PA32|
+	^delta <delta-null_PA32>)
+(<delta-null_PA32> ^prop-apply true
+	^prop <prop-A32>)
+(<prop-A32> ^name |_PA32|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
+(<pre-cbset-rule27> ^props-epset-name cheinNRH-VCWM-report-report
+	^const <Q27>
+	^delta <delta_PA17_PA25_PA31_PA32>)
+
+(<Q26>  ^1 cheinNRH-VCWM-report-report ^2 error ^3 report)
+(<epset-task-VCWM-report> ^delta <delta-rule26>)
+(<delta-rule26> ^op-name cheinNRH-VCWM-report-report
+	^const <Q26>)
+(<delta-rule26> ^prop <prop-C24>)
+(<delta-rule26> ^prop <prop-C30>)
+(<prop-C30> ^name |_PC30|
+	^prop-type equality
+	^attr1 slot3
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q25>  ^1 cheinNRH-VCWM-report-start ^2 retrieve ^3 report)
+(<delta_PA29> ^prop-apply true
+	^item-name |_PA29|
+	^op-name |_PA29|)
+(<cbset_PA29> ^props-cbset-name |_PA29|
+	^delta <delta-null_PA29>)
+(<delta-null_PA29> ^prop-apply true
+	^prop <prop-A29>)
+(<prop-A29> ^name |_PA29|
+	^prop-type add
+	^attr1 slot3
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule25> ^props-epset-name cheinNRH-VCWM-report-start
+	^const <Q25>
+	^delta <delta_PA22_PA23_PA29>)
+
+(<epset-task-VCWM-report> ^props-epset-name VCWM-report)
+(<Q24>  ^1 cheinNRH-VCWM-report-start ^2 report)
+(<epset-task-VCWM-report> ^delta <delta-rule24>)
+(<delta-rule24> ^op-name cheinNRH-VCWM-report-start
+	^const <Q24>)
+(<delta-rule24> ^prop <prop-C28>)
+(<prop-C28> ^name |_PC28|
+	^prop-type inexistence
+	^attr1 slot3
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q23>  ^1 cheinNRH-idle-wait ^2 wait)
+(<pre-cbset-rule23> ^props-epset-name cheinNRH-idle-wait
+	^const <Q23>
+	^delta <delta_PA17>)
+
+(<epset-task-idle> ^props-epset-name idle)
+(<Q22>  ^1 cheinNRH-idle-wait ^2 pending)
+(<epset-task-idle> ^delta <delta-rule22>)
+(<delta-rule22> ^op-name cheinNRH-idle-wait
+	^const <Q22>)
+(<delta-rule22> ^prop <prop-C5>)
+
+(<Q21>  ^1 stroop-focus ^2 stroop)
+(<epset-task-prepare> ^delta <delta-rule21>)
+(<delta-rule21> ^op-name stroop-focus
+	^const <Q21>)
+(<delta-rule21> ^prop <prop-C27>)
+
+(<epset-task-prepare> ^props-epset-name prepare)
+(<Q20>  ^1 VCWM-rehearse ^2 verbal-CWM)
+(<epset-task-prepare> ^delta <delta-rule20>)
+(<delta-rule20> ^op-name VCWM-rehearse
+	^const <Q20>)
+(<delta-rule20> ^prop <prop-C27>)
+(<prop-C27> ^name |_PC27|
+	^prop-type equality
+	^attr1 task
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q19>  ^1 cheinNRH-VCWM-rehearse-restart ^2 retrieve)
+(<pre-cbset-rule19> ^props-epset-name cheinNRH-VCWM-rehearse-restart
+	^const <Q19>
+	^delta <delta_PA22_PA23>)
+
+(<Q18>  ^1 cheinNRH-VCWM-rehearse-restart ^2 error)
+(<epset-task-VCWM-rehearse> ^delta <delta-rule18>)
+(<delta-rule18> ^op-name cheinNRH-VCWM-rehearse-restart
+	^const <Q18>)
+(<delta-rule18> ^prop <prop-C14>)
+
+(<Q17>  ^1 cheinNRH-VCWM-rehearse-next ^2 wm-query)
+(<delta_PA25> ^prop-apply true
+	^item-name |_PA25|
+	^op-name |_PA25|)
+(<cbset_PA25> ^props-cbset-name |_PA25|
+	^delta <delta-null_PA25>)
+(<delta-null_PA25> ^prop-apply true
+	^prop <prop-A25>)
+(<prop-A25> ^name |_PA25|
+	^prop-type add
+	^attr1 root
+	^attr2 RTid
+	^address1 Q
+	^address2 RT)
+(<delta_PA26> ^prop-apply true
+	^item-name |_PA26|
+	^op-name |_PA26|)
+(<cbset_PA26> ^props-cbset-name |_PA26|
+	^delta <delta-null_PA26>)
+(<delta-null_PA26> ^prop-apply true
+	^prop <prop-A26>)
+(<prop-A26> ^name |_PA26|
+	^prop-type add
+	^attr1 q-type
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<pre-cbset-rule17> ^props-epset-name cheinNRH-VCWM-rehearse-next
+	^const <Q17>
+	^delta <delta_PA25_PA26>)
+
+(<Q16>  ^1 cheinNRH-VCWM-rehearse-next ^2 error)
+(<epset-task-VCWM-rehearse> ^delta <delta-rule16>)
+(<delta-rule16> ^op-name cheinNRH-VCWM-rehearse-next
+	^const <Q16>)
+(<delta-rule16> ^prop <prop-C24>)
+(<prop-C24> ^name |_PC24|
+	^prop-type inequality
+	^attr1 rt-result
+	^attr2 2
+	^address1 smem
+	^address2 props$const)
+
+
+(<Q15>  ^1 cheinNRH-VCWM-rehearse-start ^2 retrieve)
+(<delta_PA22> ^prop-apply true
+	^item-name |_PA22|
+	^op-name |_PA22|)
+(<cbset_PA22> ^props-cbset-name |_PA22|
+	^delta <delta-null_PA22>)
+(<delta-null_PA22> ^prop-apply true
+	^prop <prop-A22>)
+(<prop-A22> ^name |_PA22|
+	^prop-type add
+	^attr1 q-type
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<delta_PA23> ^prop-apply true
+	^item-name |_PA23|
+	^op-name |_PA23|)
+(<cbset_PA23> ^props-cbset-name |_PA23|
+	^delta <delta-null_PA23>)
+(<delta-null_PA23> ^prop-apply true
+	^prop <prop-A23>)
+(<prop-A23> ^name |_PA23|
+	^prop-type add
+	^attr1 retrieve
+	^attr2 Gtop
+	^address1 Q
+	^address2 G)
+(<pre-cbset-rule15> ^props-epset-name cheinNRH-VCWM-rehearse-start
+	^const <Q15>
+	^delta <delta_PA22_PA23>)
+
+(<epset-task-VCWM-rehearse> ^props-epset-name VCWM-rehearse)
+(<Q14>  ^1 cheinNRH-VCWM-rehearse-start)
+(<epset-task-VCWM-rehearse> ^delta <delta-rule14>)
+(<delta-rule14> ^op-name cheinNRH-VCWM-rehearse-start
+	^const <Q14>)
+(<delta-rule14> ^prop <prop-C21>)
+(<prop-C21> ^name |_PC21|
+	^prop-type negation
+	^attr1 rt-result
+	^address1 smem)
+
+
+(<Q13>  ^1 VCWM-report ^2 report)
+(<epset-task-verbal-CWM> ^delta <delta-rule13>)
+(<delta-rule13> ^op-name VCWM-report
+	^const <Q13>)
+(<delta-rule13> ^prop <prop-C5>)
+
+(<Q12>  ^1 cheinNRH-verbal-CWM-store-dm ^2 wait)
+(<delta_PA19> ^prop-apply true
+	^item-name |_PA19|
+	^op-name |_PA19|)
+(<cbset_PA19> ^props-cbset-name |_PA19|
+	^delta <delta-null_PA19>)
+(<delta-null_PA19> ^prop-apply true
+	^prop <prop-A19>)
+(<prop-A19> ^name |_PA19|
+	^prop-type add
+	^attr1 slot1
+	^attr2 slot2
+	^address1 NW
+	^address2 V)
+(<delta_PA20> ^prop-apply true
+	^item-name |_PA20|
+	^op-name |_PA20|)
+(<cbset_PA20> ^props-cbset-name |_PA20|
+	^delta <delta-null_PA20>)
+(<delta-null_PA20> ^prop-apply true
+	^prop <prop-A20>)
+(<prop-A20> ^name |_PA20|
+	^prop-type add
+	^attr1 WMprev
+	^attr2 WM
+	^address1 NW
+	^address2 props$rootstate)
+(<pre-cbset-rule12> ^props-epset-name cheinNRH-verbal-CWM-store-dm
+	^const <Q12>
+	^delta <delta_PA17_PA19_PA20>)
+
+(<Q11>  ^1 cheinNRH-verbal-CWM-store-dm ^2 letter ^3 lexdec)
+(<epset-task-verbal-CWM> ^delta <delta-rule11>)
+(<delta-rule11> ^op-name cheinNRH-verbal-CWM-store-dm
+	^const <Q11>)
+(<delta-rule11> ^prop <prop-C5>)
+(<delta-rule11> ^prop <prop-C6>)
+(<delta-rule11> ^prop <prop-C18>)
+(<prop-C18> ^name |_PC18|
+	^prop-type existence
+	^attr1 slot1
+	^address1 WM)
+
+
+(<Q10>  ^1 cheinNRH-verbal-CWM-store-wm ^2 wait)
+(<delta_PA16> ^prop-apply true
+	^item-name |_PA16|
+	^op-name |_PA16|)
+(<cbset_PA16> ^props-cbset-name |_PA16|
+	^delta <delta-null_PA16>)
+(<delta-null_PA16> ^prop-apply true
+	^prop <prop-A16>)
+(<prop-A16> ^name |_PA16|
+	^prop-type add
+	^attr1 slot1
+	^attr2 slot2
+	^address1 WM
+	^address2 V)
+(<delta_PA17> ^prop-apply true
+	^item-name |_PA17|
+	^op-name |_PA17|)
+(<cbset_PA17> ^props-cbset-name |_PA17|
+	^delta <delta-null_PA17>)
+(<delta-null_PA17> ^prop-apply true
+	^prop <prop-A17>)
+(<prop-A17> ^name |_PA17|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule10> ^props-epset-name cheinNRH-verbal-CWM-store-wm
+	^const <Q10>
+	^delta <delta_PA16_PA17>)
+
+(<Q9>  ^1 cheinNRH-verbal-CWM-store-wm ^2 letter ^3 lexdec)
+(<epset-task-verbal-CWM> ^delta <delta-rule9>)
+(<delta-rule9> ^op-name cheinNRH-verbal-CWM-store-wm
+	^const <Q9>)
+(<delta-rule9> ^prop <prop-C5>)
+(<delta-rule9> ^prop <prop-C6>)
+(<delta-rule9> ^prop <prop-C15>)
+(<prop-C15> ^name |_PC15|
+	^prop-type negation
+	^attr1 slot1
+	^address1 WM)
+
+
+(<Q8>  ^1 cheinNRH-verbal-CWM-fail ^2 lexdec ^3 type ^4 N)
+(<pre-cbset-rule8> ^props-epset-name cheinNRH-verbal-CWM-fail
+	^const <Q8>
+	^delta <delta_PA11_PA12_PA13_PA3>)
+
+(<Q7>  ^1 cheinNRH-verbal-CWM-fail ^2 error ^3 word)
+(<epset-task-verbal-CWM> ^delta <delta-rule7>)
+(<delta-rule7> ^op-name cheinNRH-verbal-CWM-fail
+	^const <Q7>)
+(<delta-rule7> ^prop <prop-C14>)
+(<prop-C14> ^name |_PC14|
+	^prop-type equality
+	^attr1 rt-result
+	^attr2 2
+	^address1 smem
+	^address2 props$const)
+
+(<delta-rule7> ^prop <prop-C6>)
+
+(<Q6>  ^1 cheinNRH-verbal-CWM-success ^2 lexdec ^3 type ^4 Y)
+(<delta_PA11> ^prop-apply true
+	^item-name |_PA11|
+	^op-name |_PA11|)
+(<cbset_PA11> ^props-cbset-name |_PA11|
+	^delta <delta-null_PA11>)
+(<delta-null_PA11> ^prop-apply true
+	^prop <prop-A11>)
+(<prop-A11> ^name |_PA11|
+	^prop-type add
+	^attr1 slot1
+	^attr2 3
+	^address1 AC
+	^address2 props$const)
+(<delta_PA12> ^prop-apply true
+	^item-name |_PA12|
+	^op-name |_PA12|)
+(<cbset_PA12> ^props-cbset-name |_PA12|
+	^delta <delta-null_PA12>)
+(<delta-null_PA12> ^prop-apply true
+	^prop <prop-A12>)
+(<prop-A12> ^name |_PA12|
+	^prop-type add
+	^attr1 slot2
+	^attr2 4
+	^address1 AC
+	^address2 props$const)
+(<delta_PA13> ^prop-apply true
+	^item-name |_PA13|
+	^op-name |_PA13|)
+(<cbset_PA13> ^props-cbset-name |_PA13|
+	^delta <delta-null_PA13>)
+(<delta-null_PA13> ^prop-apply true
+	^prop <prop-A13>)
+(<prop-A13> ^name |_PA13|
+	^prop-type add
+	^attr1 clear-rt
+	^attr2 1
+	^address1 flags
+	^address2 props$const)
+(<pre-cbset-rule6> ^props-epset-name cheinNRH-verbal-CWM-success
+	^const <Q6>
+	^delta <delta_PA11_PA12_PA13_PA3>)
+
+(<Q5>  ^1 cheinNRH-verbal-CWM-success ^2 yes ^3 word)
+(<epset-task-verbal-CWM> ^delta <delta-rule5>)
+(<delta-rule5> ^op-name cheinNRH-verbal-CWM-success
+	^const <Q5>)
+(<delta-rule5> ^prop <prop-C10>)
+(<prop-C10> ^name |_PC10|
+	^prop-type equality
+	^attr1 slot3
+	^attr2 2
+	^address1 RT
+	^address2 props$const)
+
+(<delta-rule5> ^prop <prop-C6>)
+
+(<Q4>  ^1 cheinNRH-verbal-CWM-retrieve ^2 word ^3 is-word ^4 query)
+(<delta_PA7> ^prop-apply true
+	^item-name |_PA7|
+	^op-name |_PA7|)
+(<cbset_PA7> ^props-cbset-name |_PA7|
+	^delta <delta-null_PA7>)
+(<delta-null_PA7> ^prop-apply true
+	^prop <prop-A7>)
+(<prop-A7> ^name |_PA7|
+	^prop-type add
+	^attr1 q-type
+	^attr2 4
+	^address1 Q
+	^address2 props$const)
+(<delta_PA8> ^prop-apply true
+	^item-name |_PA8|
+	^op-name |_PA8|)
+(<cbset_PA8> ^props-cbset-name |_PA8|
+	^delta <delta-null_PA8>)
+(<delta-null_PA8> ^prop-apply true
+	^prop <prop-A8>)
+(<prop-A8> ^name |_PA8|
+	^prop-type add
+	^attr1 slot1
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
+(<delta_PA9> ^prop-apply true
+	^item-name |_PA9|
+	^op-name |_PA9|)
+(<cbset_PA9> ^props-cbset-name |_PA9|
+	^delta <delta-null_PA9>)
+(<delta-null_PA9> ^prop-apply true
+	^prop <prop-A9>)
+(<prop-A9> ^name |_PA9|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 Q
+	^address2 V)
+(<pre-cbset-rule4> ^props-epset-name cheinNRH-verbal-CWM-retrieve
+	^const <Q4>
+	^delta <delta_PA3_PA7_PA8_PA9>)
+
+(<Q3>  ^1 cheinNRH-verbal-CWM-retrieve ^2 word ^3 lexdec)
+(<epset-task-verbal-CWM> ^delta <delta-rule3>)
+(<delta-rule3> ^op-name cheinNRH-verbal-CWM-retrieve
+	^const <Q3>)
+(<delta-rule3> ^prop <prop-C5>)
+(<prop-C5> ^name |_PC5|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule3> ^prop <prop-C6>)
+(<prop-C6> ^name |_PC6|
+	^prop-type equality
+	^attr1 Gcontrol
+	^attr2 3
+	^address1 G
+	^address2 props$const)
+
+
+(<Q2>  ^1 cheinNRH-verbal-CWM-init ^2 lexdec)
+(<delta_PA3> ^prop-apply true
+	^item-name |_PA3|
+	^op-name |_PA3|)
+(<cbset_PA3> ^props-cbset-name |_PA3|
+	^delta <delta-null_PA3>)
+(<delta-null_PA3> ^prop-apply true
+	^prop <prop-A3>)
+(<prop-A3> ^name |_PA3|
+	^prop-type add
+	^attr1 Gcontrol
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<delta_PA4> ^prop-apply true
+	^item-name |_PA4|
+	^op-name |_PA4|)
+(<cbset_PA4> ^props-cbset-name |_PA4|
+	^delta <delta-null_PA4>)
+(<delta-null_PA4> ^prop-apply true
+	^prop <prop-A4>)
+(<prop-A4> ^name |_PA4|
+	^prop-type add
+	^attr1 Gtop
+	^attr2 WM
+	^address1 G
+	^address2 props$rootstate)
+(<pre-cbset-rule2> ^props-epset-name cheinNRH-verbal-CWM-init
+	^const <Q2>
+	^delta <delta_PA3_PA4>)
+
+(<epset-task-verbal-CWM> ^props-epset-name verbal-CWM)
+(<Q1>  ^1 cheinNRH-verbal-CWM-init)
+(<epset-task-verbal-CWM> ^delta <delta-rule1>)
+(<delta-rule1> ^op-name cheinNRH-verbal-CWM-init
+	^const <Q1>)
+(<delta-rule1> ^prop <prop-C1>)
+(<prop-C1> ^name |_PC1|
+	^prop-type negation
+	^attr1 Gtop
+	^address1 G)
+
+(<delta-rule1> ^prop <prop-C2>)
+(<prop-C2> ^name |_PC2|
+	^prop-type negation
+	^attr1 Gcontrol
+	^address1 G)
+
+
+}

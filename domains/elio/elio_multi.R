@@ -7,8 +7,8 @@ plot_elio_data <- function(auto, cog, f_pch) {
   f_inpath <- paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/verbose_elio_props_", f_graphname,"_X",".dat", sep="")
   f_data <- read.table(f_inpath)
   f_data <- data.frame(f_data[1:11], f_data[4] - 0.05*f_data[6])  # Action Latencies = RT - DC_time
-  f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+0.05*f_data[8]))  # ST = Actions + counted_DCs
-  #f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+f_data[9]+0.05*f_data[8]))  # ST = Actions + LTtime + counted_DCs
+  #f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+0.09*f_data[10]+0.05*f_data[8]))  # ST = Actions + counted_DCs
+  f_data <- data.frame(f_data[1:12], 1.0*(f_data[12]+f_data[9]+0.05*f_data[8]))  # ST = Actions + LTtime + counted_DCs
   names(f_data) <- c("task","trial","line","RT","answer", "DC1s", "chunks", "DCs", "LTtime", "LTcount", "fails", "ACT", "ST")
   
   f_data$type <- ifelse((f_data$task %in% c("PROCEDURE-A","PROCEDURE-C") & (f_data$line %in% c(1,2,4))) | (f_data$task %in% c("PROCEDURE-B","PROCEDURE-D") & (f_data$line < 4)), "component","integrative")
@@ -118,7 +118,7 @@ yscale <- ifelse(PLOT_ST, 15, 240)
 yfloor <- 0
 legendY <- 0.99
 savename = paste("fig_elio_",ifelse(PLOT_ACTR, "m",""),ifelse(PLOT_PROPv1, "1",""),ifelse(PLOT_PROPv2, "2",""),ifelse(PLOT_PROPv240, "240",""),ifelse(PLOT_PROPdev, "3",""),ifelse(PLOT_SPREADING,"_","_"),sep="")
-prefix <- ifelse(PLOT_ST, paste("STpr",ifelse(PLOT_PROPv240,DC_MODE,""),sep=""), "DC")
+prefix <- ifelse(PLOT_ST, paste("ST",ifelse(PLOT_PROPv240,DC_MODE,""),sep=""), "DC")
 
 title <- ifelse(PLOT_L1,
                 ifelse(PLOT_L3, "Full Learning", "Partial Learning"),

@@ -253,34 +253,38 @@
 
 ;; Initialize the pointer into declarative memory by pointing it at working memory. This will become the first memory item
 ;~ init
-(ins :condition (Gtop = nil) :action (WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
+(ins :condition (Gtop = nil Gcontrol = nil) :action (lexdec -> Gcontrol WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
 
 
 ;; Do lexical decision
-(ins :condition (Vobject = word RTisword != is-word RT1 != error) :subgoal "VCWM-lexdec" :description "Word is seen, respond to it.")
-
+;;~ lexical
+;~ retrieve
+(ins :condition (Vobject = word Gcontrol = lexdec) :action (word -> Gcontrol (is-word Videntity) -> RT) :description "Retrieve the word")
 ;~ success
-(ins :condition (RTanswer = yes RTisword = is-word) :action (nil -> Gcontrol (type Y) -> AC) :description "Successful retrieve: respond 'yes'")
+(ins :condition (RTanswer = yes Gcontrol = word) :action (lexdec -> Gcontrol (type Y) -> AC) :description "Successful retrieve: respond 'yes'")
 ;~ fail
-(ins :condition (RT1 = error) :action (nil -> Gcontrol (type N) -> AC) :description "Retrieval failure: respond 'no'")
-
+(ins :condition (RT1 = error Gcontrol = word) :action (lexdec -> Gcontrol (type N) -> AC) :description "Retrieval failure: respond 'no'")
 ;;~ return
 ;(ins :condition (Vobject <> word) :action (Gparent -> Gtask) :description "Return to the parent task if the word disappears before we're ready.")
 
 ;; When a letter appears, put it in WM and prepare to rehearse
+;;~ letter-seen
 ;~ store-wm
-(ins :condition (Vobject = letter WMconcept = nil) :action (Videntity -> WMconcept (wait) -> AC) :description "A letter is presented: put it in WM")
+(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept = nil) :action (Videntity -> WMconcept (wait) -> AC) :description "A letter is presented: put it in WM")
 ;~ store-dm
-(ins :condition (Vobject = letter WMconcept <> nil) :action ((Videntity WMid) -> newWM (wait) -> AC) :description "A letter is presented: put it in DM")
+(ins :condition (Vobject = letter Gcontrol = lexdec WMconcept <> nil) :action ((Videntity WMid) -> newWM (wait) -> AC) :description "A letter is presented: put it in DM")
 
 
-;~ prepare
-(ins :condition (Vobject = pending WMconcept <> nil) :subgoal "prepare" :description "Start rehearsing")
-;~ report
-(ins :condition (Vobject = report) :subgoal "VCWM-report" :description "Start reporting")
+;;; REMOVE REHEARSE PROPOSAL, BUT LEAVE ALL ELSE AS IS
+;;; Even if the other rehearsal rules won't be used, knowing them could affect the tranfer/fetching process.
+;;~ rehearse
+;(ins :condition (Vobject = pending WMconcept <> nil) :subgoal "prepare" :action (Gtask -> Gparent prepare -> Gtask) :description "Start rehearsing")
+
 
 ;;~ wait
 ;(ins :condition (Vobject = pending) :subgoal "idle" :action (Gtask -> Gparent idle -> Gtask) :description "Start idling")
+;~ report
+(ins :condition (Vobject = report) :subgoal "VCWM-report" :action (Gtask -> Gparent VCWM-report -> Gtask start-report -> Gcontrol) :description "Start reporting")
 
 )
 
@@ -300,12 +304,6 @@
 ;(ins :condition (Vobject <> pending) :action (Gparent -> Gtask) :description "Interupted, return to task.")
 )
 
-(add-instr VCWM-lexdec :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
-:pm-function VCWM-action
-
-;~ retrieve
-(ins :condition (Vobject = word) :action ((is-word Videntity) -> RT) :description "Retrieve the word")
-)
 
 (add-instr prepare :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
 :pm-function VCWM-action
@@ -316,19 +314,16 @@
 
 ;; When the stroop stimulus arrives, the model can use its preparation to focus on just color, or it can process both properties after all
 ;~ stroop
-(ins :condition (Vtask = stroop) :subgoal "stroop-answer" :description "Prepare for stroop by focusing on color")
+(ins :condition (Vtask = stroop) :subgoal "stroop-focus" :description "Prepare for stroop by focusing on color")
 )
 
 
-(add-instr idle :input (Vobject Vcolor Vword) :working-memory (WMconcept WMprev) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
+(add-instr idle :input (Vobject Videntity) :working-memory (WMconcept WMprev) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
 
 ;~ wait
 (ins :condition (Vobject = pending) :action ((wait) -> AC) :description "Wait until something happens.")
-
-;~ retrieve-text
-(ins :condition (Vtask = stroop Vword = Vcolor) :action ((s-mapping Vword) -> RT) :description "Congruent: retrieve the word")
-;~ focus-stroop-recog
-(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-recog" :description "Incongruent: need to focus")
+;;~ wake
+;(ins :condition (Vobject <> pending) :action (Gparent -> Gtask) :description "Wake from idling and return to the parent task.")
 
 )
 
@@ -371,44 +366,51 @@
              
              )
 
-;;~ init
-;(ins :condition (Gcontrol = nil) :action (neutral -> Gcontrol (wait) -> AC) :description "Start Stroop task, wait for stimulus")
+;~ init
+(ins :condition (Gcontrol = nil) :action (neutral -> Gcontrol (wait) -> AC) :description "Start Stroop task, wait for stimulus")
 
-;~ prepare
-(ins :condition (Vobject != last RTconcept != Vcolor) :subgoal "prepare" :action (prepare -> Gtask prepare -> Gcontrol (wait) -> AC) :description "Prepare while waiting for stimulus")
-;~ idle
-(ins :condition (Vobject != last RTconcept != Vcolor) :subgoal "idle" :action (idle -> Gtask neutral -> Gcontrol (wait) -> AC) :description "Do nothing while waiting for stimulus")
+;~ focus
+(ins :condition (Vobject = pending Gcontrol <> nil) :subgoal "prepare" :action (prepare -> Gtask prepare -> Gcontrol (wait) -> AC) :description "Prepare while waiting for stimulus")
+;~ no-focus
+(ins :condition (Vobject = pending Gcontrol <> nil) :subgoal "idle" :action (idle -> Gtask neutral -> Gcontrol (wait) -> AC) :description "Do nothing while waiting for stimulus")
 
-;~ say-correct
-(ins :condition (RTconcept = Vcolor) :action ((say RTconcept) -> AC) :description "Say the answer")
+;; When the stimulus arrives, the model can use its preparation to focus on just color, or it can process both properties after all
+;;~ object-seen
+;;~ focus-color
+;(ins :condition (Vobject = yes Gcontrol = prepare) :action ((get-property color-property) -> AC) :description "Object seen, focus on just color") 
+
+;~ focus-all
+(ins :condition (Vobject = yes Vcolor = nil) :action ((get-property both) -> AC) :description "Object seen, focus on all")
+
+;~ report
+(ins :condition (Vcolor <> nil) :subgoal "stroop-report" :action (stroop-report -> Gtask) :description "Object seen, formulate an answer")
+;;~ wait
+;(ins :condition (Vcolor <> nil Gcontrol = reported) :subgoal "idle" :action (idle -> Gtask) :description "Object seen, formulate an answer")
 
 ;~ finish
 (ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")
 
 )
 
-(add-instr stroop-recog :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
-:pm-function stroop-pm
-;; Recognize that the percepts are incongruent and figure out how to respond
 
-;~ focus-stroop-answer
-(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-answer" :description "Incongruent: need to focus")
+(add-instr stroop-focus :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
+:pm-function stroop-pm
+
+;~ stroop-focus-color
+(ins :condition (Vobject = yes) :action ((get-property color-property) -> AC Gparent -> Gtask) :description "Object seen, focus on just color") 
+
 
 )
 
-
-(add-instr stroop-answer :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
+(add-instr stroop-report :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
 :pm-function stroop-pm
 
 ;; If the color is perceived, retrieve the color concept related to the color. This process is slowed down if there is a conflicting word in Vword. After the concept is retrieved, say it.
-;;~ focus
-;(ins :condition (Vobject = yes Vcolor = nil) :action ((get-property both) -> AC) :description "Object seen, focus on just color") 
-
-;~ wait
-(ins :condition (Vobject <> yes) :subgoal "idle") :description "Do nothing while waiting for stimulus")
-
-;~ retrieve-color
-(ins :condition (Vcolor <> nil) :action ((s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
+;;~ report
+;~ retrieve
+(ins :condition (Gcontrol <> nil RTconcept = nil) :action ( (s-mapping Vcolor) -> RT) :description "Retrieve color concept of the ink color")
+;~ say
+(ins :condition (Gcontrol <> nil RTconcept <> nil) :action ((say RTconcept) -> AC reported -> Gcontrol) :description "Say the answer")  ;;; Test Gcontrol so operator retracts after modifying Gcontrol
 
 )
 

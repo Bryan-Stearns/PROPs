@@ -6,9 +6,9 @@ smem --add {
 }
 
 smem --add {
- (<a1> ^isa fact ^slot1 s-mapping ^slot2 red-word ^slot3 red-concept ^slot4 word-task)
- (<a2> ^isa fact ^slot1 s-mapping ^slot2 blue-word ^slot3 blue-concept ^slot4 word-task)
- (<a3> ^isa fact ^slot1 s-mapping ^slot2 red-color ^slot3 red-concept ^slot4 color-task)
- (<a4> ^isa fact ^slot1 s-mapping ^slot2 blue-color ^slot3 blue-concept ^slot4 color-task)
+ (<a1> ^isa fact ^slot1 s-mapping ^slot2 red ^slot3 red ^slot4 word-task)
+ (<a2> ^isa fact ^slot1 s-mapping ^slot2 blue ^slot3 blue ^slot4 word-task)
+ (<a3> ^isa fact ^slot1 s-mapping ^slot2 red ^slot3 red ^slot4 color-task)
+ (<a4> ^isa fact ^slot1 s-mapping ^slot2 blue ^slot3 blue ^slot4 color-task)
 }
 

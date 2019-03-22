@@ -1049,7 +1049,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					continue;
 
 				// Add epset condition details
-				instrs << makeProp(s, "prop-C" + toString(propNumber), "|_PA" + toString(propNumber) + "|") << std::endl;
+				instrs << makeProp(s, "prop-C" + toString(propNumber), "|_PC" + toString(propNumber) + "|") << std::endl;
 						//<< "(<dc" << propNumber << "> ^name |_PC" << propNumber << "|)" << std::endl;
 
 				/*auto c = s.first;

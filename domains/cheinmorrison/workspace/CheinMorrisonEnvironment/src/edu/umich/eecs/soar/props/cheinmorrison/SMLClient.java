@@ -13,18 +13,20 @@ public class SMLClient {
 	public static void main(String[] args) {
 
 		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
-		//expList.add(new LearnConfig("12s", 10));
-		expList.add(new LearnConfig("1", 10));
+		//expList.add(new LearnConfig("123", 10));
+		expList.add(new LearnConfig("12", 1));
 
 		CheinMorrisonWorld world = new CheinMorrisonWorld(true);
 		//world.setUseProps(false);
 		
-		//world.runCheinExperiment("chein", 9, expList);
+		//world.runCheinExperiment("chein", 4, expList); // 9 samples
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
-		world.runCheinDebug("verbal-CWM", 1, "1");
-		//world.runCheinDebug("stroop", 1, "13");
+		//world.runCheinDebug("verbal-CWM", 1, "1");
+		world.runCheinDebug("stroop", 1, "1");
+		
+		//world.testStroop();
 		
 		//world.makePreChunks();
 	}

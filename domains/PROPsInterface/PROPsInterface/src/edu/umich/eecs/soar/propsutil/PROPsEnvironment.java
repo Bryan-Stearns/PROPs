@@ -55,10 +55,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	protected Agent agent = null;
 	private WMElement inTask,
 					  inTaskSeqName,
-					  inputChangedWME;
+					  inputChangedWME,
+					  rewardWME;
 	private boolean inputChanged;
+	private float rewardInput = 0.0f;
 	
 	private long elapsedAgentMSEC = 0;
+	private long elapsedAgentDCs = 0;
 	private double msecPerDecision = 50;
 	
 	private int numAgentInputs = 3,
@@ -217,6 +220,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		running = false;
 		
 		elapsedAgentMSEC = 0;
+		elapsedAgentDCs = 0;
 
 		// Load the agent files
 		if (using_props) {
@@ -510,6 +514,14 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	}
 	
 	/**
+	 * Set the reward value for the agent for this cycle.
+	 * @param reward The reward sent after the output cycle, for this cycle only
+	 */
+	protected void setReward(float reward) {
+		rewardInput = reward;
+	}
+	
+	/**
 	 * Notify the world of additional elapsed time used by the agent (besides normal decision cycle time). 
 	 * @param msec The extra time taken, in milliseconds.
 	 */
@@ -522,6 +534,13 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	 */
 	public long getElapsedTime() {
 		return elapsedAgentMSEC;
+	}
+	
+	/**
+	 * @return The elapsed agent time in milliseconds
+	 */
+	public long getElapsedCycles() {
+		return elapsedAgentDCs;
 	}
 	
 	public void setTask(String task, String taskInstance) {
@@ -906,7 +925,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	 * This is called every decision cycle, after the output phase.
 	 * It is used to react whenever the agent updates the output link.
 	 */
-	private void update_afterOutput() {
+	private void update_readOutput() {
 		if (agentError) {
 			return;
 		}
@@ -1000,19 +1019,21 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		}
 	}
 	
-	@Override
-	public void updateEventHandler(int eventID, Object data, Kernel kernel, int runFlags) {
-		if (eventID == smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES.swigValue()) {
-			// Increase the elapsed time each decision cycle
-			elapsedAgentMSEC += msecPerDecision;
-			// Manage agent output
-			update_afterOutput();
+	private void update_sendInput() {
+		// Update reward signals
+		if (rewardWME != null) {
+			rewardWME.DestroyWME();
+			rewardWME = null;
+		}
+		if (rewardInput != 0) {
+			rewardWME = input_link.CreateFloatWME("reward", rewardInput);
+			rewardInput = 0.0f;
 		}
 		
 		// Check for delayed inputs
 		if (delayedInputs.size() != 0) {
 			// Only look at 1 delayed input per decision, since each affects all input slots
-			// Note, this could overwrite inputs set earlier this decision by update_afterOutput().
+			// Note, this could overwrite inputs set earlier this decision by update_readOutput().
 			if (delayedInputs.peek().msecMoment <= elapsedAgentMSEC) {
 				ScheduledInput input = delayedInputs.poll();
 				setPerception(input.inputs);
@@ -1033,6 +1054,20 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 				inputChangedWME = null;
 			}
 		}
+	}
+	
+	@Override
+	public void updateEventHandler(int eventID, Object data, Kernel kernel, int runFlags) {
+		if (eventID == smlUpdateEventId.smlEVENT_AFTER_ALL_OUTPUT_PHASES.swigValue()) {
+			// Increase the elapsed time each decision cycle
+			elapsedAgentMSEC += msecPerDecision;
+			elapsedAgentDCs++;
+			// Manage agent output
+			update_readOutput();
+			// Manage environment input
+			update_sendInput();
+		}
+		
 	}
 	
 	/*@Override

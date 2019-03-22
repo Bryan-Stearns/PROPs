@@ -1,0 +1,57 @@
+#####    Author: Bryan Stearns, 2019
+#   This code defines the primitive RL rules for delta operator proposals.
+#
+##        OPERATORS
+#   (RL rules do not describe operators.)
+#   
+##        STRUCTURE
+#  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
+#####
+
+rl --set learning on
+rl --set learning-rate 0.0075  # default 0.3
+rl --set discount-rate 0.75   # default 0.9
+
+# Define elaboration of input-link reward to the RL interface
+sp {elaborate*props*reward*input
+    (state <s> ^io.input-link.reward <rv>
+               ^reward-link <rl>)
+-->
+    (<rl> ^reward.value <rv>)
+}
+
+# Should be unnecessary, but needed to avoid bug #314 w/ templates
+sp {elaborate*props*delta*cond-name
+    "Elaborate the name up to simplify RL template conditions"
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^prop.name <pname>
+        -^prop-apply)
+-->
+    (<d> ^prop-name <pname>)
+}
+sp {elaborate*props*delta*cond-const
+    "Elaborate the value up to simplify RL template conditions"
+    (state <s> ^props-epset.delta <d>)
+    (<d> ^const.<any> <val>
+        -^prop-apply)
+-->
+    (<d> ^prop-const <val>)
+}
+
+# Define the RL rules
+sp {props*delta*condition
+    :template
+    (state <s> ^operator <o> +)
+    (<o> ^delta <d>)
+    (<d> ^prop-name <name>)
+-->
+    (<s> ^operator <o> = 0)
+}
+
+sp {props*delta*constants
+    :template
+    (state <s> ^operator <o> +)
+    (<o> ^delta.prop-const <val>)
+-->
+    (<s> ^operator <o> = 0)
+}
