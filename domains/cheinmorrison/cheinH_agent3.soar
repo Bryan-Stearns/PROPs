@@ -258,7 +258,7 @@ sp {apply*cheinH*idle*retrieve-text
 	(<n1> ^slot1 s-mapping)
 	(<n1> ^slot2 <c4>)
 }
-sp {propose*cheinH*idle*focus-stroop-recog
+sp {propose*cheinH*idle*focus-stroop-answer
 	(state <s> ^V <c1>)
 	(<c1> ^slot2 <c2>)
 	(<c1> ^task stroop)
@@ -394,15 +394,6 @@ sp {apply*cheinH*stroop*finish
 	(<c2> ^Gtask finish)
 	(<c4> ^clear-rt const1)
 	(<c2> ^Gtask <c3> -)
-}
-sp {propose*cheinH*stroop-recog*focus-stroop-answer
-	(state <s> ^V <c1>)
-	(<c1> ^slot2 <c2>)
-	(<c1> ^task stroop)
-	(<c1> ^slot3 <> <c2>)
-	-->
-	(<o1> ^name const2 stroop)
-	(<s> ^operator <o1> + =)
 }
 sp {propose*cheinH*stroop-answer*wait
 	(state <s> ^V <c1>)

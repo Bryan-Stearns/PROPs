@@ -327,8 +327,8 @@
 
 ;~ retrieve-text
 (ins :condition (Vtask = stroop Vword = Vcolor) :action ((s-mapping Vword) -> RT) :description "Congruent: retrieve the word")
-;~ focus-stroop-recog
-(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-recog" :description "Incongruent: need to focus")
+;~ focus-stroop-answer
+(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-answer" :description "Incongruent: need to focus")
 
 )
 
@@ -387,14 +387,14 @@
 
 )
 
-(add-instr stroop-recog :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
-:pm-function stroop-pm
-;; Recognize that the percepts are incongruent and figure out how to respond
+;(add-instr stroop-recog :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))
+;:pm-function stroop-pm
+;;; Recognize that the percepts are incongruent and figure out how to respond
 
-;~ focus-stroop-answer
-(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-answer" :description "Incongruent: need to focus")
+;;~ focus-stroop-answer
+;(ins :condition (Vtask = stroop Vword <> Vcolor) :subgoal "stroop-answer" :description "Incongruent: need to focus")
 
-)
+;)
 
 
 (add-instr stroop-answer :input (Vobject Vcolor Vword) :variables (WMconcept) :declarative ((RTmapping RTstimulus RTconcept RTstim-type))

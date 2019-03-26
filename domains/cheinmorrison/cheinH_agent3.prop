@@ -296,9 +296,9 @@ pp {apply*cheinH*idle*retrieve-text
 	s.Q.query.slot2 = s.V.slot3
 }
 # add-instr idle
-# ;~ focus-stroop-recog
-pp {propose*cheinH*idle*focus-stroop-recog
-	const1 stroop-recog
+# ;~ focus-stroop-answer
+pp {propose*cheinH*idle*focus-stroop-answer
+	const1 stroop-answer
 	const2 stroop
 	--
 	s.V.task == const2
@@ -441,18 +441,6 @@ pp {apply*cheinH*stroop*finish
 -->
 	s.G.Gtask = const2
 	s.flags.clear-rt = const1
-}
-# add-instr stroop-recog
-# ;~ focus-stroop-answer
-pp {propose*cheinH*stroop-recog*focus-stroop-answer
-	const1 stroop-answer
-	const2 stroop
-	--
-	s.V.task == const2
-	s.V.slot3 <> s.V.slot2
--->
-	s.const1 +
-	s.const1 =
 }
 # add-instr stroop-answer
 # ;~ wait

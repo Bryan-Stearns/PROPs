@@ -46,7 +46,15 @@ def splitFile(src_path, reg1, reg2, dst_path1, dst_path2):
         except OSError, e:
             print ("Error deleting %s : %s - %s." % (src_path,e.filename,e.strerror))
 
-def convertData(inpath, outpath, timepath, domain, actions, countOp):
+
+# Go through the given agent trace file and count various behavioral stats.
+# Output is in a delimiter-separated file, each row being a trial within the task, each column being the stat during that trial.
+#   inpath - the filepath of the input file
+#   outpath - the filepath to print to (creates if not exists, appends if does)
+#   timepath - (optional) the filepath of act-r agent timings to copy for ltm retrievals
+#   actions - any string keywords that indicate an agent action that concludes a trial within the task (mark to stop collecting data for a row of output)
+#   countOp - (optional) the name of an operator to keep special track of how many times it is selected within a trial
+def convertData(inpath, outpath, timepath, actions, countOp):
     
     #DC_TIME = 0.05
     
@@ -54,18 +62,16 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
     COUNT_IMPASSES = True
     
     #PRIM_TIME = 0.4     # Add DECLARATIVE retrieval time for each primitive
-    LTM_TIME = 0.0
+    LTM_TIME = 0.0      # How much time to allot for long-term memory retrievals
     
-    printing = False
-    lastProc = ""
-    sample = 0
-    rowentry = 0
-    proc_dc = 0
-    ltmTimeBuff = 0.0
-    ltm_count = 0
-    #prim_count = 0
-    p_count = 0
-    fail_count = 0
+    printing = False    # Marks whether the program is printing to file right now
+    rowentry = 0        # When printing, the index of the results being printed
+    
+    proc_dc = 0         # The count of decision cycles this trial
+    ltmTimeBuff = 0.0   # The sum of LTM retrieval times this trial
+    ltm_count = 0       # The count of LTM retrievals this trial
+    p_count = 0         # The count of chunks learned
+    fail_count = 0      # The count of how many times the agent retrieved the wrong thing
     
     countedOpCount = 0
     
@@ -80,23 +86,20 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
         #LTM_TIME = float(actrfile.readline().split()[-1]) #PRIM_TIME - (DC_TIME * 2.0)
     
     for line in infile:
-        opLabInd = line.find(' O: ')
-        impLabInd = line.find('==>S: ')
-        echoInd = line.find('echo')
+        opLabInd = line.find(' O: ')        # If found, this is an operator
+        impLabInd = line.find('==>S: ')     # If found, this is an impasse cycle
+        echoInd = line.find('echo')         # The SML environment prints to file with the "echo" cmd command. Append to these lines for file output.
         
         # Count normal decisions
         if opLabInd >= 0 or impLabInd >= 0:
-            opNameInd = line.find('(')
+            opNameInd = line.find('(')  # Find the index in the line where the operator name starts
             if COUNT_IMPASSES or opLabInd != -1:
                 proc_dc += 1
-            # Count simulated LTM retrieval time, separate from decision cycle time
+            # Count number of LTM retrievals, separate from decision cycles
             if re.match(r'props-load', line[opNameInd+1:]):
                 ltm_count += 1
-                #proc_dc -= 2    # Undo the count for the query and for the corresponding 'retrieve' operator            
-            # Count simulated instruction element retrieval time, separate from decision cycle time
-            #if re.match(r'props-evaluate', line[opNameInd+1:]):
-            #    prim_count += 1
-            if countOp and re.match(r''+countOp, line[opNameInd+1:]):
+                #proc_dc -= 2    # Undo the DC count for the query and for the corresponding 'retrieve' operator. (if not also including the 50ms for retrieval DCs)
+            if countOp and re.match(r''+countOp, line[opNameInd+1:]):   # Count special operator appearances, if any
                 countedOpCount += 1
         # Count new productions
         elif line.startswith("Learning new rule chunk"):
@@ -105,18 +108,20 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
         elif line.startswith("Chunk confidence at"):
             p_count -= 1
         # Count invalid instruction retrievals
-        elif line.startswith(" *** RETRACTING"):
+        elif line.startswith(" *** RETRACTING"):    # This is a PROPs agent output keyword
             fail_count += 1
         # Notice end of line instruction
-        elif line.startswith("Say: "):
+        elif line.startswith("Say: "):  # The PROPs agent always precedes output with "Say: "
             if any(a in line[5:] for a in actions):
                 # Calculate the appropriate fetching latencies
                 if (actrfile):
                     LTM_TIME = float(actrfile.readline().split()[-1])
                 #LTM_TIME = PRIM_TIME - (DC_TIME * 2.0)     # This could give a negative number, but that still offsets the 2 DCs for each query/collect
                 ltmTimeBuff = LTM_TIME*ltm_count # + PRIM_TIME*prim_count
-                # Add data point - each corresponds to a completed procedure
-                rows += [(proc_dc, p_count, sample, ltmTimeBuff, ltm_count, fail_count, countedOpCount)]
+                
+                # Add data point - each corresponds to a completed task procedure
+                rows += [(proc_dc, p_count, ltmTimeBuff, ltm_count, fail_count, countedOpCount)]
+                
                 # Reset for the next entry
                 ltmTimeBuff = 0.0;
                 ltm_count = 0
@@ -124,7 +129,7 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
                 proc_dc = 0
                 fail_count = 0
                 countedOpCount = 0
-        # Notice change in procedure
+        # If reaching an "echo" output, we're at the end of a task procedure, and can flush 'rows' to file
         elif echoInd >= 0 and len(rows) > 0:
             if not printing:
                 printing = True
@@ -133,18 +138,21 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
             entry = rows[rowentry]
             ln = line[echoInd+5:].split()+[None, None, None, None]
             origlen = len(ln)
+            
+            # These are the actual column entries printed:
             ln[origlen-4] = str(entry[0])                                               # Counted DCs
-            ln[origlen-3] = '{0:.4f}'.format(entry[3])                                  # LTM Time
-            ln[origlen-2] = str(entry[4])                                               # LTM Count
-            #ln[origlen-1]= str(entry[5])                                                # Fails
-            ln[origlen-1]= str(entry[6])                                                # Counted ops
+            ln[origlen-3] = '{0:.4f}'.format(entry[2])                                  # LTM Time
+            ln[origlen-2] = str(entry[3])                                               # LTM Count
+            #ln[origlen-1]= str(entry[4])                                                # Fails
+            ln[origlen-1]= str(entry[5])                                                # Counted ops
             
             ln = DELIM.join(ln)
             newline = ln + "\n"
             f.write(newline)
             
             rowentry += 1
-            
+        
+        # Reset the counts after all is flushed, and start counting the next set
         elif printing and line.startswith('***'):   # '*** TASK SET TO ...' at the start of the next task
             # Just finished procedure
             printing = False
@@ -152,13 +160,14 @@ def convertData(inpath, outpath, timepath, domain, actions, countOp):
             #print "Line: rows =", len(rows), ", rowentry =", rowentry  # Verify that record division are correct: these should be equal
             rows = []
             rowentry = 0
-            if lastProc != "a":
-                # Reset for the next entry
-                ltmTimeBuff = 0.0;
-                ltm_count = 0
-                proc_dc = 0
-                fail_count = 0
-                countedOpCount = 0
+            
+            # Reset for the next entry
+            ltmTimeBuff = 0.0;
+            ltm_count = 0
+            proc_dc = 0
+            fail_count = 0
+            countedOpCount = 0
+            
     # All done, close up
     if printing:
         printing = False
@@ -183,28 +192,34 @@ def main():
     actions = ['next-instruction']
     '''
     
-    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/'
+    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/sweep_20190325/'
     fetchTimeLatenciesFile = None
-    domain = 'stroopChein'
     actions = ['type', 'say']
     countOp = 'prepare'
     
+    # File name generation (can loop over different files)
+    domain = 'stroopChein'
     conv_types = ['l12']
-    samples = ['4']
-    
     T = ['1']
+    samples = ['4']
+    param3 = ['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
+    param4 = ['_dr700','_dr725','_dr750','_dr775','_dr800']
     
     for ctype in conv_types:
         for t in T:
-            for sample in samples:
-                inpath = pathdir + 'verbose_' + domain + '_' + ctype + '_t' + t + '_s' + sample + '.dat'
-                #inpath = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/workspace/CheinMorrisonEnvironment/verbose_AgentOutput.txt'
-                outpath = inpath[:-4] + "_X.dat"
-                convertData(inpath, outpath, fetchTimeLatenciesFile, domain, actions, countOp)
-                
-                splitFile(outpath, r'\ASTROOP', None,
-                          pathdir+ 'stroopChein' +'_'+ctype+'_t'+t+'_s'+sample+'_X.dat',
-                          pathdir+ 'WMChein' +'_'+ctype+'_t'+t+'_s'+sample+'_X.dat')
+            for p3 in param3:
+                for p4 in param4:
+                    for sample in samples:
+                        inpath = pathdir + 'verbose_' + domain + '_' + ctype + '_t' + t + p3 + p4 + '_s' + sample + '.dat'
+                        outpath = inpath[:-4] + "_X.dat"
+                        
+                        # Take the agent trace output file, parse it, and create a new csv with the measured data
+                        convertData(inpath, outpath, fetchTimeLatenciesFile, actions, countOp)
+                        
+                        # If original agent trace output includes multiple kinds of task output, split them into separate files
+                        splitFile(outpath, r'\ASTROOP', None,
+                                  pathdir+ 'stroopChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat',
+                                  pathdir+ 'WMChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat')
     
 
     

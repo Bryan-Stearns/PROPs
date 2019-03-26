@@ -1,6 +1,11 @@
 # R-File to plot the data from the Chein and Morrison experiment
 
-library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+#library("data.table", lib.loc="~/R/x86_64-pc-linux-gnu-library/3.4")
+library(stringr)
+library(data.table)
+library(Hmisc)
+
+fstr <- function(fl, n) {format(round(fl, digits = n), nsmall = n)}  # Format a float as an n-digit string
 
 plot_wmspan <- function(ylims, dat1, dat2, leg) {
   x11(width=5,height=5)
@@ -29,14 +34,26 @@ plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
   x11(width=7,height=5)
   #png(paste(dirpath, "fig_human_chein.png", sep=""), width=7,height=5, units="in",sres=300)
   par(lwd=2)
-  plot(2:3,ys1a,ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
-  lines(2:3,ys1b,type="b",pch=2)
-  lines(4:5,ys2a,type="b")
-  lines(4:5,ys2b,type="b",pch=2)
+  print(ys1a)
+  print(ys2a)
+  #plot(2:3,ys1a[,1],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
+  errbar(2:3,ys1a[,1],ys1a[,1]+ys1a[,2],ys1a[,1]-ys1a[,2],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
+  #lines(2:3,ys1b[,1],type="b",pch=2)
+  errbar(2:3,ys1b[,1],ys1b[,1]+ys1b[,2],ys1b[,1]-ys1b[,2],add=T,type="b",pch=2)
+  #lines(4:5,ys2a[,1],type="b")
+  errbar(4:5,ys2a[,1],ys2a[,1]+ys2a[,2],ys2a[,1]-ys2a[,2],add=T,type="b")
+  #lines(4:5,ys2b[,1],type="b",pch=2)
+  errbar(4:5,ys2b[,1],ys2b[,1]+ys2b[,2],ys2b[,1]-ys2b[,2],add=T,type="b",pch=2)
+  
   axis(1,at=2:5,labels=labs)
-  #text(c(2.5,5),c(115,90),labels=c("Reactive\nmodel","Proactive\nmodel"))
   #legend(1,160,legend=c("No training","WM training"),pch=1:2,lty=1)
   legend(1,.25*ylims[2],legend=c("No training","WM training"),pch=1:2,lty=1,bty="n")
+  text(x=2,y=4,labels=paste("lr=",lr,"\ndr=",dr,sep=""))
+  text(x=c(3,7),y=c(8,8),labels=c(
+    paste("C: ",fstr(sres[1,4],3),", I: ",fstr(sres[5,4],3), 
+          "\nC: ",fstr(sres[2,4],3),", I: ",fstr(sres[6,4],3), sep=""),
+    paste("C: ",fstr(sres[3,4],3),", I: ",fstr(sres[7,4],3), 
+          "\nC: ",fstr(sres[4,4],3),", I: ",fstr(sres[8,4],3), sep="")))
 }
 
 ######## SET PARAMS HERE ########
@@ -45,19 +62,17 @@ PLOT_L1 <- TRUE           # The case where chunks were pre-included for memory r
 PLOT_L2 <- TRUE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
 PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
 
+PLOT_SOURCE <- "PROPS"
+
 t <- "1"
 sample <- "_s4"
-PLOT_SOURCE <- "PROPS"
+subfolder <- "sweep_20190325/"
+
+LR <- str_pad(25*(1:8), 4, pad="0")       # A range of learning-rates from 0.0025 to 0.02
+DR <- str_pad(700+25*(0:4), 3, pad="0")   # A range of discount-rates from 0.7 to 0.8
 
 #===============================#
 
-graphname <- ifelse(PLOT_SOURCE=="PRIMS", "", 
-                    paste("_l", ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
-                          "_t", t, sample, sep=""))
-
-modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
-                    "/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/",
-                    "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/")
 
 # Human VCWM data:
 dada <- c( 0, 5.9, 6.7, 0.8, 3.6, 9.2, 6.6, 13.9, 11.2, 13.9, 11.8, 9.1, 12.5, 12.8, 12.8, 16.8, 15.5, 13.9, 20.8, 22.5)
@@ -73,18 +88,34 @@ exp.sstroop <- rbind(c(120,95),c(120,60))
 #names(sdat) <- c("task","condition","block","day","trial","type","correct","RT")
 #sres <- with(sdat[sdat$block>0,],tapply(RT,list(day,condition,type),mean))
 
-# Rehearsal model Stroop data:
-sdat <- read.table(paste(modelpath,"stroopChein",graphname,"_X.dat",sep=""), fill=TRUE, 
-                  col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
-sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
 
-# Plots the human and rehearsal model Stroop data (omitting block 1 from model data)
-sres
-(sres[,1,2]-sres[,1,1])*1000
-(sres[,2,2]-sres[,2,1])*1000
-plot_stroop_prepost(c(0,160), exp.sstroop[1,], exp.sstroop[2,],
-                    (sres[,1,2]-sres[,1,1])*1000, (sres[,2,2]-sres[,2,1])*1000, 
-                    c("Data Pre","Data Post","Model Pre","Model Post"))
+for (lr in LR) {
+  for (dr in DR) {
+    graphname <- ifelse(PLOT_SOURCE=="PRIMS", "", 
+                        paste("_l", ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
+                              "_t", t, "_lr", lr, "_dr", dr, sample, sep=""))
+    
+    modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
+                        "/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/",
+                        paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/",subfolder,sep=""))
+    
+    # Rehearsal model Stroop data:
+    sdat <- read.table(paste(modelpath,"stroopChein",graphname,"_X.dat",sep=""), fill=TRUE, 
+                      col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
+    #sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
+    sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
+    # Get the control and test interference data, as [{1,21},{mean,sd}]
+    sres.cintf = 1000*(subset(sres, condition=="CONTROL" & type=="INCONGRUENT", select=x) - subset(sres, condition=="CONTROL" & type=="CONGRUENT", select=x))
+    sres.tintf = 1000*(subset(sres, condition=="EXP" & type=="INCONGRUENT", select=x) - subset(sres, condition=="EXP" & type=="CONGRUENT", select=x))
+    
+    #(sres[,1,2]-sres[,1,1])*1000
+    #(sres[,2,2]-sres[,2,1])*1000
+    # Plot the human and rehearsal model Stroop data
+    plot_stroop_prepost(c(0,200), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp.stroop[2,],exp.stroop.se[2,]),
+                        sres.cintf, sres.tintf, 
+                        c("Data Pre","Data Post","Model Pre","Model Post"))
+  }
+}
 
 # Non-rehearsal model Stroop data:
 sdatNR <- read.table(paste(modelpath,"stroopCheinNR",graphname,"_X.dat",sep=""), fill=TRUE, 

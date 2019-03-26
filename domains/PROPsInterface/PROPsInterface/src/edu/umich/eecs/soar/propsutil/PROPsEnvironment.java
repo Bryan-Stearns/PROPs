@@ -258,6 +258,12 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		
 		loadUserAgentFiles();
 		user_createAgent();
+		
+		// Run any extra Soar commands for this agent configuration
+		if (currentLearnMode.commands != null) {
+			for (String cmd : currentLearnMode.commands)
+			agent.ExecuteCommandLine(cmd);
+		}
 
 		reports = new ArrayList<String>();
 		

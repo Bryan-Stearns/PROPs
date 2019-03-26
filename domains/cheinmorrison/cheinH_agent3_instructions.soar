@@ -151,16 +151,16 @@ smem --add {
 	 ^delta <delta_PA25_PA26>
 	 ^delta <delta_PA30>)
 
-(<Q44>  ^1 cheinH-stroop-answer-retrieve-color ^2 s-mapping ^3 query)
-(<pre-cbset-rule44> ^props-epset-name cheinH-stroop-answer-retrieve-color
-	^const <Q44>
+(<Q43>  ^1 cheinH-stroop-answer-retrieve-color ^2 s-mapping ^3 query)
+(<pre-cbset-rule43> ^props-epset-name cheinH-stroop-answer-retrieve-color
+	^const <Q43>
 	^delta <delta_PA25_PA26_PA27>)
 
-(<Q43>  ^1 cheinH-stroop-answer-retrieve-color)
-(<epset-task-stroop-answer> ^delta <delta-rule43>)
-(<delta-rule43> ^op-name cheinH-stroop-answer-retrieve-color
-	^const <Q43>)
-(<delta-rule43> ^prop <prop-C44>)
+(<Q42>  ^1 cheinH-stroop-answer-retrieve-color)
+(<epset-task-stroop-answer> ^delta <delta-rule42>)
+(<delta-rule42> ^op-name cheinH-stroop-answer-retrieve-color
+	^const <Q42>)
+(<delta-rule42> ^prop <prop-C44>)
 (<prop-C44> ^name |_PC44|
 	^prop-type existence
 	^attr1 slot2
@@ -168,11 +168,11 @@ smem --add {
 
 
 (<epset-task-stroop-answer> ^props-epset-name stroop-answer)
-(<Q42>  ^1 idle ^2 yes)
-(<epset-task-stroop-answer> ^delta <delta-rule42>)
-(<delta-rule42> ^op-name idle
-	^const <Q42>)
-(<delta-rule42> ^prop <prop-C43>)
+(<Q41>  ^1 idle ^2 yes)
+(<epset-task-stroop-answer> ^delta <delta-rule41>)
+(<delta-rule41> ^op-name idle
+	^const <Q41>)
+(<delta-rule41> ^prop <prop-C43>)
 (<prop-C43> ^name |_PC43|
 	^prop-type inequality
 	^attr1 slot1
@@ -180,14 +180,6 @@ smem --add {
 	^address1 V
 	^address2 props$const)
 
-
-(<epset-task-stroop-recog> ^props-epset-name stroop-recog)
-(<Q41>  ^1 stroop-answer ^2 stroop)
-(<epset-task-stroop-recog> ^delta <delta-rule41>)
-(<delta-rule41> ^op-name stroop-answer
-	^const <Q41>)
-(<delta-rule41> ^prop <prop-C28>)
-(<delta-rule41> ^prop <prop-C31>)
 
 (<Q40>  ^1 cheinH-stroop-finish ^2 finish)
 (<delta_PA42> ^prop-apply true
@@ -375,9 +367,9 @@ smem --add {
 	^address2 props$const)
 
 
-(<Q28>  ^1 stroop-recog ^2 stroop)
+(<Q28>  ^1 stroop-answer ^2 stroop)
 (<epset-task-idle> ^delta <delta-rule28>)
-(<delta-rule28> ^op-name stroop-recog
+(<delta-rule28> ^op-name stroop-answer
 	^const <Q28>)
 (<delta-rule28> ^prop <prop-C28>)
 (<delta-rule28> ^prop <prop-C31>)

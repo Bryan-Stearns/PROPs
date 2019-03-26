@@ -1,5 +1,7 @@
 package edu.umich.eecs.soar.propsutil;
 
+import java.util.ArrayList;
+
 public class LearnConfig {
 	private boolean addresses,
 				    proposals,
@@ -11,6 +13,9 @@ public class LearnConfig {
 				    addressChunks,
 				    epsets;
 	private int chunkThreshold = 2;
+	public ArrayList<String> commands = null;
+	private String commandName = "";
+	
 
 	/**
 	 * Initialize a learning configuration. 
@@ -46,6 +51,30 @@ public class LearnConfig {
 	 */
 	public LearnConfig(String str) {
 		set(str);
+	}
+	/**
+	 * Initialize a learning configuration. 
+	 * Learn flags:
+	 *   '1' - Learn memory addresses (source address chunks if not enabled)
+	 *   '2' - Learn hierarchical PROP composition
+	 *   '3' - Learn fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   'a' - Learn memory addressing chunks (should only be used for generating the source file for '1')
+	 *   's' - Learn chunks that cause spread from true conditions to their instructions.
+	 *         This flag also causes the agent to start each fetch with free spread-based recall.
+	 *   'c' - Learn condition spread chunks from scratch (source condition chunks if not enabled)
+	 *   'm' - Use a manual fetch ordering for training the task (source the fetch sequence file)
+	 *   'q' - If using 'm', also learn to update the sequence pointer after a correct free recall.
+	 *   'e' - Use epset matching to guide spreading. Learns epset contents for task if none exist.  
+	 * @param str A string of learning mode flags
+	 * @param t The chunking threshold
+	 * @param cmds A ordered list of any extra Soar commands to issue the agent after creation
+	 * @param cmdName What to insert into the agent output file name corresponding to these commands
+	 */
+	public LearnConfig(String str, int t, ArrayList<String> cmds, String cmdName) {
+		this(str);
+		chunkThreshold = t;
+		this.commands = cmds;
+		this.commandName = cmdName;
 	}
 	/**
 	 * Initialize a learning configuration. 
@@ -147,6 +176,7 @@ public class LearnConfig {
 		if (seqs) {retVal += "q";}
 		if (epsets) {retVal += "e";}
 		retVal += "_t" + chunkThreshold;
+		if (commandName != "") {retVal += commandName;}
 		return retVal;
 	}
 }

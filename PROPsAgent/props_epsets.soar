@@ -260,7 +260,7 @@ sp {apply*props*retrieve-cbset*success*force-learn
               -^props-cbset)
 -->
     (force-learn <s>)
-    (force-learn <ss>)
+    #(force-learn <ss>)
 }
 # Source props_learn_l3.soar to enable chunking of the last layer.
 

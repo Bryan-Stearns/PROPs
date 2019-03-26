@@ -276,7 +276,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	}
 	
 	public void testStroop() {
-		this.setConfig(new LearnConfig("12", 10));
+		this.setConfig(new LearnConfig("12", 1));
+		
 		if (!this.initAgent()) return;
 		do_stroop(1, "CONTROL");
 		do_stroop(21, "EXP");

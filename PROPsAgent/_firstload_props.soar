@@ -16,18 +16,18 @@ chunk confidence-threshold 3
 
 #decide set-random-seed 42
 
-smem --set activation-mode base-level
-smem --set base-update-policy naive
-smem --set base-decay 0.9
-#smem --set base-inhibition on
-smem --set activate-on-query off
+#smem --set activation-mode base-level
+#smem --set base-update-policy naive
+#smem --set base-decay 0.9
+##smem --set base-inhibition on
+#smem --set activate-on-query off
 
-smem --set spreading-continue-probability 0.95
-smem --set spreading-limit 300
-smem --set spreading-depth-limit 1 # 3
-#smem --set spreading-loop-avoidance on
-smem --set spreading on
-smem --set learning on
+#smem --set spreading-continue-probability 0.95
+#smem --set spreading-limit 300
+#smem --set spreading-depth-limit 1 # 3
+##smem --set spreading-loop-avoidance on
+#smem --set spreading on
+#smem --set learning on
 
 output callbacks on
 output console on
