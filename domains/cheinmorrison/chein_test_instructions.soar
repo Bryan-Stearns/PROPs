@@ -1,0 +1,348 @@
+#####
+# THIS FILE TRANSLATES THE PROPS INSTRUCTIONS
+# FROM 'chein_test.prop' INTO SMEM INSTRUCTIONS USABLE
+# BY A PROPS SOAR AGENT.
+#####
+
+# BEGIN INSTRUCTIONS
+
+smem --add {
+(<delta_PA6_PA7> ^prop-apply true
+	^op-name |_PA6_PA7|
+	^item-name |_PA6|
+	^item-name |_PA7|)
+(<cbset_PA6_PA7> ^props-cbset-name |_PA6_PA7|
+	 ^delta <delta_PA6>
+	 ^delta <delta_PA7>)
+(<delta_PA8_PA9> ^prop-apply true
+	^op-name |_PA8_PA9|
+	^item-name |_PA8|
+	^item-name |_PA9|)
+(<cbset_PA8_PA9> ^props-cbset-name |_PA8_PA9|
+	 ^delta <delta_PA8>
+	 ^delta <delta_PA9>)
+
+(<delta-rule8> 
+	^wm-target slot4)
+
+(<delta-rule9> 
+	^wm-target slot2
+	^wm-target slot3
+	^wm-target slot4)
+
+(<delta-rule2> 
+	^wm-target slot3)
+(<delta-rule11> 
+	^wm-target slot3)
+
+(<delta-rule3> 
+	^wm-target slot3)
+
+(<delta-rule1> 
+	^wm-target slot2)
+(<delta-rule10> 
+	^wm-target slot2)
+
+(<Q20>  ^1 chein-idle-return-stroop ^2 stroop)
+(<delta-rule19> ^has-action true)
+(<pre-cbset-rule20> ^props-epset-name chein-idle-return-stroop
+	^const <Q20>
+	^delta <delta_PA8_PA9>)
+
+(<Q19>  ^1 chein-idle-return-stroop ^2 stroop ^3 yes)
+(<epset-task-idle> ^delta <delta-rule19>)
+(<delta-rule19> ^op-name chein-idle-return-stroop
+	^const <Q19>
+	^pref-weight 0.0)
+(<delta-rule19> ^prop <prop-C17>)
+(<delta-rule19> ^prop <prop-C19>)
+(<prop-C19> ^name |_PC19|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+
+(<Q18>  ^1 chein-idle-wait ^2 verbal-CWM)
+(<delta-rule17> ^has-action true)
+(<pre-cbset-rule18> ^props-epset-name chein-idle-wait
+	^const <Q18>
+	^delta <delta_PA8_PA9>)
+
+(<epset-task-idle> ^props-epset-name idle)
+(<Q17>  ^1 chein-idle-wait ^2 verbal-CWM ^3 pending)
+(<epset-task-idle> ^delta <delta-rule17>)
+(<delta-rule17> ^op-name chein-idle-wait
+	^const <Q17>
+	^pref-weight 0.0)
+(<delta-rule17> ^prop <prop-C17>)
+(<prop-C17> ^name |_PC17|
+	^prop-type equality
+	^attr1 task
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule17> ^prop <prop-C18>)
+(<prop-C18> ^name |_PC18|
+	^prop-type inequality
+	^attr1 slot1
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+
+(<epset-task-elab-Vword-WMword> ^props-epset-name elab-Vword-WMword
+	^elab-class elab-Vword-WMword
+	^wm-target slot3)
+(<epset-task-elab-Vword-WMword> ^delta <delta-rule16>)
+(<delta-rule16> ^elab-name general
+	^const <Q16>
+	^pref-weight 0.0)
+(<delta-rule16> ^prop <prop-C3>)
+(<delta-rule16> ^prop <prop-A16>)
+(<prop-A16> ^name |_PA16|
+	^prop-type add
+	^attr1 slot3
+	^attr2 slot3
+	^address1 WM
+	^address2 V)
+
+(<epset-task-elab-WMcolor-WMword> ^props-epset-name elab-WMcolor-WMword
+	^elab-class elab-WMcolor-WMword
+	^wm-target slot3)
+(<epset-task-elab-WMcolor-WMword> ^delta <delta-rule15>)
+(<delta-rule15> ^elab-name general
+	^const <Q15>
+	^pref-weight 0.0)
+(<delta-rule15> ^prop <prop-C2>)
+(<delta-rule15> ^prop <prop-A15>)
+(<prop-A15> ^name |_PA15|
+	^prop-type add
+	^attr1 slot3
+	^attr2 slot2
+	^address1 WM
+	^address2 WM)
+
+(<epset-task-elab-Vcolor-WMcolor> ^props-epset-name elab-Vcolor-WMcolor
+	^elab-class elab-Vcolor-WMcolor
+	^wm-target slot2)
+(<epset-task-elab-Vcolor-WMcolor> ^delta <delta-rule14>)
+(<delta-rule14> ^elab-name general
+	^const <Q14>
+	^pref-weight 0.0)
+(<delta-rule14> ^prop <prop-C1>)
+(<delta-rule14> ^prop <prop-A14>)
+(<prop-A14> ^name |_PA14|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 WM
+	^address2 V)
+
+(<epset-task-elab-WMprepare-no> ^props-epset-name elab-WMprepare-no
+	^elab-class elab-WMprepare-no
+	^wm-target slot2
+	^wm-target slot3
+	^wm-target slot4)
+(<Q13>  ^1 no)
+(<epset-task-elab-WMprepare-no> ^delta <delta-rule13>)
+(<delta-rule13> ^elab-name idle
+	^const <Q13>
+	^pref-weight 0.0)
+(<delta-rule13> ^prop <prop-C12>)
+
+(<epset-task-elab-WMprepare-yes> ^props-epset-name elab-WMprepare-yes
+	^elab-class elab-WMprepare-yes
+	^wm-target slot4)
+(<Q12>  ^1 yes)
+(<epset-task-elab-WMprepare-yes> ^delta <delta-rule12>)
+(<delta-rule12> ^elab-name focusing
+	^const <Q12>
+	^pref-weight 0.0)
+(<delta-rule12> ^prop <prop-C12>)
+(<prop-C12> ^name |_PC12|
+	^prop-type existence
+	^attr1 Gtask
+	^address1 G)
+
+(<delta-rule12> ^prop <prop-A13>)
+(<prop-A13> ^name |_PA13|
+	^prop-type add
+	^attr1 slot4
+	^attr2 1
+	^address1 WM
+	^address2 props$const)
+
+(<Q11>  ^1 elab-WMcolor-WMword ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule11>)
+(<delta-rule11> ^op-name elab-WMcolor-WMword
+	^const <Q11>
+	^pref-weight 0.0)
+(<delta-rule11> ^prop <prop-C11>)
+
+(<Q10>  ^1 elab-Vcolor-WMcolor ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule10>)
+(<delta-rule10> ^op-name elab-Vcolor-WMcolor
+	^const <Q10>
+	^pref-weight 0.0)
+(<delta-rule10> ^prop <prop-C11>)
+(<prop-C11> ^name |_PC11|
+	^prop-type equality
+	^attr1 slot4
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q9>  ^1 elab-WMprepare-no ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule9>)
+(<delta-rule9> ^op-name elab-WMprepare-no
+	^const <Q9>
+	^pref-weight 0.0)
+(<delta-rule9> ^prop <prop-C10>)
+
+(<Q8>  ^1 elab-WMprepare-yes ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule8>)
+(<delta-rule8> ^op-name elab-WMprepare-yes
+	^const <Q8>
+	^pref-weight 0.0)
+(<delta-rule8> ^prop <prop-C10>)
+(<prop-C10> ^name |_PC10|
+	^prop-type inexistence
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q7>  ^1 chein-stroop-finish ^2 finish)
+(<delta_PA8> ^prop-apply true
+	^item-name |_PA8|
+	^op-name |_PA8|)
+(<cbset_PA8> ^props-cbset-name |_PA8|
+	^delta <delta-null_PA8>)
+(<delta-null_PA8> ^prop-apply true
+	^prop <prop-A8>)
+(<prop-A8> ^name |_PA8|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<delta_PA9> ^prop-apply true
+	^item-name |_PA9|
+	^op-name |_PA9|)
+(<cbset_PA9> ^props-cbset-name |_PA9|
+	^delta <delta-null_PA9>)
+(<delta-null_PA9> ^prop-apply true
+	^prop <prop-A9>)
+(<prop-A9> ^name |_PA9|
+	^prop-type add
+	^attr1 clear-rt
+	^attr2 1
+	^address1 flags
+	^address2 props$const)
+(<delta-rule6> ^has-action true)
+(<pre-cbset-rule7> ^props-epset-name chein-stroop-finish
+	^const <Q7>
+	^delta <delta_PA8_PA9>)
+
+(<Q6>  ^1 chein-stroop-finish ^2 last)
+(<epset-task-stroop> ^delta <delta-rule6>)
+(<delta-rule6> ^op-name chein-stroop-finish
+	^const <Q6>
+	^pref-weight 0.0)
+(<delta-rule6> ^prop <prop-C4>)
+
+(<Q5>  ^1 chein-stroop-say-word ^2 say)
+(<delta_PA6> ^prop-apply true
+	^item-name |_PA6|
+	^op-name |_PA6|)
+(<cbset_PA6> ^props-cbset-name |_PA6|
+	^delta <delta-null_PA6>)
+(<delta-null_PA6> ^prop-apply true
+	^prop <prop-A6>)
+(<prop-A6> ^name |_PA6|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 AC
+	^address2 props$const)
+(<delta_PA7> ^prop-apply true
+	^item-name |_PA7|
+	^op-name |_PA7|)
+(<cbset_PA7> ^props-cbset-name |_PA7|
+	^delta <delta-null_PA7>)
+(<delta-null_PA7> ^prop-apply true
+	^prop <prop-A7>)
+(<prop-A7> ^name |_PA7|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 AC
+	^address2 WM)
+(<delta-rule4> ^has-action true)
+(<pre-cbset-rule5> ^props-epset-name chein-stroop-say-word
+	^const <Q5>
+	^delta <delta_PA6_PA7>)
+
+(<Q4>  ^1 chein-stroop-say-word ^2 yes)
+(<epset-task-stroop> ^delta <delta-rule4>)
+(<delta-rule4> ^op-name chein-stroop-say-word
+	^const <Q4>
+	^pref-weight 0.0)
+(<delta-rule4> ^prop <prop-C4>)
+(<prop-C4> ^name |_PC4|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule4> ^prop <prop-C5>)
+(<prop-C5> ^name |_PC5|
+	^prop-type existence
+	^attr1 slot3
+	^address1 WM)
+
+
+(<Q3>  ^1 elab-Vword-WMword)
+(<epset-task-stroop> ^delta <delta-rule3>)
+(<delta-rule3> ^op-name elab-Vword-WMword
+	^const <Q3>
+	^pref-weight 0.0)
+(<delta-rule3> ^prop <prop-C3>)
+(<prop-C3> ^name |_PC3|
+	^prop-type existence
+	^attr1 slot3
+	^address1 V)
+
+
+(<Q2>  ^1 elab-WMcolor-WMword)
+(<epset-task-stroop> ^delta <delta-rule2>)
+(<delta-rule2> ^op-name elab-WMcolor-WMword
+	^const <Q2>
+	^pref-weight 0.0)
+(<delta-rule2> ^prop <prop-C2>)
+(<prop-C2> ^name |_PC2|
+	^prop-type existence
+	^attr1 slot2
+	^address1 WM)
+
+
+(<epset-task-stroop> ^props-epset-name stroop)
+(<Q1>  ^1 elab-Vcolor-WMcolor)
+(<epset-task-stroop> ^delta <delta-rule1>)
+(<delta-rule1> ^op-name elab-Vcolor-WMcolor
+	^const <Q1>
+	^pref-weight 0.0)
+(<delta-rule1> ^prop <prop-C1>)
+(<prop-C1> ^name |_PC1|
+	^prop-type existence
+	^attr1 slot2
+	^address1 V)
+
+
+}

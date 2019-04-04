@@ -50,15 +50,16 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	private LearnConfig currentLearnMode;
 	private int currentSampleNum;
 	
-	private Identifier input_link;
+	private Identifier input_link,
+					  rewardID;
 	protected Kernel kernel;
 	protected Agent agent = null;
 	private WMElement inTask,
 					  inTaskSeqName,
 					  inputChangedWME,
-					  rewardWME;
+					  rewardValueWME;
 	private boolean inputChanged;
-	private float rewardInput = 0.0f;
+	private double rewardInput = 0.0f;
 	
 	private long elapsedAgentMSEC = 0;
 	private long elapsedAgentDCs = 0;
@@ -523,7 +524,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	 * Set the reward value for the agent for this cycle.
 	 * @param reward The reward sent after the output cycle, for this cycle only
 	 */
-	protected void setReward(float reward) {
+	protected void setReward(double reward) {
 		rewardInput = reward;
 	}
 	
@@ -1027,13 +1028,17 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	
 	private void update_sendInput() {
 		// Update reward signals
-		if (rewardWME != null) {
-			rewardWME.DestroyWME();
-			rewardWME = null;
+		if (rewardID != null) {
+			rewardValueWME.DestroyWME();
+			rewardID.DestroyWME();
+			rewardID = null;
+			rewardValueWME = null;
 		}
 		if (rewardInput != 0) {
-			rewardWME = input_link.CreateFloatWME("reward", rewardInput);
-			rewardInput = 0.0f;
+			rewardID = input_link.CreateIdWME("reward");
+			
+			rewardValueWME = agent.CreateFloatWME(rewardID, "value", rewardInput);
+			rewardInput = 0.0;
 		}
 		
 		// Check for delayed inputs

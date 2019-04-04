@@ -35,8 +35,9 @@ output console on
 source props_epsets.soar
 source props_primitives.soar
 source props_apply_buffer.soar
-source props_auto_addressing.soar
-source props_rl.soar
+source props_epset_addressing.soar
+source props_cbset_addressing.soar
+source props_crl.soar
 
 multi-attributes condition 4
 multi-attributes action 4

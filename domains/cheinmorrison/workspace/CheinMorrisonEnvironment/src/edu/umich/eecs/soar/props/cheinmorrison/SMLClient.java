@@ -42,12 +42,12 @@ public class SMLClient {
 			}
 		}
 		
-		world.runCheinExperiment("stroopChein", 4, expList); // 9 samples
+		//world.runCheinExperiment("stroopChein", 4, expList); // 9 samples
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
 		//world.runCheinDebug("verbal-CWM", 1, "1");
-		//world.runCheinDebug("stroop", 1, "1");
+		world.runCheinDebug("stroop", 1, "1");
 		
 		//world.testStroop();
 		

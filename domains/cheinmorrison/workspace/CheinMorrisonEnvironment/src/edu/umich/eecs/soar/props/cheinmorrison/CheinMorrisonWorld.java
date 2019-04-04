@@ -17,7 +17,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	private VCWM cstask;
 	private Stroop sttask;
 	
-	private float task_reward = 0;
+	private double task_reward = 0.0;
 
 	//private String taskMode = "";
 	private boolean inDebug = false;
@@ -36,7 +36,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			//this.setCondChunkFile(proj_dir + "chein_agent_condspread_chunks.soar");
 			//this.setAddressChunkFile(proj_dir + "chein_agent_L1_chunks.soar");
 			//this.setFetchSeqFile(proj_dir + "chein_agent_fetch_procedures.soar");
-			this.setInstructionsFile(proj_dir + "cheinH_agent3_instructions.soar");
+			//this.setInstructionsFile(proj_dir + "cheinH_agent3_instructions.soar");
+			this.setInstructionsFile(proj_dir + "chein_test_instructions.soar");
 			this.setSoarAgentFile(proj_dir + "cheinH_agent3.soar");
 		}
 		else {
@@ -50,7 +51,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.setIOSize(3, 2);
 
 		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
-												proj_dir + "chein_agent_smem.soar"));
+												proj_dir + "chein_agent_smem.soar",
+												proj_dir + "chein_agent_stroop_rules.soar"));
 		
 		cstask = new VCWM();
 		sttask = new Stroop();
@@ -190,7 +192,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			latency = 0.2;
 			
 			Boolean correct = sttask.answer.equals(out1);
-			this.setReward( (float) ((correct) ? task_reward : 0.0) );
+			this.setReward( ((correct) ? task_reward : -1.0) );
 			this.addReport(String.format("%d \t%s \t%d \t%.3f", 
 					sttask.count+1, sttask.type.toUpperCase(), correct ? 1 : 0, this.milliToSec(this.getElapsedTime()+this.secToMilli(0.2)-sttask.starttime)));
 			
@@ -222,15 +224,16 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
 	}
 	private void init_VCWM() {
-		task_reward = 10.0f;
+		task_reward = 1.0; // 10.0f in Actransfer model
 		cstask.init();
 		reset_VCWM();
 	}
 	private void init_stroop() {
-		task_reward = 13.0f;
+		task_reward = 1.0; // 13.0 in Actransfer model;
 		sttask.init();
 		boolean isCong = (get_rand_int(2)==1);
-		sttask.type = isCong ? "congruent" : "incongruent"; 
+		sttask.type = isCong ? "congruent" : "incongruent";
+		sttask.answer = "red";
 		sttask.starttime = this.getElapsedTime() + 1000l; // Start at t=1. That's when first input arrives.
 		set_perception("pending", null, null);
 		this.applyNewInputs();

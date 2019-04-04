@@ -1,0 +1,73 @@
+#####    Author: Bryan Stearns, 2019
+#   This code defines the numeric-indifferent preference update process that is
+#   based on discretely increasing values associated with the current context,
+#   rather than on TD-learning. ("CRL" for Contextal RL)
+#
+##        OPERATORS
+#   (Numeric preferences do not describe operators.)
+#   
+##        STRUCTURE
+#  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
+#####
+
+decide indifferent-selection -b
+decide indifferent-selection -t 1.0
+
+# Define elaboration of input-link reward to the RL interface
+sp {set*props*reward*input
+    :o-support
+    (state <s> ^io.input-link.reward <rwd>
+               ^prop-apply-buffer <b>)
+    (<rwd> ^value <rv>
+          -^applied <d>)
+    (<b> ^apply <ba>)
+    (<ba> ^source-delta <d>)
+    (<d> ^pref-weight <pw>)
+-->
+    (<d> ^pref-weight <pw> -
+         ^pref-weight (/ (+ <pw> <rv>) 3))    # TODO: Should probably normalize over count of deltas in context
+    (<rwd> ^applied <d>)
+}
+
+
+# Elaborate the preference
+sp {prefer*props*delta*pref-weight
+    (state <s> ^operator <o> +)
+    (<o> ^delta <d>)
+    (<d> ^pref-weight <pw>)
+-->
+    (<s> ^operator <o> = <pw>)
+}
+
+
+# Inhibit things that compete with the current focus
+sp {prefer*props*delta*focus-inhibit
+    "Inhibit fetching something that would overwrite a current lock"
+    (state <s> ^prop-apply-buffer <pab>
+               ^operator <o2> +)
+    # There is a locked target:
+    (<pab> ^epset <be1>
+           ^apply <ba1>
+           ^epset <be2>)
+    (<be1> ^elab-class <class>
+           ^wm-target <slot>)
+    (<ba1> ^elab-class <class>
+           ^active true)
+    # The proposed delta uses the same target:
+    (<be2> ^delta <d2>)
+    (<d2> ^op-name <name2>
+          ^wm-target <slot>)
+    (<o2> ^name props-load-epset
+          ^epset-name <name2>)
+-->
+    (<s> ^operator <o2> = -0.75)
+}
+
+# Default wait operator
+sp {propose*props*default-wait
+    (state <s> ^superstate nil
+              -^operator.name wait)
+-->
+    (<s> ^operator <o> + = 0.5)
+    (<o> ^name wait)
+}

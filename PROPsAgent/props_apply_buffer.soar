@@ -44,12 +44,11 @@ sp {elaborate*apply-buffer
     (<s> ^prop-apply-buffer <b>
          ^locks <k>)
 }
-sp {elaborate*apply-buffer*cascade
-    (state <s> ^props-epset
-               ^impasse )
--->
-    (<s> ^prop-apply-buffer <b>)
-}
+#sp {elaborate*apply-buffer*cascade
+#    (state <s> ^impasse )
+#-->
+#    (<s> ^prop-apply-buffer <b>)
+#}
 
 sp {elaborate*working-buffer*begin
     "Make the empty apply structure that substate application ops will build onto."
@@ -74,14 +73,29 @@ sp {elaborate*props*working-buffer*nonempty
     (<s> ^props-flag working-buffer-nonempty)
 }
 
+sp {elaborate*props*apply-buffer*apply*active
+    (state <s> ^prop-apply-buffer.apply <ba>)
+    (<ba> ^delta-action.val <any>)
+-->
+    (<ba> ^active true)
+}
+
 # RESET THE BUFFER ON TASK FINISH
-sp {lib*actr*apply*finish*apply-buffer
+sp {lib*actr*apply*finish*apply-buffer*remove-apply
     (state <s> ^operator.name actransfer-finish
                 ^prop-apply-buffer <b>)
     (<b> ^apply <a>)
 -->
     # Reset buffers
     (<b> ^apply <a> - )
+}
+sp {lib*actr*apply*finish*apply-buffer*remove-epset
+    (state <s> ^operator.name actransfer-finish
+                ^prop-apply-buffer <b>)
+    (<b> ^epset <e>)
+-->
+    # Reset buffers
+    (<b> ^epset <e> - )
 }
 
 
@@ -100,6 +114,24 @@ sp {elaborate*props*apply-buffer*locks
     (<locks> ^lock <knew>)
     (<knew> ^id1 <id1>
             ^attr1 <attr1>)
+}
+sp {elaborate*props*apply-buffer*elabs*locks
+    "For each apply, lock the slot from perceptual interference"
+    (state <s> ^prop-apply-buffer <pab>
+               ^WM <w>
+               ^locks <locks>
+               ^superstate nil)
+    (<pab> ^apply <ba>
+           ^epset <be>)
+    (<be> ^elab-class <ename>
+          ^wm-target <wt>)  # A WM slot (attribute name) targeted by this epset's elabs
+    (<ba> ^dc-stamp 
+          ^elab-class <ename>)
+   #-(<id1> ^props-agnostic-add true)    # Bundled object creation doesn't lock
+-->
+    (<ba> ^delta-action <dnew>)
+    (<dnew> ^id1 <w>
+            ^attr1 <wt>)    # This will cause a lock, though won't specify an actual action
 }
 
 
@@ -156,15 +188,30 @@ sp {set*props*apply-buffer*overwrite
 -->
     (<b1> ^delta-action <d1any> -)
 }
-sp {set*props*apply-buffer*remove-empty
+sp {set*props*apply-buffer*remove-empty*no-epset
     "Clean up if all delta-actions for apply are gone from overwriting"
     :o-support
     (state <s> ^prop-apply-buffer <b>)
     (<b> ^apply <b1>)
-    (<b1> -^delta-action 
+    (<b1> -^delta-action
+          -^elab-class 
           ^dc-stamp <dc>)
 -->
     (<b> ^apply <b1> -)
+}
+sp {set*props*apply-buffer*remove-empty*with-epset
+    "Clean up if all delta-actions for apply are gone from overwriting"
+    :o-support
+    (state <s> ^prop-apply-buffer <b>)
+    (<b> ^apply <ba>
+         ^epset <be>)
+    (<ba> -^delta-action 
+          ^elab-class <ename>
+          ^dc-stamp <dc>)
+    (<be> ^elab-class <ename>)
+-->
+    (<b> ^apply <ba> -
+         ^epset <be> -)
 }
 
 
