@@ -34,6 +34,7 @@ actransfer_operator_parser::actransfer_operator_parser(std::string in_path, std:
 	wmprev_ind = 2;		// default as the third slot
 
 	initSlotRefMap();
+	lockSlots = std::vector<std::string>();
 }
 
 actransfer_operator_parser::~actransfer_operator_parser() {
@@ -61,7 +62,13 @@ std::string actransfer_operator_parser::trim(std::string s) {
 		return s;
 	if (!s.compare(0,11,"(add-instr "))
 		return s;
+	if (!s.compare(0,6,"(elab "))
+		return s;
 	if (!s.compare(0,1,":"))
+		return s;
+	if (!s.compare(0,1,")"))
+		return s;
+	if (!s.compare(0,1,"("))
 		return s;
 
 	return "";
@@ -245,38 +252,83 @@ std::string actransfer_operator_parser::getBuffSlot(const std::string &buff, con
 
 // Get the conditions and actions of the next rule in the file in raw format.
 // Constants will still have raw values.
+// rType will be set to note whether the parsed rule is a proposal, apply, or elaboration.
 // Returns success, and modifies the given stuctures.
-bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
+bool actransfer_operator_parser::getRawProps(std::stringstream & ss, parse_type &pmode, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
 {
-	//const int wmprev_ind = 2;	// starting from 0
-
 	Primitive clearAction("","","");	// Special case: populated args if need clear-rt
 
 	// Read first task name
 	std::string sToken = nextToken(ss);	// "(" or ";~"
 
 	// Handle directives if any
-	while (!sToken.compare("(") || !sToken.compare("add-instr") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':') {
+	while (!sToken.compare("(") || !sToken.compare(")") || !sToken.compare("add-instr") || !sToken.compare("elab") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':') {
 		if (!sToken.compare("add-instr")) {
+			pmode = INSTR;
 			initSlotRefMap();
 			currTaskName = nextToken(ss);
+			cmtDirectives.push_back("add-instr "+currTaskName);
 			readInstrSettings(ss, slotRefMap);	// These will add task-specific refs to the master refs, without overwriting
 		}
 		else if (!sToken.compare(0,1, ":")) {
-			readInstrSettings(ss, slotRefMap, sToken);
+			if (pmode == INSTR) {
+				readInstrSettings(ss, slotRefMap, sToken);
+			}
+			else {
+				// Read elab settings
+				if (sToken.compare(":lock")) {
+					printParseError("Unrecognized elab setting: " + sToken, true);
+					throw;
+				}
+				nextToken(ss); // read '('
+				sToken = nextToken(ss); // read first lock
+				std::string lockList = ":lock";
+				while (sToken.compare(")")) {
+					if (slotRefMap.find(sToken) == slotRefMap.end()) {
+						printParseError("Unrecognized elab lock slot name.", true);
+						throw;
+					}
+					lockSlots.push_back(slotRefMap.at(sToken));
+					lockList += " " + slotRefMap.at(sToken);
+					sToken = nextToken(ss);
+				}
+				cmtDirectives.push_back(lockList);
+			}
+		}
+		else if (!sToken.compare("elab")) {
+			currRule_h1 = nextToken(ss);
+			pmode = ELAB;
+			cmtDirectives.push_back("(elab "+currRule_h1);
 		}
 		else if (!sToken.compare(";~")) {
-			currRule_h1 = nextToken(ss);
-			currRule_h2 = "";
-			cmtDirectives.push_back(";~ " + currRule_h1);
+			if (pmode == ELAB) {
+				currRule_h2 = nextToken(ss);
+				cmtDirectives.push_back(";~ " + currRule_h2);
+			}
+			else {
+				currRule_h1 = nextToken(ss);
+				currRule_h2 = "";
+				cmtDirectives.push_back(";~ " + currRule_h1);
+			}
 		}
 		else if (!sToken.compare(";~~")) {
 			currRule_h2 = nextToken(ss);
 			cmtDirectives.push_back(";~~ " + currRule_h2);
 		}
+		else if (!sToken.compare(")")) {
+			//if (pmode == ELAB) {
+				pmode = INSTR;
+				lockSlots.clear();
+				cmtDirectives.push_back(") ");
+			//}
+		}
 		do {
 			sToken = nextToken(ss);
-		} while (sToken.length() == 0);
+		} while (sToken.length() == 0 && inFile.good());
+
+		if (!inFile.good()){
+			return true;
+		}
 	}
 
 	// Begin instruction
@@ -386,6 +438,10 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		condConsts.insert(condConsts.begin(), sToken);
 		// Skip to the next rule
 		actions.clear();
+		// Read to the end of the instruction
+		while (sToken.compare(")")) {
+			sToken = nextToken(ss);
+		}
 		return true;
 	}
 	else if (sToken.compare(":action")) {
@@ -587,8 +643,12 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 		actions.push_back(Primitive("=", CLEAR_RT_PATH, "const1"));
 	}
 
-	ss.str(""); 	// clear any remaining tokens from this line
-	ss.clear();
+	// Read to the end of the instruction
+	do {
+		sToken = nextToken(ss);
+	} while (sToken.compare(")"));
+	//ss.str(""); 	// clear any remaining tokens from this line
+	//ss.clear();
 
 	return true;
 }
@@ -664,7 +724,7 @@ bool splitDotChain(std::string const &original, std::string &front, std::string 
 // Stores list of converted reference declarations in retRefs.
 // Returns map from old dot notation source to new reference "s.attr1.attr2":"<id>".
 // Map also includes consts mapped to themselves.
-std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &negTestRefs) {
+std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string>* negTestRefs) {
 	auto retval = std::map<std::string, std::string>();
 	//auto ids = std::vector<std::string>();
 	std::string id1 = "",
@@ -696,8 +756,8 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 		}
 
 		// Do arg2 (might be a const)
-		if ((!c.op.compare("-") && !c.path2.compare("")) || !c.op.compare("!=")) {
-			negTestRefs.push_back(c.path1);	// If an action adds to this address, don't try to remove contents "already there"
+		if (negTestRefs != NULL && ((!c.op.compare("-") && !c.path2.compare("")) || !c.op.compare("!="))) {
+			negTestRefs->push_back(c.path1);	// If an action adds to this address, don't try to remove contents "already there"
 		}
 		if (!splitDotChain(c.path2, p21, p22)) {
 			retval[p21] = p21;	// is a const
@@ -802,7 +862,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 			}
 		}
 		// Add action to remove the old value
-		if (std::find(negTestRefs.begin(), negTestRefs.end(), a.path1) == negTestRefs.end()
+		if (negTestRefs != NULL && std::find(negTestRefs->begin(), negTestRefs->end(), a.path1) == negTestRefs->end()
 				&& a.path1.compare(0,10, "s.operator") && a.path1.compare(CLEAR_RT_PATH)
 				&& a.path1.compare(0,4, "s.Q.") && a.path1.compare(0,4, "s.AC") && a.path1.compare(0,4, "s.NW")
 				&& a.path1.compare(0,4, "s.RT")) {
@@ -821,7 +881,7 @@ std::map<std::string, std::string> actransfer_operator_parser::buildSoarIdRefs(s
 }
 
 // Builds and returns a whole sp rule
-void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::string ruleName, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions, std::vector<std::string> &negTestRefs)
+void actransfer_operator_parser::buildSoarCode(std::string &retval, const std::string ruleName, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions, std::vector<std::string>* negTestRefs)
 {
 	// Build soar code id references
 	std::vector<std::string> condRefs;
@@ -972,7 +1032,7 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 	std::vector<Primitive> opActions = {Primitive("+", "s.operator", ""),
 										Primitive("=", "s.operator", ""),
 										Primitive("+", "s.operator.name", opName)};
-	buildSoarCode(proposeRule, currRuleName, conditions, opActions, negTestRefs);
+	buildSoarCode(proposeRule, currRuleName, conditions, opActions, &negTestRefs);
 
 	// *** APPLY RULE ***
 	if (actions.size() > 0) {	// Some proposals will be for subgoals/ONCs and won't have direct application rules
@@ -980,11 +1040,16 @@ void actransfer_operator_parser::buildSoarOperator(std::string &proposeRule, std
 		//std::replace(currRuleName.begin(), currRuleName.end(), '-', '*');
 		// Make the operator-proposal action
 		std::vector<Primitive> opConds = {Primitive("==", "s.operator.name", opName)};
-		buildSoarCode(applyRule, currRuleName, opConds, actions, negTestRefs);
+		buildSoarCode(applyRule, currRuleName, opConds, actions, &negTestRefs);
 	}
 }
 
-std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, const bool insertOpName) {
+/**
+ * Returns the consts in PROP code format that will begin the prop rule. (e.g. CONST1 foo \n CONST2 bar)
+ * Sets <newprimitives> to be a copy of <primitives>, where const literals are replaced with the new const reference. (e.g. s.slot1 = CONST1)
+ * If insertOpName is set to true, the first const in the list will be the operator name.
+ */
+std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<std::string> &rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, const bool insertOpName) {
 	int i = 2;
 	auto constIds = std::map<std::string, int>();
 	auto constDecls = std::vector<std::string>();	// Pre-generate the output const declarations
@@ -1027,8 +1092,9 @@ std::vector<std::string> actransfer_operator_parser::refineConsts(std::vector<st
 void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &propRules, std::vector<std::string> &soarRules) {
 	std::stringstream ss;
 	lineNumber = 1;
-	std::string lastTaskName = "";
+	//std::string lastTaskName = "";
 	std::string opName = "";
+	parse_type pmode = INSTR;
 
 	nextLine(ss);	// needed to init nextToken usage
 
@@ -1043,54 +1109,89 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		auto cmtDirectives = std::vector<std::string>();			// Any ordered comment directives before this rule
 
 		// Get the conditions and actions for the next rule
-		if (!getRawProps(ss, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
+		if (!getRawProps(ss, pmode, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
 			propRules.clear();
 			return;
+		}
+
+		if (!inFile.good()) {
+			break;
 		}
 
 		// Skip whitespace so the inFile.good() test is correct
 		inFile >> std::ws;
 		nextLine(ss);
 
-		// Find ordering of non-duplicate constants
-		auto condConsts = refineConsts(condRawConsts, rawConditions, conditions, (rawActions.size() > 0));
-		auto actConsts = refineConsts(actRawConsts, rawActions, actions, true);
+		if (pmode == INSTR) {
+			// Find ordering of non-duplicate constants
+			auto condConsts = refineConsts(condRawConsts, rawConditions, conditions, (rawActions.size() > 0));
+			auto actConsts = refineConsts(actRawConsts, rawActions, actions, true);
 
-		// Separate id chains to
-
-		// Construct PROPs code
-		std::string proposeRule = "", applyRule = "";
-		buildPropOperator(proposeRule, applyRule, condConsts, actConsts, conditions, actions);
-		if (currTaskName.compare(lastTaskName)) {
-			propRules.push_back("# add-instr " + currTaskName + "\n");
-		}
-		for (const std::string &d : cmtDirectives) {
-			propRules.push_back("# " + d + "\n");
-		}
-		propRules.push_back(proposeRule);
-		propRules.push_back(applyRule);
-
-		// Construct Soar code
-		proposeRule = "";
-		applyRule = "";
-
-		if (actions.size() > 0) {
-			opName = projectName + "-" + currTaskName + "-" + currRule_h1;
-			if (currRule_h2.length() > 0) {
-				opName += "-" + currRule_h2;
+			// Construct PROPs code
+			std::string proposeRule = "", applyRule = "";
+			buildPropOperator(proposeRule, applyRule, condConsts, actConsts, conditions, actions);
+			/*if (currTaskName.compare(lastTaskName)) {
+				propRules.push_back("# add-instr " + currTaskName + "\n");
+				lastTaskName = currTaskName;
+			}*/
+			for (const std::string &d : cmtDirectives) {
+				propRules.push_back("# " + d + "\n");
 			}
+			propRules.push_back(proposeRule);
+			propRules.push_back(applyRule);
+
+			// Construct Soar code
+			proposeRule = "";
+			applyRule = "";
+
+			if (actions.size() > 0) {
+				opName = projectName + "-" + currTaskName + "-" + currRule_h1;
+				if (currRule_h2.length() > 0) {
+					opName += "-" + currRule_h2;
+				}
+			}
+			else {
+				opName = condConsts.back();
+			}
+			try {
+				buildSoarOperator(proposeRule, applyRule, rawConditions, rawActions, opName);
+			} catch (...) {
+				std::cerr << "ERROR: Couldn't build Soar code.\n" << std::endl;
+				return;
+			}
+			soarRules.push_back(proposeRule);
+			soarRules.push_back(applyRule);
 		}
 		else {
-			opName = condConsts.back();
+			// Find the consts of conditions and actions together - they are both in a single elab rule's LHS and RHS
+			int condLen = rawConditions.size();
+			condRawConsts.insert(condRawConsts.end(), actRawConsts.begin(), actRawConsts.end());
+			rawConditions.insert(rawConditions.end(), rawActions.begin(), rawActions.end());
+			auto consts = refineConsts(condRawConsts, rawConditions, conditions, false);
+			// Split the conditions and actions out again
+			actions.insert(actions.end(), conditions.begin()+condLen, conditions.end());
+			conditions.erase(conditions.begin()+condLen, conditions.end());
+
+			// Mark which slots are locked by the elabs
+			for (const std::string &d : cmtDirectives) {
+				propRules.push_back("# " + d + "\n");
+			}
+
+			// Construct PROPs code
+			std::string currRuleName;
+			std::string h2 = "";
+			if (currRule_h2.length() > 0)
+				h2 = "*" + currRule_h2;
+			currRuleName = "elaborate*" + projectName + "*" + currTaskName + "*" + currRule_h1 + h2;
+			std::string elabRule = "";
+			buildPropCode(elabRule, currRuleName, consts, conditions, actions);
+			propRules.push_back(elabRule);
+
+			// Construct Soar code
+			elabRule = "";
+			buildSoarCode(elabRule, currRuleName, conditions, actions, NULL);
+			soarRules.push_back(elabRule);
 		}
-		try {
-			buildSoarOperator(proposeRule, applyRule, rawConditions, rawActions, opName);
-		} catch (...) {
-			std::cerr << "ERROR: Couldn't build Soar code.\n" << std::endl;
-			return;
-		}
-		soarRules.push_back(proposeRule);
-		soarRules.push_back(applyRule);
 
 	}	// end while reading file
 

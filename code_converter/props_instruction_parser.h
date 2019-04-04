@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <map>
+#include <list>
 
 typedef std::vector<std::string> arg_chain;
 typedef std::vector<std::vector<std::string> > id_chain;
@@ -21,6 +22,12 @@ public:
 	~props_instruction_parser();
 
 	int convert();
+
+	enum rule_type {
+		ELABORATION = 0,
+		PROPOSAL,
+		APPLICATION
+	};
 
 private:
 
@@ -53,11 +60,13 @@ private:
 	int maxPropNumber;
 	int chainNumber;
 	std::string currRuleName;
-	std::string currTaskName;
+	std::string currRule_h1;
+	std::list<std::string> currTaskList;
 	//std::string currEpsetName;
 	bool currRuleHasOpRef;
 
 	std::map<size_t, int> propIds;
+	std::vector<std::string> epsetLocks;
 
 	std::string CONST_ID;
 	std::string BUFFER_ID;

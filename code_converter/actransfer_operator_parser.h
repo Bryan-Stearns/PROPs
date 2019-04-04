@@ -23,6 +23,11 @@ public:
 
 	int convertToPropsInstructions();
 
+	enum parse_type {
+		INSTR = 0,
+		ELAB
+	};
+
 private:
 	int wmprev_ind;
 	const static std::string CONST_NAME;
@@ -36,6 +41,7 @@ private:
 	std::string currRule_h2;	// rule name attribute 2
 	int lineNumber;
 	std::map<std::string, std::string> slotRefMap;
+	std::vector<std::string> lockSlots;
 
 	void printParseError(std::string msg, bool showLine);
 	std::string trim(std::string s);
@@ -47,13 +53,13 @@ private:
 	void readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken = "");
 	std::string makeActionRef(const std::string &condRef);
 	std::string getBuffSlot(const std::string &buff, const int index);
-	bool getRawProps(std::stringstream &ss, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &cmtDirectives);
-	std::map<std::string, std::string> buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &negTestRefs);
+	bool getRawProps(std::stringstream &ss, parse_type &pmode, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &cmtDirectives);
+	std::map<std::string, std::string> buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string>* negTestRefs);
 	void buildPropCode(std::string &retval, const std::string rulename, const std::vector<std::string> &consts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
-	void buildSoarCode(std::string &retval, const std::string rulename, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, std::vector<std::string> &negTestRefs);
+	void buildSoarCode(std::string &retval, const std::string rulename, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, std::vector<std::string>* negTestRefs);
 	void buildPropOperator(std::string &prpRule, std::string &aplRule, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
 	void buildSoarOperator(std::string &prpRule, std::string &aplRule, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, const std::string &opName);
-	std::vector<std::string> refineConsts(std::vector<std::string> rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, bool addOpName);
+	std::vector<std::string> refineConsts(std::vector<std::string> &rawConsts, const std::vector<Primitive> &primitives, std::vector<Primitive> &newprimitives, const bool addOpName);
 	void parseActransferFile(std::vector<std::string> &propRules, std::vector<std::string> &soarRules);
 };
 

@@ -11,6 +11,7 @@
 #include <boost/algorithm/string/classification.hpp> // Include boost::for is_any_of
 #include <cctype>
 #include <algorithm>
+#include <list>
 
 #include "free_helper.h"
 
@@ -33,14 +34,17 @@ struct ArgIdChainHash
 props_instruction_parser::props_instruction_parser(std::string iPath, std::string oPath) : inPath(iPath), outPath(oPath) {
 	inFile = std::ifstream();
 	inFile.open(inPath.c_str());
+
 	instNumber = 1;
 	constNumber = 1;
 	maxPropNumber = 1;
 	chainNumber = 1;
 	lineNumber = 1;	// unnecessary
 	currRuleName = "";
+	currRule_h1 = "";
 	currRuleHasOpRef = false;
-	currTaskName = "default";
+	//currTaskName = "default";
+	currTaskList = std::list<std::string>();
 
 	CONST_ID = "props$const";	// Used for internal intermediate referencing constants, and external printing of op-names in subchains
 	BUFFER_ID = "B1";
@@ -100,11 +104,15 @@ std::string props_instruction_parser::trim(std::string s) {
 std::string props_instruction_parser::nextLine(std::stringstream &ss) {
 	std::string line = "";
 	// Skip comments and whitespace
-	while (!line.compare("")) {
+	while (!line.compare("") && inFile.good()) {
 		//inFile >> std::ws;
 		getline(inFile, line);
 		lineNumber++;
-		if (line.compare(0,12, "# add-instr "))	// Allow special comment-nested meta data to pass
+		if (line.compare(0,12, "# add-instr ")
+				&& line.compare(0,8,"# (elab ")
+				&& line.compare(0,8,"# :lock ")
+				&& line.compare(0,4,"# ;~")
+				&& line.compare(0,3,"# )"))		// Allow special comment-nested meta data to pass
 			line = trim(line);
 	}
 	ss.str(line);
@@ -381,25 +389,45 @@ bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants,
 	char cToken;
 	sToken = nextLine(ss);
 
-	// Check for task name directive
-	if (!sToken.compare(0,12, "# add-instr ")) {
-		currTaskName = trim(sToken.substr(12));
-		nextLine(ss);
+	while (sToken.compare(0,3,"pp ")) {
+		// Check for task name directive
+		if (!sToken.compare(0,12, "# add-instr ")) {
+			//currTaskStack.pop();
+			currTaskList.push_back(trim(sToken.substr(12)));
+			//epsetLocks.clear(); // If there was an elab context, add-instr marks the end
+		}
+		else if (!sToken.compare(0,8, "# (elab ")) {
+			currTaskList.push_back(trim(sToken.substr(8)));
+			epsetLocks.clear(); // If there was an elab context, add-instr marks the end
+		}
+		else if (!sToken.compare(0,5, "# ;~ ")) {
+			currRule_h1 = trim(sToken.substr(5));
+		}
+		/*else if (!sToken.compare(0,6, "# ;~~ ")) {
+			//nextLine(ss);
+		}*/
+		else if (!sToken.compare(0,8, "# :lock ")) {
+			ss >> sToken >> sToken >> sToken; // Skip over # and :lock
+			while (sToken.size() > 0) {
+				epsetLocks.push_back(trim(sToken.substr(sToken.find_last_of(".")+1,std::string::npos))); // Skip over "s.WM"; only include the WM attr reference
+				if (!ss.good())
+					break;
+				ss >> std::ws >> sToken;
+			}
+		}
+		else if (!sToken.compare("# ) ")) {
+			// Close an elab context
+			epsetLocks.clear();
+			currTaskList.pop_back();
+		}
+		sToken = nextLine(ss);
 	}
-	else if (!sToken.compare(0,5, "# ;~ ")) {
-		//currEpsetName = currTaskName;
-		nextLine(ss);
-	}
-	else if (!sToken.compare(0,6, "# ;~~ ")) {
-		nextLine(ss);
-	}
-
 	// Begin prop rule
 	ss >> sToken;
-	if (sToken.compare("pp") != 0) {
+	/*if (sToken.compare("pp") != 0) {
 		printParseError("Begin instructions with 'pp'", true);
 		return false;
-	}
+	}*/
 	ss >> std::ws >> cToken;
 	if (cToken != '{') {
 		printParseError("Open instructions with '{'", true);
@@ -753,7 +781,7 @@ std::vector<std::string> props_instruction_parser::buildProps2Instructions() {
 
 		// Add epset delta for this instruction if an operator proposal
 		if (isProposal) {
-			instrs << "(<epset-" << currTaskName << "> ^delta <d" << instNumber << ">)" << std::endl
+			instrs << "(<epset-" << currTaskList.back() << "> ^delta <d" << instNumber << ">)" << std::endl
 					<< "(<d" << instNumber << "> ^name " << currRuleName << ")" << std::endl
 					<< "(<d" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
 		}
@@ -917,9 +945,9 @@ std::vector<std::string> props_instruction_parser::buildProps2Instructions() {
 
 
 		// Add task-level epset head structure
-		if (currTaskName.compare(prevTaskName)) {
-			insList.push_back("(<epset-" + currTaskName + "> ^props-epset-name " + currTaskName + ")");
-			prevTaskName = currTaskName;
+		if (currTaskList.back().compare(prevTaskName)) {
+			insList.push_back("(<epset-" + currTaskList.back() + "> ^props-epset-name " + currTaskList.back() + ")");
+			prevTaskName = currTaskList.back();
 		}
 	}
 	// Connect the epset delta for the operator proposal to the application instructions
@@ -952,6 +980,10 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 	std::string prevTaskName = "default";
 	std::map<std::string, std::pair<std::string,std::string>> proposalMap;	// Maps operator names to their <proposal,application> rule instance numbers
 	std::map<std::string, std::vector<std::string>> actionDeltas;			// Maps delta names to list of prop action numbers contained therein
+	std::map<std::string, std::vector<std::string>> taskWmTargets;			// Maps (sub)task name to vector of wm-target names
+	std::map<std::string, std::vector<int>> taskProposers;					// Maps (sub)task name to vector of instNumber's for deltas that propose that task
+
+	epsetLocks = std::vector<std::string>();
 
 	while (inFile.good()) {
 		auto constants = std::vector<arg_chain>();
@@ -966,10 +998,32 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		//// Convert these constants, conditions, and actions into SMEM instructions
 		std::stringstream instrs;
-		std::string currOpName;
+		std::string currOpName = currRule_h1;
+
+		// Add an epset if there's one embedded within the task
+		if (epsetLocks.size() > 0) {
+			if (currTaskList.size() < 2) {	// Need an earlier context to connect this one to
+				throw;
+			}
+			// Add this elab as a delta in the task epset
+			instrs << "(<epset-task-" << currTaskList.back() << "> ^props-epset-name " << currTaskList.back() << std::endl
+					<< "\t^elab-class " << currTaskList.back();
+			for (std::string s : epsetLocks) {
+				instrs << std::endl << "\t^wm-target " << s;
+			}
+			instrs << ")" << std::endl;
+
+			// Record the locks taken by this sub context
+			taskWmTargets.insert(std::make_pair(currTaskList.back(),std::vector<std::string>()));
+			taskWmTargets.at(currTaskList.back()).assign(epsetLocks.begin(), epsetLocks.end());
+
+			epsetLocks.clear();
+		}
+
 		// Get whether this rule applies an operator
-		bool isProposal = false;
+		rule_type rType = ELABORATION;
 		if (getAppliedOperator(constants, conditions, currOpName)) {
+			rType = APPLICATION;
 			// Save a reference to the epset delta for this proposal so it can link to the apply rule later
 			if (proposalMap.find(currOpName) == proposalMap.end()) {
 				proposalMap.insert(std::make_pair(currOpName, std::make_pair("",toString(instNumber))));
@@ -981,6 +1035,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Get whether this rule proposes an operator
 		if (getProposedOperator(constants, actions, currOpName)) {
+			rType = PROPOSAL;
 			// Save a reference to the epset delta for this application so it can be linked from the proposal rule later
 			if (proposalMap.find(currOpName) == proposalMap.end()) {
 				proposalMap.insert(std::make_pair(currOpName, std::make_pair(toString(instNumber),"")));
@@ -988,24 +1043,9 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 			else {
 				proposalMap.at(currOpName).first = toString(instNumber);
 			}
-
-			isProposal = true;
 		}
 
-		// Add given name
-		/*instrs << "(<Z" << instNumber << "> ^name " << currRuleName << ")" << std::endl;
-		// Add ID name
-		instrs << "(<Z" << instNumber << "> ^lti-name |_Z" << instNumber << "|)" << std::endl;
-		// Add type (optional?)
-		instrs << "(<Z" << instNumber << "> ^prop-type |instruction|)" << std::endl;
-		// Add constants
-		instrs << "(<Z" << instNumber << "> ^const <Q" << constNumber << ">)" << std::endl;
-		// Add prop count meta-data
-		instrs << "(<Z" << instNumber << "> ^cond-count " << conditions.size() << ")" << std::endl;
-		instrs << "(<Z" << instNumber << "> ^act-count " << actions.size() << ")" << std::endl;
-		// Add semantic knowledge of spread source
-		instrs << "(<Z" << instNumber << "> ^spread-source <S" << instNumber << ">)" << std::endl;
-		*/
+
 		// Add const values
 		if (constants.size()) {
 			instrs << "(<Q" << constNumber << "> ";
@@ -1015,12 +1055,18 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 			instrs << ")" << std::endl;
 		}
 
-		// Add conditions
-		if (isProposal) {
+		// Add proposal conditions
+		if (rType == PROPOSAL || rType == ELABORATION) {
 			// Add this operator as a delta in the task epset
-			instrs << "(<epset-task-" << currTaskName << "> ^delta <delta-rule" << instNumber << ">)" << std::endl
-					<< "(<delta-rule" << instNumber << "> ^op-name " << currOpName << std::endl
-					<< "\t^const <Q" << constNumber << ">)" << std::endl;
+			instrs << "(<epset-task-" << currTaskList.back() << "> ^delta <delta-rule" << instNumber << ">)" << std::endl
+					<< "(<delta-rule" << instNumber << "> ^" << ((rType==PROPOSAL) ? "op-name " : "elab-name ") << currOpName << std::endl
+					<< "\t^const <Q" << constNumber << ">" << std::endl
+					<< "\t^pref-weight 0.0)" << std::endl;
+
+			if (taskProposers.find(currOpName) == taskProposers.end()) {
+				taskProposers.insert(std::make_pair(currOpName,std::vector<int>()));
+			}
+			taskProposers.at(currOpName).push_back(instNumber);
 
 			// Add each condition to the operator delta
 			for (auto &s : conditions) {
@@ -1040,7 +1086,6 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 				// Add epset condition
 				instrs << "(<delta-rule" << instNumber << "> ^prop <prop-C" << propNumber << ">)" << std::endl;
-						//<< "(<d-op" << instNumber << "> ^item-name |_PC" << propNumber << "|)" << std::endl;
 
 				// Add condition to instructions
 
@@ -1050,26 +1095,12 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 				// Add epset condition details
 				instrs << makeProp(s, "prop-C" + toString(propNumber), "|_PC" + toString(propNumber) + "|") << std::endl;
-						//<< "(<dc" << propNumber << "> ^name |_PC" << propNumber << "|)" << std::endl;
-
-				/*auto c = s.first;
-				instrs << "(<P" << propNumber << "> ^lti-name |_P" << propNumber << "|)" << std::endl;
-				instrs << "(<P" << propNumber << "> ^prop-type " << c.at(0) << ")" << std::endl;
-				for (std::size_t i = 1; i < c.size(); i += 2) {
-					// Add the id/attr prop args
-					if (c.at(i).compare("") != 0)
-						instrs << "(<P" << propNumber << "> ^id" << (i + 1) / 2 << " " << c.at(i) << ")" << std::endl;
-					instrs << "(<P" << propNumber << "> ^attr" << (i + 1) / 2 << " " << c.at(i + 1) << ")" << std::endl;
-				}*/
-
-				// Add attribute chain
-				//printSubChain(s, instrs, "PC" + toString(propNumber));
 
 			}
 		}
 
-		// Add actions
-		if (!isProposal) {
+		// Add application actions
+		if (rType == APPLICATION || rType == ELABORATION) {
 			std::string deltaName = "";	 			// The name for the whole group of actions, concatenating the prop names ("_PA1_PA2")
 			auto actionIds = std::vector<std::string>();	// Each action PROP name used in this rule
 
@@ -1088,63 +1119,52 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 					maxPropNumber++;
 				}
 
-				// Add this action as a delta in the op-apply epset
-				//instrs << "(<epset-rule" << instNumber << "> ^delta <delta-PA" << propNumber << ">)" << std::endl;
-
 				actionIds.push_back("_PA" + toString(propNumber));
 
 				// Don't print PROP details if defined earlier
 				if (skip)
 					continue;
 
-				// Add delta condition for this action prop in the rule
-				instrs << "(<delta_PA" << propNumber << "> ^prop-apply true" << std::endl	// One prop-apply flag to mark this as containing actions
-							//<< "\t^prop <prop-A" << propNumber << ">" << std::endl
-							<< "\t^item-name |_PA" << propNumber << "|" << std::endl	// One item-name for each ^condition in the delta
-							<< "\t^op-name |_PA" << propNumber << "|)" << std::endl;		// One op-name per apply delta
-				// Add final epset and delta for executing the prop
-				instrs << "(<cbset_PA" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|" << std::endl
-						<< "\t^delta <delta-null_PA" << propNumber << ">)" << std::endl;
-				instrs << "(<delta-null_PA" << propNumber << "> ^prop-apply true" << std::endl
-						<< "\t^prop <prop-A" << propNumber << ">)" << std::endl;
+				if (rType == APPLICATION) {
+					// Add delta condition for this action prop in the rule
+					instrs << "(<delta_PA" << propNumber << "> ^prop-apply true" << std::endl	// One prop-apply flag to mark this as containing actions
+								//<< "\t^prop <prop-A" << propNumber << ">" << std::endl
+								<< "\t^item-name |_PA" << propNumber << "|" << std::endl	// One item-name for each ^condition in the delta
+								<< "\t^op-name |_PA" << propNumber << "|)" << std::endl;		// One op-name per apply delta
+					// Add final epset and delta for executing the prop
+					instrs << "(<cbset_PA" << propNumber << "> ^props-cbset-name |_PA" << propNumber << "|" << std::endl
+							<< "\t^delta <delta-null_PA" << propNumber << ">)" << std::endl;
+					instrs << "(<delta-null_PA" << propNumber << "> ^prop-apply true" << std::endl
+							<< "\t^prop <prop-A" << propNumber << ">)" << std::endl;
+				}
+				else {
+					instrs << "(<delta-rule" << instNumber << "> ^prop <prop-A" << propNumber << ">)" << std::endl;
+				}
+
 
 				// Add PROP action's condition delta
 				instrs << makeProp(s, "prop-A" + toString(propNumber), "|_PA" + toString(propNumber) + "|");
-				//instrs << "(<prop-A" << propNumber << "> ^props-epset-name |_PA" << propNumber << "|)" << std::endl;
-						//<< "(<cba" << propNumber << "> ^name |_PA" << propNumber << "|)" << std::endl;
-						//<< "(<cba" << propNumber << "> ^action-name " << "PROP" << propNumber << "-" << s.first.at(0) << "-" << s.first.at(2) << ")" << std::endl;
-
-				// Add complementing condition attribute chain
-				//printSubChain(s, instrs, "PA" + toString(propNumber));
-
-
-				// Print action prop
-				/*auto a = s.first;
-				instrs << "(<PA" << propNumber << "> ^lti-name |_PA" << propNumber << "|)" << std::endl;
-				instrs << "(<PA" << propNumber << "> ^prop-type " << a.at(0) << ")" << std::endl;
-				for (std::size_t i = 1; i < a.size(); i += 2) {
-					if (a.at(i).compare("") != 0)
-						instrs << "(<PA" << propNumber << "> ^id" << (i + 1) / 2 << " " << a.at(i) << ")" << std::endl;
-					instrs << "(<PA" << propNumber << "> ^attr" << (i + 1) / 2 << " " << a.at(i + 1) << ")" << std::endl;
-				}
-
-				// Add action attribute chain
-				printSubChain(s, instrs, propNumber);*/
 
 				propNumber++;
 			}
-			// Sort the actionIds before making the delta name. Sorts by string: "1" < "32" < "6", but as long as consistent ordering it's fine.
-			std::sort(actionIds.begin(), actionIds.end());
-			for (std::string s : actionIds) {
-				deltaName += s;
-			}
 
-			// Add the delta for fully-composed general apply operator to an epset for the individual rule's instruction
-			instrs << "(<pre-cbset-rule" << instNumber << "> ^props-epset-name " << currOpName << std::endl
-					<< "\t^const <Q" << constNumber << ">" << std::endl
-					<< "\t^delta <delta" << deltaName << ">)" << std::endl;
-			actionDeltas.emplace(deltaName, actionIds);
+			if (rType == APPLICATION) {
+				// Sort the actionIds before making the delta name. Sorts by string: "1" < "32" < "6", but as long as consistent ordering it's fine.
+				std::sort(actionIds.begin(), actionIds.end());
+				for (std::string s : actionIds) {
+					deltaName += s;
+				}
+
+				// Note that the proposing rule has an application
+				instrs << "(<delta-rule" << instNumber-1 << "> ^has-action true)" << std::endl;
+				// Add the delta for fully-composed general apply operator to an epset for the individual rule's instruction
+				instrs << "(<pre-cbset-rule" << instNumber << "> ^props-epset-name " << currOpName << std::endl
+						<< "\t^const <Q" << constNumber << ">" << std::endl
+						<< "\t^delta <delta" << deltaName << ">)" << std::endl;
+				actionDeltas.emplace(deltaName, actionIds);
+			}
 		}
+
 
 		// Store converted instruction set for later printing
 		insList.push_back(instrs.str());
@@ -1154,9 +1174,9 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 
 		// Add task-level epset head structure
-		if (currTaskName.compare(prevTaskName)) {
-			insList.push_back("(<epset-task-" + currTaskName + "> ^props-epset-name " + currTaskName + ")");
-			prevTaskName = currTaskName;
+		if (currTaskList.front().compare(prevTaskName)) {
+			insList.push_back("(<epset-task-" + currTaskList.front() + "> ^props-epset-name " + currTaskList.front() + ")");
+			prevTaskName = currTaskList.front();
 		}
 	}
 
@@ -1176,6 +1196,27 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 	}
 	proposalMap.clear();
 	insList.push_back(instrs.str());*/
+
+	// Retrospectively attach wm-target info to deltas that propose modifications to those targets
+	for (auto task : taskWmTargets) {
+		if (taskProposers.find(task.first) == taskProposers.end()) {
+			std::cerr << "WARNING: No instructions propose context: " << task.first << std::endl;
+			continue;
+		}
+		if (task.second.size() == 0) {
+			continue;	// Shouldn't happen. Parser should have thrown error earlier if there were no locks.
+		}
+		std::stringstream instrs;
+		auto proposers = taskProposers.at(task.first);
+		for (int inst : proposers) {
+			instrs << "(<delta-rule" << inst << "> ";
+			for (std::string target : task.second) {
+				instrs << std::endl << "\t^wm-target " << target;
+			}
+			instrs << ")" << std::endl;
+		}
+		insList.push_back(instrs.str());
+	}
 
 	// Fill out the binary hierarchy of action deltas
 	insList.push_back(makeActionDeltaHierarchy(actionDeltas));

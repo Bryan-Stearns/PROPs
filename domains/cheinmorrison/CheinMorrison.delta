@@ -1,4 +1,4 @@
-(add-instr stroop :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword)
+(add-instr stroop :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMprepare)
 	;~ focus-color
 	(ins :condition (Vcolor != nil) :subgoal "elab-Vcolor-WMcolor" :description "Get the color from the object.")
 	;~ focus-WMcolor
@@ -7,28 +7,46 @@
 	(ins :condition (Vword != nil) :subgoal "elab-Vword-WMword" :description "Get the word from the text.")
 
 	;~ say-word
-	(ins :condition (WMword != nil) :action ((say WMword) -> AC) :description "Say the word")
+	(ins :condition (Vobject = yes WMword != nil) :action ((say WMword) -> AC) :description "Say the word")
 	;~ finish
 	(ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")
+
+	;;~ inhibit-text
+	;(ins :condition (delta = elab-Vword-WMword
 	
 	;; Imagination
-	;~ imagine-color
-	(ins :condition (Vobject != yes) :subgoal "elab-Vcolor-WMcolor" :description "Load the elab in preparation for percept.")
-	;~ imagine-wander
-	(ins :condition (Vobject != yes) :action (idle -> Gtask) :description "Switch contexts as if mind-wandering.")
-	;~ imagine-idle
-	(ins :condition (Vobject != yes) :subgoal "idle" :description "Truly do nothing.")
+	;~ imagine-yes-WMprepare
+	(ins :condition (Vobject != yes) :subgoal "elab-WMprepare-yes" :description "Trigger preparation while idle")
+	;~ imagine-no-WMprepare
+	(ins :condition (Vobject != yes) :subgoal "elab-WMprepare-no" :description "Trigger mind-wandering while idle")
+
+	;~ imagine-color-WMcolor
+	(ins :condition (WMprepare = yes) :subgoal "elab-Vcolor-WMcolor" :description "Load the elab in preparation for percept.")
+	;~ imagine-WMcolor-WMword
+	(ins :condition (WMprepare = yes) :subgoal "elab-WMcolor-WMword" :description "Load the elab in preparation for percept.")
+
+	;;~ imagine-idle
+	;(ins :condition (Vobject != yes) :subgoal "idle" :description "Truly do nothing.")
 
 	;; Elaborations
-	(elab elab-Vcolor-WMcolor 
+	(elab elab-WMprepare-yes :lock (WMprepare)
+		;~ focusing
+		(ins :condition (Gtask <> nil) :action (yes -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+	)
+	(elab elab-WMprepare-no :lock (WMcolor WMword WMprepare)
+		;~ idle
+		(ins :condition (Gtask <> nil) :action (no -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+	)
+
+	(elab elab-Vcolor-WMcolor :lock (WMcolor)
 		;~ general
 		(ins :condition (Vcolor <> nil) :action (Vcolor -> WMcolor))  ;; This happens to be generic for all sub-elabs.
 	)
-	(elab elab-WMcolor-WMword
+	(elab elab-WMcolor-WMword :lock (WMword)
 		;~ general
 		(ins :condition (WMcolor <> nil) :action (WMcolor -> WMword))  ;; This happens to be generic for all sub-elabs.
 	)
-	(elab elab-Vword-WMword
+	(elab elab-Vword-WMword :lock (WMword)
 		;~ general
 		(ins :condition (Vword <> nil) :action (Vword -> WMword))  ;; This happens to be generic for all sub-elabs.
 	)
@@ -40,7 +58,7 @@
 	(ins :condition (Vtask = verbal-CWM Vobject <> pending) :action (verbal-CWM -> Gtask) :description "Return to the vcwm context.")
 
 	;~ return-stroop
-	(ins :condition (Vtask = stroop Vobject <> nil) :action (stroop -> Gtask) :description "Return to Stroop context.")
+	(ins :condition (Vtask = stroop Vobject = yes) :action (stroop -> Gtask) :description "Return to Stroop context.")
 )
 
 

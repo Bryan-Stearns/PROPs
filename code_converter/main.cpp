@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
 	splitFilename(inPath, inFront, inExt);
 	splitFilename(outPath, outFront, outExt);
 
-	if (!inExt.compare(".lisp")) {
+	if (!inExt.compare(".lisp") || !inExt.compare(".delta")) {
 		// Require a 3rd argument for the project name (used for naming generated prop/soar rules)
 		if (argc <= 3) {
 			std::cout << "USAGE: Your third argument must be the name to use for this model (no spaces)." << std::endl;
