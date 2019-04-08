@@ -69,8 +69,8 @@ SWEEP_DR <- FALSE
 SWEEP_CLR <- TRUE
 
 t <- "1"
-sample <- "_s9"
-subfolder <- "sweep_20190407/"
+sample <- "_s3"
+subfolder <- "sweep_20190408_a/"
 
 LR <- if (SWEEP_LR) str_pad(25*(1:8), 4, pad="0") else c(1)       # A range of learning-rates from 0.0025 to 0.02
 DR <- if (SWEEP_DR) str_pad(700+25*(0:4), 3, pad="0") else c(1)   # A range of discount-rates from 0.7 to 0.8
@@ -114,10 +114,10 @@ for (lr in LR) {
                         #col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
                         col.names = c("task","condition","block","day","trial","type","correct","RT"))
       #sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
-      sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
+      sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type,correct=sdat$correct),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
       # Get the control and test interference data, as [{1,21},{mean,sd}]
-      sres.cintf = 1000*(subset(sres, condition=="CONTROL" & type=="INCONGRUENT", select=x) - subset(sres, condition=="CONTROL" & type=="CONGRUENT", select=x))
-      sres.tintf = 1000*(subset(sres, condition=="EXP" & type=="INCONGRUENT", select=x) - subset(sres, condition=="EXP" & type=="CONGRUENT", select=x))
+      sres.cintf = 1000*(subset(sres, condition=="CONTROL" & type=="INCONGRUENT" & correct==1, select=x) - subset(sres, condition=="CONTROL" & type=="CONGRUENT", select=x))
+      sres.tintf = 1000*(subset(sres, condition=="EXP" & type=="INCONGRUENT" & correct==1, select=x) - subset(sres, condition=="EXP" & type=="CONGRUENT", select=x))
       
       #(sres[,1,2]-sres[,1,1])*1000
       #(sres[,2,2]-sres[,2,1])*1000
