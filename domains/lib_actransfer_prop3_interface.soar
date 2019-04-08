@@ -352,7 +352,8 @@ sp {lib*actr*set*smem-command*stamp
 sp {lib*actr*elaborate*query*transfer-start
 	(state <s> ^Q.object <q>
 				^smem.command <scmd>)
-	(<scmd> -^store )
+	(<scmd> -^store 
+			-^query.props-epset-name )
 	(<q> ^q-type query)
 -->
 	(<scmd> ^query <qnew>)
@@ -362,6 +363,7 @@ sp {lib*actr*elaborate*query*transfer-augs
 				^smem.command <scmd>)
 	(<scmd> -^store 
 			^query <query>)
+	(<query> -^props-epset-name )
 	(<q> ^{<attr> <> q-type <> dc-stamp} <val>
 		 ^q-type query)
 -->

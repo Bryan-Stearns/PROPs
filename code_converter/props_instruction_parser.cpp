@@ -108,7 +108,9 @@ std::string props_instruction_parser::nextLine(std::stringstream &ss) {
 		//inFile >> std::ws;
 		getline(inFile, line);
 		lineNumber++;
-		if (line.compare(0,12, "# add-instr ")
+		if (line.compare(0,13, "# (add-instr ")
+				&& line.compare(0,12,"# (add-task ")
+				&& line.compare(0,11,"# operator ")
 				&& line.compare(0,8,"# (elab ")
 				&& line.compare(0,8,"# :lock ")
 				&& line.compare(0,4,"# ;~")
@@ -382,6 +384,9 @@ bool props_instruction_parser::getAppliedOperator(const std::vector<arg_chain> &
 	return false;
 }
 
+/**
+ * Returns true unless there was an error, and false if there was one.
+ */
 bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions) {
 
 	std::stringstream ss;
@@ -389,12 +394,24 @@ bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants,
 	char cToken;
 	sToken = nextLine(ss);
 
-	while (sToken.compare(0,3,"pp ")) {
+	while (sToken.compare(0,3,"pp ") && inFile.good()) {
 		// Check for task name directive
-		if (!sToken.compare(0,12, "# add-instr ")) {
+		if (!sToken.compare(0,13, "# (add-instr ")) {
 			//currTaskStack.pop();
-			currTaskList.push_back(trim(sToken.substr(12)));
+			currTaskList.push_back(trim(sToken.substr(13)));
 			//epsetLocks.clear(); // If there was an elab context, add-instr marks the end
+		}
+		else if (!sToken.compare(0,12, "# (add-task ")) {
+			currTaskList.push_back(trim(sToken.substr(12)));
+			taskOperators.insert(std::make_pair(currTaskList.back(), std::vector<std::string>()));
+		}
+		else if (!sToken.compare(0,11, "# operator ")) {
+			std::string op = trim(sToken.substr(11));
+			if (taskOperators.find(currTaskList.back()) == taskOperators.end()) {
+				printParseError("Operator defined without specifying task context first.", true);
+				return false;
+			}
+			taskOperators.at(currTaskList.back()).push_back(op);
 		}
 		else if (!sToken.compare(0,8, "# (elab ")) {
 			currTaskList.push_back(trim(sToken.substr(8)));
@@ -418,10 +435,20 @@ bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants,
 		else if (!sToken.compare("# ) ")) {
 			// Close an elab context
 			epsetLocks.clear();
+			if (!currTaskList.size()) {
+				printParseError("Found ')' without any open context.", true);
+				return false;
+			}
 			currTaskList.pop_back();
 		}
 		sToken = nextLine(ss);
 	}
+
+	if (!inFile.good()) {
+		// We reached the end of the file without finding more instructions. There might have been comment directives read though.
+		return true;
+	}
+
 	// Begin prop rule
 	ss >> sToken;
 	/*if (sToken.compare("pp") != 0) {
@@ -982,8 +1009,10 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 	std::map<std::string, std::vector<std::string>> actionDeltas;			// Maps delta names to list of prop action numbers contained therein
 	std::map<std::string, std::vector<std::string>> taskWmTargets;			// Maps (sub)task name to vector of wm-target names
 	std::map<std::string, std::vector<int>> taskProposers;					// Maps (sub)task name to vector of instNumber's for deltas that propose that task
+	std::map<std::string, int> opNameInstMap;								// Maps operator name to instNumber for the delta that proposes it
 
 	epsetLocks = std::vector<std::string>();
+	auto cmtDirectives = std::vector<std::string>();
 
 	while (inFile.good()) {
 		auto constants = std::vector<arg_chain>();
@@ -992,6 +1021,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Load the consts, conditions, and actions for the next rule in the file
 		if (!parsePropsFile(constants, conditions, actions)) {
+			// There was an error. Don't write to file.
 			insList.clear();
 			return insList;
 		}
@@ -1000,9 +1030,15 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 		std::stringstream instrs;
 		std::string currOpName = currRule_h1;
 
+		if (currTaskList.size() && conditions.size()) {
+			// Record the name of the current rule/delta instance
+			std::string currRuleName = currTaskList.back() + "-" + currRule_h1;
+			opNameInstMap.insert(std::make_pair(currRuleName, instNumber));
+		}
+
 		// Add an epset if there's one embedded within the task
-		if (epsetLocks.size() > 0) {
-			if (currTaskList.size() < 2) {	// Need an earlier context to connect this one to
+		if (epsetLocks.size()) {
+			if (!currTaskList.size()) {	// Need an earlier context to connect this one to
 				throw;
 			}
 			// Add this elab as a delta in the task epset
@@ -1022,6 +1058,12 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Get whether this rule applies an operator
 		rule_type rType = ELABORATION;
+
+		if (!conditions.size() || !actions.size()) {
+			// There are no rules to add. There were at most only comment directives read this iteration.
+			rType = NONE;
+		}
+
 		if (getAppliedOperator(constants, conditions, currOpName)) {
 			rType = APPLICATION;
 			// Save a reference to the epset delta for this proposal so it can link to the apply rule later
@@ -1057,9 +1099,11 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 
 		// Add proposal conditions
 		if (rType == PROPOSAL || rType == ELABORATION) {
+			if (rType == ELABORATION) {
+				instrs << "(<epset-task-" << currTaskList.back() << "> ^delta <delta-rule" << instNumber << ">)" << std::endl;
+			}
 			// Add this operator as a delta in the task epset
-			instrs << "(<epset-task-" << currTaskList.back() << "> ^delta <delta-rule" << instNumber << ">)" << std::endl
-					<< "(<delta-rule" << instNumber << "> ^" << ((rType==PROPOSAL) ? "op-name " : "elab-name ") << currOpName << std::endl
+			instrs << "(<delta-rule" << instNumber << "> ^" << ((rType==PROPOSAL) ? "op-name " : "elab-name ") << currOpName << std::endl
 					<< "\t^const <Q" << constNumber << ">" << std::endl
 					<< "\t^pref-weight 0.0)" << std::endl;
 
@@ -1165,37 +1209,32 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 			}
 		}
 
+		// Attach operator proposals to their task context
+		for (auto task : taskOperators) {
+			// Add task-level epset head structure
+			instrs << std::endl << "(<epset-task-" << task.first << "> ^props-epset-name " << task.first;
+
+			// Add the task deltas/proposals
+			for (std::string op : task.second) {
+				instrs << std::endl << "\t^delta <delta-rule" << opNameInstMap.at(op) << ">";
+			}
+			instrs << ")" << std::endl;
+		}
+		taskOperators.clear();
 
 		// Store converted instruction set for later printing
-		insList.push_back(instrs.str());
-		instNumber++;
-		constNumber++;
+		if (instrs.good()) {
+			insList.push_back(instrs.str());
+		}
+		if (rType != NONE) {
+			instNumber++;	// NOTE: For applications, instNumber is only used for the pre-cbset-rule object. It could share an instNumber w/ its proposal, but integers are cheap.
+			constNumber++;
+		}
+
+
 		inFile >> std::ws;
-
-
-		// Add task-level epset head structure
-		if (currTaskList.front().compare(prevTaskName)) {
-			insList.push_back("(<epset-task-" + currTaskList.front() + "> ^props-epset-name " + currTaskList.front() + ")");
-			prevTaskName = currTaskList.front();
-		}
 	}
 
-	// Connect the epset delta for the operator proposal to the application instructions
-	/*std::stringstream instrs;
-	for (auto mappings : proposalMap) {
-		std::string proposalNumber = mappings.second.first;
-		if (proposalNumber.compare("") && mappings.second.second.compare("")) {
-			instrs << "(<d-op" << proposalNumber << "> ^application <dz" << proposalNumber << ">)" << std::endl
-					<< "(<d-op" << proposalNumber << "> ^op-name |" << mappings.first << "|)" << std::endl
-					<< "(<dz" << proposalNumber << "> ^unretrieved <dzz" << proposalNumber << ">)" << std::endl
-					<< "(<dzz" << proposalNumber << "> ^spread-link <epset-" << mappings.second.second << ">)" << std::endl;
-		}
-		else {
-			std::cerr << "WARNING: Operator found with only proposal or application, not both: " << mappings.first << "  Epset link not formed." << std::endl;
-		}
-	}
-	proposalMap.clear();
-	insList.push_back(instrs.str());*/
 
 	// Retrospectively attach wm-target info to deltas that propose modifications to those targets
 	for (auto task : taskWmTargets) {

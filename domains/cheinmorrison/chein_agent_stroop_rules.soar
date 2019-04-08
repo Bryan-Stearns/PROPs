@@ -1,4 +1,4 @@
-# Default with preference for saying the seen word
+# Default with preference for thinking of the seen word
 sp {prefer*stroop-agent*elab-Vword-WMword
     (state <s> ^operator <o> +)
     (<o> ^delta <d>)
@@ -7,6 +7,57 @@ sp {prefer*stroop-agent*elab-Vword-WMword
     (<s> ^operator <o> = 0.5)
 }
 
+# Prefer to end
+sp {prefer*chein*finish
+    (state <s> ^operator <o> +)
+    (<o> ^name |chein-shared-finish|)
+-->
+    (<s> ^operator <o> = 10)
+}
+
+# Finish action chunks:
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t988-1
+    :chunk
+    (state { <s1> <> nil } ^topstate <t1> ^superstate <t1> ^operator <o1>
+          ^const <c1>)
+    (<o1> ^name _PA10_PA11 ^delta <d1>)
+    (<t1> ^flags <f1> ^prop-apply-buffer <p1> ^G <g1> ^operator <o2>)
+    (<c1> ^2 <i1> ^1 <i2>)
+    (<o2> ^delta <d2>)
+    -->
+    (<p1> ^apply <a1>)
+    (<a1> ^dc-stamp (dc) ^source-delta <d2> ^delta-action <d3>
+           ^delta-action <d4>)
+    (<d3> ^prop-type add ^name _PA11 ^id1 <f1> ^attr1 clear-rt ^val <i2>)
+    (<d4> ^prop-type add ^name _PA10 ^id1 <g1> ^attr1 Gtask ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t476-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA10 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^G <g1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 Gtask ^id1 <g1> ^name _PA10 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t471-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA11 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^flags <f1>)
+    (<c1> ^1 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 clear-rt ^id1 <f1> ^name _PA11 ^prop-type add)
+}
 
 # Verbal response chunks:
 

@@ -24,92 +24,107 @@
 #              [^missing <what>])]))        | Generated: Where <what> is << |id1| |id2| >>. Created if the id couldn't be found in WM.
 #####
 
+# MAKE AN INFO OBJECT FOR EACH ACTIVE DELTA
+sp {elaborate*props*epset*delta-info
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info <di>)
+    -->
+    (<di> ^<d> <info>)    # Never thought I'd be using IDs as attributes. Shouldn't be stored to SMEM anyway.
+}
 
 # SUPPLY CACHED ADDRESSES:
 
 sp {elaborate*props*epset-address1*buffer
     (state <s> ^prop-apply-buffer.epset (^delta <d> )
+               ^delta-info.<d> <info>
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address1 <buff>
          ^name <cname>)
 -->
-    (<d> ^cond-id1 <dcid>)
+    (<info> ^cond-id1 <dcid>)
     (<dcid> ^name <cname>
             ^id1 <buff-id>)
 }
 sp {elaborate*props*epset-address2*buffer
     (state <s> ^prop-apply-buffer.epset (^delta <d> )
+               ^delta-info.<d> <info>
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address2 <buff>
          ^name <cname>)
 -->
-    (<d> ^cond-id2 <dcid>)
+    (<info> ^cond-id2 <dcid>)
     (<dcid> ^name <cname>
             ^id2 <buff-id>)
 }
 sp {elaborate*props*epset-address2*cond-const
-    (state <s> ^prop-apply-buffer.epset (^delta <d> ) )
+    (state <s> ^prop-apply-buffer.epset (^delta <d> ) 
+               ^delta-info.<d> <info>)
     (<d> ^const <dc>
          ^prop <c>)
     (<c> ^address2 |props$const|
          ^name <cname>)
 -->
-    (<d> ^cond-id2 <dcid>)
+    (<info> ^cond-id2 <dcid>)
     (<dcid> ^name <cname>
             ^id2 <dc>)
 }
 sp {elaborate*props*epset-address2*act-const
     (state <s> ^prop-apply-buffer.epset <pe>
+               ^delta-info.<d> <info>
                ^const <dc>)
     (<pe> ^delta <d>)
     (<d> ^prop <c>)
     (<c> ^address2 |props$const|
          ^name <cname>)
 -->
-    (<d> ^cond-id2 <dcid>)
+    (<info> ^cond-id2 <dcid>)
     (<dcid> ^name <cname>
             ^id2 <dc>)
 }
 sp {elaborate*props*epset-address1*rootstate
     (state <s> ^prop-apply-buffer.epset <pe>
+               ^delta-info.<d> <info>
                ^topstate <ts>)
     (<pe> ^delta <d>)
     (<d> ^prop <c>)
     (<c> ^address1 |props$rootstate|
          ^name <cname>)
 -->
-    (<d> ^cond-id1 <dcid>)
+    (<info> ^cond-id1 <dcid>)
     (<dcid> ^name <cname>
             ^id1 <ts>)
 }
 sp {elaborate*props*epset-address2*rootstate
     (state <s> ^prop-apply-buffer.epset <pe>
+               ^delta-info.<d> <info>
                ^topstate <ts>)
     (<pe> ^delta <d> )
     (<d> ^prop <c>)
     (<c> ^address2 |props$rootstate|
          ^name <cname>)
 -->
-    (<d> ^cond-id2 <dcid>)
+    (<info> ^cond-id2 <dcid>)
     (<dcid> ^name <cname>
             ^id2 <ts>)
 }
 
 sp {elaborate*props*epset-address1*missing
-    (state <s> ^prop-apply-buffer.epset (^delta <d>  )
+    (state <s> ^prop-apply-buffer.epset (^delta <d> )
+               ^delta-info.<d> <info>
               -^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address1 {<buff> <> |props$rootstate|})
 -->
-    (<d> ^missing |id1|)
+    (<info> ^missing |id1|)
 }
 sp {elaborate*props*epset-address2*missing*buffer
-    (state <s> ^prop-apply-buffer.epset (^delta <d>  )
+    (state <s> ^prop-apply-buffer.epset (^delta <d> )
+               ^delta-info.<d> <info>
               -^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
     (<c> ^address2 {<buff> <> |props$const| <> |props$rootstate|})
 -->
-    (<d> ^missing |id2|)
+    (<info> ^missing |id2|)
 }

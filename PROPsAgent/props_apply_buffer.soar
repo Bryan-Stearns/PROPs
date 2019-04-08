@@ -42,6 +42,8 @@ sp {elaborate*apply-buffer
     (state <s> ^superstate nil)
 -->
     (<s> ^prop-apply-buffer <b>
+         ^delta-info <di>
+         ^backtrace <bt>
          ^locks <k>)
 }
 #sp {elaborate*apply-buffer*cascade
@@ -55,7 +57,8 @@ sp {elaborate*working-buffer*begin
     (state <s> ^superstate <ss>)
     (<ss> ^const)
 -->
-    (<s> ^prop-working-buffer <b>)
+    (<s> ^prop-working-buffer <b>
+         ^delta-info <di>)
     (<b> ^apply <a>)
     # If we've entered an impasse, we need to chunk this state before chunking the superstate.
     (dont-learn <ss>)

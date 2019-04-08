@@ -37,7 +37,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 			//this.setAddressChunkFile(proj_dir + "chein_agent_L1_chunks.soar");
 			//this.setFetchSeqFile(proj_dir + "chein_agent_fetch_procedures.soar");
 			//this.setInstructionsFile(proj_dir + "cheinH_agent3_instructions.soar");
-			this.setInstructionsFile(proj_dir + "chein_test_instructions.soar");
+			this.setInstructionsFile(proj_dir + "chein_test2_instructions.soar");
 			this.setSoarAgentFile(proj_dir + "cheinH_agent3.soar");
 		}
 		else {
@@ -52,7 +52,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
 												proj_dir + "chein_agent_smem.soar",
-												proj_dir + "chein_agent_stroop_rules.soar"));
+												proj_dir + "chein_agent_stroop_rules.soar",
+												proj_dir + "chein_agent_vcwm_rules.soar"));
 		
 		cstask = new VCWM();
 		sttask = new Stroop();
@@ -60,10 +61,14 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	}
 	
 	public void runCheinDebug(String task, int threshold, String mode) {
+		/*ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("sp {elaborate*props*pref-weight*learning-rate\n    (state <s> ^superstate nil)\n-->\n    (<s> ^props-pref-learning-rate " 
+				+ 0.2 + ")\n}");*/
+		
 		inDebug = true;
 		//taskMode = task;
 		this.setVerbose(false);
-		this.runDebug(task, task, new LearnConfig(mode, threshold));
+		this.runDebug(task, task, new LearnConfig(mode, threshold)); //, cmds, String.format("_clr%02d", (int)(0.2*100))));
 		this.setVerbose(true);
 		inDebug = false;
 	}
@@ -265,7 +270,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	
 	public void makePreChunks() {
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
-		trainList.add(new Pair<String,String>("verbal-CWM","verbal-CWM"));
+		trainList.add(new Pair<String,String>("verbalCWM","verbalCWM"));
 		trainList.add(new Pair<String,String>("stroop","stroop"));
 		
 		String task = "cheinNR";
@@ -308,7 +313,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		do_stroop(1, "EXP");
 		// WEIRD: Taatgen reinits here in rehearsal case
 		
-		CM_setTask("verbal-CWM");
+		CM_setTask("verbalCWM");
 		for (int i=0; i<2 && !this.hasError(); ++i) {
 			// Practice the verbal task
 			System.out.println("*** Practice Session " + (i+1));
@@ -367,7 +372,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		if (this.getTask().equals("stroop")) {
 			latency = stroop_action(action, val2);
 		}
-		else if (this.getTask().equals("verbal-CWM")) {
+		else if (this.getTask().equals("verbalCWM")) {
 			latency = VCWM_action(action, val2);
 		}
 		else {
@@ -390,7 +395,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	@Override
 	protected void user_agentStop() {
 		if (inDebug) {
-			if (this.getTask().equals("verbal-CWM")) {
+			if (this.getTask().equals("verbalCWM")) {
 				set_perception("pending", null, null);
 				this.applyNewInputs();
 				//this.scheduleInput(0.5, Arrays.asList("word", get_rand_word(), null));
@@ -413,7 +418,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 	protected void user_updateTask() {
 
 		if (inDebug) {
-			if (this.getTask().equals("verbal-CWM")) {
+			if (this.getTask().equals("verbalCWM")) {
 				init_VCWM();
 			}
 			else if (this.getTask().equals("stroop")) {

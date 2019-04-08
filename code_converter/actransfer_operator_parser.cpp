@@ -114,10 +114,13 @@ std::string actransfer_operator_parser::nextLine(std::stringstream &ss) {
 
 std::string actransfer_operator_parser::nextToken(std::stringstream &ss) {
 	std::string token = "";
-	if (!ss.good()) {
-		nextLine(ss);
-	}
-	ss >> token;
+	do {
+		if (!ss.good()) {
+			nextLine(ss);
+		}
+		ss >> token;
+	} while (token.length() == 0 && inFile.good());
+
 	return token;
 }
 
@@ -185,15 +188,20 @@ void actransfer_operator_parser::getSlotNames(std::stringstream &ss, std::map<st
 // Assuming the ss given is pointing to the middle of the add-instr directive, after the instruction name,
 // return a map of slot names to slot addresses.
 // Leave the stream at the beginning of the operator descriptions (which follow the add-instr setup).
-void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken) {
+std::vector<std::string> actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken) {
 	std::string slotPath = "";
-	std::string sToken = startToken;;
+	std::string sToken = startToken;
+	auto retvect = std::vector<std::string>();
+
 	if (startToken.length() == 0)
 		sToken = nextToken(ss);
 
 	// Read until finding the comment symbol
 	while (ss.good()) {
-		if (!sToken.compare(":input")) {
+		if (!sToken.compare(":name")) {
+			currRule_h1 = nextToken(ss);
+		}
+		else if (!sToken.compare(":input")) {
 			getSlotNames(ss, nameMap, "s.V.");
 		}
 		else if (!sToken.compare(":variables") || !sToken.compare(":working-memory")) {
@@ -207,15 +215,33 @@ void actransfer_operator_parser::readInstrSettings(std::stringstream &ss, std::m
 			nextLine(ss);
 			while (ss.peek() == ':')
 				nextLine(ss);
-			return;
+			return retvect;
+		}
+		else if (!sToken.compare(":lock")) {
+			// Read elab settings
+			nextToken(ss); // read '('
+			sToken = nextToken(ss); // read first lock
+			std::string lockList = ":lock";
+			while (sToken.compare(")")) {
+				if (nameMap.find(sToken) == nameMap.end()) {
+					printParseError("Unrecognized elab lock slot name.", true);
+					throw;
+				}
+				lockSlots.push_back(nameMap.at(sToken));
+				lockList += " " + nameMap.at(sToken);
+				sToken = nextToken(ss);
+			}
+			retvect.push_back(lockList);
 		}
 
-		sToken = nextToken(ss);
+		ss >> sToken;
 
 		// Pass a newline if it exists
 		//if (sToken.length() == 0)
 		//	sToken = nextToken(ss);
 	}
+
+	return retvect;
 }
 
 std::string actransfer_operator_parser::makeActionRef(const std::string &condRef) {
@@ -254,7 +280,7 @@ std::string actransfer_operator_parser::getBuffSlot(const std::string &buff, con
 // Constants will still have raw values.
 // rType will be set to note whether the parsed rule is a proposal, apply, or elaboration.
 // Returns success, and modifies the given stuctures.
-bool actransfer_operator_parser::getRawProps(std::stringstream & ss, parse_type &pmode, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
+bool actransfer_operator_parser::getRawProps1(std::stringstream & ss, parse_type &pmode, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
 {
 	Primitive clearAction("","","");	// Special case: populated args if need clear-rt
 
@@ -626,6 +652,418 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, parse_type 
 			}
 
 			actions.push_back(Primitive(op, p2, p1));
+		}
+
+		// Read token for next iteration
+		sToken = nextToken(ss);
+	}
+
+	if (clearAction.path1.compare(""))
+		actions.push_back(clearAction);
+	else if (!currRule_h2.compare("pcmd") || !currRule_h2.compare("read-instruction") ||
+			((!currRule_h2.compare("for-replace")
+			|| !currRule_h2.compare("for-delete")
+			|| !currRule_h2.compare("for-insert"))
+			&& (!currTaskName.compare("ed") || !currTaskName.compare("edt"))))
+	{
+		actions.push_back(Primitive("=", CLEAR_RT_PATH, "const1"));
+	}
+
+	// Read to the end of the instruction
+	do {
+		sToken = nextToken(ss);
+	} while (sToken.compare(")"));
+	//ss.str(""); 	// clear any remaining tokens from this line
+	//ss.clear();
+
+	return true;
+}
+
+
+// Get the conditions and actions of the next rule in the file in raw format.
+// Constants will still have raw values.
+// rType will be set to note whether the parsed rule is a proposal, apply, or elaboration.
+// Returns success, and modifies the given stuctures.
+bool actransfer_operator_parser::getRawProps2(std::stringstream & ss, parse_type &pmode, std::vector<std::string>& condConsts, std::vector<std::string>& actConsts, std::vector<Primitive>& conditions, std::vector<Primitive>& actions, std::vector<std::string> &cmtDirectives)
+{
+	Primitive clearAction("","","");	// Special case: populated args if need clear-rt
+
+	// Read first task name
+	std::string sToken = nextToken(ss);	// "(" or ";~"
+
+	// Handle directives if any
+	while (!sToken.compare("(") || !sToken.compare(")") || !sToken.compare("add-instr") || !sToken.compare("add-operators") || !sToken.compare("add-task") || !sToken.compare("elab") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':') {
+		if (!sToken.compare("add-instr")) {
+			pmode = INSTR;
+			initSlotRefMap();
+			currTaskName = nextToken(ss);
+			cmtDirectives.push_back("(add-instr "+currTaskName);
+			readInstrSettings(ss, slotRefMap);	// These will add task-specific refs to the master refs, without overwriting
+		}
+		else if (!sToken.compare("add-task")) {
+			//pmode = INSTR;
+			currTaskName = nextToken(ss);
+			cmtDirectives.push_back("(add-task "+currTaskName);
+			sToken = nextToken(ss); // '('
+			while (sToken.compare(")")) {
+				// Read the operators in the task
+				sToken = nextToken(ss); // 'operator'
+				if (sToken.compare("operator")) {
+					printParseError("Expected 'operator'.", true);
+					throw;
+				}
+				sToken = nextToken(ss); // the operator name
+				cmtDirectives.push_back("operator " + sToken);
+				sToken = nextToken(ss); // the local ')'
+				sToken = nextToken(ss); // either a '(' for the next operator, or ')' to close
+			}
+			cmtDirectives.push_back(") ");
+		}
+		else if (!sToken.compare(0,1, ":")) {
+			readInstrSettings(ss, slotRefMap, sToken);	// These will add task-specific refs to the master refs, without overwriting
+		}
+		else if (!sToken.compare("elab")) {
+			currRule_h1 = nextToken(ss);
+			pmode = ELAB;
+			cmtDirectives.push_back("(elab "+currRule_h1);
+			initSlotRefMap();
+
+			auto cmtvect = readInstrSettings(ss, slotRefMap);
+			for (std::string lockList : cmtvect) {
+				cmtDirectives.push_back(lockList);
+			}
+		}
+		else if (!sToken.compare(";~")) {
+			if (pmode == ELAB) {
+				currRule_h2 = nextToken(ss);
+				cmtDirectives.push_back(";~ " + currRule_h2);
+			}
+			else {
+				currRule_h1 = nextToken(ss);
+				currRule_h2 = "";
+				cmtDirectives.push_back(";~ " + currRule_h1);
+			}
+		}
+		else if (!sToken.compare(";~~")) {
+			currRule_h2 = nextToken(ss);
+			cmtDirectives.push_back(";~~ " + currRule_h2);
+		}
+		else if (!sToken.compare(")")) {
+			//if (pmode == ELAB) {
+				pmode = INSTR;
+				lockSlots.clear();
+				cmtDirectives.push_back(") ");
+			//}
+		}
+
+		sToken = nextToken(ss);
+
+		if (!inFile.good()){
+			return true;
+		}
+	}
+
+	// Begin instruction
+
+	/*if (currTaskName.compare("part-mult*index1") && !currRule_h1.compare("mult")) {
+		sToken = ""; // For debugging
+	}*/
+
+	// Skip next "ins"
+	sToken = nextToken(ss);
+
+
+
+	// *** CONDITIONS ***
+
+	// Check syntax (okay, so we do do a little of that)
+	if (sToken.compare(":condition")) {
+		printParseError("Invalid instruction. Expected ':condition'.", true);
+	}
+	nextToken(ss); 			// read "("
+	sToken = nextToken(ss);	// read first condition reference
+
+	// Add universal condition testing the current task
+	/*conditions.push_back(Primitive("==", "s.G.Gtask", currTaskName));
+	condConsts.push_back(currTaskName);*/
+
+	// Read conditions until finding closing parenthesis
+	while (sToken.compare(")") != 0) {
+		std::string p1;
+		std::string p2;
+		std::string op;
+
+		auto it = slotRefMap.find(sToken);	// Look
+		if (it == slotRefMap.end()) {
+			printParseError("Unrecognized condition token '" + sToken + "'");
+			throw;
+		}
+
+		// Get path to of first arg
+		p1 = it->second;
+
+		// Read op ("=" or "<>" or "!=");
+		op = nextToken(ss);
+		if (!op.compare("="))
+			op = "==";
+
+		// Read arg2
+		sToken = nextToken(ss);
+
+		// Check special negation/existence cases
+		if (!sToken.compare("nil") /*&& std::find(specNegs.begin(), specNegs.end(), p1) != specNegs.end()*/ )
+		{
+			if (!op.compare("==")) {
+				// Negation test (== nil)
+				p2 = "";
+				op = "-";
+			}
+			else {
+				// Existence test (<> nil)
+				p2 = "";
+				op = "";
+			}
+		}
+		/*else if (!op.compare("!=")) {
+			// Special value-negation test (versus inequality test for existence of a different value)
+			p2 = sToken;
+			if (slotRefMap.find(sToken) == slotRefMap.end()) {
+				condConsts.push_back(p2);
+			}
+		}*/
+		else {
+			it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
+				p2 = it->second;
+			}
+			else {
+				// else (should only happen for constants)
+				p2 = sToken;
+				condConsts.push_back(p2);
+			}
+		}
+
+		conditions.push_back(Primitive(op, p1, p2));
+
+		// Check RT test conditions, indicating need to clear RT after reading
+		if (/*sToken.compare("nil") && sToken.compare("error") && std::find(specClears.begin(), specClears.end(), p1) != specClears.end()*/
+				!p1.compare(0,5, "s.RT.") || (!p1.compare(0,16, "s.smem.rt-result") && op.compare("-")) ) {
+			clearAction = (Primitive("=", CLEAR_RT_PATH, "const1"));
+		}
+
+
+
+		// Read token for next iteration
+		sToken = nextToken(ss);
+
+	}
+
+	// *** ACTIONS ***
+
+	// Check syntax
+	sToken = nextToken(ss);
+	if (!sToken.compare(":subgoal")) {
+		// This is an operator proposal only, without other actions (for an ONC subgoal).
+		// Get the operator name
+		nextToken(ss);			// read '"'
+		sToken = nextToken(ss); // read operator/subgoal name
+		condConsts.insert(condConsts.begin(), sToken);
+		// Skip to the next rule
+		actions.clear();
+		// Read to the end of the instruction
+		while (sToken.compare(")")) {
+			sToken = nextToken(ss);
+		}
+		return true;
+	}
+	else if (sToken.compare(":action")) {
+		printParseError("Invalid instruction. Expected ':action'.", true);
+	}
+	nextToken(ss); 			// read "("
+	sToken = nextToken(ss);	// read first condition reference
+
+	bool usedAC = false;	// Whether we've added a special "AC.action <a>" action
+	bool usedQ = false;		// Whether we've added a special "Q.query <q>" action
+	bool usedNW = false;	// Whether we've added a special "NW.wm <q>" action
+	std::string specialRT = "";	// If not "", replace a query with a retrieve for the referenced slot
+
+	// Define buffer collections (buffer in the act-r sense)
+	std::vector<std::string> src_bufferIDs = {
+			{"s.RT"},
+			{"s.WM"},
+			{"s.G.Gtop"}
+	};
+
+	while (sToken.compare(")")) {
+		// Check for group action (e.g., (div RTvalue WMvalue) -> RT)
+		if (!sToken.compare("(")) { // || src_buffers.find(sToken) != src_buffers.end()) {
+
+			// Get source list
+			auto sources = std::vector<std::string>();
+			std::string pRef, op, buff;
+
+			sToken = nextToken(ss); // read first item
+
+			while (sToken.compare(")")) {
+				// Add each item within the ()'s to the source list
+				auto it = slotRefMap.find(sToken);
+				if (it != slotRefMap.end()) {
+					if (sToken.compare("RTid") == 0) {
+						// Special case: If (? ? RTid) -> RT, replace RT with RT.WMnext
+						specialRT = it->second;
+					}
+					pRef = it->second;
+				}
+				else {
+					// (should only happen for constants)
+					pRef = sToken;
+					/*if (!pRef.compare("?"))
+						pRef = "nil";*/
+					if (pRef.compare("?") != 0)
+						actConsts.push_back(pRef);
+				}
+				sources.push_back(pRef);
+				sToken = nextToken(ss);
+			}
+
+			nextToken(ss);	// read "->"
+			op = "=";
+			// Read destination buffer
+			buff = nextToken(ss);
+
+			// Check for use of queries - if so, don't clear-rt
+			if (!buff.compare("RT"))
+				clearAction.path1 = "";
+
+			// Check for the special case of backtracing a pointer ((? ? WMid) -> RTid)
+			if (buff.compare("RT") == 0 && specialRT.compare("") != 0) {
+				// Add the id attribute being queried
+				actions.push_back(Primitive("+","s.Q.wm-query",""));
+				actions.push_back(Primitive("=","s.Q.wm-query.root",specialRT));
+				actions.push_back(Primitive("=","s.Q.wm-query.q-type","wm-query"));
+				actConsts.push_back("wm-query");
+				usedQ = true;
+				// Add any extra attributes the id should have
+				for (size_t i=0; i<sources.size(); ++i) {
+					if (sources.at(i).compare(specialRT) == 0 || sources.at(i).compare("?") == 0)
+						continue;
+					actions.push_back(Primitive("=","s.Q.wm-query.slot"+toString(i+1),sources.at(i)));
+				}
+				// Read token for next iteration
+				sToken = nextToken(ss);
+				continue;
+			}
+
+			// Check for need for action that creates an AC action cluster
+			if (!usedAC && !buff.compare("AC")) {
+				actions.push_back(Primitive("+","s.AC.action",""));
+				usedAC = true;
+			}
+			// Check for need for query that creates an Q query cluster
+			if (!usedQ && !buff.compare("RT")) {
+				actions.push_back(Primitive("+","s.Q.query",""));
+				actions.push_back(Primitive("=","s.Q.query.q-type","query"));
+				actConsts.push_back("query");
+				usedQ = true;
+			}
+			// Check for a newWM wm cluster
+			if (!usedNW && !buff.compare("newWM")) {
+				actions.push_back(Primitive("+","s.NW.wm",""));
+				usedNW = true;
+			}
+
+			// Add action for each corresponding source->dest pair
+			for (size_t i=0; i<sources.size(); ++i) {
+				std::string src = sources.at(i),
+						dst;
+				if (!src.compare("?"))
+					continue;
+
+				// If this is making a newWM, check for the WMprev value if any
+				if ((int)i == wmprev_ind && !buff.compare("newWM") && std::find(src_bufferIDs.begin(), src_bufferIDs.end(), src) != src_bufferIDs.end()) {
+					dst = "s.NW.wm.WMprev";
+				}
+				else {
+					dst = getBuffSlot(buff,i+1);
+				}
+
+				if (!src.compare("nil")) {
+					actions.push_back(Primitive("-", dst, ""));		// Remove WME rather than set to nil
+				}
+				else {
+					actions.push_back(Primitive(op, dst, src));
+				}
+			}
+		}
+		else {
+			// Normal action
+			std::string p1;
+			std::string p2;
+			std::string op;
+
+			auto it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
+				p1 = it->second;
+			}
+			else {
+				// (should only happen for constants)
+				p1 = sToken;
+				actConsts.push_back(p1);
+			}
+
+			nextToken(ss);	// read "->"
+			op = "=";
+
+			// Read arg2
+			sToken = nextToken(ss);
+			it = slotRefMap.find(sToken);
+			if (it != slotRefMap.end()) {
+				if (!sToken.compare("RTid")) {
+					// Special case: RTid is the retrieve command if on the action side, and the RTid wme if on the condition side
+					p2 = "s.Q.retrieve";
+					actions.push_back(Primitive("=","s.Q.retrieve.q-type","retrieve"));
+					actConsts.push_back("retrieve");
+				}
+				else {
+					p2 = makeActionRef(it->second);
+				}
+
+				// Check for use of queries - if so, don't clear-rt
+				if (!p2.compare(0,4,"s.Q."))
+					clearAction.path1 = "";
+				else if (!p2.compare("s.G.Gtask"))
+					clearAction = (Primitive("=", CLEAR_RT_PATH, "const1"));
+			}
+			else {
+				printParseError("Unrecognized action token '" + sToken + "'");
+				throw;
+			}
+
+			// Check for need for action that creates an AC action cluster
+			if (!usedAC && (!p1.compare(0,5, "s.AC.") || !p2.compare(0,5, "s.AC."))) {
+				actions.push_back(Primitive("+","s.AC.action",""));
+				usedAC = true;
+			}
+			// Check for need for action that creates an Q query cluster
+			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q.")) && p2.compare(2,10, "Q.retrieve")) {
+				actions.push_back(Primitive("+","s.Q.query",""));
+				actions.push_back(Primitive("=","s.Q.query.q-type","query"));
+				actConsts.push_back("query");
+				usedQ = true;
+			}
+			// Check for a newWM cluster
+			if (!usedNW && (!p1.compare(0,5, "s.NW.") || !p2.compare(0,5, "s.NW."))) {
+				actions.push_back(Primitive("+","s.NW.wm",""));
+				usedNW = true;
+			}
+
+
+			if (!p1.compare("nil")) {
+				actions.push_back(Primitive("-", p2, ""));		// Remove WME rather than set to nil
+			}
+			else {
+				actions.push_back(Primitive(op, p2, p1));
+			}
 		}
 
 		// Read token for next iteration
@@ -1109,12 +1547,16 @@ void actransfer_operator_parser::parseActransferFile(std::vector<std::string> &p
 		auto cmtDirectives = std::vector<std::string>();			// Any ordered comment directives before this rule
 
 		// Get the conditions and actions for the next rule
-		if (!getRawProps(ss, pmode, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
+		if (!getRawProps2(ss, pmode, condRawConsts, actRawConsts, rawConditions, rawActions, cmtDirectives)) {
 			propRules.clear();
 			return;
 		}
 
 		if (!inFile.good()) {
+			// Flush any final directives before ending
+			for (const std::string &d : cmtDirectives) {
+				propRules.push_back("# " + d + "\n");
+			}
 			break;
 		}
 

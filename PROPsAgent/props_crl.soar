@@ -11,13 +11,23 @@
 #####
 
 decide indifferent-selection -b
-decide indifferent-selection -t 1.0
+decide indifferent-selection -t 0.5
+
+# Set up the learning-rate parameter
+# The value can be changed by overwriting this rule.
+sp {elaborate*props*pref-weight*learning-rate
+    (state <s> ^superstate nil)
+-->
+    (<s> ^props-pref-learning-rate 0.3)
+}
 
 # Define elaboration of input-link reward to the RL interface
 sp {set*props*reward*input
     :o-support
     (state <s> ^io.input-link.reward <rwd>
-               ^prop-apply-buffer <b>)
+               ^smem <smem>
+               ^prop-apply-buffer <b>
+               ^props-pref-learning-rate <lr>)
     (<rwd> ^value <rv>
           -^applied <d>)
     (<b> ^apply <ba>)
@@ -25,18 +35,22 @@ sp {set*props*reward*input
     (<d> ^pref-weight <pw>)
 -->
     (<d> ^pref-weight <pw> -
-         ^pref-weight (/ (+ <pw> <rv>) 3))    # TODO: Should probably normalize over count of deltas in context
+         ^pref-weight (* (+ <pw> <rv>) <lr>))    # TODO: Should probably normalize over count of deltas in context
     (<rwd> ^applied <d>)
+    (<smem> ^store-request <d>)
 }
 
 
 # Elaborate the preference
 sp {prefer*props*delta*pref-weight
-    (state <s> ^operator <o> +)
-    (<o> ^delta <d>)
-    (<d> ^pref-weight <pw>)
+    (state <s> ^operator <o1> +
+               ^operator <o2> +) # Could be the same as <o1>
+    (<o1> ^delta <d>)
+    (<o2> ^epset-name <name>)
+    (<d> ^pref-weight <pw>
+         ^op-name <name>)
 -->
-    (<s> ^operator <o> = <pw>)
+    (<s> ^operator <o1> = <pw>)  # If two proposals are for the same action, combine the prefs
 }
 
 
@@ -61,6 +75,17 @@ sp {prefer*props*delta*focus-inhibit
           ^epset-name <name2>)
 -->
     (<s> ^operator <o2> = -0.75)
+}
+
+# Prefer reacting to stimuli over imagination
+sp {prefer*props*delta*focus-perception
+    (state <s> ^operator <o> +
+               ^V <v>
+               ^delta-info.<d> <info>)
+    (<o> ^delta <d>)
+    (<info> ^cond-id1.id1 <v>) 
+-->
+    (<s> ^operator <o> = 0.5)
 }
 
 # Default wait operator

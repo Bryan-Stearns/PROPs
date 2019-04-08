@@ -8,9 +8,11 @@
 #  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
 #####
 
+decide indifferent-selection -b
+decide indifferent-selection -t 1.0
 rl --set learning on
-rl --set learning-rate 0.0075  # default 0.3
-rl --set discount-rate 0.75   # default 0.9
+rl --set learning-rate 0.3  # default 0.3
+rl --set discount-rate 0.9   # default 0.9
 
 # Define elaboration of input-link reward to the RL interface
 sp {elaborate*props*reward*input

@@ -1,0 +1,152 @@
+(add-instr stroop :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare)
+	;~ focus-color
+	(ins :condition (Vcolor != nil) :subgoal "elab-Vcolor-WMcolor" :description "Get the color from the object.")
+	;~ focus-WMcolor
+	(ins :condition (WMcolor != nil) :subgoal "elab-WMcolor-WMword" :description "Get the word from the color.")
+	;~ focus-word
+	(ins :condition (Vword != nil) :subgoal "elab-Vword-WMword" :description "Get the word from the text.")
+
+	;~ act-say-word
+	(ins :condition (Vobject = yes WMword != nil) :action ((say WMword) -> AC) :description "Say the word")
+
+	;; Imagination
+	;~ imagine-color-WMcolor
+	(ins :condition (WMprepare = yes) :subgoal "elab-Vcolor-WMcolor" :description "Load the elab in preparation for percept.")
+	;~ imagine-WMcolor-WMword
+	(ins :condition (WMprepare = yes) :subgoal "elab-WMcolor-WMword" :description "Load the elab in preparation for percept.")
+
+	;~ imagine-yes-WMcanprepare
+	(ins :condition (Vobject != yes) :subgoal "elab-yes-WMcanprepare" :description "Note that can prepare between stimuli.")
+
+	;~ finish
+	(ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")
+)
+
+(add-instr shared :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare)
+	;; Imagination
+	;~ imagine-yes-WMprepare
+	(ins :condition (WMcanprepare = yes) :subgoal "elab-yes-WMprepare" :description "Trigger preparation while idle")
+	;~ imagine-no-WMprepare
+	(ins :condition (WMcanprepare = yes) :subgoal "elab-no-WMprepare" :description "Trigger mind-wandering while idle")
+)
+
+;; Elaborations
+(elab elab-yes-WMcanprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMcanprepare)
+	;~ focusing
+	(ins :condition (Gtask <> nil) :action (yes -> WMcanprepare))  ;; This is abstracting away whatever actual value would represent preparation
+)
+(elab elab-yes-WMprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMprepare)
+	;~ focusing
+	(ins :condition (Gtask <> nil) :action (yes -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+)
+(elab elab-no-WMprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMprepare)
+	;~ idle
+	(ins :condition (Gtask <> nil) :action (no -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+)
+
+(elab elab-Vcolor-WMcolor :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMcolor)
+	;~ general
+	(ins :condition (Vcolor <> nil) :action (Vcolor -> WMcolor))  ;; This happens to be generic for all sub-elabs.
+)
+(elab elab-WMcolor-WMword :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMword)
+	;~ general
+	(ins :condition (WMcolor <> nil) :action (WMcolor -> WMword))  ;; This happens to be generic for all sub-elabs.
+)
+(elab elab-Vword-WMword :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMword)
+	;~ general
+	(ins :condition (Vword <> nil) :action (Vword -> WMword))  ;; This happens to be generic for all sub-elabs.
+)
+
+
+(add-task stroop
+	(operator stroop-focus-color)
+	(operator stroop-focus-WMcolor)
+	(operator stroop-focus-word)
+	(operator stroop-act-say-word)
+	(operator stroop-imagine-color-WMcolor)
+	(operator stroop-imagine-WMcolor-WMword)
+	(operator stroop-imagine-yes-WMcanprepare)
+	(operator stroop-finish)
+
+	(operator shared-imagine-yes-WMprepare)
+	(operator shared-imagine-no-WMprepare)
+)
+
+;;;;;;;;;;
+
+
+(add-instr verbalCWM :input (Vobject Videntity) :working-memory (WMconcept WMprev WMvar WMcanprepare WMprepare) :declarative ((RTisword RTlexical RTanswer)(RTconcept RTprev))
+
+	;; Initialize the pointer into declarative memory by pointing it at working memory. This will become the first memory item
+	;~ act-init
+	(ins :condition (Gtop = nil) :action (WMid -> Gtop) :description "Start with lexical decision")  ;; Test Gtop also so that action is add instead of replace
+
+
+	;; Do lexical decision
+	;~ rt-lexdec
+	(ins :condition (Vobject = word RTisword != is-word RT1 != error) :action ((is-word Videntity) -> RT nil -> WMvar) :description "Word is seen, respond to it.")
+	;~ act-success
+	(ins :condition (RTanswer = yes RTisword = is-word) :action ((type Y) -> AC) :description "Successful retrieve: respond 'yes'")
+	;~ act-fail
+	(ins :condition (RT1 = error WMvar = nil) :action ((type N) -> AC) :description "Retrieval failure: respond 'no'")
+
+	;; When a letter appears, put it in WM and prepare to rehearse
+	;~ act-store-wm
+	(ins :condition (Vobject = letter WMconcept = nil) :action (Videntity -> WMconcept (wait) -> AC) :description "A letter is presented: put it in WM")
+	;~ act-store-dm
+	(ins :condition (Vobject = letter WMconcept <> nil) :action ((Videntity WMid) -> newWM (wait) -> AC) :description "A letter is presented: put it in DM")
+
+
+	;~ imagine-yes-WMcanprepare
+	(ins :condition (Vobject = pending WMconcept <> nil) :subgoal "elab-yes-WMcanprepare" :description "Note that can prepare between stimuli")
+	;~ imagine-WMprepare-rehearse
+	(ins :condition (WMprepare = yes) :subgoal "VCWM-rehearse" :description "Start rehearsing")
+
+	;~ focus-report
+	(ins :condition (Vobject = report) :subgoal "VCWM-report" :description "Start reporting")
+
+	;; Do rehearsal as long as the letter is still on the screen
+	;~ act-rehearse-start
+	(ins :condition (RT1 = nil WMvar != rehearse) :action (Gtop -> RTid rehearse -> WMvar) :description "Start rehearsal by retrieving first item")
+	;~ act-rehearse-next
+	(ins :condition (RT1 <> error WMvar = rehearse) :action ((? RTid) -> RT) :description "Rehearse next item") ;; '!=' for inexistence test, so when RT1 blinks this operator will also blink
+	;~ act-rehearse-restart
+	(ins :condition (RT1 = error WMvar = rehearse) :action (Gtop -> RTid nil -> WMvar) :description "End of list, return to top")
+
+	;;~ report
+	;~ act-report-start
+	(ins :condition (WMvar != report) :action (Gtop -> RTid report -> WMvar) :description "Report prompt came up: retrieve first item")
+	;~ act-report-report
+	(ins :condition (RT1 <> error WMvar = report) :action ((type RTconcept) -> AC (? RTid) -> RT) :description "Report item and retrieve next")
+	;~ act-report-finish
+	(ins :condition (RT1 = error WMvar = report) :action ((enter) -> AC finish -> Gtask) :description "No more items: press enter and end")
+
+)
+
+(add-task verbalCWM
+	(operator verbalCWM-act-init)
+	(operator verbalCWM-rt-lexdec)
+	(operator verbalCWM-act-success)
+	(operator verbalCWM-act-fail)
+	(operator verbalCWM-act-store-wm)
+	(operator verbalCWM-act-store-dm)
+	(operator verbalCWM-imagine-yes-WMcanprepare)
+	(operator verbalCWM-imagine-WMprepare-rehearse)
+	(operator verbalCWM-focus-report)
+
+	(operator shared-imagine-yes-WMprepare)
+	(operator shared-imagine-no-WMprepare)
+)
+
+(add-task VCWM-rehearse
+	(operator verbalCWM-act-rehearse-start)
+	(operator verbalCWM-act-rehearse-next)
+	(operator verbalCWM-act-rehearse-restart)
+)
+
+(add-task VCWM-report
+	(operator verbalCWM-act-report-start)
+	(operator verbalCWM-act-report-report)
+	(operator verbalCWM-act-report-finish)
+)
+

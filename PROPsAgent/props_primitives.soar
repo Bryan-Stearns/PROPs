@@ -41,10 +41,11 @@
 ###
 
 sp {elaborate*props*epset*delta*cond*eq
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -56,13 +57,14 @@ sp {elaborate*props*epset*delta*cond*eq
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*neq
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -74,13 +76,14 @@ sp {elaborate*props*epset*delta*cond*neq
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*teq
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -92,13 +95,14 @@ sp {elaborate*props*epset*delta*cond*teq
     (<id1> ^<attr1> <val>)
     (<id2> ^<attr2> <=> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*less
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -110,13 +114,14 @@ sp {elaborate*props*epset*delta*cond*less
     (<id1> ^<attr1> < <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*greater
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -128,13 +133,14 @@ sp {elaborate*props*epset*delta*cond*greater
     (<id1> ^<attr1> > <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*less-equal
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -146,13 +152,14 @@ sp {elaborate*props*epset*delta*cond*less-equal
     (<id1> ^<attr1> <= <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*greater-equal
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -164,7 +171,7 @@ sp {elaborate*props*epset*delta*cond*greater-equal
     (<id1> ^<attr1> <= <val>)
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 #sp {elaborate*props*epset*delta*cond*inexistence
 #    (state <s> ^prop-apply-buffer.epset.delta <d>)
@@ -177,13 +184,14 @@ sp {elaborate*props*epset*delta*cond*greater-equal
 #         ^attr1 <attr1>)
 #    (<id1> -^<attr1> <val>)
 #-->
-#    (<d> ^cond-success <cname>)
+#    (<info> ^cond-success <cname>)
 #}
 sp {elaborate*props*epset*delta*cond*inexistence
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>
-         ^cond-id2 <cid2>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>
+            ^cond-id2 <cid2>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<cid2> ^name <cname>
@@ -195,12 +203,13 @@ sp {elaborate*props*epset*delta*cond*inexistence
     (<id1> -^<attr1> <val>)    # The particular value does not exist under the first arg
     (<id2> ^<attr2> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*negation
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<c> ^prop-type << negation inexistence >>  # Negation also satisfies inexistence
@@ -208,12 +217,13 @@ sp {elaborate*props*epset*delta*cond*negation
          ^attr1 <attr1>)
     (<id1> -^<attr1> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 sp {elaborate*props*epset*delta*cond*existence
-    (state <s> ^prop-apply-buffer.epset.delta <d>)
-    (<d> ^prop <c>
-         ^cond-id1 <cid1>)
+    (state <s> ^prop-apply-buffer.epset.delta <d>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <c>)
+    (<info> ^cond-id1 <cid1>)
     (<cid1> ^name <cname>
             ^id1 <id1>)
     (<c> ^prop-type existence
@@ -221,21 +231,22 @@ sp {elaborate*props*epset*delta*cond*existence
          ^attr1 <attr1>)
     (<id1> ^<attr1> <val>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 
 
 # ACTION CONDITIONS:
 sp {elaborate*props*epset*delta*action*available
     "The proposal condition for actions is that they are not yet on the return buffer."
-    (state <s> ^prop-apply-buffer.epset.delta <d>
-               ^prop-apply-buffer <b>)
-    (<b> -^apply.delta-action.name <cname>)
+    (state <s> ^prop-apply-buffer <b>
+               ^delta-info.<d> <info>)
+    (<b> ^epset.delta <d>
+        -^apply.delta-action.name <cname>)
     (<d> ^prop-apply 
          ^prop <c>)
     (<c> ^name <cname>)
 -->
-    (<d> ^cond-success <cname>)
+    (<info> ^cond-success <cname>)
 }
 
 
@@ -246,10 +257,11 @@ sp {elaborate*props*epset*delta*action*available
 
 sp {elaborate*apply*props*add
     (state <s> ^props-cbset.delta <d>
-               ^prop-working-buffer.apply <ba>)
-    (<d> ^prop <a>
-         ^cond-id1 (^id1 <id1> ^name <pname> )
-         ^cond-id2 (^id2 <id2> ^name <pname> ) )
+               ^prop-working-buffer.apply <ba>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <a>)
+    (<info> ^cond-id1 (^id1 <id1> ^name <pname> )
+            ^cond-id2 (^id2 <id2> ^name <pname> ) )
     (<a> ^prop-type add
          ^name <pname>
          ^attr1 <attr1>
@@ -265,12 +277,13 @@ sp {elaborate*apply*props*add
 }
 sp {elaborate*apply*props*remove
     (state <s> ^props-cbset.delta <d>
-               ^prop-working-buffer.apply <ba>)
-    (<d> ^prop <a>
-         ^cond-id1 (^id1 <id1> ^name <pname> ) )
+               ^prop-working-buffer.apply <ba>
+               ^delta-info.<d> <info>)
+    (<d> ^prop <a>)
+    (<info> ^cond-id1 (^id1 <id1> ^name <pname> ) )
     (<a> ^prop-type remove
          ^name <pname>
-         ^id1 <id1>
+         #^id1 <id1>
          ^attr1 <attr1>)
 -->
     (<ba> ^delta-action <dnew>)
@@ -287,19 +300,22 @@ sp {elaborate*apply*props*remove
 ###
 
 sp {elaborate*props*add
-    (state <s> ^prop-apply-buffer <pab>)
+    (state <s> ^prop-apply-buffer <pab>
+               ^delta-info.<d> <info>)
     (<pab> ^epset <be>
            ^apply <ba>)
     (<be> ^elab-class <ename>
           ^delta <d>)
     (<ba> ^delta-action <da>
           ^elab-class <ename>)
-    (<d> ^prop <a>
-         ^cond-id1 (^id1 <id1> ^name <pname> )
-         ^cond-id2 (^id2 <id2> ^name <pname> ) )
+    (<d> ^prop <a>)
+    (<info> ^cond-id1 (^id1 <id1> ^name <pname> )
+            ^cond-id2 (^id2 <id2> ^name <pname> ) )
     (<a> ^prop-type add
          ^name <pname>
+         ^attr1 <attr1>
          ^attr2 <attr2>)
+    (<da> ^attr1 <attr1>)
     (<id2> ^<attr2> <val>)
 -->
     (<da> ^prop-type add

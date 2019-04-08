@@ -5,6 +5,7 @@
 #include "props_instruction_parser.h"
 #include "soar_to_props.h"
 #include "actransfer_operator_parser.h"
+//#include "delta_instruction_parser.h"
 
 // Given a filename, return the front and back.
 // Ex:	Given fuzzy.exe, returns [fuzzy] [.exe]
@@ -36,6 +37,23 @@ int main(int argc, char** argv) {
 	std::string inFront, inExt, outFront, outExt;
 	splitFilename(inPath, inFront, inExt);
 	splitFilename(outPath, outFront, outExt);
+
+
+	/*if (!inExt.compare(".delta")) {
+		// Convert straight to smem instructions
+		try {
+			delta_instruction_parser parser(inPath, outFront);
+
+			if (parser.convert() != 0) {
+				return 1;
+			}
+
+			std::cout << "DONE!" << std::endl;
+		}
+		catch (...) {
+			std::cout << "ERROR in conversion. Aborting." << std::endl;
+		}
+	}*/
 
 	if (!inExt.compare(".lisp") || !inExt.compare(".delta")) {
 		// Require a 3rd argument for the project name (used for naming generated prop/soar rules)

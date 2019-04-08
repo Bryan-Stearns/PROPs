@@ -1,0 +1,75 @@
+#####    Author: Bryan Stearns, 2019
+#   This code defines delta condition backtracing.
+#   A backtrace delta notes the set of prior deltas needed to yield that delta.
+#
+##        OPERATORS
+#   (Backtracing is done w/ elaborations.)
+#   
+##        STRUCTURE
+#  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
+#####
+
+sp {elaborate*props*backtrace*delta*fetch
+    "Add delta if it has been used to fetch an epset"
+    (state <s> ^backtrace <bt>
+               ^prop-apply-buffer <pab>)
+    (<pab> ^epset <e1>
+           ^epset <e2>)
+    (<e1> ^delta <d>)
+    (<d> ^op-name <name>)
+    (<e2> ^props-epset-name <name>)
+-->
+    (<bt> ^delta-record <dnew>)
+    (<dnew> ^delta <d>
+            ^epset <e2>
+            ^name <name>)
+}
+
+sp {elaborate*props*backtrace*depends-on*direct
+    (state <s> ^backtrace <bt>)
+    (<bt> ^delta-record <dr1>
+          ^delta-record <dr2>)
+    (<dr1> ^delta <d1>
+           ^epset.delta <d2>)
+    (<dr2> ^delta <d2>)
+-->
+    (<dr2> ^depends-on <d1>)
+}
+
+sp {elaborate*props*backtrace*depends-on*condition*arg1
+    (state <s> ^backtrace <bt>
+               ^delta-info.<d2> <info>)
+    (<bt> ^delta-record <dr1>
+          ^delta-record {<dr2> <> <dr1>})
+    (<dr1> ^delta <d1>)
+    (<d1> ^wm-target <target>)
+    (<dr2> ^delta <d2>)
+    (<d2> ^prop <p2>)
+    (<p2> ^attr1 <target>
+          ^address1 |WM|)
+-->
+    (<dr2> ^depends-on <d1>)
+}
+sp {elaborate*props*backtrace*depends-on*condition*arg2
+    (state <s> ^backtrace <bt>
+               ^delta-info.<d2> <info>)
+    (<bt> ^delta-record <dr1>
+          ^delta-record {<dr2> <> <dr1>})
+    (<dr1> ^delta <d1>)
+    (<d1> ^wm-target <target>)
+    (<dr2> ^delta <d2>)
+    (<d2> ^prop <p2>)
+    (<p2> ^attr2 <target>
+          ^address2 |WM|)
+-->
+    (<dr2> ^depends-on <d1>)
+}
+
+# TODO: Results will be compact, but matching might get out of control?
+sp {elaborate*props*backtrace*depends-on*transitive
+    (state <s> ^backtrace.delta-record <dr>)
+    (<dr> ^depends-on.depends-on <d2>)
+-->
+    (<dr> ^depends-on <d2>)
+}
+

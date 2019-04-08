@@ -24,7 +24,8 @@ public:
 	int convert();
 
 	enum rule_type {
-		ELABORATION = 0,
+		NONE = 0,
+		ELABORATION,
 		PROPOSAL,
 		APPLICATION
 	};
@@ -67,6 +68,7 @@ private:
 
 	std::map<size_t, int> propIds;
 	std::vector<std::string> epsetLocks;
+	std::map<std::string, std::vector<std::string>> taskOperators;
 
 	std::string CONST_ID;
 	std::string BUFFER_ID;

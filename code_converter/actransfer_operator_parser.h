@@ -50,10 +50,11 @@ private:
 	std::string nextToken(std::stringstream &ss);
 	void initSlotRefMap();
 	void getSlotNames(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string slotPath);
-	void readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken = "");
+	std::vector<std::string> readInstrSettings(std::stringstream &ss, std::map<std::string, std::string> &nameMap, std::string startToken = "");
 	std::string makeActionRef(const std::string &condRef);
 	std::string getBuffSlot(const std::string &buff, const int index);
-	bool getRawProps(std::stringstream &ss, parse_type &pmode, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &cmtDirectives);
+	bool getRawProps1(std::stringstream &ss, parse_type &pmode, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &cmtDirectives);
+	bool getRawProps2(std::stringstream &ss, parse_type &pmode, std::vector<std::string> &condConsts, std::vector<std::string> &actConsts, std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string> &cmtDirectives);
 	std::map<std::string, std::string> buildSoarIdRefs(std::vector<std::string> &retRefs, const std::vector<Primitive> &conditions, std::vector<Primitive> &actions, std::vector<std::string>* negTestRefs);
 	void buildPropCode(std::string &retval, const std::string rulename, const std::vector<std::string> &consts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
 	void buildSoarCode(std::string &retval, const std::string rulename, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions, std::vector<std::string>* negTestRefs);

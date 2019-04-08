@@ -38,6 +38,8 @@ source props_apply_buffer.soar
 source props_epset_addressing.soar
 source props_cbset_addressing.soar
 source props_crl.soar
+source props_store.soar
+source props_backtrace.soar
 
 multi-attributes condition 4
 multi-attributes action 4

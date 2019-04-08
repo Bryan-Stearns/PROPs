@@ -1,0 +1,38 @@
+#####    Author: Bryan Stearns, 2019
+#   This code defines the background smem store process for agent use.
+#   To avoid interfering with smem queries, a store-request object can be created.
+#   This will be made into a store and later removed, when there are no queries going on.
+#
+##        OPERATORS
+#   (o-supported operations piggy-back on other operators.)
+#   
+##        STRUCTURE
+#  (<s> ^smem (<smem>                       | The architecture's smem link
+#           ^command (<scmd>                | The architecture's smem command link
+#              [^store-request <sreq>]      | An agent-created command, that waits to store until <scmd> is free
+#              [^store <id>])               | The proper architectural store command
+#           ^result.success <id>))          | After successful storage, links to the stored id
+#            
+#####
+
+
+sp {elaborate*props*store-request*store
+    "Send the store request when the smem-link is available."
+    (state <s> ^smem <smem>)
+    (<smem> ^command <scmd>
+            ^store-request <sreq>)
+    (<scmd> -^query 
+            -^retrieve )
+-->
+    (<scmd> ^store <sreq>)
+}
+
+sp {set*props*store-request*done
+    "Remove store-requests once the store is complete."
+    :o-support
+    (state <s> ^smem <smem>)
+    (<smem> ^result.success <sreq>
+            ^store-request <sreq>)
+-->
+    (<smem> ^store-request <sreq> -)
+}
