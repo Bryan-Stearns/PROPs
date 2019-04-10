@@ -1,0 +1,619 @@
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t1873-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA20_PA21_PA33 ^delta <d1>)
+    (<t1> ^Q <q1> ^WM <w1> ^G <g1>)
+    (<g1> ^Gtop <g2>)
+    (<c1> ^3 <i1> ^2 <i2>)
+    -->
+    (<p1> ^apply <a1>)
+    (<a1> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4>)
+    (<d2> ^prop-type add ^name _PA33 ^id1 <w1> ^attr1 slot3 ^val <i1>)
+    (<d3> ^val <i2> ^attr1 q-type ^id1 <q1> ^name _PA20 ^prop-type add)
+    (<d4> ^val <g2> ^attr1 retrieve ^id1 <q1> ^name _PA21 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t1320-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA11_PA15_PA37 ^delta <d1>)
+    (<t1> ^flags <f1> ^AC <a1> ^G <g1>)
+    (<c1> ^3 <i1> ^2 <i2> ^1 <i3>)
+    -->
+    (<p1> ^apply <a2>)
+    (<a2> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4>)
+    (<d2> ^prop-type add ^name _PA37 ^id1 <g1> ^attr1 Gtask ^val <i1>)
+    (<d3> ^val <i3> ^attr1 clear-rt ^id1 <f1> ^name _PA11 ^prop-type add)
+    (<d4> ^val <i2> ^attr1 slot1 ^id1 <a1> ^name _PA15 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t1300-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA20_PA21 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA20 ^id1 <q1> ^attr1 q-type ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t1300-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA20_PA21 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^G <g1>)
+    (<g1> ^Gtop <g2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA21 ^id1 <q1> ^attr1 retrieve ^val <g2>)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t843-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA14_PA15 ^delta <d1>)
+    (<t1> ^AC <a1> ^WM <w1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<p1> ^apply <a2>)
+    (<a2> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>)
+    (<d2> ^prop-type add ^name _PA14 ^id1 <w1> ^attr1 slot1 ^val <s2>)
+    (<d3> ^prop-type add ^name _PA15 ^id1 <a1> ^attr1 slot1 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t735-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA11_PA15 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^flags <f1>)
+    (<c1> ^1 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA11 ^id1 <f1> ^attr1 clear-rt ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t735-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA11_PA15 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA15 ^id1 <a2> ^attr1 slot1 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t728-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA37 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^G <g1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 Gtask ^id1 <g1> ^name _PA37 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t714-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA15_PA23_PA35_PA36 ^delta <d1>)
+    (<t1> ^AC <a1> ^Q <q1> ^RT <r1>)
+    (<r1> ^RTid <r2> ^slot1 <s2>)
+    (<c1> ^3 <i1> ^2 <i2>)
+    -->
+    (<p1> ^apply <a2>)
+    (<a2> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4> ^delta-action <d5>)
+    (<d2> ^val <i2> ^attr1 slot1 ^id1 <a1> ^name _PA15 ^prop-type add)
+    (<d3> ^val <r2> ^attr1 root ^id1 <q1> ^name _PA23 ^prop-type add)
+    (<d4> ^val <s2> ^attr1 slot2 ^id1 <a1> ^name _PA35 ^prop-type add)
+    (<d5> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA36 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t706-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA35_PA36 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2> ^RT <r1>)
+    (<r1> ^slot1 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA35 ^id1 <a2> ^attr1 slot2 ^val <s2>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t706-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA35_PA36 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA36 ^id1 <q1> ^attr1 q-type ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t699-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA15_PA23 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA15 ^id1 <a2> ^attr1 slot1 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t699-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA15_PA23 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^RT <r1>)
+    (<r1> ^RTid <r2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA23 ^id1 <q1> ^attr1 root ^val <r2>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t686-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA23 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^RT <r1>)
+    (<r1> ^RTid <r2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <r2> ^attr1 root ^id1 <q1> ^name _PA23 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t675-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA36 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA36 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t670-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA35 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2> ^RT <r1>)
+    (<r1> ^slot1 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <s2> ^attr1 slot2 ^id1 <a2> ^name _PA35 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t652-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA33 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^WM <w1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot3 ^id1 <w1> ^name _PA33 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t646-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA21 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^G <g1>)
+    (<g1> ^Gtop <g2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <g2> ^attr1 retrieve ^id1 <q1> ^name _PA21 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t641-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA20 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA20 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t597-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA15_PA17_PA18 ^delta <d1>)
+    (<t1> ^AC <a1> ^NW <n1> ^WM <w1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<p1> ^apply <a2>)
+    (<a2> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4>)
+    (<d2> ^prop-type add ^name _PA15 ^id1 <a1> ^attr1 slot1 ^val <i1>)
+    (<d3> ^val <s2> ^attr1 slot1 ^id1 <n1> ^name _PA17 ^prop-type add)
+    (<d4> ^val <w1> ^attr1 WMprev ^id1 <n1> ^name _PA18 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t472-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA20_PA21 ^delta <d1>)
+    (<t1> ^Q <q1> ^G <g1> ^io <i2> ^io <i4> ^io <i6>)
+    (<g1> ^Gtop <g2>)
+    (<c1> ^2 <i1>)
+    (<i2> ^input-link <i3>)
+    (<i3> ^slot1 pending)
+    (<i4> ^input-link <i5>)
+    (<i5> ^slot1 pending)
+    (<i6> ^input-link <i7>)
+    (<i7> ^slot1 pending)
+    -->
+    (<p1> ^apply <a1>)
+    (<a1> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>)
+    (<d2> ^prop-type add ^name _PA20 ^id1 <q1> ^attr1 q-type ^val <i1>)
+    (<d3> ^prop-type add ^name _PA21 ^id1 <q1> ^attr1 retrieve ^val <g2>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t452-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA17_PA18 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^NW <n1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA17 ^id1 <n1> ^attr1 slot1 ^val <s2>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t452-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA17_PA18 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^NW <n1> ^WM <w1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA18 ^id1 <n1> ^attr1 WMprev ^val <w1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t325-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA20 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^io <i2>)
+    (<c1> ^2 <i1>)
+    (<i2> ^input-link <i3>)
+    (<i3> ^slot1 pending)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA20 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t300-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA18 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^NW <n1> ^WM <w1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <w1> ^attr1 WMprev ^id1 <n1> ^name _PA18 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t295-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA17 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^NW <n1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <s2> ^attr1 slot1 ^id1 <n1> ^name _PA17 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t206-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA10_PA11_PA8_PA9 ^delta <d1>)
+    (<t1> ^flags <f1> ^AC <a1> ^G <g1>)
+    (<c1> ^4 <i1> ^3 <i2> ^2 <i3> ^1 <i4>)
+    -->
+    (<p1> ^apply <a2>)
+    (<a2> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4> ^delta-action <d5>)
+    (<d2> ^val <i2> ^attr1 slot1 ^id1 <a1> ^name _PA9 ^prop-type add)
+    (<d3> ^val <i3> ^attr1 Gcontrol ^id1 <g1> ^name _PA8 ^prop-type add)
+    (<d4> ^val <i4> ^attr1 clear-rt ^id1 <f1> ^name _PA11 ^prop-type add)
+    (<d5> ^val <i1> ^attr1 slot2 ^id1 <a1> ^name _PA10 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t195-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA25_PA26_PA27 ^delta <d1>)
+    (<t1> ^Q <q1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    (<c1> ^3 <i1> ^2 <i2>)
+    -->
+    (<p1> ^apply <a1>)
+    (<a1> ^dc-stamp (dc) ^delta-action <d2> ^delta-action <d3>
+           ^delta-action <d4>)
+    (<d2> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA25 ^prop-type add)
+    (<d3> ^val <i2> ^attr1 slot1 ^id1 <q1> ^name _PA26 ^prop-type add)
+    (<d4> ^prop-type add ^name _PA27 ^id1 <q1> ^attr1 slot2 ^val <s2>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t178-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA21 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^G <g1> ^io <i1>)
+    (<g1> ^Gtop <g2>)
+    (<i1> ^input-link <i2>)
+    (<i2> ^slot1 pending)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <g2> ^attr1 retrieve ^id1 <q1> ^name _PA21 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t156-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA14 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^WM <w1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <s2> ^attr1 slot1 ^id1 <w1> ^name _PA14 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t151-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA15 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot1 ^id1 <a2> ^name _PA15 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t137-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA8_PA9 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA9 ^id1 <a2> ^attr1 slot1 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t137-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA8_PA9 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^G <g1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA8 ^id1 <g1> ^attr1 Gcontrol ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t130-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA10_PA11 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^flags <f1>)
+    (<c1> ^1 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA11 ^id1 <f1> ^attr1 clear-rt ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t130-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA10_PA11 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^4 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA10 ^id1 <a2> ^attr1 slot2 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t113-2
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA25_PA26 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA25 ^id1 <q1> ^attr1 q-type ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t113-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA25_PA26 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^prop-type add ^name _PA26 ^id1 <q1> ^attr1 slot1 ^val <i1>)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t82-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA8 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^G <g1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 Gcontrol ^id1 <g1> ^name _PA8 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t77-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA9 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot1 ^id1 <a2> ^name _PA9 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t67-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA10 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^4 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot2 ^id1 <a2> ^name _PA10 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t62-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA11 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^flags <f1>)
+    (<c1> ^1 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 clear-rt ^id1 <f1> ^name _PA11 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t43-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA25 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^3 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 q-type ^id1 <q1> ^name _PA25 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t38-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA26 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot1 ^id1 <q1> ^name _PA26 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t29-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA27 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^Q <q1> ^V <v1>)
+    (<v1> ^slot2 <s2>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <s2> ^attr1 slot2 ^id1 <q1> ^name _PA27 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t12-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-apply-buffer <p1> ^const <c1>
+          ^topstate <t1>)
+    (<o1> ^name _PA2 ^delta <d1>)
+    (<t1> ^WM <w1> ^G <g1>)
+    -->
+    (<p1> ^apply <a1>)
+    (<a1> ^dc-stamp (dc) ^delta-action <d2>)
+    (<d2> ^val <w1> ^attr1 Gtop ^id1 <g1> ^name _PA2 ^prop-type add)
+}
