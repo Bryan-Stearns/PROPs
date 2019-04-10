@@ -8,6 +8,8 @@
 #  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
 #####
 
+decide indifferent-selection -b
+decide indifferent-selection -t 10.0
 rl --set learning on
 rl --set learning-rate 0.0075  # default 0.3
 rl --set discount-rate 0.75   # default 0.9

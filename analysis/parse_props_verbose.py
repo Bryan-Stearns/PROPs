@@ -192,7 +192,7 @@ def main():
     actions = ['next-instruction']
     '''
     
-    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/sweep_20190325/'
+    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/sweep_20190408_states/'
     fetchTimeLatenciesFile = None
     actions = ['type', 'say']
     countOp = 'prepare'
@@ -201,7 +201,7 @@ def main():
     domain = 'stroopChein'
     conv_types = ['l12']
     T = ['1']
-    samples = ['4']
+    samples = ['3']
     param3 = ['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
     param4 = ['_dr700','_dr725','_dr750','_dr775','_dr800']
     

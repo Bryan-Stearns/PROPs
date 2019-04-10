@@ -37,7 +37,7 @@ plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
   print(ys1a)
   print(ys2a)
   #plot(2:3,ys1a[,1],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
-  errbar(2:3,ys1a[,1],ys1a[,1]+ys1a[,2],ys1a[,1]-ys1a[,2],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
+  errbar(2:3,ys1a[,1],ys1a[,1]+ys1a[,2],ys1a[,1]-ys1a[,2],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main=paste("lr=",lr," dr=",dr,sep=""))
   #lines(2:3,ys1b[,1],type="b",pch=2)
   errbar(2:3,ys1b[,1],ys1b[,1]+ys1b[,2],ys1b[,1]-ys1b[,2],add=T,type="b",pch=2)
   #lines(4:5,ys2a[,1],type="b")
@@ -48,12 +48,13 @@ plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
   axis(1,at=2:5,labels=labs)
   #legend(1,160,legend=c("No training","WM training"),pch=1:2,lty=1)
   legend(1,.25*ylims[2],legend=c("No training","WM training"),pch=1:2,lty=1,bty="n")
-  text(x=2,y=4,labels=paste("lr=",lr,"\ndr=",dr,sep=""))
-  text(x=c(3,7),y=c(8,8),labels=c(
-    paste("C: ",fstr(sres[1,4],3),", I: ",fstr(sres[5,4],3), 
-          "\nC: ",fstr(sres[2,4],3),", I: ",fstr(sres[6,4],3), sep=""),
-    paste("C: ",fstr(sres[3,4],3),", I: ",fstr(sres[7,4],3), 
-          "\nC: ",fstr(sres[4,4],3),", I: ",fstr(sres[8,4],3), sep="")))
+  title(main=paste("lr=",as.double(lr)*0.0001," dr=",as.double(dr)*0.001,sep=""))
+  #text(x=2,y=4,labels=paste("lr=",lr,"\ndr=",dr,sep=""))
+  #text(x=c(3,7),y=c(8,8),labels=c(
+  #  paste("C: ",fstr(sres[1,4],3),", I: ",fstr(sres[5,4],3), 
+  #        "\nC: ",fstr(sres[2,4],3),", I: ",fstr(sres[6,4],3), sep=""),
+  #  paste("C: ",fstr(sres[3,4],3),", I: ",fstr(sres[7,4],3), 
+  #        "\nC: ",fstr(sres[4,4],3),", I: ",fstr(sres[8,4],3), sep="")))
 }
 
 ######## SET PARAMS HERE ########
@@ -65,8 +66,8 @@ PLOT_L3 <- FALSE           # The case where chunking was turned on for the compl
 PLOT_SOURCE <- "PROPS"
 
 t <- "1"
-sample <- "_s4"
-subfolder <- "sweep_20190325/"
+sample <- "_s3"
+subfolder <- "sweep_20190408_states/"
 
 LR <- str_pad(25*(1:8), 4, pad="0")       # A range of learning-rates from 0.0025 to 0.02
 DR <- str_pad(700+25*(0:4), 3, pad="0")   # A range of discount-rates from 0.7 to 0.8

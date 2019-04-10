@@ -50,7 +50,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.setIOSize(3, 2);
 
 		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
-												proj_dir + "chein_agent_smem.soar"));
+												proj_dir + "chein_agent_smem.soar",
+												proj_dir + "chein_agent_stroop_rules.soar"));
 		
 		cstask = new VCWM();
 		sttask = new Stroop();
@@ -230,7 +231,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		task_reward = 13.0f;
 		sttask.init();
 		boolean isCong = (get_rand_int(2)==1);
-		sttask.type = isCong ? "congruent" : "incongruent"; 
+		sttask.type = isCong ? "congruent" : "incongruent";
+		sttask.answer = "red";
 		sttask.starttime = this.getElapsedTime() + 1000l; // Start at t=1. That's when first input arrives.
 		set_perception("pending", null, null);
 		this.applyNewInputs();
