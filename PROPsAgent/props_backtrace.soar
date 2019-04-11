@@ -9,12 +9,14 @@
 #  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
 #####
 
-sp {elaborate*props*backtrace*delta*fetch
-    "Add delta if it has been used to fetch an epset"
-    (state <s> ^backtrace <bt>
+sp {apply*props*backtrace*delta*fetch
+    "Add delta from epset if it has been used to fetch an epset"
+    (state <s> ^operator.name props-retrieve-epset
+               ^smem <smem>
+               ^backtrace <bt>
                ^prop-apply-buffer <pab>)
-    (<pab> ^epset <e1>
-           ^epset <e2>)
+    (<smem> ^result.retrieved <e2>)
+    (<pab> ^epset <e1>)
     (<e1> ^delta <d>)
     (<d> ^op-name <name>)
     (<e2> ^props-epset-name <name>)
@@ -22,10 +24,49 @@ sp {elaborate*props*backtrace*delta*fetch
     (<bt> ^delta-record <dnew>)
     (<dnew> ^delta <d>
             ^epset <e2>
-            ^name <name>)
+            ^name <name>
+            ^dc-stamp (dc))
 }
 
-sp {elaborate*props*backtrace*depends-on*direct
+sp {set*props*backtrace*delta*elab
+    "Add delta from apply if it has been used to perform an action"
+    :o-support
+    (state <s> ^backtrace <bt>
+               ^prop-apply-buffer <pab>)
+    (<pab> ^apply <a>)
+    (<a> ^source-delta <d>
+         ^from-cbset true)
+    (<d> ^op-name <name>)
+-->
+    (<bt> ^delta-record <dnew>)
+    (<dnew> ^delta <d>
+            ^apply <a>
+            ^name <name>
+            ^dc-stamp (dc))
+}
+
+sp {set*props*backtrace*remove-overwritten
+    "If a newer delta takes the lock from a previous one, remove the previous one."
+    :o-support
+    (state <s> ^backtrace <bt>
+               ^prop-apply-buffer <pab>)
+    (<bt> ^delta-record <dr1>
+          ^delta-record <dr2>)
+    (<dr1> ^epset.delta.prop <p1>
+           ^dc-stamp <dc1>)
+    (<p1> ^prop-type add
+          ^address1 <addr>
+          ^attr1 <attr>)
+    (<dr2> ^epset.delta.prop <p2>
+           ^dc-stamp > <dc1>)
+    (<p2> ^prop-type add
+          ^address1 <addr>
+          ^attr1 <attr>)
+-->
+    (<bt> ^delta-record <dr1> -)
+}
+
+sp {elaborate*props*backtrace*depends-on*fetch*direct
     (state <s> ^backtrace <bt>)
     (<bt> ^delta-record <dr1>
           ^delta-record <dr2>)
@@ -33,39 +74,52 @@ sp {elaborate*props*backtrace*depends-on*direct
            ^epset.delta <d2>)
     (<dr2> ^delta <d2>)
 -->
-    (<dr2> ^depends-on <d1>)
+    (<dr2> ^depends-on <dr1>)
 }
 
-sp {elaborate*props*backtrace*depends-on*condition*arg1
+sp {set*props*backtrace*depends-on*condition*arg1
+    :o-support
     (state <s> ^backtrace <bt>
-               ^delta-info.<d2> <info>)
+               ^prop-apply-buffer.apply <a>)
     (<bt> ^delta-record <dr1>
           ^delta-record {<dr2> <> <dr1>})
-    (<dr1> ^delta <d1>)
-    (<d1> ^wm-target <target>)
-    (<dr2> ^delta <d2>)
+    (<dr1> ^epset.delta.prop <p1>
+           ^dc-stamp <dc1>)
+    (<p1> ^prop-type add
+          ^address1 <addr>
+          ^attr1 <attr>)
+    # If delta2 has a condition whose arg1 was the target of delta1
+    (<dr2> ^delta <d2>
+           ^dc-stamp > <dc1>)
     (<d2> ^prop <p2>)
-    (<p2> ^attr1 <target>
-          ^address1 |WM|)
+    (<p2> ^attr1 <attr>
+          ^address1 <addr>)
 -->
-    (<dr2> ^depends-on <d1>)
+    (<dr2> ^depends-on <dr1>)
 }
-sp {elaborate*props*backtrace*depends-on*condition*arg2
-    (state <s> ^backtrace <bt>
-               ^delta-info.<d2> <info>)
-    (<bt> ^delta-record <dr1>
-          ^delta-record {<dr2> <> <dr1>})
-    (<dr1> ^delta <d1>)
-    (<d1> ^wm-target <target>)
-    (<dr2> ^delta <d2>)
-    (<d2> ^prop <p2>)
-    (<p2> ^attr2 <target>
-          ^address2 |WM|)
--->
-    (<dr2> ^depends-on <d1>)
-}
+#sp {set*props*backtrace*depends-on*condition*arg2
+#    :o-support
+#    (state <s> ^backtrace <bt>
+#               ^<idaddr> <id>
+#               ^prop-apply-buffer.apply <a>)
+#    (<bt> ^delta-record <dr1>
+#          ^delta-record {<dr2> <> <dr1>})
+#    (<dr1> ^epset.delta.prop <p1>
+#           ^dc-stamp <dc1>)
+#    (<p1> ^prop-type add
+#          ^address1 <addr>
+#          ^attr1 <attr>)
+#    # If delta2 has a condition whose arg2 was the target of delta1
+#    (<dr2> ^delta <d2>
+#           ^dc-stamp > <dc1>)
+#    (<d2> ^prop <p2>)
+#    (<p2> ^attr2 <attr>
+#          ^address2 <idaddr>)
+#-->
+#    (<dr2> ^depends-on <dr1>)
+#}
 
-# TODO: Results will be compact, but matching might get out of control?
+# TODO: Duplicates will be compressed, but matching might get out of control?
 sp {elaborate*props*backtrace*depends-on*transitive
     (state <s> ^backtrace.delta-record <dr>)
     (<dr> ^depends-on.depends-on <d2>)

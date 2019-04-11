@@ -310,7 +310,8 @@ sp {elaborate*props*add
           ^elab-class <ename>)
     (<d> ^prop <a>)
     (<info> ^cond-id1 (^id1 <id1> ^name <pname> )
-            ^cond-id2 (^id2 <id2> ^name <pname> ) )
+            ^cond-id2 (^id2 <id2> ^name <pname> ) 
+            ^all-conds-true )
     (<a> ^prop-type add
          ^name <pname>
          ^attr1 <attr1>

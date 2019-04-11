@@ -312,3 +312,50 @@ sp {set*props*apply-delta*remove-old
 -->
     (<id1> ^<attr1> <vold> -)
 }
+
+
+# MARK WHEN AN ELAB STRUCTURE HAS FIRED AN ELAB
+sp {set*props*elab*mark-elaborated
+    :o-support
+    (state <s> ^prop-apply-buffer <pab>)
+    (<pab> ^epset <be>
+           ^apply <ba>)
+    (<be> ^elab-class <ename>)
+    (<ba> ^delta-action <da>
+          ^elab-class <ename>)
+    (<da> ^val <val>)
+-->
+    (<ba> ^has-elaborated true)
+}
+
+# REMOVE AN ELAB IF IT NO LONGER MATCHES, BUT HAS PREVIOUSLY FIRED
+sp {set*props*elab*remove-unmatched
+    :o-support
+    (state <s> ^prop-apply-buffer <pab>)
+    (<pab> ^epset <be>
+           ^apply <ba>)
+    (<be> ^elab-class <ename>)
+    (<ba> ^elab-class <ename>
+          ^has-elaborated true)
+  -{(<ba> ^delta-action.val <any>)}  # It is not the case that this elab context has any matching elabs anymore
+-->
+    (<pab> ^epset <be> -
+           ^apply <ba> -)
+}
+
+# REMOVE AN ELAB IF IT HAS NO PROPOSAL SUPPORT
+sp {set*props*elab*remove-nosupport
+    :o-support
+    (state <s> ^prop-apply-buffer <pab>
+               ^delta-info <di>)
+    (<pab> ^epset <be>
+           ^apply <ba>)
+    (<be> ^elab-class <ename>)
+    (<ba> ^elab-class <ename>)
+  -{(<di> ^<d> <info>)
+    (<info> ^all-conds-true true)
+    (<d> ^op-name <ename>)}  # It is not the case that there is a delta supporting fetching this elab
+-->
+    (<pab> ^epset <be> -
+           ^apply <ba> -)
+}

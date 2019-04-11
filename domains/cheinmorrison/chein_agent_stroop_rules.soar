@@ -17,7 +17,7 @@ sp {prefer*chein*finish
 
 # Finish action chunks:
 
-sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t988-1
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t958-1
     :chunk
     (state { <s1> <> nil } ^topstate <t1> ^superstate <t1> ^operator <o1>
           ^const <c1>)
@@ -27,26 +27,13 @@ sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t988-1
     (<o2> ^delta <d2>)
     -->
     (<p1> ^apply <a1>)
-    (<a1> ^dc-stamp (dc) ^source-delta <d2> ^delta-action <d3>
-           ^delta-action <d4>)
+    (<a1> ^dc-stamp (dc) ^source-delta <d2> ^from-cbset true
+           ^delta-action <d3> ^delta-action <d4>)
     (<d3> ^prop-type add ^name _PA11 ^id1 <f1> ^attr1 clear-rt ^val <i2>)
     (<d4> ^prop-type add ^name _PA10 ^id1 <g1> ^attr1 Gtask ^val <i1>)
 }
 
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t476-1
-    :chunk
-    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
-          ^const <c1> ^topstate <t1>)
-    (<o1> ^name _PA10 ^delta <d1>)
-    (<p1> ^apply <a1>)
-    (<t1> ^G <g1>)
-    (<c1> ^2 <i1>)
-    -->
-    (<a1> ^delta-action <d2>)
-    (<d2> ^val <i1> ^attr1 Gtask ^id1 <g1> ^name _PA10 ^prop-type add)
-}
-
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t471-1
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t495-1
     :chunk
     (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
           ^const <c1> ^topstate <t1>)
@@ -59,51 +46,20 @@ sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t471-1
     (<d2> ^val <i1> ^attr1 clear-rt ^id1 <f1> ^name _PA11 ^prop-type add)
 }
 
-# Verbal response chunks:
-
-sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t1032-1
-    :chunk
-    (state { <s1> <> nil } ^topstate <t1> ^superstate <t1> ^operator <o1>
-          ^const <c1>)
-    (<o1> ^name _PA8_PA9 ^delta <d1>)
-    (<t1> ^flags <f1> ^prop-apply-buffer <p1> ^G <g1> ^operator <o2>)
-    (<c1> ^2 <i1> ^1 <i2>)
-    (<o2> ^delta <d2>)
-    -->
-    (<p1> ^apply <a1>)
-    (<a1> ^dc-stamp (dc) ^source-delta <d2> ^delta-action <d3>
-           ^delta-action <d4>)
-    (<d3> ^prop-type add ^name _PA9 ^id1 <f1> ^attr1 clear-rt ^val <i2>)
-    (<d4> ^prop-type add ^name _PA8 ^id1 <g1> ^attr1 Gtask ^val <i1>)
-}
-
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t529-1
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t490-1
     :chunk
     (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
           ^const <c1> ^topstate <t1>)
-    (<o1> ^name _PA9 ^delta <d1>)
-    (<p1> ^apply <a1>)
-    (<t1> ^flags <f1>)
-    (<c1> ^1 <i1>)
-    -->
-    (<a1> ^delta-action <d2>)
-    (<d2> ^val <i1> ^attr1 clear-rt ^id1 <f1> ^name _PA9 ^prop-type add)
-}
-
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t524-1
-    :chunk
-    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
-          ^const <c1> ^topstate <t1>)
-    (<o1> ^name _PA8 ^delta <d1>)
+    (<o1> ^name _PA10 ^delta <d1>)
     (<p1> ^apply <a1>)
     (<t1> ^G <g1>)
     (<c1> ^2 <i1>)
     -->
     (<a1> ^delta-action <d2>)
-    (<d2> ^val <i1> ^attr1 Gtask ^id1 <g1> ^name _PA8 ^prop-type add)
+    (<d2> ^val <i1> ^attr1 Gtask ^id1 <g1> ^name _PA10 ^prop-type add)
 }
 
-sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t75-1
+sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t78-1
     :chunk
     (state { <s1> <> nil } ^topstate <t1> ^superstate <t1> ^operator <o1>
           ^const <c1>)
@@ -114,26 +70,13 @@ sp {chunk*apply*props*cbset-return*to-topstate*OpNoChange*t75-1
     (<o2> ^delta <d2>)
     -->
     (<p1> ^apply <a2>)
-    (<a2> ^dc-stamp (dc) ^source-delta <d2> ^delta-action <d3>
-           ^delta-action <d4>)
-    (<d3> ^prop-type add ^name _PA7 ^id1 <a1> ^attr1 slot2 ^val <s2>)
-    (<d4> ^prop-type add ^name _PA6 ^id1 <a1> ^attr1 slot1 ^val <i1>)
+    (<a2> ^dc-stamp (dc) ^source-delta <d2> ^from-cbset true
+           ^delta-action <d3> ^delta-action <d4>)
+    (<d3> ^prop-type add ^name _PA6 ^id1 <a1> ^attr1 slot1 ^val <i1>)
+    (<d4> ^prop-type add ^name _PA7 ^id1 <a1> ^attr1 slot2 ^val <s2>)
 }
 
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t41-1
-    :chunk
-    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
-          ^const <c1> ^topstate <t1>)
-    (<o1> ^name _PA6 ^delta <d1>)
-    (<p1> ^apply <a1>)
-    (<t1> ^AC <a2>)
-    (<c1> ^2 <i1>)
-    -->
-    (<a1> ^delta-action <d2>)
-    (<d2> ^val <i1> ^attr1 slot1 ^id1 <a2> ^name _PA6 ^prop-type add)
-}
-
-sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t36-1
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t45-1
     :chunk
     (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
           ^const <c1> ^topstate <t1>)
@@ -144,4 +87,17 @@ sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t36-1
     -->
     (<a1> ^delta-action <d2>)
     (<d2> ^val <s2> ^attr1 slot2 ^id1 <a2> ^name _PA7 ^prop-type add)
+}
+
+sp {chunk*apply*props*cbset-return*delta-action*OpNoChange*t40-1
+    :chunk
+    (state { <s1> <> nil } ^operator <o1> ^prop-working-buffer <p1>
+          ^const <c1> ^topstate <t1>)
+    (<o1> ^name _PA6 ^delta <d1>)
+    (<p1> ^apply <a1>)
+    (<t1> ^AC <a2>)
+    (<c1> ^2 <i1>)
+    -->
+    (<a1> ^delta-action <d2>)
+    (<d2> ^val <i1> ^attr1 slot1 ^id1 <a2> ^name _PA6 ^prop-type add)
 }

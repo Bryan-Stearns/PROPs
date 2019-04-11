@@ -44,14 +44,18 @@ public class SMLClient {
 	private static ArrayList<LearnConfig> generateCRLSweep(String configStr, int lr) {
 		ArrayList<LearnConfig> retList = new ArrayList<LearnConfig>();
 		
-		ArrayList<Double> cmdVals = generateParamSweep(0.1, 0.3, 0.05);
+		ArrayList<Double> cmdVals = generateParamSweep(0.01, 0.21, 0.02);
+		ArrayList<Double> cmd2Vals = generateParamSweep(0.1, 0.7, 0.2);
 		for (Double val : cmdVals) {
-			ArrayList<String> cmds = new ArrayList<String>();
-			// Set the learning rate by overwriting the rule in props_crl.soar that defines it.
-			cmds.add("sp {elaborate*props*pref-weight*learning-rate\n    (state <s> ^superstate nil)\n-->\n    (<s> ^props-pref-learning-rate " 
-					+ val + ")\n}");
-
-			retList.add(new LearnConfig(configStr, lr, cmds, String.format("_clr%02d", (int)(val*100))));
+			for (Double val2 : cmd2Vals) {
+				ArrayList<String> cmds = new ArrayList<String>();
+				// Set the learning rate by overwriting the rule in props_crl.soar that defines it.
+				cmds.add("sp {elaborate*props*pref-weight*learning-rate\n    (state <s> ^superstate nil)\n-->\n    (<s> ^props-pref-learning-rate " 
+						+ val + ")\n}");
+				cmds.add("decide indifferent-selection -t " + val2);
+	
+				retList.add(new LearnConfig(configStr, lr, cmds, String.format("_clr%02d_tmp%02d", (int)(val*100), (int)(val2*10))));
+			}
 		}
 
 		return retList;
@@ -67,12 +71,12 @@ public class SMLClient {
 		//ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
 		//expList.add(new LearnConfig("12",1));
 		
-		//world.runCheinExperiment("stroopChein", 3, expList); // 9 samples
+		world.runCheinExperiment("stroopChein", 3, expList); // 9 samples
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
 		//world.runCheinDebug("verbalCWM", 1, "1");
-		world.runCheinDebug("stroop", 1, "1");
+		//world.runCheinDebug("stroop", 1, "1");
 		
 		//world.testStroop();
 		

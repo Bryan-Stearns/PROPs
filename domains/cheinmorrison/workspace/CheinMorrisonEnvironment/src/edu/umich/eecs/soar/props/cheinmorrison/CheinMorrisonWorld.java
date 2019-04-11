@@ -52,8 +52,8 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 
 		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
 												proj_dir + "chein_agent_smem.soar",
-												proj_dir + "chein_agent_stroop_rules.soar",
-												proj_dir + "chein_agent_vcwm_rules.soar"));
+												proj_dir + "chein_agent_stroop_rules.soar"/*,
+												proj_dir + "chein_agent_vcwm_rules.soar"*/));
 		
 		cstask = new VCWM();
 		sttask = new Stroop();

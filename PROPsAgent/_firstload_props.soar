@@ -14,7 +14,7 @@ chunk confidence-threshold 3
 #watch --learning print
 #watch --backtracing
 
-#decide set-random-seed 42
+#decide set-random-seed 4
 
 #smem --set activation-mode base-level
 #smem --set base-update-policy naive

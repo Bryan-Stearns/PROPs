@@ -18,27 +18,76 @@ decide indifferent-selection -t 0.5
 sp {elaborate*props*pref-weight*learning-rate
     (state <s> ^superstate nil)
 -->
-    (<s> ^props-pref-learning-rate 0.3)
+    (<s> ^props-pref-learning-rate 0.01)
 }
 
 # Define elaboration of input-link reward to the RL interface
+#sp {set*props*reward*input
+#    :o-support
+#    (state <s> ^io.input-link.reward <rwd>
+#               ^smem <smem>
+#               ^prop-apply-buffer <b>
+#               ^props-pref-learning-rate <lr>)
+#    (<rwd> ^value <rv>
+#          -^applied <d>)
+#    (<b> ^apply <ba>)
+#    (<ba> ^source-delta <d>)
+#    (<d> ^pref-weight <pw>)
+#-->
+#    (<d> ^pref-weight <pw> -
+#         ^pref-weight (* (+ <pw> <rv>) <lr>))    # TODO: Should probably normalize over count of deltas in context
+#    (<rwd> ^applied <d>)
+#    (<smem> ^store-request <d>)
+#}
 sp {set*props*reward*input
     :o-support
     (state <s> ^io.input-link.reward <rwd>
                ^smem <smem>
-               ^prop-apply-buffer <b>
+               ^backtrace <bt>
                ^props-pref-learning-rate <lr>)
+    (<bt> ^delta-record <dr>)
+    (<dr> ^apply <a>
+          ^depends-on.delta <d>)
+    
     (<rwd> ^value <rv>
           -^applied <d>)
-    (<b> ^apply <ba>)
-    (<ba> ^source-delta <d>)
     (<d> ^pref-weight <pw>)
 -->
     (<d> ^pref-weight <pw> -
-         ^pref-weight (* (+ <pw> <rv>) <lr>))    # TODO: Should probably normalize over count of deltas in context
+         ^pref-weight (+ <pw> (* (- <rv> <pw>) <lr>)))    # TODO: Should probably normalize over count of deltas in context
     (<rwd> ^applied <d>)
     (<smem> ^store-request <d>)
 }
+sp {set*props*reward*input*flush-apply
+    :o-support
+    (state <s> ^io.input-link.reward <rwd>
+               ^smem <smem>
+               ^backtrace <bt>
+               ^props-pref-learning-rate <lr>)
+    (<bt> ^delta-record <dr>)
+    (<dr> ^apply <a>
+          ^delta <d>)
+    
+    (<rwd> ^value <rv>
+          -^applied <d>)
+    (<d> ^pref-weight <pw>)
+-->
+    #(<bt> ^delta-record <dr> -) # Remove this apply - it's served its purpose
+    (<d> ^pref-weight <pw> -
+         ^pref-weight (+ <pw> (* (- <rv> <pw>) <lr>)))    # TODO: Should probably normalize over count of deltas in context
+    (<rwd> ^applied <d>)
+    (<smem> ^store-request <d>)
+}
+sp {set*props*reward*input*reset-backtrace
+    :o-support
+    (state <s> ^io.input-link.reward <rwd>
+               ^backtrace <bt>)
+    (<rwd> -^applied )
+-->
+    (<s> ^backtrace <bt> -
+         ^backtrace <btnew>)
+}
+
 
 
 # Elaborate the preference
@@ -71,10 +120,10 @@ sp {prefer*props*delta*focus-inhibit
     (<be2> ^delta <d2>)
     (<d2> ^op-name <name2>
           ^wm-target <slot>)
-    (<o2> ^name props-load-epset
+    (<o2> ^name2 props-load-epset
           ^epset-name <name2>)
 -->
-    (<s> ^operator <o2> = -0.75)
+    (<s> ^operator <o2> = -0.9)
 }
 
 # Prefer reacting to stimuli over imagination

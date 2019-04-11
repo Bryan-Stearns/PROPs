@@ -72,7 +72,9 @@ sp {elaborate*superstate*consts
 # MARK WHEN A DELTA'S CONDITIONS ARE ALL TRUE
 sp {elaborate*props*delta*conditions*all-true
     (state <s> ^delta-info.<d> <info>)
-    -{(<d> ^prop.name <cname>)
+    -{(<d> ^prop <p>)
+      (<p> -^prop-type << add remove >>
+            ^name <cname>)
       (<info> -^cond-success <cname>)} # It is not the case that this delta has untrue conditions
 -->
     (<info> ^all-conds-true true)
@@ -521,7 +523,8 @@ sp {apply*props*cbset-return*to-topstate
 -->
     (<sb> ^apply <pa>)
     (<pa> ^dc-stamp (dc)
-          ^source-delta <d>)
+          ^source-delta <d>
+          ^from-cbset true)
     (write | | (crlf) (crlf))
 }
 
