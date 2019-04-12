@@ -76,7 +76,7 @@ subfolder <- "sweep_20190410_elabs/"
 
 LR <- if (SWEEP_LR) str_pad(25*(1:8), 4, pad="0") else c(1)       # A range of learning-rates from 0.0025 to 0.02
 DR <- if (SWEEP_DR) str_pad(700+25*(0:4), 3, pad="0") else c(1)   # A range of discount-rates from 0.7 to 0.8
-CLR <- if (SWEEP_CLR) str_pad(1+2*(0:4), 2, pad="0") else c(1)   # A range of custom learning-rates from 0.01 to 0.09
+CLR <- if (SWEEP_CLR) str_pad(1+2*(0:8), 2, pad="0") else c(1)   # A range of custom learning-rates from 0.01 to 0.09
 TMP <- if (SWEEP_TMP) str_pad(1+2*(0:3), 2, pad="0") else c(1)   # A range of boltzmann temperatures from 0.1 to 0.7
 
 #===============================#
@@ -135,7 +135,7 @@ for (lr in LR) {
         #(sres[,1,2]-sres[,1,1])*1000
         #(sres[,2,2]-sres[,2,1])*1000
         # Plot the human and rehearsal model Stroop data
-        plot_stroop_prepost(c(0,200), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp.stroop[2,],exp.stroop.se[2,]),
+        plot_stroop_prepost(c(0,500), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp.stroop[2,],exp.stroop.se[2,]),
                             sres.cintf, sres.tintf, 
                             c("Data Pre","Data Post","Model Pre","Model Post"),
                             paste("Stroop:",
