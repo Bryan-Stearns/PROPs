@@ -30,7 +30,7 @@ plot_stroop_intfr <- function(ylims, dat1, dat1err) {
   legend(1,25,legend=c("No training","WM training"),pch=1:2,lty=1,bty="n")
 }
 
-plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
+plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs,titl) {
   x11(width=7,height=5)
   #png(paste(dirpath, "fig_human_chein.png", sep=""), width=7,height=5, units="in",sres=300)
   par(lwd=2)
@@ -48,12 +48,13 @@ plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
   axis(1,at=2:5,labels=labs)
   #legend(1,160,legend=c("No training","WM training"),pch=1:2,lty=1)
   legend(1,.25*ylims[2],legend=c("No training","WM training"),pch=1:2,lty=1,bty="n")
-  text(x=2,y=4,labels=paste("lr=",lr,"\ndr=",dr,sep=""))
-  text(x=c(3,7),y=c(8,8),labels=c(
-    paste("C: ",fstr(sres[1,4],3),", I: ",fstr(sres[5,4],3), 
-          "\nC: ",fstr(sres[2,4],3),", I: ",fstr(sres[6,4],3), sep=""),
-    paste("C: ",fstr(sres[3,4],3),", I: ",fstr(sres[7,4],3), 
-          "\nC: ",fstr(sres[4,4],3),", I: ",fstr(sres[8,4],3), sep="")))
+  title(main=titl)
+  #text(x=2,y=4,labels=paste("lr=",lr,"\ndr=",dr,sep=""))
+  #text(x=c(3,7),y=c(8,8),labels=c(
+  #  paste("C: ",fstr(sres[1,4],3),", I: ",fstr(sres[5,4],3), 
+  #        "\nC: ",fstr(sres[2,4],3),", I: ",fstr(sres[6,4],3), sep=""),
+  #  paste("C: ",fstr(sres[3,4],3),", I: ",fstr(sres[7,4],3), 
+  #        "\nC: ",fstr(sres[4,4],3),", I: ",fstr(sres[8,4],3), sep="")))
 }
 
 ######## SET PARAMS HERE ########
@@ -67,14 +68,16 @@ PLOT_SOURCE <- "PROPS"
 SWEEP_LR <- FALSE
 SWEEP_DR <- FALSE
 SWEEP_CLR <- TRUE
+SWEEP_TMP <- TRUE
 
 t <- "1"
 sample <- "_s3"
-subfolder <- "sweep_20190408_a/"
+subfolder <- "sweep_20190410_elabs/"
 
 LR <- if (SWEEP_LR) str_pad(25*(1:8), 4, pad="0") else c(1)       # A range of learning-rates from 0.0025 to 0.02
 DR <- if (SWEEP_DR) str_pad(700+25*(0:4), 3, pad="0") else c(1)   # A range of discount-rates from 0.7 to 0.8
-CLR <- if (SWEEP_CLR) str_pad(10+5*(0:4), 2, pad="0") else c(1)   # A range of discount-rates from 0.7 to 0.8
+CLR <- if (SWEEP_CLR) str_pad(1+2*(0:4), 2, pad="0") else c(1)   # A range of custom learning-rates from 0.01 to 0.09
+TMP <- if (SWEEP_TMP) str_pad(1+2*(0:3), 2, pad="0") else c(1)   # A range of boltzmann temperatures from 0.1 to 0.7
 
 #===============================#
 
@@ -96,35 +99,51 @@ exp.sstroop <- rbind(c(120,95),c(120,60))
 
 for (lr in LR) {
   for (dr in DR) {
-    for (clr in CLR) {
-      graphname <- ifelse(PLOT_SOURCE=="PRIMS", "", 
-                          paste("_l", ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
-                                "_t", t, 
-                                ifelse(SWEEP_LR, paste("_lr", lr, sep=""), ""), 
-                                ifelse(SWEEP_DR, paste("_dr", dr, sep=""), ""), 
-                                ifelse(SWEEP_CLR, paste("_clr", clr, sep=""), ""),
-                                sample, sep=""))
-      
-      modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
-                          "/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/",
-                          paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/",subfolder,sep=""))
-      
-      # Rehearsal model Stroop data:
-      sdat <- read.table(paste(modelpath,"stroopChein",graphname,".dat",sep=""), fill=TRUE, 
-                        #col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
-                        col.names = c("task","condition","block","day","trial","type","correct","RT"))
-      #sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
-      sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type,correct=sdat$correct),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
-      # Get the control and test interference data, as [{1,21},{mean,sd}]
-      sres.cintf = 1000*(subset(sres, condition=="CONTROL" & type=="INCONGRUENT" & correct==1, select=x) - subset(sres, condition=="CONTROL" & type=="CONGRUENT", select=x))
-      sres.tintf = 1000*(subset(sres, condition=="EXP" & type=="INCONGRUENT" & correct==1, select=x) - subset(sres, condition=="EXP" & type=="CONGRUENT", select=x))
-      
-      #(sres[,1,2]-sres[,1,1])*1000
-      #(sres[,2,2]-sres[,2,1])*1000
-      # Plot the human and rehearsal model Stroop data
-      plot_stroop_prepost(c(0,200), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp.stroop[2,],exp.stroop.se[2,]),
-                          sres.cintf, sres.tintf, 
-                          c("Data Pre","Data Post","Model Pre","Model Post"))
+    for (tmp in TMP) {
+      for (clr in CLR) {
+        graphname <- ifelse(PLOT_SOURCE=="PRIMS", "", 
+                            paste("_l", ifelse(PLOT_L1, "1", ""), ifelse(PLOT_L2, "2", ""), ifelse(PLOT_L3, "3", ""), 
+                                  "_t", t, 
+                                  ifelse(SWEEP_LR, paste("_lr", lr, sep=""), ""), 
+                                  ifelse(SWEEP_DR, paste("_dr", dr, sep=""), ""), 
+                                  ifelse(SWEEP_CLR, paste("_clr", clr, sep=""), ""),
+                                  ifelse(SWEEP_TMP, paste("_tmp", tmp, sep=""), ""),
+                                  sample, sep=""))
+        
+        modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
+                            "/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/",
+                            paste("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/",subfolder,sep=""))
+        
+        # Rehearsal model Stroop data:
+        sdat <- read.table(paste(modelpath,"stroopChein",graphname,".dat",sep=""), fill=TRUE, 
+                          #col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
+                          col.names = c("task","condition","block","day","trial","type","correct","RT"))
+        #sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
+        sdat$RT <- ifelse(sdat$correct, sdat$RT, sdat$RT*2)
+        
+        sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
+        
+        # Don't count if there are no successful incongruent trials
+        #if (length(subset(sres, correct==1, select=x)) < 8) {
+        #  print(paste("Skipping ", graphname, ". No correct incongruent trials.", sep=""))
+        #  next
+        #}
+        # Get the control and test interference data, as [{1,21},{mean,sd}]
+        sres.cintf = 1000*(subset(sres, condition=="CONTROL" & type=="INCONGRUENT", select=x) - subset(sres, condition=="CONTROL" & type=="CONGRUENT", select=x))
+        sres.tintf = 1000*(subset(sres, condition=="EXP" & type=="INCONGRUENT", select=x) - subset(sres, condition=="EXP" & type=="CONGRUENT", select=x))
+        
+        #(sres[,1,2]-sres[,1,1])*1000
+        #(sres[,2,2]-sres[,2,1])*1000
+        # Plot the human and rehearsal model Stroop data
+        plot_stroop_prepost(c(0,200), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp.stroop[2,],exp.stroop.se[2,]),
+                            sres.cintf, sres.tintf, 
+                            c("Data Pre","Data Post","Model Pre","Model Post"),
+                            paste("Stroop:",
+                                  ifelse(SWEEP_LR,paste(" lr=",as.double(lr)*0.0001,sep=""),""),
+                                  ifelse(SWEEP_DR,paste(" dr=",as.double(dr)*0.001,sep=""),""),
+                                  ifelse(SWEEP_CLR,paste(" clr=",as.double(clr)*0.01,sep=""),""),
+                                  ifelse(SWEEP_TMP,paste(" tmp=",as.double(tmp)*0.01,sep=""),"")))
+      }
     }
   }
 }

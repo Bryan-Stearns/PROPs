@@ -33,15 +33,15 @@
 ;; Elaborations
 (elab elab-yes-WMcanprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMcanprepare)
 	;~ focusing
-	(ins :condition (Gtask <> nil) :action (yes -> WMcanprepare))  ;; This is abstracting away whatever actual value would represent preparation
+	(ins :condition (Vobject = pending) :action (yes -> WMcanprepare))  ;; This is abstracting away whatever actual value would represent preparation
 )
 (elab elab-yes-WMprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMprepare)
 	;~ focusing
-	(ins :condition (Gtask <> nil) :action (yes -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+	(ins :condition (WMcanprepare = yes) :action (yes -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
 )
 (elab elab-no-WMprepare :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMprepare)
 	;~ idle
-	(ins :condition (Gtask <> nil) :action (no -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
+	(ins :condition (WMcanprepare = yes) :action (no -> WMprepare))  ;; This is abstracting away whatever actual value would represent preparation
 )
 
 (elab elab-Vcolor-WMcolor :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare) :lock (WMcolor)
