@@ -11,11 +11,11 @@ PLOT_VAR <- "time"          # "time", "DC", "RT", "retrievals", "avg_rt", "DCtim
 PLOT_EXTRAS <- TRUE
 
 PLOT_L1 <- TRUE           # The case where chunks were pre-included for memory reference tracing (false) or not (true)
-PLOT_L2 <- TRUE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
-PLOT_L3 <- TRUE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
-PLOT_SPREADING <- TRUE    # The case where instructions (can be) recalled according to activation and condition spread
-PLOT_MANUAL <- TRUE       # The case where a manual-sequence of instructions is used
-PLOT_LC <- TRUE          # The case where chunks that trigger condition spreading are to be learned (true) or pre-loaded (false)
+PLOT_L2 <- FALSE           # The case where chunking was turned on for instruction combo evaluation results (subsumes L1 results)
+PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
+PLOT_SPREADING <- FALSE    # The case where instructions (can be) recalled according to activation and condition spread
+PLOT_MANUAL <- FALSE       # The case where a manual-sequence of instructions is used
+PLOT_LC <- FALSE          # The case where chunks that trigger condition spreading are to be learned (true) or pre-loaded (false)
 PLOT_SEQLINK <- FALSE    # The case where the agent learns links back from instructions to manual-sequences (buggy)
 
 if (!PLOT_SPREADING) {
@@ -111,12 +111,12 @@ if (PLOT_SOURCE == "HUMAN") {
     # Read in the model results
     dat <- read.table(filepath)
     if (PLOT_SOURCE=="PRIMS") {
-      dat <- data.frame(dat[1:13],lapply(dat[9],(function(x) x*0.05)))
-      names(dat) <- c("condition","day","editor","trial","type","ll","mt","time", "DC","learned","runs","retrievals","avg_rt","DCtime")
+      names(dat) <- c("condition","day","editor","trial","type","ll","mt","time", "DC","learned","runs","retrievals","avg_rt")
+      dat$DCtime <- dat$DC*0.05
     } else {
-      dat <- data.frame(dat[1:13], dat[9] + dat[11])
-      dat <- data.frame(dat[1:14],lapply(dat[10],(function(x) x*0.05)))
-      names(dat) <- c("condition","day","editor","trial","type","ll","mt","RT","latency","DC","ST","retrievals","fails","time","DCtime")
+      names(dat) <- c("condition","day","editor","trial","type","ll","mt","RT","latency","DC","LTM_time","retrievals","countOp")
+      dat$DCtime <- dat$DC*0.05
+      dat$time <- dat$DCtime + dat$latency + dat$LTM_time
     }
     dat.m <- with(dat,tapply(switch(PLOT_VAR, "time"=time,"DC"=DC,"RT"=RT,"retrievals"=retrievals,"avg_rt"=avg_rt,"DCtime"=DCtime)
                               ,list(condition,day),mean))
@@ -134,10 +134,7 @@ if (PLOT_SOURCE == "HUMAN") {
     } else if (PLOT_VAR=="RT") {
       y_range <- c(0,100)
       y_label <- "Seconds/correct operation"
-    } else if (PLOT_VAR=="DCtime") {
-      y_range <- c(0,10)
-      y_label <- "Seconds/correct operation"
-    }  else {
+    } else {
       y_range <- c(0.0,1.25)
       y_label <- "Avg Retrieval Time (s)"
     }
@@ -145,7 +142,7 @@ if (PLOT_SOURCE == "HUMAN") {
     legend_y <- 1.0*y_range[2]
     legend_x <- 3.3
     legend_scale <- 1
-    savename <- paste(dirpath, ifelse(PLOT_SOURCE=="PRIMS", "fig_prims_editors_", "fig_props_editors_"), switch(PLOT_VAR,"time"="ST","DC"="DC","retrievals"="RS","avg_rt"="ART","RT"="RT","DCtime"="DCT"), graphname, sep="")
+    savename <- paste(dirpath, ifelse(PLOT_SOURCE=="PRIMS", "fig_prims_editors_", "fig_props_editors_"), switch(PLOT_VAR,"time"="RT","DC"="DC","retrievals"="LT","avg_rt"="ART","DCtime"="DCT"), graphname, sep="")
     
     #x11(width=pwid,height=pht)
     #par(lwd=2, mar=c(3,3,1,1), mgp=c(2,0.5,0), cex.lab=1.2)

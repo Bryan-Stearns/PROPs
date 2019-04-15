@@ -520,7 +520,11 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 			else {
 				// (should only happen for constants)
 				p1 = sToken;
-				actConsts.push_back(p1);
+				if (!p1.compare("nil")) {
+					p1 = "";
+				}
+				else
+					actConsts.push_back(p1);
 			}
 
 			nextToken(ss);	// read "->"
@@ -551,20 +555,24 @@ bool actransfer_operator_parser::getRawProps(std::stringstream & ss, std::vector
 				throw;
 			}
 
+			// Check for remove action
+			if (!p1.compare("")) {
+				op = "-";
+			}
 			// Check for need for action that creates an AC action cluster
-			if (!usedAC && (!p1.compare(0,5, "s.AC.") || !p2.compare(0,5, "s.AC."))) {
+			else if (!usedAC && (!p1.compare(0,5, "s.AC.") || !p2.compare(0,5, "s.AC."))) {
 				actions.push_back(Primitive("+","s.AC.action",""));
 				usedAC = true;
 			}
 			// Check for need for action that creates an Q query cluster
-			if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q.")) && p2.compare(2,10, "Q.retrieve")) {
+			else if (!usedQ && (!p1.compare(0,4, "s.Q.") || !p2.compare(0,4, "s.Q.")) && p2.compare(2,10, "Q.retrieve")) {
 				actions.push_back(Primitive("+","s.Q.query",""));
 				actions.push_back(Primitive("=","s.Q.query.q-type","query"));
 				actConsts.push_back("query");
 				usedQ = true;
 			}
 			// Check for a newWM cluster
-			if (!usedNW && (!p1.compare(0,5, "s.NW.") || !p2.compare(0,5, "s.NW."))) {
+			else if (!usedNW && (!p1.compare(0,5, "s.NW.") || !p2.compare(0,5, "s.NW."))) {
 				actions.push_back(Primitive("+","s.NW.wm",""));
 				usedNW = true;
 			}

@@ -69,6 +69,14 @@ sp {lib*actr*apply*init
 	(<f> ^props-agnostic-add true)
 	(write (crlf) INITTED (crlf))
 }
+sp {lib*actr*elaborate*substate*RT
+	(state <s> ^superstate <> nil
+				-^const)
+-->
+	(<s> ^Q <q>
+		^RT <r>)
+	(<q> ^props-agnostic-add true)
+}
 
 # FINISH #
 # Custom for Soar - don't include as a PROP instruction set #
@@ -143,8 +151,6 @@ sp {lib*actr*elaborate*visual*debug*in-1
 	(<il> ^slot1 <i1>
 		-^slot2)
 -->
-	#(<v> ^Vlabel <i1>
-	#	^Vvalue <i2>)
 	(write (crlf) |Read: "| <i1> |"|)
 }
 sp {lib*actr*elaborate*visual*debug*in-2
@@ -162,7 +168,7 @@ sp {lib*actr*elaborate*visual*debug*in-3
 	(<il> ^slot1 <i1>
 		^slot2 <i2>
 		^slot3 <i3>
-		-^slot4 )
+		-^slot4)
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |"|)
 }
@@ -172,9 +178,21 @@ sp {lib*actr*elaborate*visual*debug*in-4
 	(<il> ^slot1 <i1>
 		^slot2 <i2>
 		^slot3 <i3>
-		^slot4 <i4>)
+		^slot4 <i4>
+		-^slot5)
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |" "| <i4> |"|)
+}
+sp {lib*actr*elaborate*visual*debug*in-5
+	(state <s> ^V <v>
+				^io.input-link <il>)
+	(<il> ^slot1 <i1>
+		^slot2 <i2>
+		^slot3 <i3>
+		^slot4 <i4>
+		^slot5 <i5>)
+-->
+	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |" "| <i4> |" "| <i5> |"|)
 }
 
 
@@ -238,10 +256,23 @@ sp {lib*actr*elaborate*action*output-4
 	(<a> ^slot1 <o1>
 		^slot2 <o2>
 		^slot3 <o3>
-		^slot4 <o4>)
+		^slot4 <o4>
+		-^slot5)
 -->
 	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> | | <o3> | | <o4> (crlf) )
+}
+sp {lib*actr*elaborate*action*output-5
+	(state <s> ^AC.object <a>
+				^io.output-link <ol>)
+	(<a> ^slot1 <o1>
+		^slot2 <o2>
+		^slot3 <o3>
+		^slot4 <o4>
+		^slot5 <o5>)
+-->
+	(<ol> ^say <a>)
+	(write (crlf) |Say: | <o1> | | <o2> | | <o3> | | <o4> | | <o5> (crlf) )
 }
 
 

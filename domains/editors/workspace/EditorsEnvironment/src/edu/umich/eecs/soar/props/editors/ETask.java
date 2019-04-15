@@ -21,7 +21,7 @@ public class ETask {
 	public void init() {
 		line_pos = 0;
 		cursor_pos = 0;
-		vlist = new String[]{"","","",""};
+		vlist = new String[]{"","","","",""};
 		
 		text = new ArrayList<List<String>>(20);
 		text.add(new LinkedList<String>(Arrays.asList("Geestelijk vader van de tovenaarsleerling JK Rowling lanceert morgen de site pottermorecom".split("\\s"))));
@@ -46,9 +46,9 @@ public class ETask {
 		text.add(new LinkedList<String>(Arrays.asList(new String[]{""})));
 	}
 	
-	public void set_vlist(String v1, String v2, String v3, String v4) {
+	public void set_vlist(String v1, String v2, String v3, String v4, String v5) {
 		//old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};
-		vlist = new String[]{v1, v2, v3, v4};
+		vlist = new String[]{v1, v2, v3, v4, v5};
 	}
 	public void set_vlist(String[] list) {
 		//old_vlist = new String[]{vlist[0], vlist[1], vlist[2], vlist[3]};

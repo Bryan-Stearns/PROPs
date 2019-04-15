@@ -185,25 +185,26 @@ def main():
     fetchTimeLatenciesFile = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/elio-out8_X.dat"
     domain = 'elio_props'
     actions = ['enter']
-    
+    '''
     pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/'
     fetchTimeLatenciesFile = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/editor_out2_X.dat"
     domain = 'editors_props'
     actions = ['next-instruction']
+    countOp = None
     '''
-    
     pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/cheinmorrison/results/sweep_20190408_states/'
     fetchTimeLatenciesFile = None
+    domain = 'stroopChein'
     actions = ['type', 'say']
     countOp = 'prepare'
+    '''
     
     # File name generation (can loop over different files)
-    domain = 'stroopChein'
-    conv_types = ['l12']
-    T = ['1']
-    samples = ['3']
-    param3 = ['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
-    param4 = ['_dr700','_dr725','_dr750','_dr775','_dr800']
+    conv_types = ['l1']
+    T = ['48']
+    samples = ['2']
+    param3 = [''] #['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
+    param4 = [''] #['_dr700','_dr725','_dr750','_dr775','_dr800']
     
     for ctype in conv_types:
         for t in T:
@@ -217,9 +218,9 @@ def main():
                         convertData(inpath, outpath, fetchTimeLatenciesFile, actions, countOp)
                         
                         # If original agent trace output includes multiple kinds of task output, split them into separate files
-                        splitFile(outpath, r'\ASTROOP', None,
-                                  pathdir+ 'stroopChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat',
-                                  pathdir+ 'WMChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat')
+                        #splitFile(outpath, r'\ASTROOP', None,
+                        #          pathdir+ 'stroopChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat',
+                        #          pathdir+ 'WMChein' +'_'+ctype+'_t'+t+p3+p4+'_s'+sample+'_X.dat')
     
 
     

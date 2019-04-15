@@ -21,6 +21,8 @@ public class EditorsWorld extends PROPsEnvironment {
 	
 	private List<ArrayList<String[]>> edit_tasks;
 	private String[] numbers;
+	
+	private boolean vtarget_screen = true; 
 
 	public boolean inDebug = false;
 	
@@ -31,42 +33,42 @@ public class EditorsWorld extends PROPsEnvironment {
 		this.setAgentName("EditorsAgent");
 		this.setPropsDir(props_dir);
 		
-		this.setCondChunkFile(proj_dir + "editors_agent_condspread_chunks.soar");
-		this.setAddressChunkFile(proj_dir + "editors_agent_L1_chunks.soar");
-		this.setFetchSeqFile(proj_dir + "editors_agent_fetch_procedures.soar");
-		this.setInstructionsFile(proj_dir + "editors_agent_instructions.soar");
-		this.setSoarAgentFile(proj_dir + "editors_agent.soar");
+		//this.setCondChunkFile(proj_dir + "editors_agent_condspread_chunks.soar");
+		//this.setAddressChunkFile(proj_dir + "editors_agent_L1_chunks.soar");
+		//this.setFetchSeqFile(proj_dir + "editors_agent_fetch_procedures.soar");
+		this.setInstructionsFile(proj_dir + "editors_agent3_instructions.soar");
+		this.setSoarAgentFile(proj_dir + "editors_agent3.soar");
 		
-		this.setIOSize(4, 3);
+		this.setIOSize(5, 3);
 		
-		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_interface.soar", 
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
 												proj_dir + "editors_agent_smem.soar"));
 		
 		this.edit_tasks = new LinkedList<ArrayList<String[]>>();
 		
 		this.edit_tasks.add(new ArrayList<String[]>(6));
-		edit_tasks.get(0).add(new String[]{"replace-word", "vader", "moeder", "one"});
-		edit_tasks.get(0).add(new String[]{"insert-word", "inhoud", "nieuwe", "three"});
-		edit_tasks.get(0).add(new String[]{"delete-word", "slome", "", "five"});
-		edit_tasks.get(0).add(new String[]{"replace-line", "ebooks en sociale medi", "electronisch boeken en andere vormen van sociale media", "eight"});
-		edit_tasks.get(0).add(new String[]{"delete-line", "of the rings trilogie", "", "fifteen"});
-		edit_tasks.get(0).add(new String[]{"insert-line", "Oscar of niet Rowling zal er niet om rouwen want de buit is al binnen", "net zo groot als tien jaar geleden", "eighteen"});
+		edit_tasks.get(0).add(new String[]{"instruction", "replace-word", "vader", "moeder", "one"});
+		edit_tasks.get(0).add(new String[]{"instruction", "insert-word", "inhoud", "nieuwe", "three"});
+		edit_tasks.get(0).add(new String[]{"instruction", "delete-word", "slome", "", "five"});
+		edit_tasks.get(0).add(new String[]{"instruction", "replace-line", "ebooks en sociale medi", "electronisch boeken en andere vormen van sociale media", "eight"});
+		edit_tasks.get(0).add(new String[]{"instruction", "delete-line", "of the rings trilogie", "", "fifteen"});
+		edit_tasks.get(0).add(new String[]{"instruction", "insert-line", "Oscar of niet Rowling zal er niet om rouwen want de buit is al binnen", "net zo groot als tien jaar geleden", "eighteen"});
 		
 		this.edit_tasks.add(new ArrayList<String[]>(6));
-		edit_tasks.get(1).add(new String[]{"insert-word", "pers", "muskieten", "two"});
-		edit_tasks.get(1).add(new String[]{"replace-line", "fans mochten een blik op de inhoud werpen onder voorwaarde van strikte geheimhouding", "fans hadden de gelegenheid om alvast een kijkje te nemen", "three"});
-		edit_tasks.get(1).add(new String[]{"replace-word", "medi", "media", "eight"});
-		edit_tasks.get(1).add(new String[]{"delete-word", "eindelijk", "", "fourteen"});
-		edit_tasks.get(1).add(new String[]{"delete-line", "We all know what happened in the end but", "", "sixteen"});
-		edit_tasks.get(1).add(new String[]{"insert-line", "kassucces De spanning is daarom groot dit jaar", "succes Het zal Roling waarschijnlijk een worst wezen", "seventeen"});
+		edit_tasks.get(1).add(new String[]{"instruction", "insert-word", "pers", "muskieten", "two"});
+		edit_tasks.get(1).add(new String[]{"instruction", "replace-line", "fans mochten een blik op de inhoud werpen onder voorwaarde van strikte geheimhouding", "fans hadden de gelegenheid om alvast een kijkje te nemen", "three"});
+		edit_tasks.get(1).add(new String[]{"instruction", "replace-word", "medi", "media", "eight"});
+		edit_tasks.get(1).add(new String[]{"instruction", "delete-word", "eindelijk", "", "fourteen"});
+		edit_tasks.get(1).add(new String[]{"instruction", "delete-line", "We all know what happened in the end but", "", "sixteen"});
+		edit_tasks.get(1).add(new String[]{"instruction", "insert-line", "kassucces De spanning is daarom groot dit jaar", "succes Het zal Roling waarschijnlijk een worst wezen", "seventeen"});
 
 		this.edit_tasks.add(new ArrayList<String[]>(6));
-		edit_tasks.get(2).add(new String[]{"replace-line", "Geestelijk vader van de tovenaarsleerling JK Rowling lanceert morgen de site pottermorecom", "Wederom is het tijd voor een nieuwe website over harry potter maar deze keer van Rowling zelf", "one"});
-		edit_tasks.get(2).add(new String[]{"insert-word", "paar", "klein", "two"});
-		edit_tasks.get(2).add(new String[]{"delete-word", "nieuwe", "", "five"});
-		edit_tasks.get(2).add(new String[]{"delete-line", "Op dit moment staat de laatste film in de serie op het punt om in de bioscoop", "", "twelve"});
-		edit_tasks.get(2).add(new String[]{"replace-word", "Oscar", "prijs", "thirteen"});
-		edit_tasks.get(2).add(new String[]{"insert-line", "kassucces De spanning is daarom groot dit jaar", "And here we have another meaningless line that makes this text een more unreadable", "seventeen"});
+		edit_tasks.get(2).add(new String[]{"instruction", "replace-line", "Geestelijk vader van de tovenaarsleerling JK Rowling lanceert morgen de site pottermorecom", "Wederom is het tijd voor een nieuwe website over harry potter maar deze keer van Rowling zelf", "one"});
+		edit_tasks.get(2).add(new String[]{"instruction", "insert-word", "paar", "klein", "two"});
+		edit_tasks.get(2).add(new String[]{"instruction", "delete-word", "nieuwe", "", "five"});
+		edit_tasks.get(2).add(new String[]{"instruction", "delete-line", "Op dit moment staat de laatste film in de serie op het punt om in de bioscoop", "", "twelve"});
+		edit_tasks.get(2).add(new String[]{"instruction", "replace-word", "Oscar", "prijs", "thirteen"});
+		edit_tasks.get(2).add(new String[]{"instruction", "insert-line", "kassucces De spanning is daarom groot dit jaar", "And here we have another meaningless line that makes this text een more unreadable", "seventeen"});
 
 
 		numbers = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
@@ -80,7 +82,7 @@ public class EditorsWorld extends PROPsEnvironment {
 		//task_count = taskNum;
 		inDebug = true;
 		this.runDebug(task, taskSeq, config);
-		inDebug = false;
+		inDebug = false;	// FIXME: This never is called, because ending debugger kills thread (fix environment)
 	}
 	
 	private int getEditTaskIndex(String taskSeq) {
@@ -99,6 +101,10 @@ public class EditorsWorld extends PROPsEnvironment {
 	
 	// Helper functions specifically for the Editors environment
 	private void determine_v() {
+		// Only update the perception for the screen if we're looking at the screen
+		if (!vtarget_screen) 
+			return;
+		
 		List<String> L = ed_task.text.get(ed_task.line_pos);
 		String line = numbers[ed_task.line_pos];
 		String word;
@@ -107,7 +113,7 @@ public class EditorsWorld extends PROPsEnvironment {
 		else
 			word = ed_task.text.get(ed_task.line_pos).get(ed_task.cursor_pos);
 		
-		ed_task.set_vlist("word", word, "nil", line);
+		ed_task.set_vlist("screen", "word", word, "", line);
 		
 	}
 	
@@ -136,7 +142,7 @@ public class EditorsWorld extends PROPsEnvironment {
 		case "ll-noread":
 			if (action.equals("read-instruction")) {
 				rep.state = "ll";
-				rep.task = ed_task.edits.get(0)[0];
+				rep.task = ed_task.edits.get(0)[1];
 			}
 			else {
 				System.out.println("Something went wrong...");
@@ -144,21 +150,21 @@ public class EditorsWorld extends PROPsEnvironment {
 			break;
 		case "ll":
 			if (action.equals("number-p") || action.equals("enter") || action.equals("t-word")) {
-				rep.ll = System.nanoTime() - rep.strt;
+				rep.ll = this.getElapsedTime() - rep.strt;
 				rep.state = "ll-motor";
 			}
-			if (action.equals("read-instruction") && ed_task.edits.get(0)[3].equals(numbers[ed_task.line_pos])) {
+			if (action.equals("read-instruction") && ed_task.edits.get(0)[4].equals(numbers[ed_task.line_pos])) {
 				if (rep.state.equals("ll")) {
-					rep.ll = System.nanoTime()-rep.strt;
+					rep.ll = this.getElapsedTime()-rep.strt;
 					rep.state = "mt";
-					rep.temp = System.nanoTime();
+					rep.temp = this.getElapsedTime();
 				}
 			}
 			break;
 		case "ll-motor":
 			if (action.equals("read-instruction")) {
 				rep.state = "mt";
-				rep.temp = System.nanoTime();
+				rep.temp = this.getElapsedTime();
 			}
 			break;
 		case "mt":
@@ -166,19 +172,24 @@ public class EditorsWorld extends PROPsEnvironment {
 					"period-d", "type-text", "type-text-enter", "d", "control-k", "control-k-twice", "esc-d"));
 			if (temp.contains(action)) {
 				rep.state = "mt-motor";
-				rep.mt = System.nanoTime() - rep.temp;
+				rep.mt = this.getElapsedTime() - rep.temp;
 			}
 			break;
 		case "mt-motor":
 			if (action.equals("next-instruction")) {
 				rep.state = "ll";
-				//rep.addLatency(STD_VISUAL_TIME); // Could move latency for 'next-instruction' here so it ends up in the report, but Taatgen doesn't?
-				this.addReport(rep.toString());
+				
+				this.addReport(String.format("%1$s %2$d %3$s %4$d %5$-15s %6$.3f %7$.3f %8$.3f %9$.3f",
+						rep.taskSetName, rep.trialNum, this.getTask().toUpperCase(), rep.editNum,
+						rep.task.toUpperCase(), this.milliToSec(rep.ll), this.milliToSec(rep.mt), 
+						this.milliToSec(this.getElapsedTime()-rep.strt), rep.latencies));
+				
 				if (ed_task.edits.size() <= 1)
-					rep.task = "nil";
+					rep.task = "";
 				else
-					rep.task = ed_task.edits.get(1)[0];
-				rep.strt = System.nanoTime();
+					rep.task = ed_task.edits.get(1)[1];
+				rep.strt = this.getElapsedTime();
+				rep.temp = this.getElapsedTime();		// NOTE: Not in Taatgen's script
 				rep.latencies = 0.0;
 			}
 			break;
@@ -199,10 +210,12 @@ public class EditorsWorld extends PROPsEnvironment {
 			determine_v();
 			break;
 		case "read-screen":
+			vtarget_screen = true;
 			determine_v();
 			latency = STD_VISUAL_TIME;
 			break;
 		case "read-instruction":
+			vtarget_screen = false;
 			ed_task.set_vlist(ed_task.edits.get(0));
 			latency = STD_VISUAL_TIME;
 			break;
@@ -214,20 +227,21 @@ public class EditorsWorld extends PROPsEnvironment {
 				ed_task.set_vlist(ed_task.edits.get(0));
 			}
 			else {
-				ed_task.set_vlist("end", "end2", "end3", "end4");
+				//double time = this.milliToSec(this.getElapsedTime());
+				ed_task.set_vlist("end", "end", "end", "end", "end");
 				rep.state = "end";
 			}
 			latency = STD_VISUAL_TIME;
 			break;
 		case "focus-on-word": case "focus-on-next-word":
 			if (action.equals("focus-on-word")) {
-				ed_task.line = new LinkedList<String>(Arrays.asList(ed_task.edits.get(0)[1].split("\\s")));
+				ed_task.line = new LinkedList<String>(Arrays.asList(ed_task.edits.get(0)[2].split("\\s")));
 			}
 
 			sTemp = "short";
 			if (ed_task.line.size() == 1 || ed_task.line.get(0).length() > 4)	// If the word in the line is longer than 4 characters
 				sTemp = "long";
-			ed_task.set_vlist("single-word", ed_task.line.get(0), sTemp, "");
+			ed_task.set_vlist("instruction", "single-word", ed_task.line.get(0), sTemp, "");
 			ed_task.line.remove(0);
 			latency = STD_VISUAL_TIME;
 			break;
@@ -323,7 +337,8 @@ public class EditorsWorld extends PROPsEnvironment {
 			break;
 		}
 
-		rep.addLatency(latency);	// When a report ends from next-instruction, does not include the latency for next-instruction
+		rep.latencies += latency;
+		this.addAgentLatency(this.secToMilli(latency));
 
 		for (int i=0; i<ed_task.vlist.length; ++i) {
 			try {
@@ -342,6 +357,8 @@ public class EditorsWorld extends PROPsEnvironment {
 		// Called from initAgent() and runDebug(), when the agent is created
 		ed_task = new ETask();//(1,1,current_sample);
 		rep = new Report();
+		//rep.strt = this.getElapsedTime();
+		vtarget_screen = true;
 		
 		this.clearReports();
 	}
@@ -363,7 +380,7 @@ public class EditorsWorld extends PROPsEnvironment {
 			int task_count = 0;
 			rep.taskSetName = sac.name;
 			
-			for (int i=0; i<1 && !this.hasError(); ++i) { // Each subject comes in for 6 'days'
+			for (int i=0; i<6 && !this.hasError(); ++i) { // Each subject comes in for 6 'days'
 				int j = (int)(1800.0 / (double)sac.trials[i] + 0.5); // How many trials can fit into the 'day'
 				String condition = sac.conditions[i/2];
 
@@ -373,7 +390,9 @@ public class EditorsWorld extends PROPsEnvironment {
 
 					// Init report
 					rep.init();
-					rep.taskName = task_name;
+					rep.strt = this.getElapsedTime();
+					rep.temp = this.getElapsedTime(); // NOTE: Not in Taatgen's model
+					//rep.taskName = task_name;
 					rep.trialNum = i+1;
 					rep.editNum = k+1;
 					
@@ -383,6 +402,7 @@ public class EditorsWorld extends PROPsEnvironment {
 					
 					if (!this.hasError()) {	// abort potentially gets set in the updateEventHandler method
 						this.printReports();
+						this.clearReports();
 						System.out.println("Done: " + sac.name + ", " + condition + " " + Integer.toString(i+1) + "," + Integer.toString(k+1));
 					}
 					else {
@@ -416,6 +436,7 @@ public class EditorsWorld extends PROPsEnvironment {
 		//	ed_task.edits = new ArrayList<String[]>(edit_tasks.get(taskInd));
 		this.clearReports();
 		rep.init();
+		rep.strt = this.getElapsedTime();
 		determine_v();	
 	}
 	

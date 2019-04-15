@@ -59,14 +59,26 @@ sp {elaborate*rootstate*cascade
 # INHERIT CONST STRUCTS FROM SUPERSTATE EPSETS
 sp {elaborate*epset*consts
     # Need to access consts in state the same way regardless of whether consts come from local epset or superstate epset, so that chunks will transfer
-    (state <s> ^props-epset.const <c>)
+    (state <s> ^props-epset.const <c>
+               ^superstate.pre-action-state <ss>)
 -->
-    (<s> ^const <c>)
+    (<s> ^const <c>
+         ^pre-action-state <ss>)
 }
 sp {elaborate*superstate*consts
-    (state <s> ^superstate.const <c>)
+    (state <s> ^superstate <ss>)
+    (<ss> ^const <c>
+          ^pre-action-state <pas>)
 -->
-    (<s> ^const <c>)
+    (<s> ^const <c>
+         ^pre-action-state <pas>)
+}
+
+sp {elaborate*epset*pre-action-state
+    (state <s> ^type state
+               -^const <c>)
+-->
+    (<s> ^pre-action-state <s>)
 }
 
 

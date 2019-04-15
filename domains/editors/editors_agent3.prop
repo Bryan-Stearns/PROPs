@@ -1,0 +1,1492 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'editors_hier.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+# add-instr ed
+# ;~ find-instruction
+pp {propose*editors*ed*find-instruction
+	const1 find-instruction
+	const2 end
+	--
+	s.V.slot2 != const2
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr ed
+# ;~ apply-instruction
+pp {propose*editors*ed*apply-instruction
+	const1 apply-instruction
+	--
+	s.WM.slot1 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr ed
+# ;~ finish
+pp {propose*editors*ed*finish
+	const1 editors-ed-finish
+	const2 end
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed*finish
+	const1 editors-ed-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr edt
+# ;~ find-instruction
+pp {propose*editors*edt*find-instruction
+	const1 find-instruction
+	const2 end
+	--
+	s.V.slot2 != const2
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr edt
+# ;~ apply-instruction
+pp {propose*editors*edt*apply-instruction
+	const1 apply-instruction
+	--
+	s.WM.slot1 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr edt
+# ;~ finish
+pp {propose*editors*edt*finish
+	const1 editors-edt-finish
+	const2 end
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt*finish
+	const1 editors-edt-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr emacs
+# ;~ find-instruction
+pp {propose*editors*emacs*find-instruction
+	const1 find-instruction
+	const2 end
+	--
+	s.V.slot2 != const2
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr emacs
+# ;~ apply-instruction
+pp {propose*editors*emacs*apply-instruction
+	const1 apply-instruction
+	--
+	s.WM.slot1 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr emacs
+# ;~ finish
+pp {propose*editors*emacs*finish
+	const1 editors-emacs-finish
+	const2 end
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs*finish
+	const1 editors-emacs-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr find-instruction
+# ;~ read-instructions
+pp {propose*editors*find-instruction*read-instructions
+	const1 editors-find-instruction-read-instructions
+	const2 instruction
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-instruction*read-instructions
+	const1 editors-find-instruction-read-instructions
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr find-instruction
+# ;~ read-goal
+pp {propose*editors*find-instruction*read-goal
+	const1 editors-find-instruction-read-goal
+	const2 instruction
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-instruction*read-goal
+	const1 editors-find-instruction-read-goal
+	const2 true
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 -
+	s.WM.slot3 -
+	s.WM.slot4 -
+	s.WM.slot5 -
+}
+# add-instr apply-instruction
+# ;~ ready-cursor
+pp {propose*editors*apply-instruction*ready-cursor
+	const1 ready-cursor
+	--
+	s.WM.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr apply-instruction
+# ;~ apply-task
+pp {propose*editors*apply-instruction*apply-task
+	const1 apply-task
+	--
+	s.WM.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr ready-cursor
+# ;~ find-edit-line
+pp {propose*editors*ready-cursor*find-edit-line
+	const1 find-edit-line
+	--
+	s.WM.slot2 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr ready-cursor
+# ;~ reach-edit-line
+pp {propose*editors*ready-cursor*reach-edit-line
+	const1 reach-edit-line
+	--
+	s.WM.slot2 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr find-edit-line
+# ;~ read-instructions
+pp {propose*editors*find-edit-line*read-instructions
+	const1 editors-find-edit-line-read-instructions
+	const2 instruction
+	--
+	s.V.slot1 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-line*read-instructions
+	const1 editors-find-edit-line-read-instructions
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr find-edit-line
+# ;~ read-goal
+pp {propose*editors*find-edit-line*read-goal
+	const1 editors-find-edit-line-read-goal
+	const2 instruction
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-line*read-goal
+	const1 editors-find-edit-line-read-goal
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot2 = s.V.slot5
+}
+# add-instr reach-edit-line
+# ;~ check-cursor-pos
+pp {propose*editors*reach-edit-line*check-cursor-pos
+	const1 check-cursor-pos
+	--
+	s.WM.slot5 != s.V.slot5
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr reach-edit-line
+# ;~ move-to-line
+pp {propose*editors*reach-edit-line*move-to-line
+	const1 move-to-line
+	--
+	s.WM.slot5 <> s.WM.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr reach-edit-line
+# ;~ remember-ready
+pp {propose*editors*reach-edit-line*remember-ready
+	const1 editors-reach-edit-line-remember-ready
+	--
+	s.WM.slot5 == s.WM.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*reach-edit-line*remember-ready
+	const1 editors-reach-edit-line-remember-ready
+	const2 true
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot3 = const2
+	s.WM.slot5 -
+}
+# add-instr check-cursor-pos
+# ;~ read-screen
+pp {propose*editors*check-cursor-pos*read-screen
+	const1 editors-check-cursor-pos-read-screen
+	const2 screen
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*check-cursor-pos*read-screen
+	const1 editors-check-cursor-pos-read-screen
+	const2 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr check-cursor-pos
+# ;~ check-pos
+pp {propose*editors*check-cursor-pos*check-pos
+	const1 editors-check-cursor-pos-check-pos
+	const2 screen
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*check-cursor-pos*check-pos
+	const1 editors-check-cursor-pos-check-pos
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = s.V.slot5
+}
+# add-instr move-to-line
+# ;~ test
+pp {propose*editors*move-to-line*test
+	const1 editors-move-to-line-test
+	const2 emacs
+	--
+	s.G.Gtask <> const2
+	s.smem.rt-result -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*move-to-line*test
+	const1 editors-move-to-line-test
+	const2 diff-3-fact
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot5
+	s.Q.query.slot3 = s.WM.slot2
+}
+# add-instr move-to-line
+# ;~ enter
+pp {propose*editors*move-to-line*enter
+	const1 increment-line
+	const2 success
+	--
+	s.smem.rt-result == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr move-to-line
+# ;~ goto-line
+pp {propose*editors*move-to-line*goto-line
+	const1 goto-line
+	const2 error
+	--
+	s.smem.rt-result == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr move-to-line
+# ;~ control-n
+pp {propose*editors*move-to-line*control-n
+	const1 increment-line
+	const2 emacs
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr increment-line
+# ;~ read-screen
+pp {propose*editors*increment-line*read-screen
+	const1 editors-increment-line-read-screen
+	const2 screen
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*increment-line*read-screen
+	const1 editors-increment-line-read-screen
+	const2 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr increment-line
+# ;~ ed-enter
+pp {propose*editors*increment-line*ed-enter
+	const1 editors-increment-line-ed-enter
+	const2 screen
+	const3 ed
+	--
+	s.V.slot1 == const2
+	s.V.slot5 != s.WM.slot2
+	s.G.Gtask == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*increment-line*ed-enter
+	const1 editors-increment-line-ed-enter
+	const2 enter
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr increment-line
+# ;~ edt-enter
+pp {propose*editors*increment-line*edt-enter
+	const1 editors-increment-line-edt-enter
+	const2 screen
+	const3 edt
+	--
+	s.V.slot1 == const2
+	s.V.slot5 != s.WM.slot2
+	s.G.Gtask == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*increment-line*edt-enter
+	const1 editors-increment-line-edt-enter
+	const2 enter
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr increment-line
+# ;~ emacs-control-n
+pp {propose*editors*increment-line*emacs-control-n
+	const1 editors-increment-line-emacs-control-n
+	const2 screen
+	const3 emacs
+	--
+	s.V.slot1 == const2
+	s.V.slot5 != s.WM.slot2
+	s.G.Gtask == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*increment-line*emacs-control-n
+	const1 editors-increment-line-emacs-control-n
+	const2 control-n
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr increment-line
+# ;~ end-search
+pp {propose*editors*increment-line*end-search
+	const1 editors-increment-line-end-search
+	const2 screen
+	--
+	s.V.slot1 == const2
+	s.V.slot5 == s.WM.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*increment-line*end-search
+	const1 editors-increment-line-end-search
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 -
+}
+# add-instr goto-line
+# ;~ number-p
+pp {propose*editors*goto-line*number-p
+	const1 editors-goto-line-number-p
+	const2 ed
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*goto-line*number-p
+	const1 editors-goto-line-number-p
+	const2 number-p
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.WM.slot2
+	s.WM.slot5 -
+}
+# add-instr goto-line
+# ;~ word-search
+pp {propose*editors*goto-line*word-search
+	const1 word-search
+	const2 edt
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr word-search
+# ;~ read-instruction
+pp {propose*editors*word-search*read-instruction
+	const1 editors-word-search-read-instruction
+	const2 instruction
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*word-search*read-instruction
+	const1 editors-word-search-read-instruction
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr word-search
+# ;~ look
+pp {propose*editors*word-search*look
+	const1 editors-word-search-look
+	const2 instruction
+	const3 single-word
+	const4 word
+	--
+	s.V.slot1 == const2
+	s.V.slot2 <> const3
+	s.V.slot2 <> const4
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*word-search*look
+	const1 editors-word-search-look
+	const2 focus-on-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr word-search
+# ;~ next
+pp {propose*editors*word-search*next
+	const1 editors-word-search-next
+	const2 instruction
+	const3 short
+	--
+	s.V.slot1 == const2
+	s.V.slot4 == const3
+	s.V.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*word-search*next
+	const1 editors-word-search-next
+	const2 focus-on-next-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr word-search
+# ;~ t-word
+pp {propose*editors*word-search*t-word
+	const1 editors-word-search-t-word
+	const2 instruction
+	const3 long
+	--
+	s.V.slot1 == const2
+	s.V.slot4 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*word-search*t-word
+	const1 editors-word-search-t-word
+	const2 t-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.WM.slot5 -
+}
+# add-instr apply-task
+# ;~ move-to-word
+pp {propose*editors*apply-task*move-to-word
+	const1 move-to-word
+	const2 done
+	--
+	s.WM.slot5 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr apply-task
+# ;~ execute-edit
+pp {propose*editors*apply-task*execute-edit
+	const1 execute-edit
+	const2 done
+	--
+	s.WM.slot5 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr move-to-word
+# ;~ find-edit-goal
+pp {propose*editors*move-to-word*find-edit-goal
+	const1 find-edit-goal
+	--
+	s.WM.slot5 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr move-to-word
+# ;~ move-cursor-right
+pp {propose*editors*move-to-word*move-cursor-right
+	const1 move-cursor-right
+	--
+	s.WM.slot5 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr find-edit-goal
+# ;~ read-instruction
+pp {propose*editors*find-edit-goal*read-instruction
+	const1 editors-find-edit-goal-read-instruction
+	const2 instruction
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*read-instruction
+	const1 editors-find-edit-goal-read-instruction
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr find-edit-goal
+# ;~ word-replace
+pp {propose*editors*find-edit-goal*word-replace
+	const1 editors-find-edit-goal-word-replace
+	const2 replace-word
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*word-replace
+	const1 editors-find-edit-goal-word-replace
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = s.V.slot3
+}
+# add-instr find-edit-goal
+# ;~ word-delete
+pp {propose*editors*find-edit-goal*word-delete
+	const1 editors-find-edit-goal-word-delete
+	const2 delete-word
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*word-delete
+	const1 editors-find-edit-goal-word-delete
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = s.V.slot3
+}
+# add-instr find-edit-goal
+# ;~ word-insert
+pp {propose*editors*find-edit-goal*word-insert
+	const1 editors-find-edit-goal-word-insert
+	const2 insert-word
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*word-insert
+	const1 editors-find-edit-goal-word-insert
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = s.V.slot3
+}
+# add-instr find-edit-goal
+# ;~ line-delete
+pp {propose*editors*find-edit-goal*line-delete
+	const1 editors-find-edit-goal-line-delete
+	const2 delete-line
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*line-delete
+	const1 editors-find-edit-goal-line-delete
+	const2 done
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = const2
+}
+# add-instr find-edit-goal
+# ;~ line-insert
+pp {propose*editors*find-edit-goal*line-insert
+	const1 editors-find-edit-goal-line-insert
+	const2 insert-line
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*line-insert
+	const1 editors-find-edit-goal-line-insert
+	const2 done
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = const2
+}
+# add-instr find-edit-goal
+# ;~ line-replace
+pp {propose*editors*find-edit-goal*line-replace
+	const1 editors-find-edit-goal-line-replace
+	const2 replace-line
+	--
+	s.V.slot2 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*find-edit-goal*line-replace
+	const1 editors-find-edit-goal-line-replace
+	const2 done
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = const2
+}
+# add-instr move-cursor-right
+# ;~ read-screen
+pp {propose*editors*move-cursor-right*read-screen
+	const1 editors-move-cursor-right-read-screen
+	const2 screen
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*move-cursor-right*read-screen
+	const1 editors-move-cursor-right-read-screen
+	const2 read-screen
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr move-cursor-right
+# ;~ next
+pp {propose*editors*move-cursor-right*next
+	const1 get-next-word
+	const2 screen
+	--
+	s.V.slot1 == const2
+	s.V.slot3 <> s.WM.slot5
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr move-cursor-right
+# ;~ read
+pp {propose*editors*move-cursor-right*read
+	const1 editors-move-cursor-right-read
+	const2 screen
+	--
+	s.V.slot1 == const2
+	s.V.slot3 == s.WM.slot5
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*move-cursor-right*read
+	const1 editors-move-cursor-right-read
+	const2 done
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot5 = const2
+}
+# add-instr get-next-word
+# ;~ ed-move-attention-right
+pp {propose*editors*get-next-word*ed-move-attention-right
+	const1 editors-get-next-word-ed-move-attention-right
+	const2 ed
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*get-next-word*ed-move-attention-right
+	const1 editors-get-next-word-ed-move-attention-right
+	const2 move-attention-right
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr get-next-word
+# ;~ edt-move-attention-right
+pp {propose*editors*get-next-word*edt-move-attention-right
+	const1 editors-get-next-word-edt-move-attention-right
+	const2 edt
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*get-next-word*edt-move-attention-right
+	const1 editors-get-next-word-edt-move-attention-right
+	const2 move-attention-right
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr get-next-word
+# ;~ emacs-move-attention-right
+pp {propose*editors*get-next-word*emacs-move-attention-right
+	const1 editors-get-next-word-emacs-move-attention-right
+	const2 emacs
+	--
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*get-next-word*emacs-move-attention-right
+	const1 editors-get-next-word-emacs-move-attention-right
+	const2 esc-f
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr execute-edit
+# ;~ get-edit-strategy
+pp {propose*editors*execute-edit*get-edit-strategy
+	const1 get-edit-strategy
+	--
+	s.WM.slot4 -
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr execute-edit
+# ;~ ed-execute-task
+pp {propose*editors*execute-edit*ed-execute-task
+	const1 ed-execute-edit
+	const2 ed
+	--
+	s.WM.slot4 
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr execute-edit
+# ;~ edt-execute-task
+pp {propose*editors*execute-edit*edt-execute-task
+	const1 edt-execute-edit
+	const2 edt
+	--
+	s.WM.slot4 
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr execute-edit
+# ;~ emacs-execute-task
+pp {propose*editors*execute-edit*emacs-execute-task
+	const1 emacs-execute-edit
+	const2 emacs
+	--
+	s.WM.slot4 
+	s.G.Gtask == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr get-edit-strategy
+# ;~ read-instruction
+pp {propose*editors*get-edit-strategy*read-instruction
+	const1 editors-get-edit-strategy-read-instruction
+	const2 instruction
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*get-edit-strategy*read-instruction
+	const1 editors-get-edit-strategy-read-instruction
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr get-edit-strategy
+# ;~ get-command
+pp {propose*editors*get-edit-strategy*get-command
+	const1 editors-get-edit-strategy-get-command
+	const2 instruction
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*get-edit-strategy*get-command
+	const1 editors-get-edit-strategy-get-command
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot4 = s.V.slot2
+}
+# add-instr ed-execute-edit
+# ;~ replace-word
+pp {propose*editors*ed-execute-edit*replace-word
+	const1 editors-ed-execute-edit-replace-word
+	const2 replace-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*replace-word
+	const1 editors-ed-execute-edit-replace-word
+	const2 substitute-ed
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ delete-word
+pp {propose*editors*ed-execute-edit*delete-word
+	const1 editors-ed-execute-edit-delete-word
+	const2 delete-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*delete-word
+	const1 editors-ed-execute-edit-delete-word
+	const2 substitute-ed
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ insert-word
+pp {propose*editors*ed-execute-edit*insert-word
+	const1 editors-ed-execute-edit-insert-word
+	const2 insert-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*insert-word
+	const1 editors-ed-execute-edit-insert-word
+	const2 insert-ed
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ delete-line
+pp {propose*editors*ed-execute-edit*delete-line
+	const1 editors-ed-execute-edit-delete-line
+	const2 delete-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*delete-line
+	const1 editors-ed-execute-edit-delete-line
+	const2 period-d
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ insert-line
+pp {propose*editors*ed-execute-edit*insert-line
+	const1 editors-ed-execute-edit-insert-line
+	const2 insert-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*insert-line
+	const1 editors-ed-execute-edit-insert-line
+	const2 period-a
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ replace-line
+pp {propose*editors*ed-execute-edit*replace-line
+	const1 editors-ed-execute-edit-replace-line
+	const2 replace-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*replace-line
+	const1 editors-ed-execute-edit-replace-line
+	const2 period-c
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr ed-execute-edit
+# ;~ type-line
+pp {propose*editors*ed-execute-edit*type-line
+	const1 type-line
+	--
+	s.WM.slot4 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr ed-execute-edit
+# ;~ next
+pp {propose*editors*ed-execute-edit*next
+	const1 editors-ed-execute-edit-next
+	const2 complete
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*ed-execute-edit*next
+	const1 editors-ed-execute-edit-next
+	const2 next-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot1 -
+}
+# add-instr edt-execute-edit
+# ;~ replace-word
+pp {propose*editors*edt-execute-edit*replace-word
+	const1 editors-edt-execute-edit-replace-word
+	const2 replace-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*replace-word
+	const1 editors-edt-execute-edit-replace-word
+	const2 substitute-edt
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ delete-word
+pp {propose*editors*edt-execute-edit*delete-word
+	const1 editors-edt-execute-edit-delete-word
+	const2 delete-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*delete-word
+	const1 editors-edt-execute-edit-delete-word
+	const2 substitute-edt
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ insert-word
+pp {propose*editors*edt-execute-edit*insert-word
+	const1 editors-edt-execute-edit-insert-word
+	const2 insert-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*insert-word
+	const1 editors-edt-execute-edit-insert-word
+	const2 insert-edt
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot3
+	s.AC.action.slot3 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ delete-line
+pp {propose*editors*edt-execute-edit*delete-line
+	const1 editors-edt-execute-edit-delete-line
+	const2 delete-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*delete-line
+	const1 editors-edt-execute-edit-delete-line
+	const2 d
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ insert-line
+pp {propose*editors*edt-execute-edit*insert-line
+	const1 editors-edt-execute-edit-insert-line
+	const2 insert-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*insert-line
+	const1 editors-edt-execute-edit-insert-line
+	const2 i
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ replace-line
+pp {propose*editors*edt-execute-edit*replace-line
+	const1 editors-edt-execute-edit-replace-line
+	const2 replace-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*replace-line
+	const1 editors-edt-execute-edit-replace-line
+	const2 r
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr edt-execute-edit
+# ;~ type-line
+pp {propose*editors*edt-execute-edit*type-line
+	const1 type-line
+	--
+	s.WM.slot4 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr edt-execute-edit
+# ;~ next
+pp {propose*editors*edt-execute-edit*next
+	const1 editors-edt-execute-edit-next
+	const2 complete
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*edt-execute-edit*next
+	const1 editors-edt-execute-edit-next
+	const2 next-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot1 -
+}
+# add-instr emacs-execute-edit
+# ;~ replace-word
+pp {propose*editors*emacs-execute-edit*replace-word
+	const1 editors-emacs-execute-edit-replace-word
+	const2 replace-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*replace-word
+	const1 editors-emacs-execute-edit-replace-word
+	const2 esc-d
+	const3 insert-word
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ delete-word
+pp {propose*editors*emacs-execute-edit*delete-word
+	const1 editors-emacs-execute-edit-delete-word
+	const2 delete-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*delete-word
+	const1 editors-emacs-execute-edit-delete-word
+	const2 esc-d
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ insert-word
+pp {propose*editors*emacs-execute-edit*insert-word
+	const1 editors-emacs-execute-edit-insert-word
+	const2 insert-word
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*insert-word
+	const1 editors-emacs-execute-edit-insert-word
+	const2 type-text
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ delete-line
+pp {propose*editors*emacs-execute-edit*delete-line
+	const1 editors-emacs-execute-edit-delete-line
+	const2 delete-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*delete-line
+	const1 editors-emacs-execute-edit-delete-line
+	const2 control-k-twice
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ insert-line
+pp {propose*editors*emacs-execute-edit*insert-line
+	const1 editors-emacs-execute-edit-insert-line
+	const2 insert-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*insert-line
+	const1 editors-emacs-execute-edit-insert-line
+	const2 type-text-enter
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot4
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ replace-line
+pp {propose*editors*emacs-execute-edit*replace-line
+	const1 editors-emacs-execute-edit-replace-line
+	const2 replace-line
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*replace-line
+	const1 editors-emacs-execute-edit-replace-line
+	const2 control-k
+	const3 type-line
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot4 = const3
+}
+# add-instr emacs-execute-edit
+# ;~ type-line
+pp {propose*editors*emacs-execute-edit*type-line
+	const1 type-line
+	--
+	s.WM.slot4 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr emacs-execute-edit
+# ;~ next
+pp {propose*editors*emacs-execute-edit*next
+	const1 editors-emacs-execute-edit-next
+	const2 complete
+	--
+	s.WM.slot4 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*emacs-execute-edit*next
+	const1 editors-emacs-execute-edit-next
+	const2 next-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.WM.slot1 -
+}
+# add-instr type-line
+# ;~ find-instruction
+pp {propose*editors*type-line*find-instruction
+	const1 editors-type-line-find-instruction
+	const2 instruction
+	--
+	s.V.slot1 != const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*type-line*find-instruction
+	const1 editors-type-line-find-instruction
+	const2 read-instruction
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr type-line
+# ;~ type
+pp {propose*editors*type-line*type
+	const1 editors-type-line-type
+	const2 instruction
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*editors*type-line*type
+	const1 editors-type-line-type
+	const2 type-text
+	const3 complete
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.V.slot4
+	s.WM.slot4 = const3
+}

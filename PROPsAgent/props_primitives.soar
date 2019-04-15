@@ -270,7 +270,7 @@ sp {apply*props*remove
          ^cond-id1 (^id1 <id1> ^name <pname> ) )
     (<a> ^prop-type remove
          ^name <pname>
-         ^id1 <id1>
+         #^id1 <id1>
          ^attr1 <attr1>)
 -->
     (<ba> ^delta-action <dnew>)

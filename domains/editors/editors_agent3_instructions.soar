@@ -1,0 +1,1522 @@
+#####
+# THIS FILE TRANSLATES THE PROPS INSTRUCTIONS
+# FROM 'editors_agent3.prop' INTO SMEM INSTRUCTIONS USABLE
+# BY A PROPS SOAR AGENT.
+#####
+
+# BEGIN INSTRUCTIONS
+
+smem --add {
+(<delta_PA10_PA11> ^prop-apply true
+	^op-name |_PA10_PA11|
+	^item-name |_PA10|
+	^item-name |_PA11|)
+(<cbset_PA10_PA11> ^props-cbset-name |_PA10_PA11|
+	 ^delta <delta_PA10>
+	 ^delta <delta_PA11>)
+(<delta_PA13_PA14> ^prop-apply true
+	^op-name |_PA13_PA14|
+	^item-name |_PA13|
+	^item-name |_PA14|)
+(<cbset_PA13_PA14> ^props-cbset-name |_PA13_PA14|
+	 ^delta <delta_PA13>
+	 ^delta <delta_PA14>)
+(<delta_PA14_PA24> ^prop-apply true
+	^op-name |_PA14_PA24|
+	^item-name |_PA14|
+	^item-name |_PA24|)
+(<cbset_PA14_PA24> ^props-cbset-name |_PA14_PA24|
+	 ^delta <delta_PA14>
+	 ^delta <delta_PA24>)
+(<delta_PA14_PA8> ^prop-apply true
+	^op-name |_PA14_PA8|
+	^item-name |_PA14|
+	^item-name |_PA8|)
+(<cbset_PA14_PA8> ^props-cbset-name |_PA14_PA8|
+	 ^delta <delta_PA14>
+	 ^delta <delta_PA8>)
+(<delta_PA28_PA30> ^prop-apply true
+	^op-name |_PA28_PA30|
+	^item-name |_PA28|
+	^item-name |_PA30|)
+(<cbset_PA28_PA30> ^props-cbset-name |_PA28_PA30|
+	 ^delta <delta_PA28>
+	 ^delta <delta_PA30>)
+(<delta_PA29_PA31> ^prop-apply true
+	^op-name |_PA29_PA31|
+	^item-name |_PA29|
+	^item-name |_PA31|)
+(<cbset_PA29_PA31> ^props-cbset-name |_PA29_PA31|
+	 ^delta <delta_PA29>
+	 ^delta <delta_PA31>)
+(<delta_PA42_PA55> ^prop-apply true
+	^op-name |_PA42_PA55|
+	^item-name |_PA42|
+	^item-name |_PA55|)
+(<cbset_PA42_PA55> ^props-cbset-name |_PA42_PA55|
+	 ^delta <delta_PA42>
+	 ^delta <delta_PA55>)
+(<delta_PA42_PA8> ^prop-apply true
+	^op-name |_PA42_PA8|
+	^item-name |_PA42|
+	^item-name |_PA8|)
+(<cbset_PA42_PA8> ^props-cbset-name |_PA42_PA8|
+	 ^delta <delta_PA42>
+	 ^delta <delta_PA8>)
+(<delta_PA56_PA8> ^prop-apply true
+	^op-name |_PA56_PA8|
+	^item-name |_PA56|
+	^item-name |_PA8|)
+(<cbset_PA56_PA8> ^props-cbset-name |_PA56_PA8|
+	 ^delta <delta_PA56>
+	 ^delta <delta_PA8>)
+(<delta_PA58_PA8> ^prop-apply true
+	^op-name |_PA58_PA8|
+	^item-name |_PA58|
+	^item-name |_PA8|)
+(<cbset_PA58_PA8> ^props-cbset-name |_PA58_PA8|
+	 ^delta <delta_PA58>
+	 ^delta <delta_PA8>)
+(<delta_PA5_PA6> ^prop-apply true
+	^op-name |_PA5_PA6|
+	^item-name |_PA5|
+	^item-name |_PA6|)
+(<cbset_PA5_PA6> ^props-cbset-name |_PA5_PA6|
+	 ^delta <delta_PA5>
+	 ^delta <delta_PA6>)
+(<delta_PA10_PA11_PA12> ^prop-apply true
+	^op-name |_PA10_PA11_PA12|
+	^item-name |_PA10|
+	^item-name |_PA11|
+	^item-name |_PA12|)
+(<cbset_PA10_PA11_PA12> ^props-cbset-name |_PA10_PA11_PA12|
+	 ^delta <delta_PA10_PA11>
+	 ^delta <delta_PA12>)
+(<delta_PA14_PA37_PA8> ^prop-apply true
+	^op-name |_PA14_PA37_PA8|
+	^item-name |_PA14|
+	^item-name |_PA8|
+	^item-name |_PA37|)
+(<cbset_PA14_PA37_PA8> ^props-cbset-name |_PA14_PA37_PA8|
+	 ^delta <delta_PA14_PA8>
+	 ^delta <delta_PA37>)
+(<delta_PA14_PA42_PA8> ^prop-apply true
+	^op-name |_PA14_PA42_PA8|
+	^item-name |_PA14|
+	^item-name |_PA42|
+	^item-name |_PA8|)
+(<cbset_PA14_PA42_PA8> ^props-cbset-name |_PA14_PA42_PA8|
+	 ^delta <delta_PA14>
+	 ^delta <delta_PA42_PA8>)
+(<delta_PA28_PA29_PA30_PA31> ^prop-apply true
+	^op-name |_PA28_PA29_PA30_PA31|
+	^item-name |_PA28|
+	^item-name |_PA30|
+	^item-name |_PA29|
+	^item-name |_PA31|)
+(<cbset_PA28_PA29_PA30_PA31> ^props-cbset-name |_PA28_PA29_PA30_PA31|
+	 ^delta <delta_PA28_PA30>
+	 ^delta <delta_PA29_PA31>)
+(<delta_PA42_PA55_PA56_PA8> ^prop-apply true
+	^op-name |_PA42_PA55_PA56_PA8|
+	^item-name |_PA42|
+	^item-name |_PA55|
+	^item-name |_PA56|
+	^item-name |_PA8|)
+(<cbset_PA42_PA55_PA56_PA8> ^props-cbset-name |_PA42_PA55_PA56_PA8|
+	 ^delta <delta_PA42_PA55>
+	 ^delta <delta_PA56_PA8>)
+(<delta_PA56_PA59_PA8> ^prop-apply true
+	^op-name |_PA56_PA59_PA8|
+	^item-name |_PA56|
+	^item-name |_PA8|
+	^item-name |_PA59|)
+(<cbset_PA56_PA59_PA8> ^props-cbset-name |_PA56_PA59_PA8|
+	 ^delta <delta_PA56_PA8>
+	 ^delta <delta_PA59>)
+(<delta_PA10_PA11_PA12_PA13_PA14> ^prop-apply true
+	^op-name |_PA10_PA11_PA12_PA13_PA14|
+	^item-name |_PA10|
+	^item-name |_PA11|
+	^item-name |_PA12|
+	^item-name |_PA13|
+	^item-name |_PA14|)
+(<cbset_PA10_PA11_PA12_PA13_PA14> ^props-cbset-name |_PA10_PA11_PA12_PA13_PA14|
+	 ^delta <delta_PA10_PA11_PA12>
+	 ^delta <delta_PA13_PA14>)
+
+(<Q144>  ^1 editors-type-line-type ^2 type-text ^3 complete)
+(<pre-cbset-rule144> ^props-epset-name editors-type-line-type
+	^const <Q144>
+	^delta <delta_PA56_PA59_PA8>)
+
+(<Q143>  ^1 editors-type-line-type ^2 instruction)
+(<epset-task-type-line> ^delta <delta-rule143>)
+(<delta-rule143> ^op-name editors-type-line-type
+	^const <Q143>)
+(<delta-rule143> ^prop <prop-C9>)
+
+(<Q142>  ^1 editors-type-line-find-instruction ^2 read-instruction)
+(<pre-cbset-rule142> ^props-epset-name editors-type-line-find-instruction
+	^const <Q142>
+	^delta <delta_PA8>)
+
+(<epset-task-type-line> ^props-epset-name type-line)
+(<Q141>  ^1 editors-type-line-find-instruction ^2 instruction)
+(<epset-task-type-line> ^delta <delta-rule141>)
+(<delta-rule141> ^op-name editors-type-line-find-instruction
+	^const <Q141>)
+(<delta-rule141> ^prop <prop-C7>)
+
+(<Q140>  ^1 editors-emacs-execute-edit-next ^2 next-instruction)
+(<pre-cbset-rule140> ^props-epset-name editors-emacs-execute-edit-next
+	^const <Q140>
+	^delta <delta_PA58_PA8>)
+
+(<Q139>  ^1 editors-emacs-execute-edit-next ^2 complete)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule139>)
+(<delta-rule139> ^op-name editors-emacs-execute-edit-next
+	^const <Q139>)
+(<delta-rule139> ^prop <prop-C54>)
+
+(<Q138>  ^1 type-line)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule138>)
+(<delta-rule138> ^op-name type-line
+	^const <Q138>)
+(<delta-rule138> ^prop <prop-C57>)
+
+(<Q137>  ^1 editors-emacs-execute-edit-replace-line ^2 control-k ^3 type-line)
+(<pre-cbset-rule137> ^props-epset-name editors-emacs-execute-edit-replace-line
+	^const <Q137>
+	^delta <delta_PA56_PA8>)
+
+(<Q136>  ^1 editors-emacs-execute-edit-replace-line ^2 replace-line)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule136>)
+(<delta-rule136> ^op-name editors-emacs-execute-edit-replace-line
+	^const <Q136>)
+(<delta-rule136> ^prop <prop-C54>)
+
+(<Q135>  ^1 editors-emacs-execute-edit-insert-line ^2 type-text-enter ^3 complete)
+(<pre-cbset-rule135> ^props-epset-name editors-emacs-execute-edit-insert-line
+	^const <Q135>
+	^delta <delta_PA56_PA59_PA8>)
+
+(<Q134>  ^1 editors-emacs-execute-edit-insert-line ^2 insert-line)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule134>)
+(<delta-rule134> ^op-name editors-emacs-execute-edit-insert-line
+	^const <Q134>)
+(<delta-rule134> ^prop <prop-C54>)
+
+(<Q133>  ^1 editors-emacs-execute-edit-delete-line ^2 control-k-twice ^3 complete)
+(<pre-cbset-rule133> ^props-epset-name editors-emacs-execute-edit-delete-line
+	^const <Q133>
+	^delta <delta_PA56_PA8>)
+
+(<Q132>  ^1 editors-emacs-execute-edit-delete-line ^2 delete-line)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule132>)
+(<delta-rule132> ^op-name editors-emacs-execute-edit-delete-line
+	^const <Q132>)
+(<delta-rule132> ^prop <prop-C54>)
+
+(<Q131>  ^1 editors-emacs-execute-edit-insert-word ^2 type-text ^3 complete)
+(<delta_PA59> ^prop-apply true
+	^item-name |_PA59|
+	^op-name |_PA59|)
+(<cbset_PA59> ^props-cbset-name |_PA59|
+	^delta <delta-null_PA59>)
+(<delta-null_PA59> ^prop-apply true
+	^prop <prop-A59>)
+(<prop-A59> ^name |_PA59|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot4
+	^address1 AC
+	^address2 V)
+(<pre-cbset-rule131> ^props-epset-name editors-emacs-execute-edit-insert-word
+	^const <Q131>
+	^delta <delta_PA56_PA59_PA8>)
+
+(<Q130>  ^1 editors-emacs-execute-edit-insert-word ^2 insert-word)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule130>)
+(<delta-rule130> ^op-name editors-emacs-execute-edit-insert-word
+	^const <Q130>)
+(<delta-rule130> ^prop <prop-C54>)
+
+(<Q129>  ^1 editors-emacs-execute-edit-delete-word ^2 esc-d ^3 complete)
+(<pre-cbset-rule129> ^props-epset-name editors-emacs-execute-edit-delete-word
+	^const <Q129>
+	^delta <delta_PA56_PA8>)
+
+(<Q128>  ^1 editors-emacs-execute-edit-delete-word ^2 delete-word)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule128>)
+(<delta-rule128> ^op-name editors-emacs-execute-edit-delete-word
+	^const <Q128>)
+(<delta-rule128> ^prop <prop-C54>)
+
+(<Q127>  ^1 editors-emacs-execute-edit-replace-word ^2 esc-d ^3 insert-word)
+(<pre-cbset-rule127> ^props-epset-name editors-emacs-execute-edit-replace-word
+	^const <Q127>
+	^delta <delta_PA56_PA8>)
+
+(<epset-task-emacs-execute-edit> ^props-epset-name emacs-execute-edit)
+(<Q126>  ^1 editors-emacs-execute-edit-replace-word ^2 replace-word)
+(<epset-task-emacs-execute-edit> ^delta <delta-rule126>)
+(<delta-rule126> ^op-name editors-emacs-execute-edit-replace-word
+	^const <Q126>)
+(<delta-rule126> ^prop <prop-C54>)
+
+(<Q125>  ^1 editors-edt-execute-edit-next ^2 next-instruction)
+(<pre-cbset-rule125> ^props-epset-name editors-edt-execute-edit-next
+	^const <Q125>
+	^delta <delta_PA58_PA8>)
+
+(<Q124>  ^1 editors-edt-execute-edit-next ^2 complete)
+(<epset-task-edt-execute-edit> ^delta <delta-rule124>)
+(<delta-rule124> ^op-name editors-edt-execute-edit-next
+	^const <Q124>)
+(<delta-rule124> ^prop <prop-C54>)
+
+(<Q123>  ^1 type-line)
+(<epset-task-edt-execute-edit> ^delta <delta-rule123>)
+(<delta-rule123> ^op-name type-line
+	^const <Q123>)
+(<delta-rule123> ^prop <prop-C57>)
+
+(<Q122>  ^1 editors-edt-execute-edit-replace-line ^2 r ^3 type-line)
+(<pre-cbset-rule122> ^props-epset-name editors-edt-execute-edit-replace-line
+	^const <Q122>
+	^delta <delta_PA56_PA8>)
+
+(<Q121>  ^1 editors-edt-execute-edit-replace-line ^2 replace-line)
+(<epset-task-edt-execute-edit> ^delta <delta-rule121>)
+(<delta-rule121> ^op-name editors-edt-execute-edit-replace-line
+	^const <Q121>)
+(<delta-rule121> ^prop <prop-C54>)
+
+(<Q120>  ^1 editors-edt-execute-edit-insert-line ^2 i ^3 type-line)
+(<pre-cbset-rule120> ^props-epset-name editors-edt-execute-edit-insert-line
+	^const <Q120>
+	^delta <delta_PA56_PA8>)
+
+(<Q119>  ^1 editors-edt-execute-edit-insert-line ^2 insert-line)
+(<epset-task-edt-execute-edit> ^delta <delta-rule119>)
+(<delta-rule119> ^op-name editors-edt-execute-edit-insert-line
+	^const <Q119>)
+(<delta-rule119> ^prop <prop-C54>)
+
+(<Q118>  ^1 editors-edt-execute-edit-delete-line ^2 d ^3 complete)
+(<pre-cbset-rule118> ^props-epset-name editors-edt-execute-edit-delete-line
+	^const <Q118>
+	^delta <delta_PA56_PA8>)
+
+(<Q117>  ^1 editors-edt-execute-edit-delete-line ^2 delete-line)
+(<epset-task-edt-execute-edit> ^delta <delta-rule117>)
+(<delta-rule117> ^op-name editors-edt-execute-edit-delete-line
+	^const <Q117>)
+(<delta-rule117> ^prop <prop-C54>)
+
+(<Q116>  ^1 editors-edt-execute-edit-insert-word ^2 insert-edt ^3 complete)
+(<pre-cbset-rule116> ^props-epset-name editors-edt-execute-edit-insert-word
+	^const <Q116>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<Q115>  ^1 editors-edt-execute-edit-insert-word ^2 insert-word)
+(<epset-task-edt-execute-edit> ^delta <delta-rule115>)
+(<delta-rule115> ^op-name editors-edt-execute-edit-insert-word
+	^const <Q115>)
+(<delta-rule115> ^prop <prop-C54>)
+
+(<Q114>  ^1 editors-edt-execute-edit-delete-word ^2 substitute-edt ^3 complete)
+(<pre-cbset-rule114> ^props-epset-name editors-edt-execute-edit-delete-word
+	^const <Q114>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<Q113>  ^1 editors-edt-execute-edit-delete-word ^2 delete-word)
+(<epset-task-edt-execute-edit> ^delta <delta-rule113>)
+(<delta-rule113> ^op-name editors-edt-execute-edit-delete-word
+	^const <Q113>)
+(<delta-rule113> ^prop <prop-C54>)
+
+(<Q112>  ^1 editors-edt-execute-edit-replace-word ^2 substitute-edt ^3 complete)
+(<pre-cbset-rule112> ^props-epset-name editors-edt-execute-edit-replace-word
+	^const <Q112>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<epset-task-edt-execute-edit> ^props-epset-name edt-execute-edit)
+(<Q111>  ^1 editors-edt-execute-edit-replace-word ^2 replace-word)
+(<epset-task-edt-execute-edit> ^delta <delta-rule111>)
+(<delta-rule111> ^op-name editors-edt-execute-edit-replace-word
+	^const <Q111>)
+(<delta-rule111> ^prop <prop-C54>)
+
+(<Q110>  ^1 editors-ed-execute-edit-next ^2 next-instruction)
+(<delta_PA58> ^prop-apply true
+	^item-name |_PA58|
+	^op-name |_PA58|)
+(<cbset_PA58> ^props-cbset-name |_PA58|
+	^delta <delta-null_PA58>)
+(<delta-null_PA58> ^prop-apply true
+	^prop <prop-A58>)
+(<prop-A58> ^name |_PA58|
+	^prop-type remove
+	^attr1 slot1
+	^address1 WM)
+(<pre-cbset-rule110> ^props-epset-name editors-ed-execute-edit-next
+	^const <Q110>
+	^delta <delta_PA58_PA8>)
+
+(<Q109>  ^1 editors-ed-execute-edit-next ^2 complete)
+(<epset-task-ed-execute-edit> ^delta <delta-rule109>)
+(<delta-rule109> ^op-name editors-ed-execute-edit-next
+	^const <Q109>)
+(<delta-rule109> ^prop <prop-C54>)
+
+(<Q108>  ^1 type-line)
+(<epset-task-ed-execute-edit> ^delta <delta-rule108>)
+(<delta-rule108> ^op-name type-line
+	^const <Q108>)
+(<delta-rule108> ^prop <prop-C57>)
+(<prop-C57> ^name |_PC57|
+	^prop-type equality
+	^attr1 slot4
+	^attr2 1
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q107>  ^1 editors-ed-execute-edit-replace-line ^2 period-c ^3 type-line)
+(<pre-cbset-rule107> ^props-epset-name editors-ed-execute-edit-replace-line
+	^const <Q107>
+	^delta <delta_PA56_PA8>)
+
+(<Q106>  ^1 editors-ed-execute-edit-replace-line ^2 replace-line)
+(<epset-task-ed-execute-edit> ^delta <delta-rule106>)
+(<delta-rule106> ^op-name editors-ed-execute-edit-replace-line
+	^const <Q106>)
+(<delta-rule106> ^prop <prop-C54>)
+
+(<Q105>  ^1 editors-ed-execute-edit-insert-line ^2 period-a ^3 type-line)
+(<pre-cbset-rule105> ^props-epset-name editors-ed-execute-edit-insert-line
+	^const <Q105>
+	^delta <delta_PA56_PA8>)
+
+(<Q104>  ^1 editors-ed-execute-edit-insert-line ^2 insert-line)
+(<epset-task-ed-execute-edit> ^delta <delta-rule104>)
+(<delta-rule104> ^op-name editors-ed-execute-edit-insert-line
+	^const <Q104>)
+(<delta-rule104> ^prop <prop-C54>)
+
+(<Q103>  ^1 editors-ed-execute-edit-delete-line ^2 period-d ^3 complete)
+(<pre-cbset-rule103> ^props-epset-name editors-ed-execute-edit-delete-line
+	^const <Q103>
+	^delta <delta_PA56_PA8>)
+
+(<Q102>  ^1 editors-ed-execute-edit-delete-line ^2 delete-line)
+(<epset-task-ed-execute-edit> ^delta <delta-rule102>)
+(<delta-rule102> ^op-name editors-ed-execute-edit-delete-line
+	^const <Q102>)
+(<delta-rule102> ^prop <prop-C54>)
+
+(<Q101>  ^1 editors-ed-execute-edit-insert-word ^2 insert-ed ^3 complete)
+(<pre-cbset-rule101> ^props-epset-name editors-ed-execute-edit-insert-word
+	^const <Q101>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<Q100>  ^1 editors-ed-execute-edit-insert-word ^2 insert-word)
+(<epset-task-ed-execute-edit> ^delta <delta-rule100>)
+(<delta-rule100> ^op-name editors-ed-execute-edit-insert-word
+	^const <Q100>)
+(<delta-rule100> ^prop <prop-C54>)
+
+(<Q99>  ^1 editors-ed-execute-edit-delete-word ^2 substitute-ed ^3 complete)
+(<pre-cbset-rule99> ^props-epset-name editors-ed-execute-edit-delete-word
+	^const <Q99>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<Q98>  ^1 editors-ed-execute-edit-delete-word ^2 delete-word)
+(<epset-task-ed-execute-edit> ^delta <delta-rule98>)
+(<delta-rule98> ^op-name editors-ed-execute-edit-delete-word
+	^const <Q98>)
+(<delta-rule98> ^prop <prop-C54>)
+
+(<Q97>  ^1 editors-ed-execute-edit-replace-word ^2 substitute-ed ^3 complete)
+(<delta_PA55> ^prop-apply true
+	^item-name |_PA55|
+	^op-name |_PA55|)
+(<cbset_PA55> ^props-cbset-name |_PA55|
+	^delta <delta-null_PA55>)
+(<delta-null_PA55> ^prop-apply true
+	^prop <prop-A55>)
+(<prop-A55> ^name |_PA55|
+	^prop-type add
+	^attr1 slot3
+	^attr2 slot4
+	^address1 AC
+	^address2 V)
+(<delta_PA56> ^prop-apply true
+	^item-name |_PA56|
+	^op-name |_PA56|)
+(<cbset_PA56> ^props-cbset-name |_PA56|
+	^delta <delta-null_PA56>)
+(<delta-null_PA56> ^prop-apply true
+	^prop <prop-A56>)
+(<prop-A56> ^name |_PA56|
+	^prop-type add
+	^attr1 slot4
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule97> ^props-epset-name editors-ed-execute-edit-replace-word
+	^const <Q97>
+	^delta <delta_PA42_PA55_PA56_PA8>)
+
+(<epset-task-ed-execute-edit> ^props-epset-name ed-execute-edit)
+(<Q96>  ^1 editors-ed-execute-edit-replace-word ^2 replace-word)
+(<epset-task-ed-execute-edit> ^delta <delta-rule96>)
+(<delta-rule96> ^op-name editors-ed-execute-edit-replace-word
+	^const <Q96>)
+(<delta-rule96> ^prop <prop-C54>)
+(<prop-C54> ^name |_PC54|
+	^prop-type equality
+	^attr1 slot4
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q95>  ^1 editors-get-edit-strategy-get-command)
+(<delta_PA53> ^prop-apply true
+	^item-name |_PA53|
+	^op-name |_PA53|)
+(<cbset_PA53> ^props-cbset-name |_PA53|
+	^delta <delta-null_PA53>)
+(<delta-null_PA53> ^prop-apply true
+	^prop <prop-A53>)
+(<prop-A53> ^name |_PA53|
+	^prop-type add
+	^attr1 slot4
+	^attr2 slot2
+	^address1 WM
+	^address2 V)
+(<pre-cbset-rule95> ^props-epset-name editors-get-edit-strategy-get-command
+	^const <Q95>
+	^delta <delta_PA53>)
+
+(<Q94>  ^1 editors-get-edit-strategy-get-command ^2 instruction)
+(<epset-task-get-edit-strategy> ^delta <delta-rule94>)
+(<delta-rule94> ^op-name editors-get-edit-strategy-get-command
+	^const <Q94>)
+(<delta-rule94> ^prop <prop-C9>)
+
+(<Q93>  ^1 editors-get-edit-strategy-read-instruction ^2 read-instruction)
+(<pre-cbset-rule93> ^props-epset-name editors-get-edit-strategy-read-instruction
+	^const <Q93>
+	^delta <delta_PA8>)
+
+(<epset-task-get-edit-strategy> ^props-epset-name get-edit-strategy)
+(<Q92>  ^1 editors-get-edit-strategy-read-instruction ^2 instruction)
+(<epset-task-get-edit-strategy> ^delta <delta-rule92>)
+(<delta-rule92> ^op-name editors-get-edit-strategy-read-instruction
+	^const <Q92>)
+(<delta-rule92> ^prop <prop-C7>)
+
+(<Q91>  ^1 emacs-execute-edit ^2 emacs)
+(<epset-task-execute-edit> ^delta <delta-rule91>)
+(<delta-rule91> ^op-name emacs-execute-edit
+	^const <Q91>)
+(<delta-rule91> ^prop <prop-C52>)
+(<delta-rule91> ^prop <prop-C33>)
+
+(<Q90>  ^1 edt-execute-edit ^2 edt)
+(<epset-task-execute-edit> ^delta <delta-rule90>)
+(<delta-rule90> ^op-name edt-execute-edit
+	^const <Q90>)
+(<delta-rule90> ^prop <prop-C52>)
+(<delta-rule90> ^prop <prop-C33>)
+
+(<Q89>  ^1 ed-execute-edit ^2 ed)
+(<epset-task-execute-edit> ^delta <delta-rule89>)
+(<delta-rule89> ^op-name ed-execute-edit
+	^const <Q89>)
+(<delta-rule89> ^prop <prop-C52>)
+(<prop-C52> ^name |_PC52|
+	^prop-type existence
+	^attr1 slot4
+	^address1 WM)
+
+(<delta-rule89> ^prop <prop-C33>)
+
+(<epset-task-execute-edit> ^props-epset-name execute-edit)
+(<Q88>  ^1 get-edit-strategy)
+(<epset-task-execute-edit> ^delta <delta-rule88>)
+(<delta-rule88> ^op-name get-edit-strategy
+	^const <Q88>)
+(<delta-rule88> ^prop <prop-C51>)
+(<prop-C51> ^name |_PC51|
+	^prop-type negation
+	^attr1 slot4
+	^address1 WM)
+
+
+(<Q87>  ^1 editors-get-next-word-emacs-move-attention-right ^2 esc-f)
+(<pre-cbset-rule87> ^props-epset-name editors-get-next-word-emacs-move-attention-right
+	^const <Q87>
+	^delta <delta_PA8>)
+
+(<Q86>  ^1 editors-get-next-word-emacs-move-attention-right ^2 emacs)
+(<epset-task-get-next-word> ^delta <delta-rule86>)
+(<delta-rule86> ^op-name editors-get-next-word-emacs-move-attention-right
+	^const <Q86>)
+(<delta-rule86> ^prop <prop-C33>)
+
+(<Q85>  ^1 editors-get-next-word-edt-move-attention-right ^2 move-attention-right)
+(<pre-cbset-rule85> ^props-epset-name editors-get-next-word-edt-move-attention-right
+	^const <Q85>
+	^delta <delta_PA8>)
+
+(<Q84>  ^1 editors-get-next-word-edt-move-attention-right ^2 edt)
+(<epset-task-get-next-word> ^delta <delta-rule84>)
+(<delta-rule84> ^op-name editors-get-next-word-edt-move-attention-right
+	^const <Q84>)
+(<delta-rule84> ^prop <prop-C33>)
+
+(<Q83>  ^1 editors-get-next-word-ed-move-attention-right ^2 move-attention-right)
+(<pre-cbset-rule83> ^props-epset-name editors-get-next-word-ed-move-attention-right
+	^const <Q83>
+	^delta <delta_PA8>)
+
+(<epset-task-get-next-word> ^props-epset-name get-next-word)
+(<Q82>  ^1 editors-get-next-word-ed-move-attention-right ^2 ed)
+(<epset-task-get-next-word> ^delta <delta-rule82>)
+(<delta-rule82> ^op-name editors-get-next-word-ed-move-attention-right
+	^const <Q82>)
+(<delta-rule82> ^prop <prop-C33>)
+
+(<Q81>  ^1 editors-move-cursor-right-read ^2 done)
+(<pre-cbset-rule81> ^props-epset-name editors-move-cursor-right-read
+	^const <Q81>
+	^delta <delta_PA48>)
+
+(<Q80>  ^1 editors-move-cursor-right-read ^2 screen)
+(<epset-task-move-cursor-right> ^delta <delta-rule80>)
+(<delta-rule80> ^op-name editors-move-cursor-right-read
+	^const <Q80>)
+(<delta-rule80> ^prop <prop-C9>)
+(<delta-rule80> ^prop <prop-C50>)
+(<prop-C50> ^name |_PC50|
+	^prop-type equality
+	^attr1 slot3
+	^attr2 slot5
+	^address1 V
+	^address2 WM)
+
+
+(<Q79>  ^1 get-next-word ^2 screen)
+(<epset-task-move-cursor-right> ^delta <delta-rule79>)
+(<delta-rule79> ^op-name get-next-word
+	^const <Q79>)
+(<delta-rule79> ^prop <prop-C9>)
+(<delta-rule79> ^prop <prop-C49>)
+(<prop-C49> ^name |_PC49|
+	^prop-type inequality
+	^attr1 slot3
+	^attr2 slot5
+	^address1 V
+	^address2 WM)
+
+
+(<Q78>  ^1 editors-move-cursor-right-read-screen ^2 read-screen)
+(<pre-cbset-rule78> ^props-epset-name editors-move-cursor-right-read-screen
+	^const <Q78>
+	^delta <delta_PA8>)
+
+(<epset-task-move-cursor-right> ^props-epset-name move-cursor-right)
+(<Q77>  ^1 editors-move-cursor-right-read-screen ^2 screen)
+(<epset-task-move-cursor-right> ^delta <delta-rule77>)
+(<delta-rule77> ^op-name editors-move-cursor-right-read-screen
+	^const <Q77>)
+(<delta-rule77> ^prop <prop-C7>)
+
+(<Q76>  ^1 editors-find-edit-goal-line-replace ^2 done)
+(<pre-cbset-rule76> ^props-epset-name editors-find-edit-goal-line-replace
+	^const <Q76>
+	^delta <delta_PA48>)
+
+(<Q75>  ^1 editors-find-edit-goal-line-replace ^2 replace-line)
+(<epset-task-find-edit-goal> ^delta <delta-rule75>)
+(<delta-rule75> ^op-name editors-find-edit-goal-line-replace
+	^const <Q75>)
+(<delta-rule75> ^prop <prop-C4>)
+
+(<Q74>  ^1 editors-find-edit-goal-line-insert ^2 done)
+(<pre-cbset-rule74> ^props-epset-name editors-find-edit-goal-line-insert
+	^const <Q74>
+	^delta <delta_PA48>)
+
+(<Q73>  ^1 editors-find-edit-goal-line-insert ^2 insert-line)
+(<epset-task-find-edit-goal> ^delta <delta-rule73>)
+(<delta-rule73> ^op-name editors-find-edit-goal-line-insert
+	^const <Q73>)
+(<delta-rule73> ^prop <prop-C4>)
+
+(<Q72>  ^1 editors-find-edit-goal-line-delete ^2 done)
+(<delta_PA48> ^prop-apply true
+	^item-name |_PA48|
+	^op-name |_PA48|)
+(<cbset_PA48> ^props-cbset-name |_PA48|
+	^delta <delta-null_PA48>)
+(<delta-null_PA48> ^prop-apply true
+	^prop <prop-A48>)
+(<prop-A48> ^name |_PA48|
+	^prop-type add
+	^attr1 slot5
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule72> ^props-epset-name editors-find-edit-goal-line-delete
+	^const <Q72>
+	^delta <delta_PA48>)
+
+(<Q71>  ^1 editors-find-edit-goal-line-delete ^2 delete-line)
+(<epset-task-find-edit-goal> ^delta <delta-rule71>)
+(<delta-rule71> ^op-name editors-find-edit-goal-line-delete
+	^const <Q71>)
+(<delta-rule71> ^prop <prop-C4>)
+
+(<Q70>  ^1 editors-find-edit-goal-word-insert)
+(<pre-cbset-rule70> ^props-epset-name editors-find-edit-goal-word-insert
+	^const <Q70>
+	^delta <delta_PA47>)
+
+(<Q69>  ^1 editors-find-edit-goal-word-insert ^2 insert-word)
+(<epset-task-find-edit-goal> ^delta <delta-rule69>)
+(<delta-rule69> ^op-name editors-find-edit-goal-word-insert
+	^const <Q69>)
+(<delta-rule69> ^prop <prop-C4>)
+
+(<Q68>  ^1 editors-find-edit-goal-word-delete)
+(<pre-cbset-rule68> ^props-epset-name editors-find-edit-goal-word-delete
+	^const <Q68>
+	^delta <delta_PA47>)
+
+(<Q67>  ^1 editors-find-edit-goal-word-delete ^2 delete-word)
+(<epset-task-find-edit-goal> ^delta <delta-rule67>)
+(<delta-rule67> ^op-name editors-find-edit-goal-word-delete
+	^const <Q67>)
+(<delta-rule67> ^prop <prop-C4>)
+
+(<Q66>  ^1 editors-find-edit-goal-word-replace)
+(<delta_PA47> ^prop-apply true
+	^item-name |_PA47|
+	^op-name |_PA47|)
+(<cbset_PA47> ^props-cbset-name |_PA47|
+	^delta <delta-null_PA47>)
+(<delta-null_PA47> ^prop-apply true
+	^prop <prop-A47>)
+(<prop-A47> ^name |_PA47|
+	^prop-type add
+	^attr1 slot5
+	^attr2 slot3
+	^address1 WM
+	^address2 V)
+(<pre-cbset-rule66> ^props-epset-name editors-find-edit-goal-word-replace
+	^const <Q66>
+	^delta <delta_PA47>)
+
+(<Q65>  ^1 editors-find-edit-goal-word-replace ^2 replace-word)
+(<epset-task-find-edit-goal> ^delta <delta-rule65>)
+(<delta-rule65> ^op-name editors-find-edit-goal-word-replace
+	^const <Q65>)
+(<delta-rule65> ^prop <prop-C4>)
+
+(<Q64>  ^1 editors-find-edit-goal-read-instruction ^2 read-instruction)
+(<pre-cbset-rule64> ^props-epset-name editors-find-edit-goal-read-instruction
+	^const <Q64>
+	^delta <delta_PA8>)
+
+(<epset-task-find-edit-goal> ^props-epset-name find-edit-goal)
+(<Q63>  ^1 editors-find-edit-goal-read-instruction ^2 instruction)
+(<epset-task-find-edit-goal> ^delta <delta-rule63>)
+(<delta-rule63> ^op-name editors-find-edit-goal-read-instruction
+	^const <Q63>)
+(<delta-rule63> ^prop <prop-C7>)
+
+(<Q62>  ^1 move-cursor-right)
+(<epset-task-move-to-word> ^delta <delta-rule62>)
+(<delta-rule62> ^op-name move-cursor-right
+	^const <Q62>)
+(<delta-rule62> ^prop <prop-C46>)
+(<prop-C46> ^name |_PC46|
+	^prop-type existence
+	^attr1 slot5
+	^address1 WM)
+
+
+(<epset-task-move-to-word> ^props-epset-name move-to-word)
+(<Q61>  ^1 find-edit-goal)
+(<epset-task-move-to-word> ^delta <delta-rule61>)
+(<delta-rule61> ^op-name find-edit-goal
+	^const <Q61>)
+(<delta-rule61> ^prop <prop-C45>)
+(<prop-C45> ^name |_PC45|
+	^prop-type negation
+	^attr1 slot5
+	^address1 WM)
+
+
+(<Q60>  ^1 execute-edit ^2 done)
+(<epset-task-apply-task> ^delta <delta-rule60>)
+(<delta-rule60> ^op-name execute-edit
+	^const <Q60>)
+(<delta-rule60> ^prop <prop-C44>)
+(<prop-C44> ^name |_PC44|
+	^prop-type equality
+	^attr1 slot5
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<epset-task-apply-task> ^props-epset-name apply-task)
+(<Q59>  ^1 move-to-word ^2 done)
+(<epset-task-apply-task> ^delta <delta-rule59>)
+(<delta-rule59> ^op-name move-to-word
+	^const <Q59>)
+(<delta-rule59> ^prop <prop-C43>)
+(<prop-C43> ^name |_PC43|
+	^prop-type inexistence
+	^attr1 slot5
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q58>  ^1 editors-word-search-t-word ^2 t-word)
+(<delta_PA42> ^prop-apply true
+	^item-name |_PA42|
+	^op-name |_PA42|)
+(<cbset_PA42> ^props-cbset-name |_PA42|
+	^delta <delta-null_PA42>)
+(<delta-null_PA42> ^prop-apply true
+	^prop <prop-A42>)
+(<prop-A42> ^name |_PA42|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 AC
+	^address2 V)
+(<pre-cbset-rule58> ^props-epset-name editors-word-search-t-word
+	^const <Q58>
+	^delta <delta_PA14_PA42_PA8>)
+
+(<Q57>  ^1 editors-word-search-t-word ^2 instruction ^3 long)
+(<epset-task-word-search> ^delta <delta-rule57>)
+(<delta-rule57> ^op-name editors-word-search-t-word
+	^const <Q57>)
+(<delta-rule57> ^prop <prop-C9>)
+(<delta-rule57> ^prop <prop-C40>)
+
+(<Q56>  ^1 editors-word-search-next ^2 focus-on-next-word)
+(<pre-cbset-rule56> ^props-epset-name editors-word-search-next
+	^const <Q56>
+	^delta <delta_PA8>)
+
+(<Q55>  ^1 editors-word-search-next ^2 instruction ^3 short)
+(<epset-task-word-search> ^delta <delta-rule55>)
+(<delta-rule55> ^op-name editors-word-search-next
+	^const <Q55>)
+(<delta-rule55> ^prop <prop-C9>)
+(<delta-rule55> ^prop <prop-C40>)
+(<prop-C40> ^name |_PC40|
+	^prop-type equality
+	^attr1 slot4
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule55> ^prop <prop-C41>)
+(<prop-C41> ^name |_PC41|
+	^prop-type existence
+	^attr1 slot3
+	^address1 V)
+
+
+(<Q54>  ^1 editors-word-search-look ^2 focus-on-word)
+(<pre-cbset-rule54> ^props-epset-name editors-word-search-look
+	^const <Q54>
+	^delta <delta_PA8>)
+
+(<Q53>  ^1 editors-word-search-look ^2 instruction ^3 single-word ^4 word)
+(<epset-task-word-search> ^delta <delta-rule53>)
+(<delta-rule53> ^op-name editors-word-search-look
+	^const <Q53>)
+(<delta-rule53> ^prop <prop-C9>)
+(<delta-rule53> ^prop <prop-C38>)
+(<prop-C38> ^name |_PC38|
+	^prop-type inequality
+	^attr1 slot2
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule53> ^prop <prop-C39>)
+(<prop-C39> ^name |_PC39|
+	^prop-type inequality
+	^attr1 slot2
+	^attr2 4
+	^address1 V
+	^address2 props$const)
+
+
+(<Q52>  ^1 editors-word-search-read-instruction ^2 read-instruction)
+(<pre-cbset-rule52> ^props-epset-name editors-word-search-read-instruction
+	^const <Q52>
+	^delta <delta_PA8>)
+
+(<epset-task-word-search> ^props-epset-name word-search)
+(<Q51>  ^1 editors-word-search-read-instruction ^2 instruction)
+(<epset-task-word-search> ^delta <delta-rule51>)
+(<delta-rule51> ^op-name editors-word-search-read-instruction
+	^const <Q51>)
+(<delta-rule51> ^prop <prop-C7>)
+
+(<Q50>  ^1 word-search ^2 edt)
+(<epset-task-goto-line> ^delta <delta-rule50>)
+(<delta-rule50> ^op-name word-search
+	^const <Q50>)
+(<delta-rule50> ^prop <prop-C33>)
+
+(<Q49>  ^1 editors-goto-line-number-p ^2 number-p)
+(<delta_PA37> ^prop-apply true
+	^item-name |_PA37|
+	^op-name |_PA37|)
+(<cbset_PA37> ^props-cbset-name |_PA37|
+	^delta <delta-null_PA37>)
+(<delta-null_PA37> ^prop-apply true
+	^prop <prop-A37>)
+(<prop-A37> ^name |_PA37|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 AC
+	^address2 WM)
+(<pre-cbset-rule49> ^props-epset-name editors-goto-line-number-p
+	^const <Q49>
+	^delta <delta_PA14_PA37_PA8>)
+
+(<epset-task-goto-line> ^props-epset-name goto-line)
+(<Q48>  ^1 editors-goto-line-number-p ^2 ed)
+(<epset-task-goto-line> ^delta <delta-rule48>)
+(<delta-rule48> ^op-name editors-goto-line-number-p
+	^const <Q48>)
+(<delta-rule48> ^prop <prop-C33>)
+
+(<Q47>  ^1 editors-increment-line-end-search)
+(<pre-cbset-rule47> ^props-epset-name editors-increment-line-end-search
+	^const <Q47>
+	^delta <delta_PA14>)
+
+(<Q46>  ^1 editors-increment-line-end-search ^2 screen)
+(<epset-task-increment-line> ^delta <delta-rule46>)
+(<delta-rule46> ^op-name editors-increment-line-end-search
+	^const <Q46>)
+(<delta-rule46> ^prop <prop-C9>)
+(<delta-rule46> ^prop <prop-C36>)
+(<prop-C36> ^name |_PC36|
+	^prop-type equality
+	^attr1 slot5
+	^attr2 slot2
+	^address1 V
+	^address2 WM)
+
+
+(<Q45>  ^1 editors-increment-line-emacs-control-n ^2 control-n)
+(<pre-cbset-rule45> ^props-epset-name editors-increment-line-emacs-control-n
+	^const <Q45>
+	^delta <delta_PA8>)
+
+(<Q44>  ^1 editors-increment-line-emacs-control-n ^2 screen ^3 emacs)
+(<epset-task-increment-line> ^delta <delta-rule44>)
+(<delta-rule44> ^op-name editors-increment-line-emacs-control-n
+	^const <Q44>)
+(<delta-rule44> ^prop <prop-C9>)
+(<delta-rule44> ^prop <prop-C34>)
+(<delta-rule44> ^prop <prop-C35>)
+
+(<Q43>  ^1 editors-increment-line-edt-enter ^2 enter)
+(<pre-cbset-rule43> ^props-epset-name editors-increment-line-edt-enter
+	^const <Q43>
+	^delta <delta_PA8>)
+
+(<Q42>  ^1 editors-increment-line-edt-enter ^2 screen ^3 edt)
+(<epset-task-increment-line> ^delta <delta-rule42>)
+(<delta-rule42> ^op-name editors-increment-line-edt-enter
+	^const <Q42>)
+(<delta-rule42> ^prop <prop-C9>)
+(<delta-rule42> ^prop <prop-C34>)
+(<delta-rule42> ^prop <prop-C35>)
+
+(<Q41>  ^1 editors-increment-line-ed-enter ^2 enter)
+(<pre-cbset-rule41> ^props-epset-name editors-increment-line-ed-enter
+	^const <Q41>
+	^delta <delta_PA8>)
+
+(<Q40>  ^1 editors-increment-line-ed-enter ^2 screen ^3 ed)
+(<epset-task-increment-line> ^delta <delta-rule40>)
+(<delta-rule40> ^op-name editors-increment-line-ed-enter
+	^const <Q40>)
+(<delta-rule40> ^prop <prop-C9>)
+(<delta-rule40> ^prop <prop-C34>)
+(<prop-C34> ^name |_PC34|
+	^prop-type inexistence
+	^attr1 slot5
+	^attr2 slot2
+	^address1 V
+	^address2 WM)
+
+(<delta-rule40> ^prop <prop-C35>)
+(<prop-C35> ^name |_PC35|
+	^prop-type equality
+	^attr1 Gtask
+	^attr2 3
+	^address1 G
+	^address2 props$const)
+
+
+(<Q39>  ^1 editors-increment-line-read-screen ^2 read-screen)
+(<pre-cbset-rule39> ^props-epset-name editors-increment-line-read-screen
+	^const <Q39>
+	^delta <delta_PA8>)
+
+(<epset-task-increment-line> ^props-epset-name increment-line)
+(<Q38>  ^1 editors-increment-line-read-screen ^2 screen)
+(<epset-task-increment-line> ^delta <delta-rule38>)
+(<delta-rule38> ^op-name editors-increment-line-read-screen
+	^const <Q38>)
+(<delta-rule38> ^prop <prop-C7>)
+
+(<Q37>  ^1 increment-line ^2 emacs)
+(<epset-task-move-to-line> ^delta <delta-rule37>)
+(<delta-rule37> ^op-name increment-line
+	^const <Q37>)
+(<delta-rule37> ^prop <prop-C33>)
+(<prop-C33> ^name |_PC33|
+	^prop-type equality
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+
+
+(<Q36>  ^1 goto-line ^2 error)
+(<epset-task-move-to-line> ^delta <delta-rule36>)
+(<delta-rule36> ^op-name goto-line
+	^const <Q36>)
+(<delta-rule36> ^prop <prop-C32>)
+
+(<Q35>  ^1 increment-line ^2 success)
+(<epset-task-move-to-line> ^delta <delta-rule35>)
+(<delta-rule35> ^op-name increment-line
+	^const <Q35>)
+(<delta-rule35> ^prop <prop-C32>)
+(<prop-C32> ^name |_PC32|
+	^prop-type equality
+	^attr1 rt-result
+	^attr2 2
+	^address1 smem
+	^address2 props$const)
+
+
+(<Q34>  ^1 editors-move-to-line-test ^2 diff-3-fact ^3 query)
+(<delta_PA28> ^prop-apply true
+	^item-name |_PA28|
+	^op-name |_PA28|)
+(<cbset_PA28> ^props-cbset-name |_PA28|
+	^delta <delta-null_PA28>)
+(<delta-null_PA28> ^prop-apply true
+	^prop <prop-A28>)
+(<prop-A28> ^name |_PA28|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
+(<delta_PA29> ^prop-apply true
+	^item-name |_PA29|
+	^op-name |_PA29|)
+(<cbset_PA29> ^props-cbset-name |_PA29|
+	^delta <delta-null_PA29>)
+(<delta-null_PA29> ^prop-apply true
+	^prop <prop-A29>)
+(<prop-A29> ^name |_PA29|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<delta_PA30> ^prop-apply true
+	^item-name |_PA30|
+	^op-name |_PA30|)
+(<cbset_PA30> ^props-cbset-name |_PA30|
+	^delta <delta-null_PA30>)
+(<delta-null_PA30> ^prop-apply true
+	^prop <prop-A30>)
+(<prop-A30> ^name |_PA30|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot5
+	^address1 Q
+	^address2 V)
+(<delta_PA31> ^prop-apply true
+	^item-name |_PA31|
+	^op-name |_PA31|)
+(<cbset_PA31> ^props-cbset-name |_PA31|
+	^delta <delta-null_PA31>)
+(<delta-null_PA31> ^prop-apply true
+	^prop <prop-A31>)
+(<prop-A31> ^name |_PA31|
+	^prop-type add
+	^attr1 slot3
+	^attr2 slot2
+	^address1 Q
+	^address2 WM)
+(<pre-cbset-rule34> ^props-epset-name editors-move-to-line-test
+	^const <Q34>
+	^delta <delta_PA28_PA29_PA30_PA31>)
+
+(<epset-task-move-to-line> ^props-epset-name move-to-line)
+(<Q33>  ^1 editors-move-to-line-test ^2 emacs)
+(<epset-task-move-to-line> ^delta <delta-rule33>)
+(<delta-rule33> ^op-name editors-move-to-line-test
+	^const <Q33>)
+(<delta-rule33> ^prop <prop-C26>)
+(<prop-C26> ^name |_PC26|
+	^prop-type inequality
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+
+(<delta-rule33> ^prop <prop-C27>)
+(<prop-C27> ^name |_PC27|
+	^prop-type negation
+	^attr1 rt-result
+	^address1 smem)
+
+
+(<Q32>  ^1 editors-check-cursor-pos-check-pos)
+(<delta_PA25> ^prop-apply true
+	^item-name |_PA25|
+	^op-name |_PA25|)
+(<cbset_PA25> ^props-cbset-name |_PA25|
+	^delta <delta-null_PA25>)
+(<delta-null_PA25> ^prop-apply true
+	^prop <prop-A25>)
+(<prop-A25> ^name |_PA25|
+	^prop-type add
+	^attr1 slot5
+	^attr2 slot5
+	^address1 WM
+	^address2 V)
+(<pre-cbset-rule32> ^props-epset-name editors-check-cursor-pos-check-pos
+	^const <Q32>
+	^delta <delta_PA25>)
+
+(<Q31>  ^1 editors-check-cursor-pos-check-pos ^2 screen)
+(<epset-task-check-cursor-pos> ^delta <delta-rule31>)
+(<delta-rule31> ^op-name editors-check-cursor-pos-check-pos
+	^const <Q31>)
+(<delta-rule31> ^prop <prop-C9>)
+
+(<Q30>  ^1 editors-check-cursor-pos-read-screen ^2 read-screen)
+(<pre-cbset-rule30> ^props-epset-name editors-check-cursor-pos-read-screen
+	^const <Q30>
+	^delta <delta_PA8>)
+
+(<epset-task-check-cursor-pos> ^props-epset-name check-cursor-pos)
+(<Q29>  ^1 editors-check-cursor-pos-read-screen ^2 screen)
+(<epset-task-check-cursor-pos> ^delta <delta-rule29>)
+(<delta-rule29> ^op-name editors-check-cursor-pos-read-screen
+	^const <Q29>)
+(<delta-rule29> ^prop <prop-C7>)
+
+(<Q28>  ^1 editors-reach-edit-line-remember-ready ^2 true)
+(<delta_PA24> ^prop-apply true
+	^item-name |_PA24|
+	^op-name |_PA24|)
+(<cbset_PA24> ^props-cbset-name |_PA24|
+	^delta <delta-null_PA24>)
+(<delta-null_PA24> ^prop-apply true
+	^prop <prop-A24>)
+(<prop-A24> ^name |_PA24|
+	^prop-type add
+	^attr1 slot3
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule28> ^props-epset-name editors-reach-edit-line-remember-ready
+	^const <Q28>
+	^delta <delta_PA14_PA24>)
+
+(<Q27>  ^1 editors-reach-edit-line-remember-ready)
+(<epset-task-reach-edit-line> ^delta <delta-rule27>)
+(<delta-rule27> ^op-name editors-reach-edit-line-remember-ready
+	^const <Q27>)
+(<delta-rule27> ^prop <prop-C23>)
+(<prop-C23> ^name |_PC23|
+	^prop-type equality
+	^attr1 slot5
+	^attr2 slot2
+	^address1 WM
+	^address2 WM)
+
+
+(<Q26>  ^1 move-to-line)
+(<epset-task-reach-edit-line> ^delta <delta-rule26>)
+(<delta-rule26> ^op-name move-to-line
+	^const <Q26>)
+(<delta-rule26> ^prop <prop-C22>)
+(<prop-C22> ^name |_PC22|
+	^prop-type inequality
+	^attr1 slot5
+	^attr2 slot2
+	^address1 WM
+	^address2 WM)
+
+
+(<epset-task-reach-edit-line> ^props-epset-name reach-edit-line)
+(<Q25>  ^1 check-cursor-pos)
+(<epset-task-reach-edit-line> ^delta <delta-rule25>)
+(<delta-rule25> ^op-name check-cursor-pos
+	^const <Q25>)
+(<delta-rule25> ^prop <prop-C21>)
+(<prop-C21> ^name |_PC21|
+	^prop-type inexistence
+	^attr1 slot5
+	^attr2 slot5
+	^address1 WM
+	^address2 V)
+
+
+(<Q24>  ^1 editors-find-edit-line-read-goal)
+(<delta_PA20> ^prop-apply true
+	^item-name |_PA20|
+	^op-name |_PA20|)
+(<cbset_PA20> ^props-cbset-name |_PA20|
+	^delta <delta-null_PA20>)
+(<delta-null_PA20> ^prop-apply true
+	^prop <prop-A20>)
+(<prop-A20> ^name |_PA20|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot5
+	^address1 WM
+	^address2 V)
+(<pre-cbset-rule24> ^props-epset-name editors-find-edit-line-read-goal
+	^const <Q24>
+	^delta <delta_PA20>)
+
+(<Q23>  ^1 editors-find-edit-line-read-goal ^2 instruction)
+(<epset-task-find-edit-line> ^delta <delta-rule23>)
+(<delta-rule23> ^op-name editors-find-edit-line-read-goal
+	^const <Q23>)
+(<delta-rule23> ^prop <prop-C9>)
+
+(<Q22>  ^1 editors-find-edit-line-read-instructions ^2 read-instruction)
+(<pre-cbset-rule22> ^props-epset-name editors-find-edit-line-read-instructions
+	^const <Q22>
+	^delta <delta_PA8>)
+
+(<epset-task-find-edit-line> ^props-epset-name find-edit-line)
+(<Q21>  ^1 editors-find-edit-line-read-instructions ^2 instruction)
+(<epset-task-find-edit-line> ^delta <delta-rule21>)
+(<delta-rule21> ^op-name editors-find-edit-line-read-instructions
+	^const <Q21>)
+(<delta-rule21> ^prop <prop-C19>)
+(<prop-C19> ^name |_PC19|
+	^prop-type inequality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q20>  ^1 reach-edit-line)
+(<epset-task-ready-cursor> ^delta <delta-rule20>)
+(<delta-rule20> ^op-name reach-edit-line
+	^const <Q20>)
+(<delta-rule20> ^prop <prop-C18>)
+(<prop-C18> ^name |_PC18|
+	^prop-type existence
+	^attr1 slot2
+	^address1 WM)
+
+
+(<epset-task-ready-cursor> ^props-epset-name ready-cursor)
+(<Q19>  ^1 find-edit-line)
+(<epset-task-ready-cursor> ^delta <delta-rule19>)
+(<delta-rule19> ^op-name find-edit-line
+	^const <Q19>)
+(<delta-rule19> ^prop <prop-C17>)
+(<prop-C17> ^name |_PC17|
+	^prop-type negation
+	^attr1 slot2
+	^address1 WM)
+
+
+(<Q18>  ^1 apply-task)
+(<epset-task-apply-instruction> ^delta <delta-rule18>)
+(<delta-rule18> ^op-name apply-task
+	^const <Q18>)
+(<delta-rule18> ^prop <prop-C16>)
+(<prop-C16> ^name |_PC16|
+	^prop-type existence
+	^attr1 slot3
+	^address1 WM)
+
+
+(<epset-task-apply-instruction> ^props-epset-name apply-instruction)
+(<Q17>  ^1 ready-cursor)
+(<epset-task-apply-instruction> ^delta <delta-rule17>)
+(<delta-rule17> ^op-name ready-cursor
+	^const <Q17>)
+(<delta-rule17> ^prop <prop-C15>)
+(<prop-C15> ^name |_PC15|
+	^prop-type negation
+	^attr1 slot3
+	^address1 WM)
+
+
+(<Q16>  ^1 editors-find-instruction-read-goal ^2 true)
+(<delta_PA10> ^prop-apply true
+	^item-name |_PA10|
+	^op-name |_PA10|)
+(<cbset_PA10> ^props-cbset-name |_PA10|
+	^delta <delta-null_PA10>)
+(<delta-null_PA10> ^prop-apply true
+	^prop <prop-A10>)
+(<prop-A10> ^name |_PA10|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<delta_PA11> ^prop-apply true
+	^item-name |_PA11|
+	^op-name |_PA11|)
+(<cbset_PA11> ^props-cbset-name |_PA11|
+	^delta <delta-null_PA11>)
+(<delta-null_PA11> ^prop-apply true
+	^prop <prop-A11>)
+(<prop-A11> ^name |_PA11|
+	^prop-type remove
+	^attr1 slot2
+	^address1 WM)
+(<delta_PA12> ^prop-apply true
+	^item-name |_PA12|
+	^op-name |_PA12|)
+(<cbset_PA12> ^props-cbset-name |_PA12|
+	^delta <delta-null_PA12>)
+(<delta-null_PA12> ^prop-apply true
+	^prop <prop-A12>)
+(<prop-A12> ^name |_PA12|
+	^prop-type remove
+	^attr1 slot3
+	^address1 WM)
+(<delta_PA13> ^prop-apply true
+	^item-name |_PA13|
+	^op-name |_PA13|)
+(<cbset_PA13> ^props-cbset-name |_PA13|
+	^delta <delta-null_PA13>)
+(<delta-null_PA13> ^prop-apply true
+	^prop <prop-A13>)
+(<prop-A13> ^name |_PA13|
+	^prop-type remove
+	^attr1 slot4
+	^address1 WM)
+(<delta_PA14> ^prop-apply true
+	^item-name |_PA14|
+	^op-name |_PA14|)
+(<cbset_PA14> ^props-cbset-name |_PA14|
+	^delta <delta-null_PA14>)
+(<delta-null_PA14> ^prop-apply true
+	^prop <prop-A14>)
+(<prop-A14> ^name |_PA14|
+	^prop-type remove
+	^attr1 slot5
+	^address1 WM)
+(<pre-cbset-rule16> ^props-epset-name editors-find-instruction-read-goal
+	^const <Q16>
+	^delta <delta_PA10_PA11_PA12_PA13_PA14>)
+
+(<Q15>  ^1 editors-find-instruction-read-goal ^2 instruction)
+(<epset-task-find-instruction> ^delta <delta-rule15>)
+(<delta-rule15> ^op-name editors-find-instruction-read-goal
+	^const <Q15>)
+(<delta-rule15> ^prop <prop-C9>)
+(<prop-C9> ^name |_PC9|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q14>  ^1 editors-find-instruction-read-instructions ^2 read-instruction)
+(<delta_PA8> ^prop-apply true
+	^item-name |_PA8|
+	^op-name |_PA8|)
+(<cbset_PA8> ^props-cbset-name |_PA8|
+	^delta <delta-null_PA8>)
+(<delta-null_PA8> ^prop-apply true
+	^prop <prop-A8>)
+(<prop-A8> ^name |_PA8|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule14> ^props-epset-name editors-find-instruction-read-instructions
+	^const <Q14>
+	^delta <delta_PA8>)
+
+(<epset-task-find-instruction> ^props-epset-name find-instruction)
+(<Q13>  ^1 editors-find-instruction-read-instructions ^2 instruction)
+(<epset-task-find-instruction> ^delta <delta-rule13>)
+(<delta-rule13> ^op-name editors-find-instruction-read-instructions
+	^const <Q13>)
+(<delta-rule13> ^prop <prop-C7>)
+(<prop-C7> ^name |_PC7|
+	^prop-type inexistence
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q12>  ^1 editors-emacs-finish ^2 finish)
+(<pre-cbset-rule12> ^props-epset-name editors-emacs-finish
+	^const <Q12>
+	^delta <delta_PA5_PA6>)
+
+(<Q11>  ^1 editors-emacs-finish ^2 end)
+(<epset-task-emacs> ^delta <delta-rule11>)
+(<delta-rule11> ^op-name editors-emacs-finish
+	^const <Q11>)
+(<delta-rule11> ^prop <prop-C4>)
+
+(<Q10>  ^1 apply-instruction)
+(<epset-task-emacs> ^delta <delta-rule10>)
+(<delta-rule10> ^op-name apply-instruction
+	^const <Q10>)
+(<delta-rule10> ^prop <prop-C3>)
+
+(<epset-task-emacs> ^props-epset-name emacs)
+(<Q9>  ^1 find-instruction ^2 end)
+(<epset-task-emacs> ^delta <delta-rule9>)
+(<delta-rule9> ^op-name find-instruction
+	^const <Q9>)
+(<delta-rule9> ^prop <prop-C1>)
+(<delta-rule9> ^prop <prop-C2>)
+
+(<Q8>  ^1 editors-edt-finish ^2 finish)
+(<pre-cbset-rule8> ^props-epset-name editors-edt-finish
+	^const <Q8>
+	^delta <delta_PA5_PA6>)
+
+(<Q7>  ^1 editors-edt-finish ^2 end)
+(<epset-task-edt> ^delta <delta-rule7>)
+(<delta-rule7> ^op-name editors-edt-finish
+	^const <Q7>)
+(<delta-rule7> ^prop <prop-C4>)
+
+(<Q6>  ^1 apply-instruction)
+(<epset-task-edt> ^delta <delta-rule6>)
+(<delta-rule6> ^op-name apply-instruction
+	^const <Q6>)
+(<delta-rule6> ^prop <prop-C3>)
+
+(<epset-task-edt> ^props-epset-name edt)
+(<Q5>  ^1 find-instruction ^2 end)
+(<epset-task-edt> ^delta <delta-rule5>)
+(<delta-rule5> ^op-name find-instruction
+	^const <Q5>)
+(<delta-rule5> ^prop <prop-C1>)
+(<delta-rule5> ^prop <prop-C2>)
+
+(<Q4>  ^1 editors-ed-finish ^2 finish)
+(<delta_PA5> ^prop-apply true
+	^item-name |_PA5|
+	^op-name |_PA5|)
+(<cbset_PA5> ^props-cbset-name |_PA5|
+	^delta <delta-null_PA5>)
+(<delta-null_PA5> ^prop-apply true
+	^prop <prop-A5>)
+(<prop-A5> ^name |_PA5|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<delta_PA6> ^prop-apply true
+	^item-name |_PA6|
+	^op-name |_PA6|)
+(<cbset_PA6> ^props-cbset-name |_PA6|
+	^delta <delta-null_PA6>)
+(<delta-null_PA6> ^prop-apply true
+	^prop <prop-A6>)
+(<prop-A6> ^name |_PA6|
+	^prop-type add
+	^attr1 clear-rt
+	^attr2 1
+	^address1 flags
+	^address2 props$const)
+(<pre-cbset-rule4> ^props-epset-name editors-ed-finish
+	^const <Q4>
+	^delta <delta_PA5_PA6>)
+
+(<Q3>  ^1 editors-ed-finish ^2 end)
+(<epset-task-ed> ^delta <delta-rule3>)
+(<delta-rule3> ^op-name editors-ed-finish
+	^const <Q3>)
+(<delta-rule3> ^prop <prop-C4>)
+(<prop-C4> ^name |_PC4|
+	^prop-type equality
+	^attr1 slot2
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q2>  ^1 apply-instruction)
+(<epset-task-ed> ^delta <delta-rule2>)
+(<delta-rule2> ^op-name apply-instruction
+	^const <Q2>)
+(<delta-rule2> ^prop <prop-C3>)
+(<prop-C3> ^name |_PC3|
+	^prop-type existence
+	^attr1 slot1
+	^address1 WM)
+
+
+(<epset-task-ed> ^props-epset-name ed)
+(<Q1>  ^1 find-instruction ^2 end)
+(<epset-task-ed> ^delta <delta-rule1>)
+(<delta-rule1> ^op-name find-instruction
+	^const <Q1>)
+(<delta-rule1> ^prop <prop-C1>)
+(<prop-C1> ^name |_PC1|
+	^prop-type inexistence
+	^attr1 slot2
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule1> ^prop <prop-C2>)
+(<prop-C2> ^name |_PC2|
+	^prop-type negation
+	^attr1 slot1
+	^address1 WM)
+
+
+}
