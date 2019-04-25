@@ -1,0 +1,6 @@
+#####    Author: Bryan Stearns, 2019
+#   This code would turn on associative phase learning, but right now that's default in the main agent code.
+#   One day, Bryan will extract that behavior into rules that live in this file.
+#####
+
+

@@ -9,10 +9,10 @@
 #####
 
 decide indifferent-selection -b
-decide indifferent-selection -t 10.0
+decide indifferent-selection -t 0.1
 rl --set learning on
-rl --set learning-rate 0.0075  # default 0.3
-rl --set discount-rate 0.75   # default 0.9
+rl --set learning-rate 0.02  # default 0.3
+rl --set discount-rate 0.775   # default 0.9
 
 # Define elaboration of input-link reward to the RL interface
 sp {elaborate*props*reward*input
@@ -57,3 +57,4 @@ sp {props*delta*constants
 -->
     (<s> ^operator <o> = 0)
 }
+

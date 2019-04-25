@@ -74,7 +74,9 @@ sp {lib*actr*elaborate*substate*RT
 				-^const)
 -->
 	(<s> ^Q <q>
-		^RT <r>)
+		^RT <r>
+		^flags <f>)
+	(<f> ^props-agnostic-add true)
 	(<q> ^props-agnostic-add true)
 }
 
@@ -460,8 +462,7 @@ sp {lib*actr*elaborate*query*failure*error
 # CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
 sp {lib*actr*apply*clear-rt*clear-command
 	:o-support
-	(state <s> ^G <g>
-			^flags <f>
+	(state <s> ^flags <f>
 			^Q <q>)
 	(<q> ^object <rt>
 		^stamp <st>)
@@ -474,8 +475,7 @@ sp {lib*actr*apply*clear-rt*clear-command
 }
 sp {lib*actr*apply*smem-command*clear-empty
 	:o-support
-	(state <s> ^G <g>
-			^flags <f>
+	(state <s> ^flags <f>
 			^Q <q>)
 	(<q> -^object <qry>)
 	(<f> ^object <obj>)

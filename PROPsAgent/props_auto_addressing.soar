@@ -31,7 +31,7 @@ sp {elaborate*props*address1*buffer
     (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
-    (<c> ^address1 {<buff> <> RT <> Q <> smem}
+    (<c> ^address1 {<buff> <> RT <> Q <> smem <> flags}
          ^name <cname>)
 -->
     (<d> ^cond-id1 <dcid>)
@@ -42,7 +42,7 @@ sp {elaborate*props*address1*buffer*RT
     (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^pre-action-state.<buff> <buff-id>)
     (<d> ^prop <c>)
-    (<c> ^address1 {<buff> << RT Q smem >>}
+    (<c> ^address1 {<buff> << RT Q smem flags >>}
          ^name <cname>)
 -->
     (<d> ^cond-id1 <dcid>)
@@ -54,7 +54,18 @@ sp {elaborate*props*address2*buffer
     (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
-    (<c> ^address2 <buff>
+    (<c> ^address2 {<buff> <> RT <> Q <> smem <> flags}
+         ^name <cname>)
+-->
+    (<d> ^cond-id2 <dcid>)
+    (<dcid> ^name <cname>
+            ^id2 <buff-id>)
+}
+sp {elaborate*props*address2*buffer*RT
+    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
+               ^pre-action-state.<buff> <buff-id>)
+    (<d> ^prop <c>)
+    (<c> ^address2 {<buff> << RT Q smem flags >>}
          ^name <cname>)
 -->
     (<d> ^cond-id2 <dcid>)

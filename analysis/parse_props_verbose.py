@@ -201,7 +201,7 @@ def main():
     
     # File name generation (can loop over different files)
     conv_types = ['l1']
-    T = ['48']
+    T = ['96']
     samples = ['2']
     param3 = [''] #['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
     param4 = [''] #['_dr700','_dr725','_dr750','_dr775','_dr800']

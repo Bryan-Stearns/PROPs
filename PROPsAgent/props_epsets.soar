@@ -82,6 +82,19 @@ sp {elaborate*epset*pre-action-state
 }
 
 
+# MARK WHEN A DELTA'S CONDITIONS ARE ALL TRUE
+sp {elaborate*props*delta*conditions*all-true
+    (state <s> ^props-epset <pe>)
+    (<pe> ^delta <d>)
+    (<d> -^prop-apply)    # Only for conditions
+    -{(<d> ^prop <p>
+          -^cond-success <cname>)
+      (<p> -^prop-type << add remove >>
+            ^name <cname>)} # It is not the case that this delta has untrue conditions
+-->
+    (<d> ^all-conds-true true)
+}
+
 
 ### OPERATOR ### 
 # props-load-epset
@@ -100,7 +113,7 @@ sp {propose*props*eval*query*epset*topstate
     (<o> ^name props-load-epset
          ^epset-name <task>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
 }
-sp {propose*props*eval*query*epset*substate
+sp {propose*props*eval*query*epset*substate*apply-known
     "Load an epset to apply a parent delta (operator)"
     (state <s> ^superstate.operator <oo>
                ^impasse no-change
@@ -108,13 +121,28 @@ sp {propose*props*eval*query*epset*substate
               -^const     # If the superstate epset had a const, it'd be proposing cbsets
               -^smem.result.<< retrieved failure >>
               -^props-epset)
-    (<oo> ^delta 
+    (<oo> ^delta #.apply-name <name>
          ^name <name>)
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-load-epset
          ^epset-name <name>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
 }
+#sp {propose*props*eval*query*epset*substate*apply-unknown
+#    "Load an epset to apply a parent delta (operator)"
+#    (state <s> ^superstate.operator <oo>
+#               ^impasse no-change
+#               ^attribute operator
+#              -^const     # If the superstate epset had a const, it'd be proposing cbsets
+#              -^smem.result.<< retrieved failure >>
+#              -^props-epset)
+#    (<oo> ^delta <d>
+#         ^name <name>)
+#    (<d> -^apply-name <name>)
+#-->
+#    (<s> ^operator <o> + >)
+#    (<o> ^name props-load-epset)
+#}
 
 sp {apply*props*eval*query*epset*task-named
     (state <s> ^operator <o>
@@ -126,16 +154,16 @@ sp {apply*props*eval*query*epset*task-named
             ^depth 3)    # Retrieve down to epset.delta.prop for condition details
     (<q> ^props-epset-name <name>)
 }
-#sp {apply*props*eval*query*epset*task-unnamed
-#    (state <s> ^operator <o>
-#               ^smem.command <scmd>)
-#    (<o> ^name props-load-epset
-#         -^epset-name <name>)
-#-->
-#    (<scmd> ^query <q>
-#            ^depth 3)    # Retrieve down to epset.delta.prop for condition details
-#    (<q> ^props-epset-name <any>)
-#}
+sp {apply*props*eval*query*epset*task-unnamed
+    (state <s> ^operator <o>
+               ^smem.command <scmd>)
+    (<o> ^name props-load-epset
+         -^epset-name <name>)
+-->
+    (<scmd> ^query <q>
+            ^depth 3)    # Retrieve down to epset.delta.prop for condition details
+    (<q> ^props-epset-name <any>)
+}
 
 
 ### OPERATOR ### 
@@ -152,6 +180,7 @@ sp {propose*props*retrieve-epset
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-retrieve-epset)
+    #(force-learn <s>)
 }
 
 sp {elaborate*props*retrieve-epset*failure
@@ -162,11 +191,13 @@ sp {elaborate*props*retrieve-epset*failure
     (<ol> ^error <e>)
     (<e> ^msg |RETRIEVAL FAILED| )
     (write |RETRIEVAL FAILED| (crlf) )
+    (cmd print -fc)
     (interrupt)
 }
 
-sp {apply*props*retrieve-epset*success*new
+sp {apply*props*retrieve-epset*success*topstate
     (state <s> ^operator.name props-retrieve-epset
+               ^superstate nil
                ^smem <smem>
               -^props-epset)
     (<smem> ^command <scmd>
@@ -176,8 +207,9 @@ sp {apply*props*retrieve-epset*success*new
     (<s> ^props-epset <e>)
     (<scmd> ^query <q> -)
 }
-sp {apply*props*retrieve-epset*success*replace
+sp {apply*props*retrieve-epset*success*topstate*replace
     (state <s> ^operator.name props-retrieve-epset
+               ^superstate nil
                ^smem <smem>
                ^props-epset <eold>)
     (<smem> ^command <scmd>
@@ -188,7 +220,58 @@ sp {apply*props*retrieve-epset*success*replace
          ^props-epset <e>)
     (<scmd> ^query <q> -)
 }
+sp {apply*props*retrieve-epset*success*new
+    (state <s> ^operator.name props-retrieve-epset
+               ^superstate.operator.name <name>
+               ^smem <smem>
+              -^props-epset)
+    (<smem> ^command <scmd>
+           ^result.retrieved <e>)
+    (<scmd> ^query <q>)
+    (<e> ^props-epset-name <name>)
+-->
+    (<s> ^props-epset <e>)
+    (<scmd> ^query <q> -)
+}
+sp {apply*props*retrieve-epset*success*replace
+    (state <s> ^operator.name props-retrieve-epset
+               ^superstate.operator.name <name>
+               ^smem <smem>
+               ^props-epset <eold>)
+    (<smem> ^command <scmd>
+           ^result.retrieved {<e> <> <eold>})
+    (<scmd> ^query <q>)
+    (<e> ^props-epset-name <name>)
+-->
+    (<s> ^props-epset <eold> -
+         ^props-epset <e>)
+    (<scmd> ^query <q> -)
+}
 
+#sp {apply*props*retrieve-epset*success*learn-apply-name
+#    (state <s> ^operator.name props-retrieve-epset
+#               ^superstate.props-epset.delta <d>
+#               ^smem.result.retrieved.props-epset-name <name>)
+#    (<d> ^op-name <name>
+#         ^all-conds-true true)
+#-->
+#    (<d> ^apply-name <name>)
+#}
+
+sp {apply*props*retrieve-epset*mismatch
+    (state <s> ^superstate <ss>
+               ^impasse no-change
+               ^attribute operator)
+    (<ss> ^operator.name props-retrieve-epset
+          ^smem <ssmem>)
+    (<ssmem> ^command <scmd>
+           ^result.retrieved <e>
+           ^inhibit-list <pl>)
+    (<scmd> ^query <q>)
+-->
+    (<scmd> ^query <q> -)
+    (<pl> ^inhibit <e>)
+}
 
 
 ### OPERATOR ### 
@@ -291,13 +374,15 @@ sp {propose*props*epset*delta*condition*all-true
     #(<b> -^props-flag not-quiescent)    # Don't propose until prev instructions are fully applied
     (<pe> ^delta <d>)
     (<d> ^op-name <name>
+         ^all-conds-true true
         -^prop-apply)    # Only for conditions
-    -{(<d> ^prop.name <cname>
-          -^cond-success <cname>)} # It is not the case that this delta has untrue conditions
+    #-{(<d> ^prop.name <cname>
+    #      -^cond-success <cname>)} # It is not the case that this delta has untrue conditions
 -->
     (<s> ^operator <o> + = )
     (<o> ^name <name>
          ^delta <d>)
+    (dont-learn <s>)
 }
 # Propose an epset's pre-cbset rule application
 sp {propose*props*epset*delta*action
@@ -312,6 +397,7 @@ sp {propose*props*epset*delta*action
     (<s> ^operator <o> + > =)
     (<o> ^name <dname>
          ^delta <d>)
+    (dont-learn <s>)
 }
 # Propose a cbset's action(s)
 sp {propose*props*cbset*delta*action*all-true

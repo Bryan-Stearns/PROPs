@@ -38,11 +38,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 							CMD_ERROR = "error",
 							ATTR_INPUT_CHANGED = "input-changed";
 	private String outFileName = "AgentOutput.txt",
-					agent_condchunk_file = "",
-					agent_addresschunk_file = "",
 					agent_instruction_file = "",
-					agent_fetchseq_file = "",
-					agent_epset_file = "",
 					agent_genericsoar_file = "";
 	private String taskName = "TEST",
 					taskSequenceName = "TEST";
@@ -98,7 +94,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		outputs = new ArrayList<String>(numAgentOutputs);
 		delayedInputs = new PriorityQueue<ScheduledInput>(Comparator.comparing(ScheduledInput::getMoment));
 		
-		currentLearnMode = new LearnConfig(false, true, false, true, true, true, false, false, false);	// Learn associative combos and conditions by default, using spreading and deliberate fetch sequences
+		currentLearnMode = new LearnConfig(false, true, false, false);	// "12"
 		currentSampleNum = 0;
 		
 		//user_initEnvironment();
@@ -111,75 +107,25 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	
 
 	private boolean loadConfigProductions(LearnConfig mode) {
-		// Check 'm'
-		if (mode.usesManual()) {
-			if (agent_fetchseq_file == "") {
-				System.err.println("ERROR: User did not provide the fetch sequence SMEM file! Aborting.");
-				initOkay = false;
-				return false;
-			}
-			agent.LoadProductions(props_dir + "props_static.soar");
-			agent.LoadProductions(agent_fetchseq_file);	// manual instruction sequences for tasks
-		}
-		
-		// Check 'e'
-		if (mode.usesEpsets()) {
-			if (agent_epset_file != "") {
-				agent.LoadProductions(agent_epset_file);
-			}
-			agent.LoadProductions(props_dir + "props_epsets.soar");
-		}
-		else {
-			// Check 's'
-			if (mode.learnsSpreading()) {
-				agent.LoadProductions(props_dir + "props_learn_conds.soar");
-			}
-			
-			// Check if condition chunks should be sourced
-			if (mode.learnsSpreading() && !mode.learnsAllConditions()) {
-				if (agent_condchunk_file == "") {
-					System.err.println("ERROR: User did not provide the condition chunk file! Aborting.");
-					return false;
-				}
-				agent.LoadProductions(agent_condchunk_file);
-			}
-			
-			
-			// Check 'a'
-			if (mode.learnsAddressChunks()) {
-				// Learn addressing chunks only (and save them for later sourcing)
-				agent.LoadProductions(props_dir + "props_learn_l1.soar");
-				return true;
-			}
-			
-			// Check 'q'
-			if (mode.learnsManualSeqs()) {
-				agent.LoadProductions(props_dir + "props_learn_seqlinks.soar");
-			}
-		}
-		
+				
 		// Check '3', w/ no '1' or '2'
-		if (mode.learnsAutos() && !mode.learnsAddresses() && !mode.learnsProposals()) {
+		/*if (mode.learnsAuto() && !mode.learnsCognitive() && !mode.learnsAssociative()) {
 			agent.LoadProductions(props_dir + "props_learn_l3only.soar");
 			return true;
-		}
+		}*/
 		
 		// Check '1' - whether addressing chunks should be sourced
-		if (!mode.learnsAddresses()) {
-			if (agent_addresschunk_file == "") {
-				System.err.println("ERROR: User did not provide the addressing chunk file! Aborting.");
-				return false;
-			}
-			agent.LoadProductions(agent_addresschunk_file);
+		if (mode.learnsCognitive()) {
+			agent.LoadProductions(props_dir + "props_learn_l1.soar");
 		}
 		
 		// Check '2'
-		if (mode.learnsProposals()) {
+		if (mode.learnsAssociative()) {
 			agent.LoadProductions(props_dir + "props_learn_l2.soar");
 		}
 		
 		// Check '3'
-		if (mode.learnsAutos()) {
+		if (mode.learnsAuto()) {
 			agent.LoadProductions(props_dir + "props_learn_l3.soar");
 		}
 		
@@ -311,11 +257,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	
 	public void setPropsDir(String dir) { props_dir = dir; }
 	
-	public void setCondChunkFile(String filename) { agent_condchunk_file = filename; }
-	public void setAddressChunkFile(String filename) { agent_addresschunk_file = filename; }
 	public void setInstructionsFile(String filename) { agent_instruction_file = filename; }
-	public void setFetchSeqFile(String filename) { agent_fetchseq_file = filename; }
-	public void setFetchSetFile(String filename) { agent_epset_file = filename; }
 	public void setSoarAgentFile(String filename) { agent_genericsoar_file = filename; }
 	
 	public void setAgentName(String name) { agentName = name; }
@@ -705,7 +647,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 	}
 	
 
-	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname) { makeSpreadingChunks(taskSeqs, fname, true); }
+	/*public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname) { makeSpreadingChunks(taskSeqs, fname, true); }
 	public void makeSpreadingChunks(List<Pair<String,String>> taskSeqs, String fname, boolean useManualSeq) {
 		if (taskSeqs.size() == 0) {
 			System.err.println("No tasks given to makeSpreadingChunks. Nothing to do.");
@@ -736,7 +678,7 @@ public abstract class PROPsEnvironment implements UpdateEventInterface/*, RunEve
 		System.out.println("Starting address chunking run...");
 		makeChunkingRuns(taskSeqs, fname);
 		testing = false;
-	}
+	}*/
 	
 	@SuppressWarnings("restriction")
 	public void makeChunkingRuns(List<Pair<String,String>> taskSeqs, String fname) {

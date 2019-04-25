@@ -7,13 +7,20 @@
 # BEGIN INSTRUCTIONS
 
 smem --add {
-(<delta_PA10_PA47> ^prop-apply true
-	^op-name |_PA10_PA47|
+(<delta_PA10_PA12> ^prop-apply true
+	^op-name |_PA10_PA12|
 	^item-name |_PA10|
-	^item-name |_PA47|)
-(<cbset_PA10_PA47> ^props-cbset-name |_PA10_PA47|
+	^item-name |_PA12|)
+(<cbset_PA10_PA12> ^props-cbset-name |_PA10_PA12|
 	 ^delta <delta_PA10>
-	 ^delta <delta_PA47>)
+	 ^delta <delta_PA12>)
+(<delta_PA10_PA29> ^prop-apply true
+	^op-name |_PA10_PA29|
+	^item-name |_PA10|
+	^item-name |_PA29|)
+(<cbset_PA10_PA29> ^props-cbset-name |_PA10_PA29|
+	 ^delta <delta_PA10>
+	 ^delta <delta_PA29>)
 (<delta_PA10_PA9> ^prop-apply true
 	^op-name |_PA10_PA9|
 	^item-name |_PA10|
@@ -21,41 +28,48 @@ smem --add {
 (<cbset_PA10_PA9> ^props-cbset-name |_PA10_PA9|
 	 ^delta <delta_PA10>
 	 ^delta <delta_PA9>)
-(<delta_PA11_PA8> ^prop-apply true
-	^op-name |_PA11_PA8|
-	^item-name |_PA11|
-	^item-name |_PA8|)
-(<cbset_PA11_PA8> ^props-cbset-name |_PA11_PA8|
-	 ^delta <delta_PA11>
-	 ^delta <delta_PA8>)
-(<delta_PA12_PA8> ^prop-apply true
-	^op-name |_PA12_PA8|
+(<delta_PA12_PA13> ^prop-apply true
+	^op-name |_PA12_PA13|
 	^item-name |_PA12|
-	^item-name |_PA8|)
-(<cbset_PA12_PA8> ^props-cbset-name |_PA12_PA8|
+	^item-name |_PA13|)
+(<cbset_PA12_PA13> ^props-cbset-name |_PA12_PA13|
 	 ^delta <delta_PA12>
-	 ^delta <delta_PA8>)
-(<delta_PA14_PA29> ^prop-apply true
-	^op-name |_PA14_PA29|
-	^item-name |_PA14|
+	 ^delta <delta_PA13>)
+(<delta_PA13_PA29> ^prop-apply true
+	^op-name |_PA13_PA29|
+	^item-name |_PA13|
 	^item-name |_PA29|)
-(<cbset_PA14_PA29> ^props-cbset-name |_PA14_PA29|
-	 ^delta <delta_PA14>
+(<cbset_PA13_PA29> ^props-cbset-name |_PA13_PA29|
+	 ^delta <delta_PA13>
 	 ^delta <delta_PA29>)
-(<delta_PA14_PA7> ^prop-apply true
-	^op-name |_PA14_PA7|
-	^item-name |_PA14|
-	^item-name |_PA7|)
-(<cbset_PA14_PA7> ^props-cbset-name |_PA14_PA7|
-	 ^delta <delta_PA14>
-	 ^delta <delta_PA7>)
-(<delta_PA18_PA19> ^prop-apply true
-	^op-name |_PA18_PA19|
+(<delta_PA17_PA18> ^prop-apply true
+	^op-name |_PA17_PA18|
+	^item-name |_PA17|
+	^item-name |_PA18|)
+(<cbset_PA17_PA18> ^props-cbset-name |_PA17_PA18|
+	 ^delta <delta_PA17>
+	 ^delta <delta_PA18>)
+(<delta_PA18_PA25> ^prop-apply true
+	^op-name |_PA18_PA25|
 	^item-name |_PA18|
-	^item-name |_PA19|)
-(<cbset_PA18_PA19> ^props-cbset-name |_PA18_PA19|
+	^item-name |_PA25|)
+(<cbset_PA18_PA25> ^props-cbset-name |_PA18_PA25|
 	 ^delta <delta_PA18>
-	 ^delta <delta_PA19>)
+	 ^delta <delta_PA25>)
+(<delta_PA18_PA40> ^prop-apply true
+	^op-name |_PA18_PA40|
+	^item-name |_PA18|
+	^item-name |_PA40|)
+(<cbset_PA18_PA40> ^props-cbset-name |_PA18_PA40|
+	 ^delta <delta_PA18>
+	 ^delta <delta_PA40>)
+(<delta_PA19_PA20> ^prop-apply true
+	^op-name |_PA19_PA20|
+	^item-name |_PA19|
+	^item-name |_PA20|)
+(<cbset_PA19_PA20> ^props-cbset-name |_PA19_PA20|
+	 ^delta <delta_PA19>
+	 ^delta <delta_PA20>)
 (<delta_PA19_PA26> ^prop-apply true
 	^op-name |_PA19_PA26|
 	^item-name |_PA19|
@@ -63,83 +77,48 @@ smem --add {
 (<cbset_PA19_PA26> ^props-cbset-name |_PA19_PA26|
 	 ^delta <delta_PA19>
 	 ^delta <delta_PA26>)
-(<delta_PA19_PA31> ^prop-apply true
-	^op-name |_PA19_PA31|
+(<delta_PA19_PA43> ^prop-apply true
+	^op-name |_PA19_PA43|
 	^item-name |_PA19|
-	^item-name |_PA31|)
-(<cbset_PA19_PA31> ^props-cbset-name |_PA19_PA31|
+	^item-name |_PA43|)
+(<cbset_PA19_PA43> ^props-cbset-name |_PA19_PA43|
 	 ^delta <delta_PA19>
-	 ^delta <delta_PA31>)
-(<delta_PA20_PA21> ^prop-apply true
-	^op-name |_PA20_PA21|
-	^item-name |_PA20|
-	^item-name |_PA21|)
-(<cbset_PA20_PA21> ^props-cbset-name |_PA20_PA21|
-	 ^delta <delta_PA20>
-	 ^delta <delta_PA21>)
-(<delta_PA20_PA27> ^prop-apply true
-	^op-name |_PA20_PA27|
-	^item-name |_PA20|
-	^item-name |_PA27|)
-(<cbset_PA20_PA27> ^props-cbset-name |_PA20_PA27|
-	 ^delta <delta_PA20>
-	 ^delta <delta_PA27>)
-(<delta_PA20_PA42> ^prop-apply true
-	^op-name |_PA20_PA42|
-	^item-name |_PA20|
-	^item-name |_PA42|)
-(<cbset_PA20_PA42> ^props-cbset-name |_PA20_PA42|
-	 ^delta <delta_PA20>
-	 ^delta <delta_PA42>)
-(<delta_PA22_PA23> ^prop-apply true
-	^op-name |_PA22_PA23|
-	^item-name |_PA22|
-	^item-name |_PA23|)
-(<cbset_PA22_PA23> ^props-cbset-name |_PA22_PA23|
-	 ^delta <delta_PA22>
-	 ^delta <delta_PA23>)
-(<delta_PA26_PA27> ^prop-apply true
-	^op-name |_PA26_PA27|
-	^item-name |_PA26|
-	^item-name |_PA27|)
-(<cbset_PA26_PA27> ^props-cbset-name |_PA26_PA27|
-	 ^delta <delta_PA26>
-	 ^delta <delta_PA27>)
-(<delta_PA28_PA29> ^prop-apply true
-	^op-name |_PA28_PA29|
-	^item-name |_PA28|
+	 ^delta <delta_PA43>)
+(<delta_PA21_PA22> ^prop-apply true
+	^op-name |_PA21_PA22|
+	^item-name |_PA21|
+	^item-name |_PA22|)
+(<cbset_PA21_PA22> ^props-cbset-name |_PA21_PA22|
+	 ^delta <delta_PA21>
+	 ^delta <delta_PA22>)
+(<delta_PA25_PA26> ^prop-apply true
+	^op-name |_PA25_PA26|
+	^item-name |_PA25|
+	^item-name |_PA26|)
+(<cbset_PA25_PA26> ^props-cbset-name |_PA25_PA26|
+	 ^delta <delta_PA25>
+	 ^delta <delta_PA26>)
+(<delta_PA27_PA29> ^prop-apply true
+	^op-name |_PA27_PA29|
+	^item-name |_PA27|
 	^item-name |_PA29|)
-(<cbset_PA28_PA29> ^props-cbset-name |_PA28_PA29|
-	 ^delta <delta_PA28>
+(<cbset_PA27_PA29> ^props-cbset-name |_PA27_PA29|
+	 ^delta <delta_PA27>
 	 ^delta <delta_PA29>)
-(<delta_PA28_PA5> ^prop-apply true
-	^op-name |_PA28_PA5|
+(<delta_PA27_PA30> ^prop-apply true
+	^op-name |_PA27_PA30|
+	^item-name |_PA27|
+	^item-name |_PA30|)
+(<cbset_PA27_PA30> ^props-cbset-name |_PA27_PA30|
+	 ^delta <delta_PA27>
+	 ^delta <delta_PA30>)
+(<delta_PA28_PA30> ^prop-apply true
+	^op-name |_PA28_PA30|
 	^item-name |_PA28|
-	^item-name |_PA5|)
-(<cbset_PA28_PA5> ^props-cbset-name |_PA28_PA5|
+	^item-name |_PA30|)
+(<cbset_PA28_PA30> ^props-cbset-name |_PA28_PA30|
 	 ^delta <delta_PA28>
-	 ^delta <delta_PA5>)
-(<delta_PA28_PA52> ^prop-apply true
-	^op-name |_PA28_PA52|
-	^item-name |_PA28|
-	^item-name |_PA52|)
-(<cbset_PA28_PA52> ^props-cbset-name |_PA28_PA52|
-	 ^delta <delta_PA28>
-	 ^delta <delta_PA52>)
-(<delta_PA28_PA53> ^prop-apply true
-	^op-name |_PA28_PA53|
-	^item-name |_PA28|
-	^item-name |_PA53|)
-(<cbset_PA28_PA53> ^props-cbset-name |_PA28_PA53|
-	 ^delta <delta_PA28>
-	 ^delta <delta_PA53>)
-(<delta_PA29_PA48> ^prop-apply true
-	^op-name |_PA29_PA48|
-	^item-name |_PA29|
-	^item-name |_PA48|)
-(<cbset_PA29_PA48> ^props-cbset-name |_PA29_PA48|
-	 ^delta <delta_PA29>
-	 ^delta <delta_PA48>)
+	 ^delta <delta_PA30>)
 (<delta_PA29_PA49> ^prop-apply true
 	^op-name |_PA29_PA49|
 	^item-name |_PA29|
@@ -147,27 +126,13 @@ smem --add {
 (<cbset_PA29_PA49> ^props-cbset-name |_PA29_PA49|
 	 ^delta <delta_PA29>
 	 ^delta <delta_PA49>)
-(<delta_PA2_PA4> ^prop-apply true
-	^op-name |_PA2_PA4|
+(<delta_PA2_PA56> ^prop-apply true
+	^op-name |_PA2_PA56|
 	^item-name |_PA2|
-	^item-name |_PA4|)
-(<cbset_PA2_PA4> ^props-cbset-name |_PA2_PA4|
+	^item-name |_PA56|)
+(<cbset_PA2_PA56> ^props-cbset-name |_PA2_PA56|
 	 ^delta <delta_PA2>
-	 ^delta <delta_PA4>)
-(<delta_PA2_PA46> ^prop-apply true
-	^op-name |_PA2_PA46|
-	^item-name |_PA2|
-	^item-name |_PA46|)
-(<cbset_PA2_PA46> ^props-cbset-name |_PA2_PA46|
-	 ^delta <delta_PA2>
-	 ^delta <delta_PA46>)
-(<delta_PA30_PA5> ^prop-apply true
-	^op-name |_PA30_PA5|
-	^item-name |_PA30|
-	^item-name |_PA5|)
-(<cbset_PA30_PA5> ^props-cbset-name |_PA30_PA5|
-	 ^delta <delta_PA30>
-	 ^delta <delta_PA5>)
+	 ^delta <delta_PA56>)
 (<delta_PA31_PA32> ^prop-apply true
 	^op-name |_PA31_PA32|
 	^item-name |_PA31|
@@ -175,27 +140,13 @@ smem --add {
 (<cbset_PA31_PA32> ^props-cbset-name |_PA31_PA32|
 	 ^delta <delta_PA31>
 	 ^delta <delta_PA32>)
-(<delta_PA32_PA40> ^prop-apply true
-	^op-name |_PA32_PA40|
-	^item-name |_PA32|
-	^item-name |_PA40|)
-(<cbset_PA32_PA40> ^props-cbset-name |_PA32_PA40|
-	 ^delta <delta_PA32>
-	 ^delta <delta_PA40>)
-(<delta_PA34_PA35> ^prop-apply true
-	^op-name |_PA34_PA35|
-	^item-name |_PA34|
-	^item-name |_PA35|)
-(<cbset_PA34_PA35> ^props-cbset-name |_PA34_PA35|
-	 ^delta <delta_PA34>
-	 ^delta <delta_PA35>)
-(<delta_PA34_PA41> ^prop-apply true
-	^op-name |_PA34_PA41|
-	^item-name |_PA34|
-	^item-name |_PA41|)
-(<cbset_PA34_PA41> ^props-cbset-name |_PA34_PA41|
-	 ^delta <delta_PA34>
-	 ^delta <delta_PA41>)
+(<delta_PA35_PA6> ^prop-apply true
+	^op-name |_PA35_PA6|
+	^item-name |_PA35|
+	^item-name |_PA6|)
+(<cbset_PA35_PA6> ^props-cbset-name |_PA35_PA6|
+	 ^delta <delta_PA35>
+	 ^delta <delta_PA6>)
 (<delta_PA36_PA37> ^prop-apply true
 	^op-name |_PA36_PA37|
 	^item-name |_PA36|
@@ -203,523 +154,657 @@ smem --add {
 (<cbset_PA36_PA37> ^props-cbset-name |_PA36_PA37|
 	 ^delta <delta_PA36>
 	 ^delta <delta_PA37>)
-(<delta_PA38_PA39> ^prop-apply true
-	^op-name |_PA38_PA39|
-	^item-name |_PA38|
-	^item-name |_PA39|)
-(<cbset_PA38_PA39> ^props-cbset-name |_PA38_PA39|
-	 ^delta <delta_PA38>
-	 ^delta <delta_PA39>)
-(<delta_PA3_PA5> ^prop-apply true
-	^op-name |_PA3_PA5|
-	^item-name |_PA3|
-	^item-name |_PA5|)
-(<cbset_PA3_PA5> ^props-cbset-name |_PA3_PA5|
-	 ^delta <delta_PA3>
-	 ^delta <delta_PA5>)
-(<delta_PA44_PA45> ^prop-apply true
-	^op-name |_PA44_PA45|
-	^item-name |_PA44|
-	^item-name |_PA45|)
-(<cbset_PA44_PA45> ^props-cbset-name |_PA44_PA45|
-	 ^delta <delta_PA44>
-	 ^delta <delta_PA45>)
-(<delta_PA5_PA7> ^prop-apply true
-	^op-name |_PA5_PA7|
-	^item-name |_PA5|
+(<delta_PA39_PA7> ^prop-apply true
+	^op-name |_PA39_PA7|
+	^item-name |_PA39|
 	^item-name |_PA7|)
-(<cbset_PA5_PA7> ^props-cbset-name |_PA5_PA7|
-	 ^delta <delta_PA5>
+(<cbset_PA39_PA7> ^props-cbset-name |_PA39_PA7|
+	 ^delta <delta_PA39>
 	 ^delta <delta_PA7>)
-(<delta_PA11_PA5_PA7_PA8> ^prop-apply true
-	^op-name |_PA11_PA5_PA7_PA8|
-	^item-name |_PA11|
-	^item-name |_PA8|
-	^item-name |_PA5|
-	^item-name |_PA7|)
-(<cbset_PA11_PA5_PA7_PA8> ^props-cbset-name |_PA11_PA5_PA7_PA8|
-	 ^delta <delta_PA11_PA8>
-	 ^delta <delta_PA5_PA7>)
-(<delta_PA12_PA5_PA7_PA8> ^prop-apply true
-	^op-name |_PA12_PA5_PA7_PA8|
-	^item-name |_PA12|
-	^item-name |_PA8|
-	^item-name |_PA5|
-	^item-name |_PA7|)
-(<cbset_PA12_PA5_PA7_PA8> ^props-cbset-name |_PA12_PA5_PA7_PA8|
-	 ^delta <delta_PA12_PA8>
-	 ^delta <delta_PA5_PA7>)
-(<delta_PA14_PA16_PA7> ^prop-apply true
-	^op-name |_PA14_PA16_PA7|
-	^item-name |_PA14|
-	^item-name |_PA7|
-	^item-name |_PA16|)
-(<cbset_PA14_PA16_PA7> ^props-cbset-name |_PA14_PA16_PA7|
-	 ^delta <delta_PA14_PA7>
-	 ^delta <delta_PA16>)
-(<delta_PA14_PA29_PA5_PA7> ^prop-apply true
-	^op-name |_PA14_PA29_PA5_PA7|
-	^item-name |_PA14|
-	^item-name |_PA29|
-	^item-name |_PA5|
-	^item-name |_PA7|)
-(<cbset_PA14_PA29_PA5_PA7> ^props-cbset-name |_PA14_PA29_PA5_PA7|
-	 ^delta <delta_PA14_PA29>
-	 ^delta <delta_PA5_PA7>)
-(<delta_PA18_PA19_PA20_PA21> ^prop-apply true
-	^op-name |_PA18_PA19_PA20_PA21|
-	^item-name |_PA18|
-	^item-name |_PA19|
-	^item-name |_PA20|
-	^item-name |_PA21|)
-(<cbset_PA18_PA19_PA20_PA21> ^props-cbset-name |_PA18_PA19_PA20_PA21|
-	 ^delta <delta_PA18_PA19>
-	 ^delta <delta_PA20_PA21>)
-(<delta_PA18_PA19_PA20_PA27> ^prop-apply true
-	^op-name |_PA18_PA19_PA20_PA27|
-	^item-name |_PA18|
-	^item-name |_PA19|
-	^item-name |_PA20|
-	^item-name |_PA27|)
-(<cbset_PA18_PA19_PA20_PA27> ^props-cbset-name |_PA18_PA19_PA20_PA27|
-	 ^delta <delta_PA18_PA19>
-	 ^delta <delta_PA20_PA27>)
-(<delta_PA18_PA19_PA20_PA42> ^prop-apply true
-	^op-name |_PA18_PA19_PA20_PA42|
-	^item-name |_PA18|
-	^item-name |_PA19|
-	^item-name |_PA20|
+(<delta_PA41_PA42> ^prop-apply true
+	^op-name |_PA41_PA42|
+	^item-name |_PA41|
 	^item-name |_PA42|)
-(<cbset_PA18_PA19_PA20_PA42> ^props-cbset-name |_PA18_PA19_PA20_PA42|
-	 ^delta <delta_PA18_PA19>
-	 ^delta <delta_PA20_PA42>)
-(<delta_PA18_PA19_PA26_PA27> ^prop-apply true
-	^op-name |_PA18_PA19_PA26_PA27|
+(<cbset_PA41_PA42> ^props-cbset-name |_PA41_PA42|
+	 ^delta <delta_PA41>
+	 ^delta <delta_PA42>)
+(<delta_PA45_PA46> ^prop-apply true
+	^op-name |_PA45_PA46|
+	^item-name |_PA45|
+	^item-name |_PA46|)
+(<cbset_PA45_PA46> ^props-cbset-name |_PA45_PA46|
+	 ^delta <delta_PA45>
+	 ^delta <delta_PA46>)
+(<delta_PA47_PA48> ^prop-apply true
+	^op-name |_PA47_PA48|
+	^item-name |_PA47|
+	^item-name |_PA48|)
+(<cbset_PA47_PA48> ^props-cbset-name |_PA47_PA48|
+	 ^delta <delta_PA47>
+	 ^delta <delta_PA48>)
+(<delta_PA52_PA53> ^prop-apply true
+	^op-name |_PA52_PA53|
+	^item-name |_PA52|
+	^item-name |_PA53|)
+(<cbset_PA52_PA53> ^props-cbset-name |_PA52_PA53|
+	 ^delta <delta_PA52>
+	 ^delta <delta_PA53>)
+(<delta_PA54_PA55> ^prop-apply true
+	^op-name |_PA54_PA55|
+	^item-name |_PA54|
+	^item-name |_PA55|)
+(<cbset_PA54_PA55> ^props-cbset-name |_PA54_PA55|
+	 ^delta <delta_PA54>
+	 ^delta <delta_PA55>)
+(<delta_PA6_PA7> ^prop-apply true
+	^op-name |_PA6_PA7|
+	^item-name |_PA6|
+	^item-name |_PA7|)
+(<cbset_PA6_PA7> ^props-cbset-name |_PA6_PA7|
+	 ^delta <delta_PA6>
+	 ^delta <delta_PA7>)
+(<delta_PA6_PA8> ^prop-apply true
+	^op-name |_PA6_PA8|
+	^item-name |_PA6|
+	^item-name |_PA8|)
+(<cbset_PA6_PA8> ^props-cbset-name |_PA6_PA8|
+	 ^delta <delta_PA6>
+	 ^delta <delta_PA8>)
+(<delta_PA10_PA12_PA13_PA29> ^prop-apply true
+	^op-name |_PA10_PA12_PA13_PA29|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA13|
+	^item-name |_PA29|)
+(<cbset_PA10_PA12_PA13_PA29> ^props-cbset-name |_PA10_PA12_PA13_PA29|
+	 ^delta <delta_PA10_PA12>
+	 ^delta <delta_PA13_PA29>)
+(<delta_PA10_PA12_PA27_PA30> ^prop-apply true
+	^op-name |_PA10_PA12_PA27_PA30|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA27|
+	^item-name |_PA30|)
+(<cbset_PA10_PA12_PA27_PA30> ^props-cbset-name |_PA10_PA12_PA27_PA30|
+	 ^delta <delta_PA10_PA12>
+	 ^delta <delta_PA27_PA30>)
+(<delta_PA10_PA12_PA28_PA30> ^prop-apply true
+	^op-name |_PA10_PA12_PA28_PA30|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA28|
+	^item-name |_PA30|)
+(<cbset_PA10_PA12_PA28_PA30> ^props-cbset-name |_PA10_PA12_PA28_PA30|
+	 ^delta <delta_PA10_PA12>
+	 ^delta <delta_PA28_PA30>)
+(<delta_PA10_PA29_PA6_PA8> ^prop-apply true
+	^op-name |_PA10_PA29_PA6_PA8|
+	^item-name |_PA10|
+	^item-name |_PA29|
+	^item-name |_PA6|
+	^item-name |_PA8|)
+(<cbset_PA10_PA29_PA6_PA8> ^props-cbset-name |_PA10_PA29_PA6_PA8|
+	 ^delta <delta_PA10_PA29>
+	 ^delta <delta_PA6_PA8>)
+(<delta_PA12_PA13_PA15> ^prop-apply true
+	^op-name |_PA12_PA13_PA15|
+	^item-name |_PA12|
+	^item-name |_PA13|
+	^item-name |_PA15|)
+(<cbset_PA12_PA13_PA15> ^props-cbset-name |_PA12_PA13_PA15|
+	 ^delta <delta_PA12_PA13>
+	 ^delta <delta_PA15>)
+(<delta_PA17_PA18_PA19_PA20> ^prop-apply true
+	^op-name |_PA17_PA18_PA19_PA20|
+	^item-name |_PA17|
 	^item-name |_PA18|
 	^item-name |_PA19|
-	^item-name |_PA26|
-	^item-name |_PA27|)
-(<cbset_PA18_PA19_PA26_PA27> ^props-cbset-name |_PA18_PA19_PA26_PA27|
-	 ^delta <delta_PA18_PA19>
-	 ^delta <delta_PA26_PA27>)
-(<delta_PA18_PA19_PA36_PA37> ^prop-apply true
-	^op-name |_PA18_PA19_PA36_PA37|
+	^item-name |_PA20|)
+(<cbset_PA17_PA18_PA19_PA20> ^props-cbset-name |_PA17_PA18_PA19_PA20|
+	 ^delta <delta_PA17_PA18>
+	 ^delta <delta_PA19_PA20>)
+(<delta_PA17_PA18_PA19_PA26> ^prop-apply true
+	^op-name |_PA17_PA18_PA19_PA26|
+	^item-name |_PA17|
 	^item-name |_PA18|
 	^item-name |_PA19|
+	^item-name |_PA26|)
+(<cbset_PA17_PA18_PA19_PA26> ^props-cbset-name |_PA17_PA18_PA19_PA26|
+	 ^delta <delta_PA17_PA18>
+	 ^delta <delta_PA19_PA26>)
+(<delta_PA17_PA18_PA19_PA43> ^prop-apply true
+	^op-name |_PA17_PA18_PA19_PA43|
+	^item-name |_PA17|
+	^item-name |_PA18|
+	^item-name |_PA19|
+	^item-name |_PA43|)
+(<cbset_PA17_PA18_PA19_PA43> ^props-cbset-name |_PA17_PA18_PA19_PA43|
+	 ^delta <delta_PA17_PA18>
+	 ^delta <delta_PA19_PA43>)
+(<delta_PA17_PA18_PA25_PA26> ^prop-apply true
+	^op-name |_PA17_PA18_PA25_PA26|
+	^item-name |_PA17|
+	^item-name |_PA18|
+	^item-name |_PA25|
+	^item-name |_PA26|)
+(<cbset_PA17_PA18_PA25_PA26> ^props-cbset-name |_PA17_PA18_PA25_PA26|
+	 ^delta <delta_PA17_PA18>
+	 ^delta <delta_PA25_PA26>)
+(<delta_PA17_PA18_PA36_PA37> ^prop-apply true
+	^op-name |_PA17_PA18_PA36_PA37|
+	^item-name |_PA17|
+	^item-name |_PA18|
 	^item-name |_PA36|
 	^item-name |_PA37|)
-(<cbset_PA18_PA19_PA36_PA37> ^props-cbset-name |_PA18_PA19_PA36_PA37|
-	 ^delta <delta_PA18_PA19>
+(<cbset_PA17_PA18_PA36_PA37> ^props-cbset-name |_PA17_PA18_PA36_PA37|
+	 ^delta <delta_PA17_PA18>
 	 ^delta <delta_PA36_PA37>)
-(<delta_PA19_PA26_PA31_PA32> ^prop-apply true
-	^op-name |_PA19_PA26_PA31_PA32|
-	^item-name |_PA19|
-	^item-name |_PA26|
+(<delta_PA18_PA25_PA31_PA32> ^prop-apply true
+	^op-name |_PA18_PA25_PA31_PA32|
+	^item-name |_PA18|
+	^item-name |_PA25|
 	^item-name |_PA31|
 	^item-name |_PA32|)
-(<cbset_PA19_PA26_PA31_PA32> ^props-cbset-name |_PA19_PA26_PA31_PA32|
-	 ^delta <delta_PA19_PA26>
+(<cbset_PA18_PA25_PA31_PA32> ^props-cbset-name |_PA18_PA25_PA31_PA32|
+	 ^delta <delta_PA18_PA25>
 	 ^delta <delta_PA31_PA32>)
-(<delta_PA19_PA31_PA32_PA40> ^prop-apply true
-	^op-name |_PA19_PA31_PA32_PA40|
-	^item-name |_PA19|
+(<delta_PA18_PA31_PA32_PA40> ^prop-apply true
+	^op-name |_PA18_PA31_PA32_PA40|
+	^item-name |_PA18|
+	^item-name |_PA40|
 	^item-name |_PA31|
-	^item-name |_PA32|
-	^item-name |_PA40|)
-(<cbset_PA19_PA31_PA32_PA40> ^props-cbset-name |_PA19_PA31_PA32_PA40|
-	 ^delta <delta_PA19_PA31>
-	 ^delta <delta_PA32_PA40>)
-(<delta_PA28_PA29_PA30_PA5> ^prop-apply true
-	^op-name |_PA28_PA29_PA30_PA5|
-	^item-name |_PA28|
-	^item-name |_PA29|
-	^item-name |_PA30|
-	^item-name |_PA5|)
-(<cbset_PA28_PA29_PA30_PA5> ^props-cbset-name |_PA28_PA29_PA30_PA5|
-	 ^delta <delta_PA28_PA29>
-	 ^delta <delta_PA30_PA5>)
-(<delta_PA28_PA29_PA48_PA5> ^prop-apply true
-	^op-name |_PA28_PA29_PA48_PA5|
-	^item-name |_PA28|
-	^item-name |_PA5|
-	^item-name |_PA29|
-	^item-name |_PA48|)
-(<cbset_PA28_PA29_PA48_PA5> ^props-cbset-name |_PA28_PA29_PA48_PA5|
-	 ^delta <delta_PA28_PA5>
-	 ^delta <delta_PA29_PA48>)
-(<delta_PA28_PA30_PA5_PA52> ^prop-apply true
-	^op-name |_PA28_PA30_PA5_PA52|
-	^item-name |_PA28|
-	^item-name |_PA52|
-	^item-name |_PA30|
-	^item-name |_PA5|)
-(<cbset_PA28_PA30_PA5_PA52> ^props-cbset-name |_PA28_PA30_PA5_PA52|
-	 ^delta <delta_PA28_PA52>
-	 ^delta <delta_PA30_PA5>)
-(<delta_PA28_PA30_PA5_PA53> ^prop-apply true
-	^op-name |_PA28_PA30_PA5_PA53|
-	^item-name |_PA28|
-	^item-name |_PA53|
-	^item-name |_PA30|
-	^item-name |_PA5|)
-(<cbset_PA28_PA30_PA5_PA53> ^props-cbset-name |_PA28_PA30_PA5_PA53|
-	 ^delta <delta_PA28_PA53>
-	 ^delta <delta_PA30_PA5>)
-(<delta_PA29_PA30_PA5> ^prop-apply true
-	^op-name |_PA29_PA30_PA5|
-	^item-name |_PA29|
-	^item-name |_PA30|
-	^item-name |_PA5|)
-(<cbset_PA29_PA30_PA5> ^props-cbset-name |_PA29_PA30_PA5|
-	 ^delta <delta_PA29>
-	 ^delta <delta_PA30_PA5>)
-(<delta_PA29_PA34_PA49> ^prop-apply true
-	^op-name |_PA29_PA34_PA49|
+	^item-name |_PA32|)
+(<cbset_PA18_PA31_PA32_PA40> ^props-cbset-name |_PA18_PA31_PA32_PA40|
+	 ^delta <delta_PA18_PA40>
+	 ^delta <delta_PA31_PA32>)
+(<delta_PA29_PA41_PA49> ^prop-apply true
+	^op-name |_PA29_PA41_PA49|
 	^item-name |_PA29|
 	^item-name |_PA49|
-	^item-name |_PA34|)
-(<cbset_PA29_PA34_PA49> ^props-cbset-name |_PA29_PA34_PA49|
+	^item-name |_PA41|)
+(<cbset_PA29_PA41_PA49> ^props-cbset-name |_PA29_PA41_PA49|
 	 ^delta <delta_PA29_PA49>
-	 ^delta <delta_PA34>)
-(<delta_PA2_PA3_PA4_PA5> ^prop-apply true
-	^op-name |_PA2_PA3_PA4_PA5|
-	^item-name |_PA2|
-	^item-name |_PA4|
-	^item-name |_PA3|
-	^item-name |_PA5|)
-(<cbset_PA2_PA3_PA4_PA5> ^props-cbset-name |_PA2_PA3_PA4_PA5|
-	 ^delta <delta_PA2_PA4>
-	 ^delta <delta_PA3_PA5>)
-(<delta_PA30_PA38_PA39_PA5> ^prop-apply true
-	^op-name |_PA30_PA38_PA39_PA5|
-	^item-name |_PA30|
-	^item-name |_PA5|
+	 ^delta <delta_PA41>)
+(<delta_PA34_PA35_PA6> ^prop-apply true
+	^op-name |_PA34_PA35_PA6|
+	^item-name |_PA34|
+	^item-name |_PA35|
+	^item-name |_PA6|)
+(<cbset_PA34_PA35_PA6> ^props-cbset-name |_PA34_PA35_PA6|
+	 ^delta <delta_PA34>
+	 ^delta <delta_PA35_PA6>)
+(<delta_PA38_PA39_PA7> ^prop-apply true
+	^op-name |_PA38_PA39_PA7|
 	^item-name |_PA38|
-	^item-name |_PA39|)
-(<cbset_PA30_PA38_PA39_PA5> ^props-cbset-name |_PA30_PA38_PA39_PA5|
-	 ^delta <delta_PA30_PA5>
-	 ^delta <delta_PA38_PA39>)
-(<delta_PA43_PA44_PA45> ^prop-apply true
-	^op-name |_PA43_PA44_PA45|
-	^item-name |_PA43|
+	^item-name |_PA39|
+	^item-name |_PA7|)
+(<cbset_PA38_PA39_PA7> ^props-cbset-name |_PA38_PA39_PA7|
+	 ^delta <delta_PA38>
+	 ^delta <delta_PA39_PA7>)
+(<delta_PA44_PA45_PA46> ^prop-apply true
+	^op-name |_PA44_PA45_PA46|
 	^item-name |_PA44|
-	^item-name |_PA45|)
-(<cbset_PA43_PA44_PA45> ^props-cbset-name |_PA43_PA44_PA45|
-	 ^delta <delta_PA43>
-	 ^delta <delta_PA44_PA45>)
-(<delta_PA10_PA11_PA5_PA7_PA8_PA9> ^prop-apply true
-	^op-name |_PA10_PA11_PA5_PA7_PA8_PA9|
-	^item-name |_PA10|
-	^item-name |_PA9|
-	^item-name |_PA11|
-	^item-name |_PA5|
+	^item-name |_PA45|
+	^item-name |_PA46|)
+(<cbset_PA44_PA45_PA46> ^props-cbset-name |_PA44_PA45_PA46|
+	 ^delta <delta_PA44>
+	 ^delta <delta_PA45_PA46>)
+(<delta_PA47_PA48_PA6_PA7> ^prop-apply true
+	^op-name |_PA47_PA48_PA6_PA7|
+	^item-name |_PA47|
+	^item-name |_PA48|
+	^item-name |_PA6|
+	^item-name |_PA7|)
+(<cbset_PA47_PA48_PA6_PA7> ^props-cbset-name |_PA47_PA48_PA6_PA7|
+	 ^delta <delta_PA47_PA48>
+	 ^delta <delta_PA6_PA7>)
+(<delta_PA6_PA7_PA8> ^prop-apply true
+	^op-name |_PA6_PA7_PA8|
+	^item-name |_PA6|
 	^item-name |_PA7|
 	^item-name |_PA8|)
-(<cbset_PA10_PA11_PA5_PA7_PA8_PA9> ^props-cbset-name |_PA10_PA11_PA5_PA7_PA8_PA9|
-	 ^delta <delta_PA10_PA9>
-	 ^delta <delta_PA11_PA5_PA7_PA8>)
-(<delta_PA10_PA28_PA29_PA47_PA48_PA5> ^prop-apply true
-	^op-name |_PA10_PA28_PA29_PA47_PA48_PA5|
+(<cbset_PA6_PA7_PA8> ^props-cbset-name |_PA6_PA7_PA8|
+	 ^delta <delta_PA6_PA7>
+	 ^delta <delta_PA8>)
+(<delta_PA10_PA12_PA27_PA28_PA29_PA30> ^prop-apply true
+	^op-name |_PA10_PA12_PA27_PA28_PA29_PA30|
 	^item-name |_PA10|
-	^item-name |_PA47|
+	^item-name |_PA12|
 	^item-name |_PA28|
-	^item-name |_PA29|
-	^item-name |_PA48|
-	^item-name |_PA5|)
-(<cbset_PA10_PA28_PA29_PA47_PA48_PA5> ^props-cbset-name |_PA10_PA28_PA29_PA47_PA48_PA5|
-	 ^delta <delta_PA10_PA47>
-	 ^delta <delta_PA28_PA29_PA48_PA5>)
-(<delta_PA10_PA30_PA38_PA39_PA5> ^prop-apply true
-	^op-name |_PA10_PA30_PA38_PA39_PA5|
+	^item-name |_PA30|
+	^item-name |_PA27|
+	^item-name |_PA29|)
+(<cbset_PA10_PA12_PA27_PA28_PA29_PA30> ^props-cbset-name |_PA10_PA12_PA27_PA28_PA29_PA30|
+	 ^delta <delta_PA10_PA12_PA28_PA30>
+	 ^delta <delta_PA27_PA29>)
+(<delta_PA10_PA12_PA27_PA29_PA30> ^prop-apply true
+	^op-name |_PA10_PA12_PA27_PA29_PA30|
 	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA27|
+	^item-name |_PA30|
+	^item-name |_PA29|)
+(<cbset_PA10_PA12_PA27_PA29_PA30> ^props-cbset-name |_PA10_PA12_PA27_PA29_PA30|
+	 ^delta <delta_PA10_PA12_PA27_PA30>
+	 ^delta <delta_PA29>)
+(<delta_PA10_PA12_PA27_PA30_PA38_PA39_PA7> ^prop-apply true
+	^op-name |_PA10_PA12_PA27_PA30_PA38_PA39_PA7|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA27|
 	^item-name |_PA30|
 	^item-name |_PA38|
 	^item-name |_PA39|
-	^item-name |_PA5|)
-(<cbset_PA10_PA30_PA38_PA39_PA5> ^props-cbset-name |_PA10_PA30_PA38_PA39_PA5|
-	 ^delta <delta_PA10>
-	 ^delta <delta_PA30_PA38_PA39_PA5>)
-(<delta_PA11_PA5_PA7_PA8_PA9> ^prop-apply true
-	^op-name |_PA11_PA5_PA7_PA8_PA9|
-	^item-name |_PA11|
-	^item-name |_PA5|
-	^item-name |_PA7|
-	^item-name |_PA8|
-	^item-name |_PA9|)
-(<cbset_PA11_PA5_PA7_PA8_PA9> ^props-cbset-name |_PA11_PA5_PA7_PA8_PA9|
-	 ^delta <delta_PA11_PA5_PA7_PA8>
-	 ^delta <delta_PA9>)
-(<delta_PA18_PA19_PA20_PA21_PA22_PA23> ^prop-apply true
-	^op-name |_PA18_PA19_PA20_PA21_PA22_PA23|
+	^item-name |_PA7|)
+(<cbset_PA10_PA12_PA27_PA30_PA38_PA39_PA7> ^props-cbset-name |_PA10_PA12_PA27_PA30_PA38_PA39_PA7|
+	 ^delta <delta_PA10_PA12_PA27_PA30>
+	 ^delta <delta_PA38_PA39_PA7>)
+(<delta_PA10_PA12_PA28_PA30_PA52_PA53> ^prop-apply true
+	^op-name |_PA10_PA12_PA28_PA30_PA52_PA53|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA28|
+	^item-name |_PA30|
+	^item-name |_PA52|
+	^item-name |_PA53|)
+(<cbset_PA10_PA12_PA28_PA30_PA52_PA53> ^props-cbset-name |_PA10_PA12_PA28_PA30_PA52_PA53|
+	 ^delta <delta_PA10_PA12_PA28_PA30>
+	 ^delta <delta_PA52_PA53>)
+(<delta_PA10_PA12_PA28_PA30_PA54_PA55> ^prop-apply true
+	^op-name |_PA10_PA12_PA28_PA30_PA54_PA55|
+	^item-name |_PA10|
+	^item-name |_PA12|
+	^item-name |_PA28|
+	^item-name |_PA30|
+	^item-name |_PA54|
+	^item-name |_PA55|)
+(<cbset_PA10_PA12_PA28_PA30_PA54_PA55> ^props-cbset-name |_PA10_PA12_PA28_PA30_PA54_PA55|
+	 ^delta <delta_PA10_PA12_PA28_PA30>
+	 ^delta <delta_PA54_PA55>)
+(<delta_PA10_PA29_PA47_PA48_PA6_PA7> ^prop-apply true
+	^op-name |_PA10_PA29_PA47_PA48_PA6_PA7|
+	^item-name |_PA10|
+	^item-name |_PA29|
+	^item-name |_PA47|
+	^item-name |_PA48|
+	^item-name |_PA6|
+	^item-name |_PA7|)
+(<cbset_PA10_PA29_PA47_PA48_PA6_PA7> ^props-cbset-name |_PA10_PA29_PA47_PA48_PA6_PA7|
+	 ^delta <delta_PA10_PA29>
+	 ^delta <delta_PA47_PA48_PA6_PA7>)
+(<delta_PA17_PA18_PA19_PA20_PA21_PA22> ^prop-apply true
+	^op-name |_PA17_PA18_PA19_PA20_PA21_PA22|
+	^item-name |_PA17|
 	^item-name |_PA18|
 	^item-name |_PA19|
 	^item-name |_PA20|
 	^item-name |_PA21|
-	^item-name |_PA22|
-	^item-name |_PA23|)
-(<cbset_PA18_PA19_PA20_PA21_PA22_PA23> ^props-cbset-name |_PA18_PA19_PA20_PA21_PA22_PA23|
-	 ^delta <delta_PA18_PA19_PA20_PA21>
-	 ^delta <delta_PA22_PA23>)
-(<delta_PA18_PA19_PA20_PA42_PA50> ^prop-apply true
-	^op-name |_PA18_PA19_PA20_PA42_PA50|
+	^item-name |_PA22|)
+(<cbset_PA17_PA18_PA19_PA20_PA21_PA22> ^props-cbset-name |_PA17_PA18_PA19_PA20_PA21_PA22|
+	 ^delta <delta_PA17_PA18_PA19_PA20>
+	 ^delta <delta_PA21_PA22>)
+(<delta_PA17_PA18_PA19_PA43_PA50> ^prop-apply true
+	^op-name |_PA17_PA18_PA19_PA43_PA50|
+	^item-name |_PA17|
 	^item-name |_PA18|
 	^item-name |_PA19|
-	^item-name |_PA20|
-	^item-name |_PA42|
+	^item-name |_PA43|
 	^item-name |_PA50|)
-(<cbset_PA18_PA19_PA20_PA42_PA50> ^props-cbset-name |_PA18_PA19_PA20_PA42_PA50|
-	 ^delta <delta_PA18_PA19_PA20_PA42>
+(<cbset_PA17_PA18_PA19_PA43_PA50> ^props-cbset-name |_PA17_PA18_PA19_PA43_PA50|
+	 ^delta <delta_PA17_PA18_PA19_PA43>
 	 ^delta <delta_PA50>)
-(<delta_PA18_PA19_PA2_PA36_PA37> ^prop-apply true
-	^op-name |_PA18_PA19_PA2_PA36_PA37|
+(<delta_PA17_PA18_PA2_PA36_PA37> ^prop-apply true
+	^op-name |_PA17_PA18_PA2_PA36_PA37|
+	^item-name |_PA17|
 	^item-name |_PA18|
-	^item-name |_PA19|
 	^item-name |_PA36|
 	^item-name |_PA37|
 	^item-name |_PA2|)
-(<cbset_PA18_PA19_PA2_PA36_PA37> ^props-cbset-name |_PA18_PA19_PA2_PA36_PA37|
-	 ^delta <delta_PA18_PA19_PA36_PA37>
+(<cbset_PA17_PA18_PA2_PA36_PA37> ^props-cbset-name |_PA17_PA18_PA2_PA36_PA37|
+	 ^delta <delta_PA17_PA18_PA36_PA37>
 	 ^delta <delta_PA2>)
-(<delta_PA18_PA19_PA2_PA36_PA37_PA46> ^prop-apply true
-	^op-name |_PA18_PA19_PA2_PA36_PA37_PA46|
+(<delta_PA17_PA18_PA2_PA36_PA37_PA56> ^prop-apply true
+	^op-name |_PA17_PA18_PA2_PA36_PA37_PA56|
+	^item-name |_PA17|
 	^item-name |_PA18|
-	^item-name |_PA19|
 	^item-name |_PA36|
 	^item-name |_PA37|
 	^item-name |_PA2|
-	^item-name |_PA46|)
-(<cbset_PA18_PA19_PA2_PA36_PA37_PA46> ^props-cbset-name |_PA18_PA19_PA2_PA36_PA37_PA46|
-	 ^delta <delta_PA18_PA19_PA36_PA37>
-	 ^delta <delta_PA2_PA46>)
+	^item-name |_PA56|)
+(<cbset_PA17_PA18_PA2_PA36_PA37_PA56> ^props-cbset-name |_PA17_PA18_PA2_PA36_PA37_PA56|
+	 ^delta <delta_PA17_PA18_PA36_PA37>
+	 ^delta <delta_PA2_PA56>)
 
-(<Q166>  ^1 elio-procedure-d-step-7 ^2 enter ^3 finish)
+(<Q166>  ^1 elio-procedure-d-step-7 ^2 finish)
 (<pre-cbset-rule166> ^props-epset-name elio-procedure-d-step-7
 	^const <Q166>
-	^delta <delta_PA12_PA5_PA7_PA8>)
+	^delta <delta_PA10_PA9>)
 
 (<Q165>  ^1 elio-procedure-d-step-7 ^2 index1-plus-index2)
 (<epset-task-procedure-d> ^delta <delta-rule165>)
 (<delta-rule165> ^op-name elio-procedure-d-step-7
 	^const <Q165>)
-(<delta-rule165> ^prop <prop-C6>)
+(<delta-rule165> ^prop <prop-C5>)
 
-(<Q164>  ^1 elio-procedure-d-step-6 ^2 enter ^3 index2 ^4 index1-plus-index2)
-(<pre-cbset-rule164> ^props-epset-name elio-procedure-d-step-6
-	^const <Q164>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+(<Q164>  ^1 index1-plus-index2 ^2 part-mult-index1)
+(<epset-task-procedure-d> ^delta <delta-rule164>)
+(<delta-rule164> ^op-name index1-plus-index2
+	^const <Q164>)
+(<delta-rule164> ^prop <prop-C5>)
 
-(<Q163>  ^1 elio-procedure-d-step-6 ^2 part-mult-index1)
+(<Q163>  ^1 part-mult-index1 ^2 mineral-div-marine)
 (<epset-task-procedure-d> ^delta <delta-rule163>)
-(<delta-rule163> ^op-name elio-procedure-d-step-6
+(<delta-rule163> ^op-name part-mult-index1
 	^const <Q163>)
-(<delta-rule163> ^prop <prop-C6>)
+(<delta-rule163> ^prop <prop-C5>)
 
-(<Q162>  ^1 elio-procedure-d-step-5 ^2 enter ^3 index1 ^4 part-mult-index1)
-(<pre-cbset-rule162> ^props-epset-name elio-procedure-d-step-5
-	^const <Q162>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+(<Q162>  ^1 mineral-div-marine ^2 solid-div-lime)
+(<epset-task-procedure-d> ^delta <delta-rule162>)
+(<delta-rule162> ^op-name mineral-div-marine
+	^const <Q162>)
+(<delta-rule162> ^prop <prop-C5>)
 
-(<Q161>  ^1 elio-procedure-d-step-5 ^2 mineral-div-marine)
+(<Q161>  ^1 solid-div-lime ^2 mineral)
 (<epset-task-procedure-d> ^delta <delta-rule161>)
-(<delta-rule161> ^op-name elio-procedure-d-step-5
+(<delta-rule161> ^op-name solid-div-lime
 	^const <Q161>)
-(<delta-rule161> ^prop <prop-C6>)
+(<delta-rule161> ^prop <prop-C5>)
 
-(<Q160>  ^1 elio-procedure-d-step-4 ^2 enter ^3 marine ^4 mineral-div-marine)
-(<pre-cbset-rule160> ^props-epset-name elio-procedure-d-step-4
+(<Q160>  ^1 elio-procedure-d-remember-mineral ^2 mineral)
+(<pre-cbset-rule160> ^props-epset-name elio-procedure-d-remember-mineral
 	^const <Q160>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+	^delta <delta_PA6_PA7_PA8>)
 
-(<Q159>  ^1 elio-procedure-d-step-4 ^2 solid-div-lime)
+(<Q159>  ^1 elio-procedure-d-remember-mineral ^2 lesser-evil)
 (<epset-task-procedure-d> ^delta <delta-rule159>)
-(<delta-rule159> ^op-name elio-procedure-d-step-4
+(<delta-rule159> ^op-name elio-procedure-d-remember-mineral
 	^const <Q159>)
-(<delta-rule159> ^prop <prop-C6>)
+(<delta-rule159> ^prop <prop-C5>)
 
-(<Q158>  ^1 elio-procedure-d-step-3 ^2 enter ^3 mineral ^4 solid-div-lime)
-(<pre-cbset-rule158> ^props-epset-name elio-procedure-d-step-3
-	^const <Q158>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
+(<Q158>  ^1 lesser-evil ^2 particulate)
+(<epset-task-procedure-d> ^delta <delta-rule158>)
+(<delta-rule158> ^op-name lesser-evil
+	^const <Q158>)
+(<delta-rule158> ^prop <prop-C5>)
 
-(<Q157>  ^1 elio-procedure-d-step-3 ^2 lesser-evil)
-(<epset-task-procedure-d> ^delta <delta-rule157>)
-(<delta-rule157> ^op-name elio-procedure-d-step-3
-	^const <Q157>)
-(<delta-rule157> ^prop <prop-C6>)
+(<Q157>  ^1 elio-procedure-d-remember-particulate ^2 particulate)
+(<pre-cbset-rule157> ^props-epset-name elio-procedure-d-remember-particulate
+	^const <Q157>
+	^delta <delta_PA6_PA7_PA8>)
 
-(<Q156>  ^1 elio-procedure-d-step-2 ^2 enter ^3 particulate ^4 lesser-evil)
-(<pre-cbset-rule156> ^props-epset-name elio-procedure-d-step-2
-	^const <Q156>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
+(<Q156>  ^1 elio-procedure-d-remember-particulate ^2 triple-lime)
+(<epset-task-procedure-d> ^delta <delta-rule156>)
+(<delta-rule156> ^op-name elio-procedure-d-remember-particulate
+	^const <Q156>)
+(<delta-rule156> ^prop <prop-C5>)
 
-(<Q155>  ^1 elio-procedure-d-step-2 ^2 triple-lime)
+(<Q155>  ^1 triple-lime)
 (<epset-task-procedure-d> ^delta <delta-rule155>)
-(<delta-rule155> ^op-name elio-procedure-d-step-2
+(<delta-rule155> ^op-name triple-lime
 	^const <Q155>)
-(<delta-rule155> ^prop <prop-C6>)
+(<delta-rule155> ^prop <prop-C3>)
+(<delta-rule155> ^prop <prop-C4>)
 
-(<Q154>  ^1 elio-procedure-d-start ^2 triple-lime)
-(<pre-cbset-rule154> ^props-epset-name elio-procedure-d-start
+(<Q154>  ^1 elio-procedure-d-init)
+(<pre-cbset-rule154> ^props-epset-name elio-procedure-d-init
 	^const <Q154>
-	^delta <delta_PA2_PA3_PA4_PA5>)
+	^delta <delta_PA2>)
 
 (<epset-task-procedure-d> ^props-epset-name procedure-d)
-(<Q153>  ^1 elio-procedure-d-start)
+(<Q153>  ^1 elio-procedure-d-init)
 (<epset-task-procedure-d> ^delta <delta-rule153>)
-(<delta-rule153> ^op-name elio-procedure-d-start
+(<delta-rule153> ^op-name elio-procedure-d-init
 	^const <Q153>)
 (<delta-rule153> ^prop <prop-C1>)
 
-(<Q152>  ^1 elio-procedure-c-step-7 ^2 enter ^3 finish)
+(<Q152>  ^1 elio-procedure-c-step-7 ^2 finish)
 (<pre-cbset-rule152> ^props-epset-name elio-procedure-c-step-7
 	^const <Q152>
-	^delta <delta_PA12_PA5_PA7_PA8>)
+	^delta <delta_PA10_PA9>)
 
 (<Q151>  ^1 elio-procedure-c-step-7 ^2 index2-min-mineral)
 (<epset-task-procedure-c> ^delta <delta-rule151>)
 (<delta-rule151> ^op-name elio-procedure-c-step-7
 	^const <Q151>)
-(<delta-rule151> ^prop <prop-C6>)
+(<delta-rule151> ^prop <prop-C5>)
 
-(<Q150>  ^1 elio-procedure-c-step-6 ^2 enter ^3 index2 ^4 index2-min-mineral)
-(<pre-cbset-rule150> ^props-epset-name elio-procedure-c-step-6
-	^const <Q150>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+(<Q150>  ^1 index2-min-mineral ^2 index1-div-marine)
+(<epset-task-procedure-c> ^delta <delta-rule150>)
+(<delta-rule150> ^op-name index2-min-mineral
+	^const <Q150>)
+(<delta-rule150> ^prop <prop-C5>)
 
-(<Q149>  ^1 elio-procedure-c-step-6 ^2 index1-div-marine)
+(<Q149>  ^1 index1-div-marine ^2 solid-div-lime)
 (<epset-task-procedure-c> ^delta <delta-rule149>)
-(<delta-rule149> ^op-name elio-procedure-c-step-6
+(<delta-rule149> ^op-name index1-div-marine
 	^const <Q149>)
-(<delta-rule149> ^prop <prop-C6>)
+(<delta-rule149> ^prop <prop-C5>)
 
-(<Q148>  ^1 elio-procedure-c-step-5 ^2 enter ^3 marine ^4 index1-div-marine)
-(<pre-cbset-rule148> ^props-epset-name elio-procedure-c-step-5
-	^const <Q148>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+(<Q148>  ^1 solid-div-lime ^2 index1)
+(<epset-task-procedure-c> ^delta <delta-rule148>)
+(<delta-rule148> ^op-name solid-div-lime
+	^const <Q148>)
+(<delta-rule148> ^prop <prop-C5>)
 
-(<Q147>  ^1 elio-procedure-c-step-5 ^2 solid-div-lime)
-(<epset-task-procedure-c> ^delta <delta-rule147>)
-(<delta-rule147> ^op-name elio-procedure-c-step-5
-	^const <Q147>)
-(<delta-rule147> ^prop <prop-C6>)
+(<Q147>  ^1 elio-procedure-c-remember-index1 ^2 index1)
+(<pre-cbset-rule147> ^props-epset-name elio-procedure-c-remember-index1
+	^const <Q147>
+	^delta <delta_PA6_PA7_PA8>)
 
-(<Q146>  ^1 elio-procedure-c-step-4 ^2 enter ^3 index1 ^4 solid-div-lime)
-(<pre-cbset-rule146> ^props-epset-name elio-procedure-c-step-4
-	^const <Q146>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
+(<Q146>  ^1 elio-procedure-c-remember-index1 ^2 part-plus-mineral)
+(<epset-task-procedure-c> ^delta <delta-rule146>)
+(<delta-rule146> ^op-name elio-procedure-c-remember-index1
+	^const <Q146>)
+(<delta-rule146> ^prop <prop-C5>)
 
-(<Q145>  ^1 elio-procedure-c-step-4 ^2 part-plus-mineral)
+(<Q145>  ^1 part-plus-mineral ^2 lesser-evil)
 (<epset-task-procedure-c> ^delta <delta-rule145>)
-(<delta-rule145> ^op-name elio-procedure-c-step-4
+(<delta-rule145> ^op-name part-plus-mineral
 	^const <Q145>)
-(<delta-rule145> ^prop <prop-C6>)
+(<delta-rule145> ^prop <prop-C5>)
 
-(<Q144>  ^1 elio-procedure-c-step-3 ^2 enter ^3 mineral ^4 part-plus-mineral)
-(<pre-cbset-rule144> ^props-epset-name elio-procedure-c-step-3
-	^const <Q144>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
+(<Q144>  ^1 lesser-evil ^2 particulate)
+(<epset-task-procedure-c> ^delta <delta-rule144>)
+(<delta-rule144> ^op-name lesser-evil
+	^const <Q144>)
+(<delta-rule144> ^prop <prop-C5>)
 
-(<Q143>  ^1 elio-procedure-c-step-3 ^2 lesser-evil)
-(<epset-task-procedure-c> ^delta <delta-rule143>)
-(<delta-rule143> ^op-name elio-procedure-c-step-3
-	^const <Q143>)
-(<delta-rule143> ^prop <prop-C6>)
+(<Q143>  ^1 elio-procedure-c-remember-particulate ^2 particulate)
+(<pre-cbset-rule143> ^props-epset-name elio-procedure-c-remember-particulate
+	^const <Q143>
+	^delta <delta_PA6_PA7_PA8>)
 
-(<Q142>  ^1 elio-procedure-c-step-2 ^2 enter ^3 particulate ^4 lesser-evil)
-(<pre-cbset-rule142> ^props-epset-name elio-procedure-c-step-2
-	^const <Q142>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
+(<Q142>  ^1 elio-procedure-c-remember-particulate ^2 triple-lime)
+(<epset-task-procedure-c> ^delta <delta-rule142>)
+(<delta-rule142> ^op-name elio-procedure-c-remember-particulate
+	^const <Q142>)
+(<delta-rule142> ^prop <prop-C5>)
 
-(<Q141>  ^1 elio-procedure-c-step-2 ^2 triple-lime)
+(<Q141>  ^1 triple-lime)
 (<epset-task-procedure-c> ^delta <delta-rule141>)
-(<delta-rule141> ^op-name elio-procedure-c-step-2
+(<delta-rule141> ^op-name triple-lime
 	^const <Q141>)
-(<delta-rule141> ^prop <prop-C6>)
+(<delta-rule141> ^prop <prop-C3>)
+(<delta-rule141> ^prop <prop-C4>)
 
-(<Q140>  ^1 elio-procedure-c-start ^2 triple-lime)
-(<pre-cbset-rule140> ^props-epset-name elio-procedure-c-start
+(<Q140>  ^1 elio-procedure-c-init)
+(<pre-cbset-rule140> ^props-epset-name elio-procedure-c-init
 	^const <Q140>
-	^delta <delta_PA2_PA3_PA4_PA5>)
+	^delta <delta_PA2>)
 
 (<epset-task-procedure-c> ^props-epset-name procedure-c)
-(<Q139>  ^1 elio-procedure-c-start)
+(<Q139>  ^1 elio-procedure-c-init)
 (<epset-task-procedure-c> ^delta <delta-rule139>)
-(<delta-rule139> ^op-name elio-procedure-c-start
+(<delta-rule139> ^op-name elio-procedure-c-init
 	^const <Q139>)
 (<delta-rule139> ^prop <prop-C1>)
 
-(<Q138>  ^1 elio-solid-div-lime-finish ^2 solid-div-lime)
-(<pre-cbset-rule138> ^props-epset-name elio-solid-div-lime-finish
+(<Q138>  ^1 elio-index1-plus-index2-finish ^2 enter ^3 index1-plus-index2)
+(<pre-cbset-rule138> ^props-epset-name elio-index1-plus-index2-finish
 	^const <Q138>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
-(<Q137>  ^1 elio-solid-div-lime-finish ^2 div)
-(<epset-task-solid-div-lime> ^delta <delta-rule137>)
-(<delta-rule137> ^op-name elio-solid-div-lime-finish
+(<Q137>  ^1 elio-index1-plus-index2-finish ^2 add)
+(<epset-task-index1-plus-index2> ^delta <delta-rule137>)
+(<delta-rule137> ^op-name elio-index1-plus-index2-finish
 	^const <Q137>)
-(<delta-rule137> ^prop <prop-C24>)
+(<delta-rule137> ^prop <prop-C23>)
 
-(<Q136>  ^1 elio-solid-div-lime-div-lime1 ^2 div ^3 query)
-(<pre-cbset-rule136> ^props-epset-name elio-solid-div-lime-div-lime1
+(<Q136>  ^1 elio-index1-plus-index2-add ^2 add ^3 query)
+(<pre-cbset-rule136> ^props-epset-name elio-index1-plus-index2-add
 	^const <Q136>
-	^delta <delta_PA18_PA19_PA20_PA21>)
+	^delta <delta_PA17_PA18_PA19_PA43>)
 
-(<Q135>  ^1 elio-solid-div-lime-div-lime1 ^2 lime1)
-(<epset-task-solid-div-lime> ^delta <delta-rule135>)
-(<delta-rule135> ^op-name elio-solid-div-lime-div-lime1
+(<Q135>  ^1 elio-index1-plus-index2-add ^2 index1)
+(<epset-task-index1-plus-index2> ^delta <delta-rule135>)
+(<delta-rule135> ^op-name elio-index1-plus-index2-add
 	^const <Q135>)
-(<delta-rule135> ^prop <prop-C17>)
-(<delta-rule135> ^prop <prop-C15>)
+(<delta-rule135> ^prop <prop-C23>)
 
-(<Q134>  ^1 elio-solid-div-lime-read-lime1 ^2 read ^3 lime1)
-(<pre-cbset-rule134> ^props-epset-name elio-solid-div-lime-read-lime1
+(<Q134>  ^1 elio-index1-plus-index2-start ^2 index2 ^3 retrieve)
+(<pre-cbset-rule134> ^props-epset-name elio-index1-plus-index2-start
 	^const <Q134>
-	^delta <delta_PA14_PA16_PA7>)
+	^delta <delta_PA34_PA35_PA6>)
 
-(<Q133>  ^1 elio-solid-div-lime-read-lime1 ^2 solid)
-(<epset-task-solid-div-lime> ^delta <delta-rule133>)
-(<delta-rule133> ^op-name elio-solid-div-lime-read-lime1
+(<epset-task-index1-plus-index2> ^props-epset-name index1-plus-index2)
+(<Q133>  ^1 elio-index1-plus-index2-start)
+(<epset-task-index1-plus-index2> ^delta <delta-rule133>)
+(<delta-rule133> ^op-name elio-index1-plus-index2-start
 	^const <Q133>)
-(<delta-rule133> ^prop <prop-C15>)
+(<delta-rule133> ^prop <prop-C16>)
 
-(<Q132>  ^1 elio-solid-div-lime-read-solid ^2 read ^3 solid)
-(<pre-cbset-rule132> ^props-epset-name elio-solid-div-lime-read-solid
+(<Q132>  ^1 elio-part-mult-index1-finish ^2 enter ^3 part-mult-index1)
+(<pre-cbset-rule132> ^props-epset-name elio-part-mult-index1-finish
 	^const <Q132>
-	^delta <delta_PA14_PA7>)
+	^delta <delta_PA10_PA12_PA27_PA29_PA30>)
+
+(<Q131>  ^1 elio-part-mult-index1-finish ^2 mult)
+(<epset-task-part-mult-index1> ^delta <delta-rule131>)
+(<delta-rule131> ^op-name elio-part-mult-index1-finish
+	^const <Q131>)
+(<delta-rule131> ^prop <prop-C23>)
+
+(<Q130>  ^1 elio-part-mult-index1-mult ^2 mult ^3 query ^4 part-mult-index1)
+(<delta_PA56> ^prop-apply true
+	^item-name |_PA56|
+	^op-name |_PA56|)
+(<cbset_PA56> ^props-cbset-name |_PA56|
+	^delta <delta-null_PA56>)
+(<delta-null_PA56> ^prop-apply true
+	^prop <prop-A56>)
+(<prop-A56> ^name |_PA56|
+	^prop-type add
+	^attr1 slot1
+	^attr2 4
+	^address1 NW
+	^address2 props$const)
+(<pre-cbset-rule130> ^props-epset-name elio-part-mult-index1-mult
+	^const <Q130>
+	^delta <delta_PA17_PA18_PA2_PA36_PA37_PA56>)
+
+(<Q129>  ^1 elio-part-mult-index1-mult ^2 particulate)
+(<epset-task-part-mult-index1> ^delta <delta-rule129>)
+(<delta-rule129> ^op-name elio-part-mult-index1-mult
+	^const <Q129>)
+(<delta-rule129> ^prop <prop-C23>)
+
+(<Q128>  ^1 elio-part-mult-index1-start ^2 index1 ^3 retrieve)
+(<pre-cbset-rule128> ^props-epset-name elio-part-mult-index1-start
+	^const <Q128>
+	^delta <delta_PA34_PA35_PA6>)
+
+(<epset-task-part-mult-index1> ^props-epset-name part-mult-index1)
+(<Q127>  ^1 elio-part-mult-index1-start)
+(<epset-task-part-mult-index1> ^delta <delta-rule127>)
+(<delta-rule127> ^op-name elio-part-mult-index1-start
+	^const <Q127>)
+(<delta-rule127> ^prop <prop-C16>)
+
+(<Q126>  ^1 elio-solid-div-lime-finish ^2 enter ^3 solid-div-lime)
+(<pre-cbset-rule126> ^props-epset-name elio-solid-div-lime-finish
+	^const <Q126>
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
+
+(<Q125>  ^1 elio-solid-div-lime-finish ^2 div)
+(<epset-task-solid-div-lime> ^delta <delta-rule125>)
+(<delta-rule125> ^op-name elio-solid-div-lime-finish
+	^const <Q125>)
+(<delta-rule125> ^prop <prop-C23>)
+
+(<Q124>  ^1 elio-solid-div-lime-div-lime1 ^2 div ^3 query)
+(<pre-cbset-rule124> ^props-epset-name elio-solid-div-lime-div-lime1
+	^const <Q124>
+	^delta <delta_PA17_PA18_PA19_PA20>)
+
+(<Q123>  ^1 elio-solid-div-lime-div-lime1 ^2 lime1)
+(<epset-task-solid-div-lime> ^delta <delta-rule123>)
+(<delta-rule123> ^op-name elio-solid-div-lime-div-lime1
+	^const <Q123>)
+(<delta-rule123> ^prop <prop-C16>)
+(<delta-rule123> ^prop <prop-C14>)
+
+(<Q122>  ^1 elio-solid-div-lime-read-lime1 ^2 read ^3 lime1)
+(<pre-cbset-rule122> ^props-epset-name elio-solid-div-lime-read-lime1
+	^const <Q122>
+	^delta <delta_PA12_PA13_PA15>)
+
+(<Q121>  ^1 elio-solid-div-lime-read-lime1 ^2 solid)
+(<epset-task-solid-div-lime> ^delta <delta-rule121>)
+(<delta-rule121> ^op-name elio-solid-div-lime-read-lime1
+	^const <Q121>)
+(<delta-rule121> ^prop <prop-C14>)
+
+(<Q120>  ^1 elio-solid-div-lime-read-solid ^2 read ^3 solid)
+(<pre-cbset-rule120> ^props-epset-name elio-solid-div-lime-read-solid
+	^const <Q120>
+	^delta <delta_PA12_PA13>)
 
 (<epset-task-solid-div-lime> ^props-epset-name solid-div-lime)
-(<Q131>  ^1 elio-solid-div-lime-read-solid)
-(<epset-task-solid-div-lime> ^delta <delta-rule131>)
-(<delta-rule131> ^op-name elio-solid-div-lime-read-solid
-	^const <Q131>)
-(<delta-rule131> ^prop <prop-C13>)
+(<Q119>  ^1 elio-solid-div-lime-read-solid)
+(<epset-task-solid-div-lime> ^delta <delta-rule119>)
+(<delta-rule119> ^op-name elio-solid-div-lime-read-solid
+	^const <Q119>)
+(<delta-rule119> ^prop <prop-C11>)
 
-(<Q130>  ^1 elio-lesser-evil-greater-than-false ^2 lesser-evil)
-(<delta_PA53> ^prop-apply true
-	^item-name |_PA53|
-	^op-name |_PA53|)
-(<cbset_PA53> ^props-cbset-name |_PA53|
-	^delta <delta-null_PA53>)
-(<delta-null_PA53> ^prop-apply true
-	^prop <prop-A53>)
-(<prop-A53> ^name |_PA53|
+(<Q118>  ^1 elio-lesser-evil-greater-than-false ^2 enter ^3 lesser-evil)
+(<delta_PA54> ^prop-apply true
+	^item-name |_PA54|
+	^op-name |_PA54|)
+(<cbset_PA54> ^props-cbset-name |_PA54|
+	^delta <delta-null_PA54>)
+(<delta-null_PA54> ^prop-apply true
+	^prop <prop-A54>)
+(<prop-A54> ^name |_PA54|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 AC
+	^address2 RT)
+(<delta_PA55> ^prop-apply true
+	^item-name |_PA55|
+	^op-name |_PA55|)
+(<cbset_PA55> ^props-cbset-name |_PA55|
+	^delta <delta-null_PA55>)
+(<delta-null_PA55> ^prop-apply true
+	^prop <prop-A55>)
+(<prop-A55> ^name |_PA55|
 	^prop-type add
 	^attr1 slot2
 	^attr2 slot3
 	^address1 WM
 	^address2 RT)
-(<pre-cbset-rule130> ^props-epset-name elio-lesser-evil-greater-than-false
-	^const <Q130>
-	^delta <delta_PA28_PA30_PA5_PA53>)
+(<pre-cbset-rule118> ^props-epset-name elio-lesser-evil-greater-than-false
+	^const <Q118>
+	^delta <delta_PA10_PA12_PA28_PA30_PA54_PA55>)
 
-(<Q129>  ^1 elio-lesser-evil-greater-than-false ^2 greater-than ^3 false)
-(<epset-task-lesser-evil> ^delta <delta-rule129>)
-(<delta-rule129> ^op-name elio-lesser-evil-greater-than-false
-	^const <Q129>)
-(<delta-rule129> ^prop <prop-C24>)
-(<delta-rule129> ^prop <prop-C51>)
+(<Q117>  ^1 elio-lesser-evil-greater-than-false ^2 greater-than ^3 false)
+(<epset-task-lesser-evil> ^delta <delta-rule117>)
+(<delta-rule117> ^op-name elio-lesser-evil-greater-than-false
+	^const <Q117>)
+(<delta-rule117> ^prop <prop-C23>)
+(<delta-rule117> ^prop <prop-C51>)
 
-(<Q128>  ^1 elio-lesser-evil-greater-than-true ^2 lesser-evil)
+(<Q116>  ^1 elio-lesser-evil-greater-than-true ^2 enter ^3 lesser-evil)
 (<delta_PA52> ^prop-apply true
 	^item-name |_PA52|
 	^op-name |_PA52|)
@@ -731,19 +816,32 @@ smem --add {
 	^prop-type add
 	^attr1 slot2
 	^attr2 slot2
+	^address1 AC
+	^address2 RT)
+(<delta_PA53> ^prop-apply true
+	^item-name |_PA53|
+	^op-name |_PA53|)
+(<cbset_PA53> ^props-cbset-name |_PA53|
+	^delta <delta-null_PA53>)
+(<delta-null_PA53> ^prop-apply true
+	^prop <prop-A53>)
+(<prop-A53> ^name |_PA53|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
 	^address1 WM
 	^address2 RT)
-(<pre-cbset-rule128> ^props-epset-name elio-lesser-evil-greater-than-true
-	^const <Q128>
-	^delta <delta_PA28_PA30_PA5_PA52>)
+(<pre-cbset-rule116> ^props-epset-name elio-lesser-evil-greater-than-true
+	^const <Q116>
+	^delta <delta_PA10_PA12_PA28_PA30_PA52_PA53>)
 
-(<Q127>  ^1 elio-lesser-evil-greater-than-true ^2 greater-than ^3 true)
-(<epset-task-lesser-evil> ^delta <delta-rule127>)
-(<delta-rule127> ^op-name elio-lesser-evil-greater-than-true
-	^const <Q127>)
-(<delta-rule127> ^prop <prop-C24>)
-(<delta-rule127> ^prop <prop-C51>)
-(<prop-C51> ^name |_PA51|
+(<Q115>  ^1 elio-lesser-evil-greater-than-true ^2 greater-than ^3 true)
+(<epset-task-lesser-evil> ^delta <delta-rule115>)
+(<delta-rule115> ^op-name elio-lesser-evil-greater-than-true
+	^const <Q115>)
+(<delta-rule115> ^prop <prop-C23>)
+(<delta-rule115> ^prop <prop-C51>)
+(<prop-C51> ^name |_PC51|
 	^prop-type equality
 	^attr1 slot4
 	^attr2 3
@@ -751,7 +849,7 @@ smem --add {
 	^address2 props$const)
 
 
-(<Q126>  ^1 elio-lesser-evil-read-intermediate ^2 greater-than ^3 query)
+(<Q114>  ^1 elio-lesser-evil-read-intermediate ^2 greater-than ^3 query)
 (<delta_PA50> ^prop-apply true
 	^item-name |_PA50|
 	^op-name |_PA50|)
@@ -765,17 +863,17 @@ smem --add {
 	^attr2 WMprev
 	^address1 WM
 	^address2 RT)
-(<pre-cbset-rule126> ^props-epset-name elio-lesser-evil-read-intermediate
-	^const <Q126>
-	^delta <delta_PA18_PA19_PA20_PA42_PA50>)
+(<pre-cbset-rule114> ^props-epset-name elio-lesser-evil-read-intermediate
+	^const <Q114>
+	^delta <delta_PA17_PA18_PA19_PA43_PA50>)
 
-(<Q125>  ^1 elio-lesser-evil-read-intermediate ^2 intermediate)
-(<epset-task-lesser-evil> ^delta <delta-rule125>)
-(<delta-rule125> ^op-name elio-lesser-evil-read-intermediate
-	^const <Q125>)
-(<delta-rule125> ^prop <prop-C24>)
+(<Q113>  ^1 elio-lesser-evil-read-intermediate ^2 intermediate)
+(<epset-task-lesser-evil> ^delta <delta-rule113>)
+(<delta-rule113> ^op-name elio-lesser-evil-read-intermediate
+	^const <Q113>)
+(<delta-rule113> ^prop <prop-C23>)
 
-(<Q124>  ^1 elio-lesser-evil-toxin3 ^2 retrieve)
+(<Q112>  ^1 elio-lesser-evil-toxin3 ^2 retrieve)
 (<delta_PA49> ^prop-apply true
 	^item-name |_PA49|
 	^op-name |_PA49|)
@@ -789,41 +887,41 @@ smem --add {
 	^attr2 WMprev
 	^address1 Q
 	^address2 WM)
-(<pre-cbset-rule124> ^props-epset-name elio-lesser-evil-toxin3
-	^const <Q124>
-	^delta <delta_PA29_PA34_PA49>)
+(<pre-cbset-rule112> ^props-epset-name elio-lesser-evil-toxin3
+	^const <Q112>
+	^delta <delta_PA29_PA41_PA49>)
 
-(<Q123>  ^1 elio-lesser-evil-toxin3 ^2 add ^3 toxin3)
-(<epset-task-lesser-evil> ^delta <delta-rule123>)
-(<delta-rule123> ^op-name elio-lesser-evil-toxin3
-	^const <Q123>)
-(<delta-rule123> ^prop <prop-C24>)
-(<delta-rule123> ^prop <prop-C25>)
+(<Q111>  ^1 elio-lesser-evil-toxin3 ^2 add ^3 toxin3)
+(<epset-task-lesser-evil> ^delta <delta-rule111>)
+(<delta-rule111> ^op-name elio-lesser-evil-toxin3
+	^const <Q111>)
+(<delta-rule111> ^prop <prop-C23>)
+(<delta-rule111> ^prop <prop-C24>)
 
-(<Q122>  ^1 elio-lesser-evil-add-toxin3 ^2 add ^3 query)
-(<pre-cbset-rule122> ^props-epset-name elio-lesser-evil-add-toxin3
-	^const <Q122>
-	^delta <delta_PA18_PA19_PA20_PA21>)
+(<Q110>  ^1 elio-lesser-evil-add-toxin3 ^2 add ^3 query)
+(<pre-cbset-rule110> ^props-epset-name elio-lesser-evil-add-toxin3
+	^const <Q110>
+	^delta <delta_PA17_PA18_PA19_PA20>)
 
-(<Q121>  ^1 elio-lesser-evil-add-toxin3 ^2 toxin3)
-(<epset-task-lesser-evil> ^delta <delta-rule121>)
-(<delta-rule121> ^op-name elio-lesser-evil-add-toxin3
-	^const <Q121>)
-(<delta-rule121> ^prop <prop-C17>)
-(<delta-rule121> ^prop <prop-C15>)
+(<Q109>  ^1 elio-lesser-evil-add-toxin3 ^2 toxin3)
+(<epset-task-lesser-evil> ^delta <delta-rule109>)
+(<delta-rule109> ^op-name elio-lesser-evil-add-toxin3
+	^const <Q109>)
+(<delta-rule109> ^prop <prop-C16>)
+(<delta-rule109> ^prop <prop-C14>)
 
-(<Q120>  ^1 elio-lesser-evil-read-toxin3 ^2 read ^3 toxin3)
-(<pre-cbset-rule120> ^props-epset-name elio-lesser-evil-read-toxin3
-	^const <Q120>
-	^delta <delta_PA14_PA16_PA7>)
+(<Q108>  ^1 elio-lesser-evil-read-toxin3 ^2 read ^3 toxin3)
+(<pre-cbset-rule108> ^props-epset-name elio-lesser-evil-read-toxin3
+	^const <Q108>
+	^delta <delta_PA12_PA13_PA15>)
 
-(<Q119>  ^1 elio-lesser-evil-read-toxin3 ^2 algae)
-(<epset-task-lesser-evil> ^delta <delta-rule119>)
-(<delta-rule119> ^op-name elio-lesser-evil-read-toxin3
-	^const <Q119>)
-(<delta-rule119> ^prop <prop-C15>)
+(<Q107>  ^1 elio-lesser-evil-read-toxin3 ^2 algae)
+(<epset-task-lesser-evil> ^delta <delta-rule107>)
+(<delta-rule107> ^op-name elio-lesser-evil-read-toxin3
+	^const <Q107>)
+(<delta-rule107> ^prop <prop-C14>)
 
-(<Q118>  ^1 elio-lesser-evil-read-algae ^2 intermediate ^3 read ^4 algae)
+(<Q106>  ^1 elio-lesser-evil-read-algae ^2 intermediate ^3 read ^4 algae)
 (<delta_PA47> ^prop-apply true
 	^item-name |_PA47|
 	^op-name |_PA47|)
@@ -850,235 +948,242 @@ smem --add {
 	^attr2 4
 	^address1 AC
 	^address2 props$const)
-(<pre-cbset-rule118> ^props-epset-name elio-lesser-evil-read-algae
-	^const <Q118>
-	^delta <delta_PA10_PA28_PA29_PA47_PA48_PA5>)
+(<pre-cbset-rule106> ^props-epset-name elio-lesser-evil-read-algae
+	^const <Q106>
+	^delta <delta_PA10_PA29_PA47_PA48_PA6_PA7>)
 
-(<Q117>  ^1 elio-lesser-evil-read-algae ^2 add ^3 lime1)
-(<epset-task-lesser-evil> ^delta <delta-rule117>)
-(<delta-rule117> ^op-name elio-lesser-evil-read-algae
-	^const <Q117>)
-(<delta-rule117> ^prop <prop-C24>)
-(<delta-rule117> ^prop <prop-C25>)
+(<Q105>  ^1 elio-lesser-evil-read-algae ^2 add ^3 lime1)
+(<epset-task-lesser-evil> ^delta <delta-rule105>)
+(<delta-rule105> ^op-name elio-lesser-evil-read-algae
+	^const <Q105>)
+(<delta-rule105> ^prop <prop-C23>)
+(<delta-rule105> ^prop <prop-C24>)
 
-(<Q116>  ^1 elio-lesser-evil-add-lime1 ^2 add ^3 query)
-(<pre-cbset-rule116> ^props-epset-name elio-lesser-evil-add-lime1
-	^const <Q116>
-	^delta <delta_PA18_PA19_PA20_PA21>)
+(<Q104>  ^1 elio-lesser-evil-add-lime1 ^2 add ^3 query)
+(<pre-cbset-rule104> ^props-epset-name elio-lesser-evil-add-lime1
+	^const <Q104>
+	^delta <delta_PA17_PA18_PA19_PA20>)
 
-(<Q115>  ^1 elio-lesser-evil-add-lime1 ^2 lime1)
-(<epset-task-lesser-evil> ^delta <delta-rule115>)
-(<delta-rule115> ^op-name elio-lesser-evil-add-lime1
-	^const <Q115>)
-(<delta-rule115> ^prop <prop-C17>)
-(<delta-rule115> ^prop <prop-C15>)
+(<Q103>  ^1 elio-lesser-evil-add-lime1 ^2 lime1)
+(<epset-task-lesser-evil> ^delta <delta-rule103>)
+(<delta-rule103> ^op-name elio-lesser-evil-add-lime1
+	^const <Q103>)
+(<delta-rule103> ^prop <prop-C16>)
+(<delta-rule103> ^prop <prop-C14>)
 
-(<Q114>  ^1 elio-lesser-evil-read-lime1 ^2 read ^3 lime1)
-(<pre-cbset-rule114> ^props-epset-name elio-lesser-evil-read-lime1
-	^const <Q114>
-	^delta <delta_PA14_PA16_PA7>)
+(<Q102>  ^1 elio-lesser-evil-read-lime1 ^2 read ^3 lime1)
+(<pre-cbset-rule102> ^props-epset-name elio-lesser-evil-read-lime1
+	^const <Q102>
+	^delta <delta_PA12_PA13_PA15>)
 
-(<Q113>  ^1 elio-lesser-evil-read-lime1 ^2 solid)
-(<epset-task-lesser-evil> ^delta <delta-rule113>)
-(<delta-rule113> ^op-name elio-lesser-evil-read-lime1
-	^const <Q113>)
-(<delta-rule113> ^prop <prop-C15>)
+(<Q101>  ^1 elio-lesser-evil-read-lime1 ^2 solid)
+(<epset-task-lesser-evil> ^delta <delta-rule101>)
+(<delta-rule101> ^op-name elio-lesser-evil-read-lime1
+	^const <Q101>)
+(<delta-rule101> ^prop <prop-C14>)
 
-(<Q112>  ^1 elio-lesser-evil-read-solid ^2 read ^3 solid)
-(<pre-cbset-rule112> ^props-epset-name elio-lesser-evil-read-solid
-	^const <Q112>
-	^delta <delta_PA14_PA7>)
+(<Q100>  ^1 elio-lesser-evil-read-solid ^2 read ^3 solid)
+(<pre-cbset-rule100> ^props-epset-name elio-lesser-evil-read-solid
+	^const <Q100>
+	^delta <delta_PA12_PA13>)
 
 (<epset-task-lesser-evil> ^props-epset-name lesser-evil)
-(<Q111>  ^1 elio-lesser-evil-read-solid)
-(<epset-task-lesser-evil> ^delta <delta-rule111>)
-(<delta-rule111> ^op-name elio-lesser-evil-read-solid
-	^const <Q111>)
-(<delta-rule111> ^prop <prop-C13>)
+(<Q99>  ^1 elio-lesser-evil-read-solid)
+(<epset-task-lesser-evil> ^delta <delta-rule99>)
+(<delta-rule99> ^op-name elio-lesser-evil-read-solid
+	^const <Q99>)
+(<delta-rule99> ^prop <prop-C11>)
 
-(<Q110>  ^1 elio-triple-lime-finish ^2 triple-lime)
-(<pre-cbset-rule110> ^props-epset-name elio-triple-lime-finish
-	^const <Q110>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+(<Q98>  ^1 elio-triple-lime-finish ^2 enter ^3 triple-lime)
+(<pre-cbset-rule98> ^props-epset-name elio-triple-lime-finish
+	^const <Q98>
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
-(<Q109>  ^1 elio-triple-lime-finish ^2 add)
-(<epset-task-triple-lime> ^delta <delta-rule109>)
-(<delta-rule109> ^op-name elio-triple-lime-finish
-	^const <Q109>)
-(<delta-rule109> ^prop <prop-C24>)
+(<Q97>  ^1 elio-triple-lime-finish ^2 add)
+(<epset-task-triple-lime> ^delta <delta-rule97>)
+(<delta-rule97> ^op-name elio-triple-lime-finish
+	^const <Q97>)
+(<delta-rule97> ^prop <prop-C23>)
 
-(<Q108>  ^1 elio-triple-lime-add ^2 add ^3 query)
-(<pre-cbset-rule108> ^props-epset-name elio-triple-lime-add
-	^const <Q108>
-	^delta <delta_PA18_PA19_PA20_PA21>)
+(<Q96>  ^1 elio-triple-lime-add ^2 add ^3 query)
+(<pre-cbset-rule96> ^props-epset-name elio-triple-lime-add
+	^const <Q96>
+	^delta <delta_PA17_PA18_PA19_PA20>)
 
-(<Q107>  ^1 elio-triple-lime-add ^2 algae)
-(<epset-task-triple-lime> ^delta <delta-rule107>)
-(<delta-rule107> ^op-name elio-triple-lime-add
-	^const <Q107>)
-(<delta-rule107> ^prop <prop-C17>)
-(<delta-rule107> ^prop <prop-C15>)
+(<Q95>  ^1 elio-triple-lime-add ^2 algae)
+(<epset-task-triple-lime> ^delta <delta-rule95>)
+(<delta-rule95> ^op-name elio-triple-lime-add
+	^const <Q95>)
+(<delta-rule95> ^prop <prop-C16>)
+(<delta-rule95> ^prop <prop-C14>)
 
-(<Q106>  ^1 elio-triple-lime-read ^2 read ^3 algae)
-(<pre-cbset-rule106> ^props-epset-name elio-triple-lime-read
-	^const <Q106>
-	^delta <delta_PA14_PA29_PA5_PA7>)
+(<Q94>  ^1 elio-triple-lime-read ^2 read ^3 algae)
+(<pre-cbset-rule94> ^props-epset-name elio-triple-lime-read
+	^const <Q94>
+	^delta <delta_PA10_PA12_PA13_PA29>)
 
-(<Q105>  ^1 elio-triple-lime-read ^2 limemin)
-(<epset-task-triple-lime> ^delta <delta-rule105>)
-(<delta-rule105> ^op-name elio-triple-lime-read
-	^const <Q105>)
-(<delta-rule105> ^prop <prop-C33>)
-(<delta-rule105> ^prop <prop-C15>)
+(<Q93>  ^1 elio-triple-lime-read ^2 limemin)
+(<epset-task-triple-lime> ^delta <delta-rule93>)
+(<delta-rule93> ^op-name elio-triple-lime-read
+	^const <Q93>)
+(<delta-rule93> ^prop <prop-C33>)
+(<delta-rule93> ^prop <prop-C14>)
 
-(<Q104>  ^1 elio-triple-lime-mult ^2 mult ^3 3 ^4 query)
-(<pre-cbset-rule104> ^props-epset-name elio-triple-lime-mult
-	^const <Q104>
-	^delta <delta_PA19_PA26_PA31_PA32>)
+(<Q92>  ^1 elio-triple-lime-mult ^2 mult ^3 3 ^4 query)
+(<pre-cbset-rule92> ^props-epset-name elio-triple-lime-mult
+	^const <Q92>
+	^delta <delta_PA18_PA25_PA31_PA32>)
 
-(<Q103>  ^1 elio-triple-lime-mult ^2 limemin)
-(<epset-task-triple-lime> ^delta <delta-rule103>)
-(<delta-rule103> ^op-name elio-triple-lime-mult
-	^const <Q103>)
-(<delta-rule103> ^prop <prop-C17>)
-(<delta-rule103> ^prop <prop-C15>)
+(<Q91>  ^1 elio-triple-lime-mult ^2 limemin)
+(<epset-task-triple-lime> ^delta <delta-rule91>)
+(<delta-rule91> ^op-name elio-triple-lime-mult
+	^const <Q91>)
+(<delta-rule91> ^prop <prop-C16>)
+(<delta-rule91> ^prop <prop-C14>)
 
-(<Q102>  ^1 elio-triple-lime-start ^2 read ^3 limemin)
-(<pre-cbset-rule102> ^props-epset-name elio-triple-lime-start
-	^const <Q102>
-	^delta <delta_PA14_PA7>)
+(<Q90>  ^1 elio-triple-lime-start ^2 read ^3 limemin)
+(<pre-cbset-rule90> ^props-epset-name elio-triple-lime-start
+	^const <Q90>
+	^delta <delta_PA12_PA13>)
 
 (<epset-task-triple-lime> ^props-epset-name triple-lime)
-(<Q101>  ^1 elio-triple-lime-start)
-(<epset-task-triple-lime> ^delta <delta-rule101>)
-(<delta-rule101> ^op-name elio-triple-lime-start
-	^const <Q101>)
-(<delta-rule101> ^prop <prop-C13>)
-
-(<Q100>  ^1 elio-procedure-b-finish ^2 enter ^3 finish)
-(<pre-cbset-rule100> ^props-epset-name elio-procedure-b-finish
-	^const <Q100>
-	^delta <delta_PA12_PA5_PA7_PA8>)
-
-(<Q99>  ^1 elio-procedure-b-finish ^2 index1-plus-index2)
-(<epset-task-procedure-b> ^delta <delta-rule99>)
-(<delta-rule99> ^op-name elio-procedure-b-finish
-	^const <Q99>)
-(<delta-rule99> ^prop <prop-C6>)
-
-(<Q98>  ^1 elio-procedure-b-step-6 ^2 enter ^3 index2 ^4 index1-plus-index2)
-(<pre-cbset-rule98> ^props-epset-name elio-procedure-b-step-6
-	^const <Q98>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q97>  ^1 elio-procedure-b-step-6 ^2 part-mult-index1)
-(<epset-task-procedure-b> ^delta <delta-rule97>)
-(<delta-rule97> ^op-name elio-procedure-b-step-6
-	^const <Q97>)
-(<delta-rule97> ^prop <prop-C6>)
-
-(<Q96>  ^1 elio-procedure-b-step-5 ^2 enter ^3 index1 ^4 part-mult-index1)
-(<pre-cbset-rule96> ^props-epset-name elio-procedure-b-step-5
-	^const <Q96>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q95>  ^1 elio-procedure-b-step-5 ^2 mineral-div-marine)
-(<epset-task-procedure-b> ^delta <delta-rule95>)
-(<delta-rule95> ^op-name elio-procedure-b-step-5
-	^const <Q95>)
-(<delta-rule95> ^prop <prop-C6>)
-
-(<Q94>  ^1 elio-procedure-b-step-4 ^2 enter ^3 marine ^4 mineral-div-marine)
-(<pre-cbset-rule94> ^props-epset-name elio-procedure-b-step-4
-	^const <Q94>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q93>  ^1 elio-procedure-b-step-4 ^2 greater-algae)
-(<epset-task-procedure-b> ^delta <delta-rule93>)
-(<delta-rule93> ^op-name elio-procedure-b-step-4
-	^const <Q93>)
-(<delta-rule93> ^prop <prop-C6>)
-
-(<Q92>  ^1 elio-procedure-b-step-3 ^2 enter ^3 mineral ^4 greater-algae)
-(<pre-cbset-rule92> ^props-epset-name elio-procedure-b-step-3
-	^const <Q92>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q91>  ^1 elio-procedure-b-step-3 ^2 solid-lime-diff)
-(<epset-task-procedure-b> ^delta <delta-rule91>)
-(<delta-rule91> ^op-name elio-procedure-b-step-3
-	^const <Q91>)
-(<delta-rule91> ^prop <prop-C6>)
-
-(<Q90>  ^1 elio-procedure-b-step-2 ^2 enter ^3 particulate ^4 solid-lime-diff)
-(<pre-cbset-rule90> ^props-epset-name elio-procedure-b-step-2
-	^const <Q90>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q89>  ^1 elio-procedure-b-step-2 ^2 mean-toxin)
-(<epset-task-procedure-b> ^delta <delta-rule89>)
-(<delta-rule89> ^op-name elio-procedure-b-step-2
+(<Q89>  ^1 elio-triple-lime-start)
+(<epset-task-triple-lime> ^delta <delta-rule89>)
+(<delta-rule89> ^op-name elio-triple-lime-start
 	^const <Q89>)
-(<delta-rule89> ^prop <prop-C6>)
+(<delta-rule89> ^prop <prop-C11>)
 
-(<Q88>  ^1 elio-procedure-b-start ^2 mean-toxin)
-(<pre-cbset-rule88> ^props-epset-name elio-procedure-b-start
+(<Q88>  ^1 elio-procedure-b-finish ^2 finish)
+(<pre-cbset-rule88> ^props-epset-name elio-procedure-b-finish
 	^const <Q88>
-	^delta <delta_PA2_PA3_PA4_PA5>)
+	^delta <delta_PA10_PA9>)
+
+(<Q87>  ^1 elio-procedure-b-finish ^2 index1-plus-index2)
+(<epset-task-procedure-b> ^delta <delta-rule87>)
+(<delta-rule87> ^op-name elio-procedure-b-finish
+	^const <Q87>)
+(<delta-rule87> ^prop <prop-C5>)
+
+(<Q86>  ^1 index1-plus-index2 ^2 part-mult-index1)
+(<epset-task-procedure-b> ^delta <delta-rule86>)
+(<delta-rule86> ^op-name index1-plus-index2
+	^const <Q86>)
+(<delta-rule86> ^prop <prop-C5>)
+
+(<Q85>  ^1 part-mult-index1 ^2 mineral-div-marine)
+(<epset-task-procedure-b> ^delta <delta-rule85>)
+(<delta-rule85> ^op-name part-mult-index1
+	^const <Q85>)
+(<delta-rule85> ^prop <prop-C5>)
+
+(<Q84>  ^1 mineral-div-marine ^2 greater-algae)
+(<epset-task-procedure-b> ^delta <delta-rule84>)
+(<delta-rule84> ^op-name mineral-div-marine
+	^const <Q84>)
+(<delta-rule84> ^prop <prop-C5>)
+
+(<Q83>  ^1 greater-algae ^2 mineral)
+(<epset-task-procedure-b> ^delta <delta-rule83>)
+(<delta-rule83> ^op-name greater-algae
+	^const <Q83>)
+(<delta-rule83> ^prop <prop-C5>)
+
+(<Q82>  ^1 elio-procedure-b-remember-mineral ^2 mineral)
+(<pre-cbset-rule82> ^props-epset-name elio-procedure-b-remember-mineral
+	^const <Q82>
+	^delta <delta_PA6_PA7_PA8>)
+
+(<Q81>  ^1 elio-procedure-b-remember-mineral ^2 solid-lime-diff)
+(<epset-task-procedure-b> ^delta <delta-rule81>)
+(<delta-rule81> ^op-name elio-procedure-b-remember-mineral
+	^const <Q81>)
+(<delta-rule81> ^prop <prop-C5>)
+
+(<Q80>  ^1 solid-lime-diff ^2 particulate)
+(<epset-task-procedure-b> ^delta <delta-rule80>)
+(<delta-rule80> ^op-name solid-lime-diff
+	^const <Q80>)
+(<delta-rule80> ^prop <prop-C5>)
+
+(<Q79>  ^1 elio-procedure-b-remember-particulate ^2 particulate)
+(<pre-cbset-rule79> ^props-epset-name elio-procedure-b-remember-particulate
+	^const <Q79>
+	^delta <delta_PA6_PA7_PA8>)
+
+(<Q78>  ^1 elio-procedure-b-remember-particulate ^2 mean-toxin)
+(<epset-task-procedure-b> ^delta <delta-rule78>)
+(<delta-rule78> ^op-name elio-procedure-b-remember-particulate
+	^const <Q78>)
+(<delta-rule78> ^prop <prop-C5>)
+
+(<Q77>  ^1 mean-toxin)
+(<epset-task-procedure-b> ^delta <delta-rule77>)
+(<delta-rule77> ^op-name mean-toxin
+	^const <Q77>)
+(<delta-rule77> ^prop <prop-C3>)
+(<delta-rule77> ^prop <prop-C4>)
+
+(<Q76>  ^1 elio-procedure-b-init)
+(<pre-cbset-rule76> ^props-epset-name elio-procedure-b-init
+	^const <Q76>
+	^delta <delta_PA2>)
 
 (<epset-task-procedure-b> ^props-epset-name procedure-b)
-(<Q87>  ^1 elio-procedure-b-start)
-(<epset-task-procedure-b> ^delta <delta-rule87>)
-(<delta-rule87> ^op-name elio-procedure-b-start
-	^const <Q87>)
-(<delta-rule87> ^prop <prop-C1>)
+(<Q75>  ^1 elio-procedure-b-init)
+(<epset-task-procedure-b> ^delta <delta-rule75>)
+(<delta-rule75> ^op-name elio-procedure-b-init
+	^const <Q75>)
+(<delta-rule75> ^prop <prop-C1>)
 
-(<Q86>  ^1 elio-index1-plus-index2-finish ^2 index1-plus-index2)
-(<pre-cbset-rule86> ^props-epset-name elio-index1-plus-index2-finish
-	^const <Q86>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+(<Q74>  ^1 elio-mineral-div-marine-finish ^2 enter ^3 mineral-div-marine)
+(<pre-cbset-rule74> ^props-epset-name elio-mineral-div-marine-finish
+	^const <Q74>
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
-(<Q85>  ^1 elio-index1-plus-index2-finish ^2 add)
-(<epset-task-index1-plus-index2> ^delta <delta-rule85>)
-(<delta-rule85> ^op-name elio-index1-plus-index2-finish
-	^const <Q85>)
-(<delta-rule85> ^prop <prop-C24>)
+(<Q73>  ^1 elio-mineral-div-marine-finish ^2 div)
+(<epset-task-mineral-div-marine> ^delta <delta-rule73>)
+(<delta-rule73> ^op-name elio-mineral-div-marine-finish
+	^const <Q73>)
+(<delta-rule73> ^prop <prop-C23>)
 
-(<Q84>  ^1 elio-index1-plus-index2-add ^2 add ^3 query)
-(<pre-cbset-rule84> ^props-epset-name elio-index1-plus-index2-add
-	^const <Q84>
-	^delta <delta_PA18_PA19_PA20_PA42>)
+(<Q72>  ^1 elio-mineral-div-marine-divide ^2 div ^3 query)
+(<pre-cbset-rule72> ^props-epset-name elio-mineral-div-marine-divide
+	^const <Q72>
+	^delta <delta_PA17_PA18_PA36_PA37>)
 
-(<Q83>  ^1 elio-index1-plus-index2-add ^2 index1)
-(<epset-task-index1-plus-index2> ^delta <delta-rule83>)
-(<delta-rule83> ^op-name elio-index1-plus-index2-add
-	^const <Q83>)
-(<delta-rule83> ^prop <prop-C24>)
+(<Q71>  ^1 elio-mineral-div-marine-divide ^2 mineral)
+(<epset-task-mineral-div-marine> ^delta <delta-rule71>)
+(<delta-rule71> ^op-name elio-mineral-div-marine-divide
+	^const <Q71>)
+(<delta-rule71> ^prop <prop-C23>)
 
-(<Q82>  ^1 elio-index1-plus-index2-start ^2 retrieve)
-(<pre-cbset-rule82> ^props-epset-name elio-index1-plus-index2-start
-	^const <Q82>
-	^delta <delta_PA34_PA35>)
-
-(<epset-task-index1-plus-index2> ^props-epset-name index1-plus-index2)
-(<Q81>  ^1 elio-index1-plus-index2-start)
-(<epset-task-index1-plus-index2> ^delta <delta-rule81>)
-(<delta-rule81> ^op-name elio-index1-plus-index2-start
-	^const <Q81>)
-(<delta-rule81> ^prop <prop-C17>)
-
-(<Q80>  ^1 elio-part-mult-index1-finish)
-(<pre-cbset-rule80> ^props-epset-name elio-part-mult-index1-finish
-	^const <Q80>
-	^delta <delta_PA29_PA30_PA5>)
-
-(<Q79>  ^1 elio-part-mult-index1-finish ^2 mult)
-(<epset-task-part-mult-index1> ^delta <delta-rule79>)
-(<delta-rule79> ^op-name elio-part-mult-index1-finish
-	^const <Q79>)
-(<delta-rule79> ^prop <prop-C24>)
-
-(<Q78>  ^1 elio-part-mult-index1-mult ^2 mult ^3 query ^4 part-mult-index1)
+(<Q70>  ^1 elio-mineral-div-marine-skip ^2 mineral ^3 wm-query)
+(<delta_PA44> ^prop-apply true
+	^item-name |_PA44|
+	^op-name |_PA44|)
+(<cbset_PA44> ^props-cbset-name |_PA44|
+	^delta <delta-null_PA44>)
+(<delta-null_PA44> ^prop-apply true
+	^prop <prop-A44>)
+(<prop-A44> ^name |_PA44|
+	^prop-type add
+	^attr1 root
+	^attr2 RTid
+	^address1 Q
+	^address2 RT)
+(<delta_PA45> ^prop-apply true
+	^item-name |_PA45|
+	^op-name |_PA45|)
+(<cbset_PA45> ^props-cbset-name |_PA45|
+	^delta <delta-null_PA45>)
+(<delta-null_PA45> ^prop-apply true
+	^prop <prop-A45>)
+(<prop-A45> ^name |_PA45|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
 (<delta_PA46> ^prop-apply true
 	^item-name |_PA46|
 	^op-name |_PA46|)
@@ -1089,54 +1194,43 @@ smem --add {
 (<prop-A46> ^name |_PA46|
 	^prop-type add
 	^attr1 slot1
-	^attr2 4
-	^address1 NW
+	^attr2 2
+	^address1 Q
 	^address2 props$const)
-(<pre-cbset-rule78> ^props-epset-name elio-part-mult-index1-mult
-	^const <Q78>
-	^delta <delta_PA18_PA19_PA2_PA36_PA37_PA46>)
+(<pre-cbset-rule70> ^props-epset-name elio-mineral-div-marine-skip
+	^const <Q70>
+	^delta <delta_PA44_PA45_PA46>)
 
-(<Q77>  ^1 elio-part-mult-index1-mult ^2 particulate)
-(<epset-task-part-mult-index1> ^delta <delta-rule77>)
-(<delta-rule77> ^op-name elio-part-mult-index1-mult
-	^const <Q77>)
-(<delta-rule77> ^prop <prop-C24>)
+(<Q69>  ^1 elio-mineral-div-marine-skip ^2 particulate)
+(<epset-task-mineral-div-marine> ^delta <delta-rule69>)
+(<delta-rule69> ^op-name elio-mineral-div-marine-skip
+	^const <Q69>)
+(<delta-rule69> ^prop <prop-C23>)
 
-(<Q76>  ^1 elio-part-mult-index1-start ^2 retrieve)
-(<pre-cbset-rule76> ^props-epset-name elio-part-mult-index1-start
-	^const <Q76>
-	^delta <delta_PA34_PA35>)
+(<Q68>  ^1 elio-mineral-div-marine-start ^2 marine ^3 retrieve)
+(<pre-cbset-rule68> ^props-epset-name elio-mineral-div-marine-start
+	^const <Q68>
+	^delta <delta_PA34_PA35_PA6>)
 
-(<epset-task-part-mult-index1> ^props-epset-name part-mult-index1)
-(<Q75>  ^1 elio-part-mult-index1-start)
-(<epset-task-part-mult-index1> ^delta <delta-rule75>)
-(<delta-rule75> ^op-name elio-part-mult-index1-start
-	^const <Q75>)
-(<delta-rule75> ^prop <prop-C17>)
+(<epset-task-mineral-div-marine> ^props-epset-name mineral-div-marine)
+(<Q67>  ^1 elio-mineral-div-marine-start)
+(<epset-task-mineral-div-marine> ^delta <delta-rule67>)
+(<delta-rule67> ^op-name elio-mineral-div-marine-start
+	^const <Q67>)
+(<delta-rule67> ^prop <prop-C16>)
 
-(<Q74>  ^1 elio-mineral-div-marine-finish ^2 mineral-div-marine)
-(<pre-cbset-rule74> ^props-epset-name elio-mineral-div-marine-finish
-	^const <Q74>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+(<Q66>  ^1 elio-index2-min-mineral-finish ^2 enter ^3 index2-min-mineral)
+(<pre-cbset-rule66> ^props-epset-name elio-index2-min-mineral-finish
+	^const <Q66>
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
-(<Q73>  ^1 elio-mineral-div-marine-finish ^2 div)
-(<epset-task-mineral-div-marine> ^delta <delta-rule73>)
-(<delta-rule73> ^op-name elio-mineral-div-marine-finish
-	^const <Q73>)
-(<delta-rule73> ^prop <prop-C24>)
+(<Q65>  ^1 elio-index2-min-mineral-finish ^2 subtract)
+(<epset-task-index2-min-mineral> ^delta <delta-rule65>)
+(<delta-rule65> ^op-name elio-index2-min-mineral-finish
+	^const <Q65>)
+(<delta-rule65> ^prop <prop-C23>)
 
-(<Q72>  ^1 elio-mineral-div-marine-divide ^2 div ^3 query)
-(<pre-cbset-rule72> ^props-epset-name elio-mineral-div-marine-divide
-	^const <Q72>
-	^delta <delta_PA18_PA19_PA36_PA37>)
-
-(<Q71>  ^1 elio-mineral-div-marine-divide ^2 mineral)
-(<epset-task-mineral-div-marine> ^delta <delta-rule71>)
-(<delta-rule71> ^op-name elio-mineral-div-marine-divide
-	^const <Q71>)
-(<delta-rule71> ^prop <prop-C24>)
-
-(<Q70>  ^1 elio-mineral-div-marine-skip ^2 mineral ^3 wm-query)
+(<Q64>  ^1 elio-index2-min-mineral-subtract ^2 subtract ^3 query)
 (<delta_PA43> ^prop-apply true
 	^item-name |_PA43|
 	^op-name |_PA43|)
@@ -1146,126 +1240,53 @@ smem --add {
 	^prop <prop-A43>)
 (<prop-A43> ^name |_PA43|
 	^prop-type add
-	^attr1 root
-	^attr2 RTid
-	^address1 Q
-	^address2 RT)
-(<delta_PA44> ^prop-apply true
-	^item-name |_PA44|
-	^op-name |_PA44|)
-(<cbset_PA44> ^props-cbset-name |_PA44|
-	^delta <delta-null_PA44>)
-(<delta-null_PA44> ^prop-apply true
-	^prop <prop-A44>)
-(<prop-A44> ^name |_PA44|
-	^prop-type add
-	^attr1 q-type
-	^attr2 3
-	^address1 Q
-	^address2 props$const)
-(<delta_PA45> ^prop-apply true
-	^item-name |_PA45|
-	^op-name |_PA45|)
-(<cbset_PA45> ^props-cbset-name |_PA45|
-	^delta <delta-null_PA45>)
-(<delta-null_PA45> ^prop-apply true
-	^prop <prop-A45>)
-(<prop-A45> ^name |_PA45|
-	^prop-type add
-	^attr1 slot1
-	^attr2 2
-	^address1 Q
-	^address2 props$const)
-(<pre-cbset-rule70> ^props-epset-name elio-mineral-div-marine-skip
-	^const <Q70>
-	^delta <delta_PA43_PA44_PA45>)
-
-(<Q69>  ^1 elio-mineral-div-marine-skip ^2 particulate)
-(<epset-task-mineral-div-marine> ^delta <delta-rule69>)
-(<delta-rule69> ^op-name elio-mineral-div-marine-skip
-	^const <Q69>)
-(<delta-rule69> ^prop <prop-C24>)
-
-(<Q68>  ^1 elio-mineral-div-marine-start ^2 retrieve)
-(<pre-cbset-rule68> ^props-epset-name elio-mineral-div-marine-start
-	^const <Q68>
-	^delta <delta_PA34_PA35>)
-
-(<epset-task-mineral-div-marine> ^props-epset-name mineral-div-marine)
-(<Q67>  ^1 elio-mineral-div-marine-start)
-(<epset-task-mineral-div-marine> ^delta <delta-rule67>)
-(<delta-rule67> ^op-name elio-mineral-div-marine-start
-	^const <Q67>)
-(<delta-rule67> ^prop <prop-C17>)
-
-(<Q66>  ^1 elio-index2-min-mineral-finish ^2 index2-min-mineral)
-(<pre-cbset-rule66> ^props-epset-name elio-index2-min-mineral-finish
-	^const <Q66>
-	^delta <delta_PA28_PA29_PA30_PA5>)
-
-(<Q65>  ^1 elio-index2-min-mineral-finish ^2 subtract)
-(<epset-task-index2-min-mineral> ^delta <delta-rule65>)
-(<delta-rule65> ^op-name elio-index2-min-mineral-finish
-	^const <Q65>)
-(<delta-rule65> ^prop <prop-C24>)
-
-(<Q64>  ^1 elio-index2-min-mineral-subtract ^2 subtract ^3 query)
-(<delta_PA42> ^prop-apply true
-	^item-name |_PA42|
-	^op-name |_PA42|)
-(<cbset_PA42> ^props-cbset-name |_PA42|
-	^delta <delta-null_PA42>)
-(<delta-null_PA42> ^prop-apply true
-	^prop <prop-A42>)
-(<prop-A42> ^name |_PA42|
-	^prop-type add
 	^attr1 slot3
 	^attr2 slot2
 	^address1 Q
 	^address2 RT)
 (<pre-cbset-rule64> ^props-epset-name elio-index2-min-mineral-subtract
 	^const <Q64>
-	^delta <delta_PA18_PA19_PA20_PA42>)
+	^delta <delta_PA17_PA18_PA19_PA43>)
 
 (<Q63>  ^1 elio-index2-min-mineral-subtract ^2 mineral)
 (<epset-task-index2-min-mineral> ^delta <delta-rule63>)
 (<delta-rule63> ^op-name elio-index2-min-mineral-subtract
 	^const <Q63>)
-(<delta-rule63> ^prop <prop-C24>)
+(<delta-rule63> ^prop <prop-C23>)
 
-(<Q62>  ^1 elio-index2-min-mineral-start ^2 retrieve)
+(<Q62>  ^1 elio-index2-min-mineral-start ^2 index2 ^3 retrieve)
 (<pre-cbset-rule62> ^props-epset-name elio-index2-min-mineral-start
 	^const <Q62>
-	^delta <delta_PA34_PA35>)
+	^delta <delta_PA34_PA35_PA6>)
 
 (<epset-task-index2-min-mineral> ^props-epset-name index2-min-mineral)
 (<Q61>  ^1 elio-index2-min-mineral-start)
 (<epset-task-index2-min-mineral> ^delta <delta-rule61>)
 (<delta-rule61> ^op-name elio-index2-min-mineral-start
 	^const <Q61>)
-(<delta-rule61> ^prop <prop-C17>)
+(<delta-rule61> ^prop <prop-C16>)
 
-(<Q60>  ^1 elio-index1-div-marine-finish ^2 index1-div-marine)
+(<Q60>  ^1 elio-index1-div-marine-finish ^2 enter ^3 index1-div-marine)
 (<pre-cbset-rule60> ^props-epset-name elio-index1-div-marine-finish
 	^const <Q60>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
 (<Q59>  ^1 elio-index1-div-marine-finish ^2 div)
 (<epset-task-index1-div-marine> ^delta <delta-rule59>)
 (<delta-rule59> ^op-name elio-index1-div-marine-finish
 	^const <Q59>)
-(<delta-rule59> ^prop <prop-C24>)
+(<delta-rule59> ^prop <prop-C23>)
 
 (<Q58>  ^1 elio-index1-div-marine-divide ^2 div ^3 query)
 (<pre-cbset-rule58> ^props-epset-name elio-index1-div-marine-divide
 	^const <Q58>
-	^delta <delta_PA18_PA19_PA36_PA37>)
+	^delta <delta_PA17_PA18_PA36_PA37>)
 
 (<Q57>  ^1 elio-index1-div-marine-divide ^2 index1)
 (<epset-task-index1-div-marine> ^delta <delta-rule57>)
 (<delta-rule57> ^op-name elio-index1-div-marine-divide
 	^const <Q57>)
-(<delta-rule57> ^prop <prop-C24>)
+(<delta-rule57> ^prop <prop-C23>)
 
 (<Q56>  ^1 elio-index1-div-marine-next ^2 retrieve)
 (<delta_PA41> ^prop-apply true
@@ -1277,42 +1298,55 @@ smem --add {
 	^prop <prop-A41>)
 (<prop-A41> ^name |_PA41|
 	^prop-type add
+	^attr1 q-type
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<delta_PA42> ^prop-apply true
+	^item-name |_PA42|
+	^op-name |_PA42|)
+(<cbset_PA42> ^props-cbset-name |_PA42|
+	^delta <delta-null_PA42>)
+(<delta-null_PA42> ^prop-apply true
+	^prop <prop-A42>)
+(<prop-A42> ^name |_PA42|
+	^prop-type add
 	^attr1 retrieve
 	^attr2 WMnext
 	^address1 Q
 	^address2 RT)
 (<pre-cbset-rule56> ^props-epset-name elio-index1-div-marine-next
 	^const <Q56>
-	^delta <delta_PA34_PA41>)
+	^delta <delta_PA41_PA42>)
 
 (<Q55>  ^1 elio-index1-div-marine-next ^2 mineral)
 (<epset-task-index1-div-marine> ^delta <delta-rule55>)
 (<delta-rule55> ^op-name elio-index1-div-marine-next
 	^const <Q55>)
-(<delta-rule55> ^prop <prop-C24>)
+(<delta-rule55> ^prop <prop-C23>)
 
-(<Q54>  ^1 elio-index1-div-marine-start ^2 retrieve)
+(<Q54>  ^1 elio-index1-div-marine-start ^2 marine ^3 retrieve)
 (<pre-cbset-rule54> ^props-epset-name elio-index1-div-marine-start
 	^const <Q54>
-	^delta <delta_PA34_PA35>)
+	^delta <delta_PA34_PA35_PA6>)
 
 (<epset-task-index1-div-marine> ^props-epset-name index1-div-marine)
 (<Q53>  ^1 elio-index1-div-marine-start)
 (<epset-task-index1-div-marine> ^delta <delta-rule53>)
 (<delta-rule53> ^op-name elio-index1-div-marine-start
 	^const <Q53>)
-(<delta-rule53> ^prop <prop-C17>)
+(<delta-rule53> ^prop <prop-C16>)
 
-(<Q52>  ^1 elio-mean-toxin-finish ^2 mean-toxin)
+(<Q52>  ^1 elio-mean-toxin-finish ^2 enter ^3 mean-toxin)
 (<pre-cbset-rule52> ^props-epset-name elio-mean-toxin-finish
 	^const <Q52>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
 (<Q51>  ^1 elio-mean-toxin-finish ^2 div)
 (<epset-task-mean-toxin> ^delta <delta-rule51>)
 (<delta-rule51> ^op-name elio-mean-toxin-finish
 	^const <Q51>)
-(<delta-rule51> ^prop <prop-C24>)
+(<delta-rule51> ^prop <prop-C23>)
 
 (<Q50>  ^1 elio-mean-toxin-divide ^2 div ^3 2 ^4 query)
 (<delta_PA40> ^prop-apply true
@@ -1330,50 +1364,50 @@ smem --add {
 	^address2 RT)
 (<pre-cbset-rule50> ^props-epset-name elio-mean-toxin-divide
 	^const <Q50>
-	^delta <delta_PA19_PA31_PA32_PA40>)
+	^delta <delta_PA18_PA31_PA32_PA40>)
 
 (<Q49>  ^1 elio-mean-toxin-divide ^2 add)
 (<epset-task-mean-toxin> ^delta <delta-rule49>)
 (<delta-rule49> ^op-name elio-mean-toxin-divide
 	^const <Q49>)
-(<delta-rule49> ^prop <prop-C24>)
+(<delta-rule49> ^prop <prop-C23>)
 
 (<Q48>  ^1 elio-mean-toxin-add ^2 add ^3 query)
 (<pre-cbset-rule48> ^props-epset-name elio-mean-toxin-add
 	^const <Q48>
-	^delta <delta_PA18_PA19_PA20_PA21>)
+	^delta <delta_PA17_PA18_PA19_PA20>)
 
 (<Q47>  ^1 elio-mean-toxin-add ^2 toxinmin)
 (<epset-task-mean-toxin> ^delta <delta-rule47>)
 (<delta-rule47> ^op-name elio-mean-toxin-add
 	^const <Q47>)
-(<delta-rule47> ^prop <prop-C17>)
-(<delta-rule47> ^prop <prop-C15>)
+(<delta-rule47> ^prop <prop-C16>)
+(<delta-rule47> ^prop <prop-C14>)
 
 (<Q46>  ^1 elio-mean-toxin-toxinmin ^2 read ^3 toxinmin)
 (<pre-cbset-rule46> ^props-epset-name elio-mean-toxin-toxinmin
 	^const <Q46>
-	^delta <delta_PA14_PA16_PA7>)
+	^delta <delta_PA12_PA13_PA15>)
 
 (<Q45>  ^1 elio-mean-toxin-toxinmin ^2 toxinmax)
 (<epset-task-mean-toxin> ^delta <delta-rule45>)
 (<delta-rule45> ^op-name elio-mean-toxin-toxinmin
 	^const <Q45>)
-(<delta-rule45> ^prop <prop-C15>)
+(<delta-rule45> ^prop <prop-C14>)
 
 (<Q44>  ^1 elio-mean-toxin-start ^2 read ^3 toxinmax)
 (<pre-cbset-rule44> ^props-epset-name elio-mean-toxin-start
 	^const <Q44>
-	^delta <delta_PA14_PA7>)
+	^delta <delta_PA12_PA13>)
 
 (<epset-task-mean-toxin> ^props-epset-name mean-toxin)
 (<Q43>  ^1 elio-mean-toxin-start)
 (<epset-task-mean-toxin> ^delta <delta-rule43>)
 (<delta-rule43> ^op-name elio-mean-toxin-start
 	^const <Q43>)
-(<delta-rule43> ^prop <prop-C13>)
+(<delta-rule43> ^prop <prop-C11>)
 
-(<Q42>  ^1 elio-part-plus-mineral-finish ^2 part-plus-mineral)
+(<Q42>  ^1 elio-part-plus-mineral-finish ^2 enter ^3 part-plus-mineral)
 (<delta_PA38> ^prop-apply true
 	^item-name |_PA38|
 	^op-name |_PA38|)
@@ -1384,7 +1418,7 @@ smem --add {
 (<prop-A38> ^name |_PA38|
 	^prop-type add
 	^attr1 slot1
-	^attr2 2
+	^attr2 3
 	^address1 NW
 	^address2 props$const)
 (<delta_PA39> ^prop-apply true
@@ -1402,13 +1436,13 @@ smem --add {
 	^address2 RT)
 (<pre-cbset-rule42> ^props-epset-name elio-part-plus-mineral-finish
 	^const <Q42>
-	^delta <delta_PA10_PA30_PA38_PA39_PA5>)
+	^delta <delta_PA10_PA12_PA27_PA30_PA38_PA39_PA7>)
 
 (<Q41>  ^1 elio-part-plus-mineral-finish ^2 add)
 (<epset-task-part-plus-mineral> ^delta <delta-rule41>)
 (<delta-rule41> ^op-name elio-part-plus-mineral-finish
 	^const <Q41>)
-(<delta-rule41> ^prop <prop-C24>)
+(<delta-rule41> ^prop <prop-C23>)
 
 (<Q40>  ^1 elio-part-plus-mineral-add ^2 add ^3 query)
 (<delta_PA36> ^prop-apply true
@@ -1439,15 +1473,15 @@ smem --add {
 	^address2 WM)
 (<pre-cbset-rule40> ^props-epset-name elio-part-plus-mineral-add
 	^const <Q40>
-	^delta <delta_PA18_PA19_PA2_PA36_PA37>)
+	^delta <delta_PA17_PA18_PA2_PA36_PA37>)
 
 (<Q39>  ^1 elio-part-plus-mineral-add ^2 particulate)
 (<epset-task-part-plus-mineral> ^delta <delta-rule39>)
 (<delta-rule39> ^op-name elio-part-plus-mineral-add
 	^const <Q39>)
-(<delta-rule39> ^prop <prop-C24>)
+(<delta-rule39> ^prop <prop-C23>)
 
-(<Q38>  ^1 elio-part-plus-mineral-start ^2 retrieve)
+(<Q38>  ^1 elio-part-plus-mineral-start ^2 mineral ^3 retrieve)
 (<delta_PA34> ^prop-apply true
 	^item-name |_PA34|
 	^op-name |_PA34|)
@@ -1458,7 +1492,7 @@ smem --add {
 (<prop-A34> ^name |_PA34|
 	^prop-type add
 	^attr1 q-type
-	^attr2 2
+	^attr2 3
 	^address1 Q
 	^address2 props$const)
 (<delta_PA35> ^prop-apply true
@@ -1476,66 +1510,66 @@ smem --add {
 	^address2 G)
 (<pre-cbset-rule38> ^props-epset-name elio-part-plus-mineral-start
 	^const <Q38>
-	^delta <delta_PA34_PA35>)
+	^delta <delta_PA34_PA35_PA6>)
 
 (<epset-task-part-plus-mineral> ^props-epset-name part-plus-mineral)
 (<Q37>  ^1 elio-part-plus-mineral-start)
 (<epset-task-part-plus-mineral> ^delta <delta-rule37>)
 (<delta-rule37> ^op-name elio-part-plus-mineral-start
 	^const <Q37>)
-(<delta-rule37> ^prop <prop-C17>)
+(<delta-rule37> ^prop <prop-C16>)
 
 (<Q36>  ^1 elio-greater-algae-finish ^2 greater-algae)
 (<pre-cbset-rule36> ^props-epset-name elio-greater-algae-finish
 	^const <Q36>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+	^delta <delta_PA10_PA29_PA6_PA8>)
 
 (<Q35>  ^1 elio-greater-algae-finish ^2 greater-of)
 (<epset-task-greater-algae> ^delta <delta-rule35>)
 (<delta-rule35> ^op-name elio-greater-algae-finish
 	^const <Q35>)
-(<delta-rule35> ^prop <prop-C24>)
+(<delta-rule35> ^prop <prop-C23>)
 
 (<Q34>  ^1 elio-greater-algae-greater ^2 greater-of ^3 query)
 (<pre-cbset-rule34> ^props-epset-name elio-greater-algae-greater
 	^const <Q34>
-	^delta <delta_PA18_PA19_PA20_PA27>)
+	^delta <delta_PA17_PA18_PA19_PA26>)
 
 (<Q33>  ^1 elio-greater-algae-greater ^2 div ^3 solid)
 (<epset-task-greater-algae> ^delta <delta-rule33>)
 (<delta-rule33> ^op-name elio-greater-algae-greater
 	^const <Q33>)
+(<delta-rule33> ^prop <prop-C23>)
 (<delta-rule33> ^prop <prop-C24>)
-(<delta-rule33> ^prop <prop-C25>)
 
 (<Q32>  ^1 elio-greater-algae-div-3 ^2 div ^3 3 ^4 query)
 (<pre-cbset-rule32> ^props-epset-name elio-greater-algae-div-3
 	^const <Q32>
-	^delta <delta_PA19_PA26_PA31_PA32>)
+	^delta <delta_PA18_PA25_PA31_PA32>)
 
 (<Q31>  ^1 elio-greater-algae-div-3 ^2 solid)
 (<epset-task-greater-algae> ^delta <delta-rule31>)
 (<delta-rule31> ^op-name elio-greater-algae-div-3
 	^const <Q31>)
-(<delta-rule31> ^prop <prop-C17>)
-(<delta-rule31> ^prop <prop-C15>)
+(<delta-rule31> ^prop <prop-C16>)
+(<delta-rule31> ^prop <prop-C14>)
 
 (<Q30>  ^1 elio-greater-algae-read-solid ^2 read ^3 solid)
 (<pre-cbset-rule30> ^props-epset-name elio-greater-algae-read-solid
 	^const <Q30>
-	^delta <delta_PA14_PA29_PA5_PA7>)
+	^delta <delta_PA10_PA12_PA13_PA29>)
 
 (<Q29>  ^1 elio-greater-algae-read-solid ^2 algae)
 (<epset-task-greater-algae> ^delta <delta-rule29>)
 (<delta-rule29> ^op-name elio-greater-algae-read-solid
 	^const <Q29>)
 (<delta-rule29> ^prop <prop-C33>)
-(<prop-C33> ^name |_PA33|
+(<prop-C33> ^name |_PC33|
 	^prop-type existence
 	^attr1 slot4
 	^address1 RT)
 
-(<delta-rule29> ^prop <prop-C15>)
+(<delta-rule29> ^prop <prop-C14>)
 
 (<Q28>  ^1 elio-greater-algae-div-2 ^2 div ^3 2 ^4 query)
 (<delta_PA31> ^prop-apply true
@@ -1566,28 +1600,41 @@ smem --add {
 	^address2 props$const)
 (<pre-cbset-rule28> ^props-epset-name elio-greater-algae-div-2
 	^const <Q28>
-	^delta <delta_PA19_PA26_PA31_PA32>)
+	^delta <delta_PA18_PA25_PA31_PA32>)
 
 (<Q27>  ^1 elio-greater-algae-div-2 ^2 algae)
 (<epset-task-greater-algae> ^delta <delta-rule27>)
 (<delta-rule27> ^op-name elio-greater-algae-div-2
 	^const <Q27>)
-(<delta-rule27> ^prop <prop-C17>)
-(<delta-rule27> ^prop <prop-C15>)
+(<delta-rule27> ^prop <prop-C16>)
+(<delta-rule27> ^prop <prop-C14>)
 
 (<Q26>  ^1 elio-greater-algae-start ^2 read ^3 algae)
 (<pre-cbset-rule26> ^props-epset-name elio-greater-algae-start
 	^const <Q26>
-	^delta <delta_PA14_PA7>)
+	^delta <delta_PA12_PA13>)
 
 (<epset-task-greater-algae> ^props-epset-name greater-algae)
 (<Q25>  ^1 elio-greater-algae-start)
 (<epset-task-greater-algae> ^delta <delta-rule25>)
 (<delta-rule25> ^op-name elio-greater-algae-start
 	^const <Q25>)
-(<delta-rule25> ^prop <prop-C13>)
+(<delta-rule25> ^prop <prop-C11>)
 
-(<Q24>  ^1 elio-solid-lime-diff-finish ^2 solid-lime-diff)
+(<Q24>  ^1 elio-solid-lime-diff-finish ^2 enter ^3 solid-lime-diff)
+(<delta_PA27> ^prop-apply true
+	^item-name |_PA27|
+	^op-name |_PA27|)
+(<cbset_PA27> ^props-cbset-name |_PA27|
+	^delta <delta-null_PA27>)
+(<delta-null_PA27> ^prop-apply true
+	^prop <prop-A27>)
+(<prop-A27> ^name |_PA27|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot4
+	^address1 AC
+	^address2 RT)
 (<delta_PA28> ^prop-apply true
 	^item-name |_PA28|
 	^op-name |_PA28|)
@@ -1598,7 +1645,7 @@ smem --add {
 (<prop-A28> ^name |_PA28|
 	^prop-type add
 	^attr1 slot1
-	^attr2 2
+	^attr2 3
 	^address1 WM
 	^address2 props$const)
 (<delta_PA29> ^prop-apply true
@@ -1623,21 +1670,34 @@ smem --add {
 	^prop <prop-A30>)
 (<prop-A30> ^name |_PA30|
 	^prop-type add
-	^attr1 Gtask
-	^attr2 Gparent
+	^attr1 Gparent
+	^attr2 3
 	^address1 G
-	^address2 G)
+	^address2 props$const)
 (<pre-cbset-rule24> ^props-epset-name elio-solid-lime-diff-finish
 	^const <Q24>
-	^delta <delta_PA28_PA29_PA30_PA5>)
+	^delta <delta_PA10_PA12_PA27_PA28_PA29_PA30>)
 
 (<Q23>  ^1 elio-solid-lime-diff-finish ^2 mult)
 (<epset-task-solid-lime-diff> ^delta <delta-rule23>)
 (<delta-rule23> ^op-name elio-solid-lime-diff-finish
 	^const <Q23>)
-(<delta-rule23> ^prop <prop-C24>)
+(<delta-rule23> ^prop <prop-C23>)
 
 (<Q22>  ^1 elio-solid-lime-diff-mult ^2 mult ^3 query)
+(<delta_PA25> ^prop-apply true
+	^item-name |_PA25|
+	^op-name |_PA25|)
+(<cbset_PA25> ^props-cbset-name |_PA25|
+	^delta <delta-null_PA25>)
+(<delta-null_PA25> ^prop-apply true
+	^prop <prop-A25>)
+(<prop-A25> ^name |_PA25|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 Q
+	^address2 V)
 (<delta_PA26> ^prop-apply true
 	^item-name |_PA26|
 	^op-name |_PA26|)
@@ -1647,41 +1707,28 @@ smem --add {
 	^prop <prop-A26>)
 (<prop-A26> ^name |_PA26|
 	^prop-type add
-	^attr1 slot2
-	^attr2 slot2
-	^address1 Q
-	^address2 V)
-(<delta_PA27> ^prop-apply true
-	^item-name |_PA27|
-	^op-name |_PA27|)
-(<cbset_PA27> ^props-cbset-name |_PA27|
-	^delta <delta-null_PA27>)
-(<delta-null_PA27> ^prop-apply true
-	^prop <prop-A27>)
-(<prop-A27> ^name |_PA27|
-	^prop-type add
 	^attr1 slot3
 	^attr2 slot4
 	^address1 Q
 	^address2 RT)
 (<pre-cbset-rule22> ^props-epset-name elio-solid-lime-diff-mult
 	^const <Q22>
-	^delta <delta_PA18_PA19_PA26_PA27>)
+	^delta <delta_PA17_PA18_PA25_PA26>)
 
 (<Q21>  ^1 elio-solid-lime-diff-mult ^2 subtract ^3 solid)
 (<epset-task-solid-lime-diff> ^delta <delta-rule21>)
 (<delta-rule21> ^op-name elio-solid-lime-diff-mult
 	^const <Q21>)
-(<delta-rule21> ^prop <prop-C24>)
-(<prop-C24> ^name |_PA24|
+(<delta-rule21> ^prop <prop-C23>)
+(<prop-C23> ^name |_PC23|
 	^prop-type equality
 	^attr1 slot1
 	^attr2 2
 	^address1 RT
 	^address2 props$const)
 
-(<delta-rule21> ^prop <prop-C25>)
-(<prop-C25> ^name |_PA25|
+(<delta-rule21> ^prop <prop-C24>)
+(<prop-C24> ^name |_PC24|
 	^prop-type equality
 	^attr1 slot1
 	^attr2 3
@@ -1690,6 +1737,19 @@ smem --add {
 
 
 (<Q20>  ^1 elio-solid-lime-diff-diff ^2 subtract ^3 query ^4 read ^5 solid)
+(<delta_PA17> ^prop-apply true
+	^item-name |_PA17|
+	^op-name |_PA17|)
+(<cbset_PA17> ^props-cbset-name |_PA17|
+	^delta <delta-null_PA17>)
+(<delta-null_PA17> ^prop-apply true
+	^prop <prop-A17>)
+(<prop-A17> ^name |_PA17|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
 (<delta_PA18> ^prop-apply true
 	^item-name |_PA18|
 	^op-name |_PA18|)
@@ -1699,8 +1759,8 @@ smem --add {
 	^prop <prop-A18>)
 (<prop-A18> ^name |_PA18|
 	^prop-type add
-	^attr1 q-type
-	^attr2 3
+	^attr1 slot1
+	^attr2 2
 	^address1 Q
 	^address2 props$const)
 (<delta_PA19> ^prop-apply true
@@ -1712,10 +1772,10 @@ smem --add {
 	^prop <prop-A19>)
 (<prop-A19> ^name |_PA19|
 	^prop-type add
-	^attr1 slot1
-	^attr2 2
+	^attr1 slot2
+	^attr2 slot2
 	^address1 Q
-	^address2 props$const)
+	^address2 WM)
 (<delta_PA20> ^prop-apply true
 	^item-name |_PA20|
 	^op-name |_PA20|)
@@ -1725,10 +1785,10 @@ smem --add {
 	^prop <prop-A20>)
 (<prop-A20> ^name |_PA20|
 	^prop-type add
-	^attr1 slot2
+	^attr1 slot3
 	^attr2 slot2
 	^address1 Q
-	^address2 WM)
+	^address2 V)
 (<delta_PA21> ^prop-apply true
 	^item-name |_PA21|
 	^op-name |_PA21|)
@@ -1738,10 +1798,10 @@ smem --add {
 	^prop <prop-A21>)
 (<prop-A21> ^name |_PA21|
 	^prop-type add
-	^attr1 slot3
-	^attr2 slot2
-	^address1 Q
-	^address2 V)
+	^attr1 slot1
+	^attr2 4
+	^address1 AC
+	^address2 props$const)
 (<delta_PA22> ^prop-apply true
 	^item-name |_PA22|
 	^op-name |_PA22|)
@@ -1751,48 +1811,35 @@ smem --add {
 	^prop <prop-A22>)
 (<prop-A22> ^name |_PA22|
 	^prop-type add
-	^attr1 slot1
-	^attr2 4
-	^address1 AC
-	^address2 props$const)
-(<delta_PA23> ^prop-apply true
-	^item-name |_PA23|
-	^op-name |_PA23|)
-(<cbset_PA23> ^props-cbset-name |_PA23|
-	^delta <delta-null_PA23>)
-(<delta-null_PA23> ^prop-apply true
-	^prop <prop-A23>)
-(<prop-A23> ^name |_PA23|
-	^prop-type add
 	^attr1 slot2
 	^attr2 5
 	^address1 AC
 	^address2 props$const)
 (<pre-cbset-rule20> ^props-epset-name elio-solid-lime-diff-diff
 	^const <Q20>
-	^delta <delta_PA18_PA19_PA20_PA21_PA22_PA23>)
+	^delta <delta_PA17_PA18_PA19_PA20_PA21_PA22>)
 
 (<Q19>  ^1 elio-solid-lime-diff-diff ^2 lime2)
 (<epset-task-solid-lime-diff> ^delta <delta-rule19>)
 (<delta-rule19> ^op-name elio-solid-lime-diff-diff
 	^const <Q19>)
-(<delta-rule19> ^prop <prop-C17>)
-(<prop-C17> ^name |_PA17|
+(<delta-rule19> ^prop <prop-C16>)
+(<prop-C16> ^name |_PC16|
 	^prop-type negation
 	^attr1 rt-result
 	^address1 smem)
 
-(<delta-rule19> ^prop <prop-C15>)
+(<delta-rule19> ^prop <prop-C14>)
 
 (<Q18>  ^1 elio-solid-lime-diff-step-2 ^2 read ^3 lime2)
-(<delta_PA16> ^prop-apply true
-	^item-name |_PA16|
-	^op-name |_PA16|)
-(<cbset_PA16> ^props-cbset-name |_PA16|
-	^delta <delta-null_PA16>)
-(<delta-null_PA16> ^prop-apply true
-	^prop <prop-A16>)
-(<prop-A16> ^name |_PA16|
+(<delta_PA15> ^prop-apply true
+	^item-name |_PA15|
+	^op-name |_PA15|)
+(<cbset_PA15> ^props-cbset-name |_PA15|
+	^delta <delta-null_PA15>)
+(<delta-null_PA15> ^prop-apply true
+	^prop <prop-A15>)
+(<prop-A15> ^name |_PA15|
 	^prop-type add
 	^attr1 slot2
 	^attr2 slot2
@@ -1800,14 +1847,14 @@ smem --add {
 	^address2 V)
 (<pre-cbset-rule18> ^props-epset-name elio-solid-lime-diff-step-2
 	^const <Q18>
-	^delta <delta_PA14_PA16_PA7>)
+	^delta <delta_PA12_PA13_PA15>)
 
 (<Q17>  ^1 elio-solid-lime-diff-step-2 ^2 lime4)
 (<epset-task-solid-lime-diff> ^delta <delta-rule17>)
 (<delta-rule17> ^op-name elio-solid-lime-diff-step-2
 	^const <Q17>)
-(<delta-rule17> ^prop <prop-C15>)
-(<prop-C15> ^name |_PA15|
+(<delta-rule17> ^prop <prop-C14>)
+(<prop-C14> ^name |_PC14|
 	^prop-type equality
 	^attr1 slot1
 	^attr2 2
@@ -1816,36 +1863,6 @@ smem --add {
 
 
 (<Q16>  ^1 elio-solid-lime-diff-step-1 ^2 read ^3 lime4)
-(<delta_PA14> ^prop-apply true
-	^item-name |_PA14|
-	^op-name |_PA14|)
-(<cbset_PA14> ^props-cbset-name |_PA14|
-	^delta <delta-null_PA14>)
-(<delta-null_PA14> ^prop-apply true
-	^prop <prop-A14>)
-(<prop-A14> ^name |_PA14|
-	^prop-type add
-	^attr1 slot2
-	^attr2 3
-	^address1 AC
-	^address2 props$const)
-(<pre-cbset-rule16> ^props-epset-name elio-solid-lime-diff-step-1
-	^const <Q16>
-	^delta <delta_PA14_PA7>)
-
-(<epset-task-solid-lime-diff> ^props-epset-name solid-lime-diff)
-(<Q15>  ^1 elio-solid-lime-diff-step-1)
-(<epset-task-solid-lime-diff> ^delta <delta-rule15>)
-(<delta-rule15> ^op-name elio-solid-lime-diff-step-1
-	^const <Q15>)
-(<delta-rule15> ^prop <prop-C13>)
-(<prop-C13> ^name |_PA13|
-	^prop-type negation
-	^attr1 slot1
-	^address1 V)
-
-
-(<Q14>  ^1 elio-procedure-a-step-7 ^2 enter ^3 finish)
 (<delta_PA12> ^prop-apply true
 	^item-name |_PA12|
 	^op-name |_PA12|)
@@ -1855,91 +1872,40 @@ smem --add {
 	^prop <prop-A12>)
 (<prop-A12> ^name |_PA12|
 	^prop-type add
-	^attr1 Gtask
-	^attr2 3
-	^address1 G
-	^address2 props$const)
-(<pre-cbset-rule14> ^props-epset-name elio-procedure-a-step-7
-	^const <Q14>
-	^delta <delta_PA12_PA5_PA7_PA8>)
-
-(<Q13>  ^1 elio-procedure-a-step-7 ^2 index2-min-mineral)
-(<epset-task-procedure-a> ^delta <delta-rule13>)
-(<delta-rule13> ^op-name elio-procedure-a-step-7
-	^const <Q13>)
-(<delta-rule13> ^prop <prop-C6>)
-
-(<Q12>  ^1 elio-procedure-a-step-6 ^2 enter ^3 index2 ^4 index2-min-mineral)
-(<pre-cbset-rule12> ^props-epset-name elio-procedure-a-step-6
-	^const <Q12>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q11>  ^1 elio-procedure-a-step-6 ^2 index1-div-marine)
-(<epset-task-procedure-a> ^delta <delta-rule11>)
-(<delta-rule11> ^op-name elio-procedure-a-step-6
-	^const <Q11>)
-(<delta-rule11> ^prop <prop-C6>)
-
-(<Q10>  ^1 elio-procedure-a-step-5 ^2 enter ^3 marine ^4 index1-div-marine)
-(<pre-cbset-rule10> ^props-epset-name elio-procedure-a-step-5
-	^const <Q10>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q9>  ^1 elio-procedure-a-step-5 ^2 mean-toxin)
-(<epset-task-procedure-a> ^delta <delta-rule9>)
-(<delta-rule9> ^op-name elio-procedure-a-step-5
-	^const <Q9>)
-(<delta-rule9> ^prop <prop-C6>)
-
-(<Q8>  ^1 elio-procedure-a-step-4 ^2 enter ^3 index1 ^4 mean-toxin)
-(<pre-cbset-rule8> ^props-epset-name elio-procedure-a-step-4
-	^const <Q8>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q7>  ^1 elio-procedure-a-step-4 ^2 part-plus-mineral)
-(<epset-task-procedure-a> ^delta <delta-rule7>)
-(<delta-rule7> ^op-name elio-procedure-a-step-4
-	^const <Q7>)
-(<delta-rule7> ^prop <prop-C6>)
-
-(<Q6>  ^1 elio-procedure-a-step-3 ^2 enter ^3 mineral ^4 part-plus-mineral)
-(<pre-cbset-rule6> ^props-epset-name elio-procedure-a-step-3
-	^const <Q6>
-	^delta <delta_PA11_PA5_PA7_PA8_PA9>)
-
-(<Q5>  ^1 elio-procedure-a-step-3 ^2 greater-algae)
-(<epset-task-procedure-a> ^delta <delta-rule5>)
-(<delta-rule5> ^op-name elio-procedure-a-step-3
-	^const <Q5>)
-(<delta-rule5> ^prop <prop-C6>)
-
-(<Q4>  ^1 elio-procedure-a-step-2 ^2 enter ^3 particulate ^4 greater-algae)
-(<delta_PA7> ^prop-apply true
-	^item-name |_PA7|
-	^op-name |_PA7|)
-(<cbset_PA7> ^props-cbset-name |_PA7|
-	^delta <delta-null_PA7>)
-(<delta-null_PA7> ^prop-apply true
-	^prop <prop-A7>)
-(<prop-A7> ^name |_PA7|
-	^prop-type add
 	^attr1 slot1
 	^attr2 2
 	^address1 AC
 	^address2 props$const)
-(<delta_PA8> ^prop-apply true
-	^item-name |_PA8|
-	^op-name |_PA8|)
-(<cbset_PA8> ^props-cbset-name |_PA8|
-	^delta <delta-null_PA8>)
-(<delta-null_PA8> ^prop-apply true
-	^prop <prop-A8>)
-(<prop-A8> ^name |_PA8|
+(<delta_PA13> ^prop-apply true
+	^item-name |_PA13|
+	^op-name |_PA13|)
+(<cbset_PA13> ^props-cbset-name |_PA13|
+	^delta <delta-null_PA13>)
+(<delta-null_PA13> ^prop-apply true
+	^prop <prop-A13>)
+(<prop-A13> ^name |_PA13|
 	^prop-type add
 	^attr1 slot2
-	^attr2 slot2
+	^attr2 3
 	^address1 AC
-	^address2 WM)
+	^address2 props$const)
+(<pre-cbset-rule16> ^props-epset-name elio-solid-lime-diff-step-1
+	^const <Q16>
+	^delta <delta_PA12_PA13>)
+
+(<epset-task-solid-lime-diff> ^props-epset-name solid-lime-diff)
+(<Q15>  ^1 elio-solid-lime-diff-step-1)
+(<epset-task-solid-lime-diff> ^delta <delta-rule15>)
+(<delta-rule15> ^op-name elio-solid-lime-diff-step-1
+	^const <Q15>)
+(<delta-rule15> ^prop <prop-C11>)
+(<prop-C11> ^name |_PC11|
+	^prop-type negation
+	^attr1 slot1
+	^address1 V)
+
+
+(<Q14>  ^1 elio-procedure-a-step-7 ^2 finish)
 (<delta_PA9> ^prop-apply true
 	^item-name |_PA9|
 	^op-name |_PA9|)
@@ -1949,9 +1915,9 @@ smem --add {
 	^prop <prop-A9>)
 (<prop-A9> ^name |_PA9|
 	^prop-type add
-	^attr1 slot1
-	^attr2 3
-	^address1 WM
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
 	^address2 props$const)
 (<delta_PA10> ^prop-apply true
 	^item-name |_PA10|
@@ -1962,41 +1928,136 @@ smem --add {
 	^prop <prop-A10>)
 (<prop-A10> ^name |_PA10|
 	^prop-type add
-	^attr1 WMprev
-	^attr2 WM
-	^address1 NW
-	^address2 props$rootstate)
-(<delta_PA11> ^prop-apply true
-	^item-name |_PA11|
-	^op-name |_PA11|)
-(<cbset_PA11> ^props-cbset-name |_PA11|
-	^delta <delta-null_PA11>)
-(<delta-null_PA11> ^prop-apply true
-	^prop <prop-A11>)
-(<prop-A11> ^name |_PA11|
-	^prop-type add
-	^attr1 Gtask
-	^attr2 4
-	^address1 G
+	^attr1 clear-rt
+	^attr2 1
+	^address1 flags
 	^address2 props$const)
-(<pre-cbset-rule4> ^props-epset-name elio-procedure-a-step-2
-	^const <Q4>
-	^delta <delta_PA10_PA11_PA5_PA7_PA8_PA9>)
+(<pre-cbset-rule14> ^props-epset-name elio-procedure-a-step-7
+	^const <Q14>
+	^delta <delta_PA10_PA9>)
 
-(<Q3>  ^1 elio-procedure-a-step-2 ^2 solid-lime-diff)
-(<epset-task-procedure-a> ^delta <delta-rule3>)
-(<delta-rule3> ^op-name elio-procedure-a-step-2
-	^const <Q3>)
-(<delta-rule3> ^prop <prop-C6>)
-(<prop-C6> ^name |_PA6|
-	^prop-type equality
+(<Q13>  ^1 elio-procedure-a-step-7 ^2 index2-min-mineral)
+(<epset-task-procedure-a> ^delta <delta-rule13>)
+(<delta-rule13> ^op-name elio-procedure-a-step-7
+	^const <Q13>)
+(<delta-rule13> ^prop <prop-C5>)
+
+(<Q12>  ^1 index2-min-mineral ^2 index1-div-marine)
+(<epset-task-procedure-a> ^delta <delta-rule12>)
+(<delta-rule12> ^op-name index2-min-mineral
+	^const <Q12>)
+(<delta-rule12> ^prop <prop-C5>)
+
+(<Q11>  ^1 index1-div-marine ^2 mean-toxin)
+(<epset-task-procedure-a> ^delta <delta-rule11>)
+(<delta-rule11> ^op-name index1-div-marine
+	^const <Q11>)
+(<delta-rule11> ^prop <prop-C5>)
+
+(<Q10>  ^1 mean-toxin ^2 index1)
+(<epset-task-procedure-a> ^delta <delta-rule10>)
+(<delta-rule10> ^op-name mean-toxin
+	^const <Q10>)
+(<delta-rule10> ^prop <prop-C5>)
+
+(<Q9>  ^1 elio-procedure-a-remember-index1 ^2 index1)
+(<pre-cbset-rule9> ^props-epset-name elio-procedure-a-remember-index1
+	^const <Q9>
+	^delta <delta_PA6_PA7_PA8>)
+
+(<Q8>  ^1 elio-procedure-a-remember-index1 ^2 part-plus-mineral)
+(<epset-task-procedure-a> ^delta <delta-rule8>)
+(<delta-rule8> ^op-name elio-procedure-a-remember-index1
+	^const <Q8>)
+(<delta-rule8> ^prop <prop-C5>)
+
+(<Q7>  ^1 part-plus-mineral ^2 greater-algae)
+(<epset-task-procedure-a> ^delta <delta-rule7>)
+(<delta-rule7> ^op-name part-plus-mineral
+	^const <Q7>)
+(<delta-rule7> ^prop <prop-C5>)
+
+(<Q6>  ^1 greater-algae ^2 particulate)
+(<epset-task-procedure-a> ^delta <delta-rule6>)
+(<delta-rule6> ^op-name greater-algae
+	^const <Q6>)
+(<delta-rule6> ^prop <prop-C5>)
+
+(<Q5>  ^1 elio-procedure-a-remember-particulate ^2 particulate)
+(<delta_PA6> ^prop-apply true
+	^item-name |_PA6|
+	^op-name |_PA6|)
+(<cbset_PA6> ^props-cbset-name |_PA6|
+	^delta <delta-null_PA6>)
+(<delta-null_PA6> ^prop-apply true
+	^prop <prop-A6>)
+(<prop-A6> ^name |_PA6|
+	^prop-type add
 	^attr1 slot1
 	^attr2 2
 	^address1 WM
 	^address2 props$const)
+(<delta_PA7> ^prop-apply true
+	^item-name |_PA7|
+	^op-name |_PA7|)
+(<cbset_PA7> ^props-cbset-name |_PA7|
+	^delta <delta-null_PA7>)
+(<delta-null_PA7> ^prop-apply true
+	^prop <prop-A7>)
+(<prop-A7> ^name |_PA7|
+	^prop-type add
+	^attr1 WMprev
+	^attr2 WM
+	^address1 NW
+	^address2 props$rootstate)
+(<delta_PA8> ^prop-apply true
+	^item-name |_PA8|
+	^op-name |_PA8|)
+(<cbset_PA8> ^props-cbset-name |_PA8|
+	^delta <delta-null_PA8>)
+(<delta-null_PA8> ^prop-apply true
+	^prop <prop-A8>)
+(<prop-A8> ^name |_PA8|
+	^prop-type add
+	^attr1 Gparent
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<pre-cbset-rule5> ^props-epset-name elio-procedure-a-remember-particulate
+	^const <Q5>
+	^delta <delta_PA6_PA7_PA8>)
+
+(<Q4>  ^1 elio-procedure-a-remember-particulate ^2 solid-lime-diff)
+(<epset-task-procedure-a> ^delta <delta-rule4>)
+(<delta-rule4> ^op-name elio-procedure-a-remember-particulate
+	^const <Q4>)
+(<delta-rule4> ^prop <prop-C5>)
+(<prop-C5> ^name |_PC5|
+	^prop-type equality
+	^attr1 Gparent
+	^attr2 2
+	^address1 G
+	^address2 props$const)
 
 
-(<Q2>  ^1 elio-procedure-a-step-1 ^2 solid-lime-diff)
+(<Q3>  ^1 solid-lime-diff)
+(<epset-task-procedure-a> ^delta <delta-rule3>)
+(<delta-rule3> ^op-name solid-lime-diff
+	^const <Q3>)
+(<delta-rule3> ^prop <prop-C3>)
+(<prop-C3> ^name |_PC3|
+	^prop-type existence
+	^attr1 Gtop
+	^address1 G)
+
+(<delta-rule3> ^prop <prop-C4>)
+(<prop-C4> ^name |_PC4|
+	^prop-type negation
+	^attr1 Gparent
+	^address1 G)
+
+
+(<Q2>  ^1 elio-procedure-a-init)
 (<delta_PA2> ^prop-apply true
 	^item-name |_PA2|
 	^op-name |_PA2|)
@@ -2010,56 +2071,17 @@ smem --add {
 	^attr2 WM
 	^address1 G
 	^address2 props$rootstate)
-(<delta_PA3> ^prop-apply true
-	^item-name |_PA3|
-	^op-name |_PA3|)
-(<cbset_PA3> ^props-cbset-name |_PA3|
-	^delta <delta-null_PA3>)
-(<delta-null_PA3> ^prop-apply true
-	^prop <prop-A3>)
-(<prop-A3> ^name |_PA3|
-	^prop-type add
-	^attr1 Gparent
-	^attr2 Gtask
-	^address1 G
-	^address2 G)
-(<delta_PA4> ^prop-apply true
-	^item-name |_PA4|
-	^op-name |_PA4|)
-(<cbset_PA4> ^props-cbset-name |_PA4|
-	^delta <delta-null_PA4>)
-(<delta-null_PA4> ^prop-apply true
-	^prop <prop-A4>)
-(<prop-A4> ^name |_PA4|
-	^prop-type add
-	^attr1 Gtask
-	^attr2 2
-	^address1 G
-	^address2 props$const)
-(<delta_PA5> ^prop-apply true
-	^item-name |_PA5|
-	^op-name |_PA5|)
-(<cbset_PA5> ^props-cbset-name |_PA5|
-	^delta <delta-null_PA5>)
-(<delta-null_PA5> ^prop-apply true
-	^prop <prop-A5>)
-(<prop-A5> ^name |_PA5|
-	^prop-type add
-	^attr1 clear-rt
-	^attr2 1
-	^address1 flags
-	^address2 props$const)
-(<pre-cbset-rule2> ^props-epset-name elio-procedure-a-step-1
+(<pre-cbset-rule2> ^props-epset-name elio-procedure-a-init
 	^const <Q2>
-	^delta <delta_PA2_PA3_PA4_PA5>)
+	^delta <delta_PA2>)
 
 (<epset-task-procedure-a> ^props-epset-name procedure-a)
-(<Q1>  ^1 elio-procedure-a-step-1)
+(<Q1>  ^1 elio-procedure-a-init)
 (<epset-task-procedure-a> ^delta <delta-rule1>)
-(<delta-rule1> ^op-name elio-procedure-a-step-1
+(<delta-rule1> ^op-name elio-procedure-a-init
 	^const <Q1>)
 (<delta-rule1> ^prop <prop-C1>)
-(<prop-C1> ^name |_PA1|
+(<prop-C1> ^name |_PC1|
 	^prop-type negation
 	^attr1 Gtop
 	^address1 G)

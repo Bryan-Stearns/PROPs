@@ -3,15 +3,10 @@ package edu.umich.eecs.soar.propsutil;
 import java.util.ArrayList;
 
 public class LearnConfig {
-	private boolean addresses,
-				    proposals,
-				    autos,
-				    conditions,
-				    spreading,
-				    manual,
-				    seqs,
-				    addressChunks,
-				    epsets;
+	private boolean cognitive,
+					associative,
+				    auto,
+				    spreading;
 	private int chunkThreshold = 2;
 	public ArrayList<String> commands = null;
 	private String commandName = "";
@@ -20,34 +15,22 @@ public class LearnConfig {
 	/**
 	 * Initialize a learning configuration. 
 	 * Learn flags:
-	 *   'addresses'     - Learn memory addresses (source address chunks if not enabled)
-	 *   'proposals'     - Learn hierarchical PROP composition
-	 *   'autos'         - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'conditions'    - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'spreading'     - Learn chunks that cause spread from true conditions to their instructions.
-	 *                     This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'manual'        - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'seq'           - If using 'm', also learn to update the sequence pointer after a correct free recall. 
-	 *   'addressChunks' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   'epsets'		 - Use epset matching to guide spreading. Learns epset contents for task if none exist.
+	 *   'cognitive'     - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   'associative'   - Learn associative phase: hierarchical PROP composition
+	 *   'auto'          - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   'spreading'     - Enable spreading to bias fetching 
 	 */
-	public LearnConfig(boolean addresses, boolean proposals, boolean autos, boolean conditions, boolean spreading, boolean manual, boolean seqs, boolean addressChunks, boolean epsets) {
-		set(addresses, proposals, autos, conditions, spreading, manual, seqs, addressChunks, epsets);
+	public LearnConfig(boolean cognitive, boolean associative, boolean auto, boolean spreading) {
+		set(cognitive, associative, auto, spreading);
 	}
 
 	/**
 	 * Initialize a learning configuration. 
 	 * Learn flags:
-	 *   '1' - Learn memory addresses (source address chunks if not enabled)
-	 *   '2' - Learn hierarchical PROP composition
-	 *   '3' - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'a' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   's' - Learn chunks that cause spread from true conditions to their instructions.
-	 *         This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'c' - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'm' - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'q' - If using 'm', also learn to update the sequence pointer after a correct free recall.
-	 *   'e' - Use epset matching to guide spreading. Learns epset contents for task if none exist. 
+	 *   '1' - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   '2' - Learn associative phase: hierarchical PROP composition
+	 *   '3' - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   's' - Enable spreading to bias fetching 
 	 */
 	public LearnConfig(String str) {
 		set(str);
@@ -55,16 +38,10 @@ public class LearnConfig {
 	/**
 	 * Initialize a learning configuration. 
 	 * Learn flags:
-	 *   '1' - Learn memory addresses (source address chunks if not enabled)
-	 *   '2' - Learn hierarchical PROP composition
-	 *   '3' - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'a' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   's' - Learn chunks that cause spread from true conditions to their instructions.
-	 *         This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'c' - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'm' - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'q' - If using 'm', also learn to update the sequence pointer after a correct free recall.
-	 *   'e' - Use epset matching to guide spreading. Learns epset contents for task if none exist.  
+	 *   '1' - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   '2' - Learn associative phase: hierarchical PROP composition
+	 *   '3' - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   's' - Enable spreading to bias fetching 
 	 * @param str A string of learning mode flags
 	 * @param t The chunking threshold
 	 * @param cmds A ordered list of any extra Soar commands to issue the agent after creation
@@ -79,16 +56,10 @@ public class LearnConfig {
 	/**
 	 * Initialize a learning configuration. 
 	 * Learn flags:
-	 *   '1' - Learn memory addresses (source address chunks if not enabled)
-	 *   '2' - Learn hierarchical PROP composition
-	 *   '3' - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'a' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   's' - Learn chunks that cause spread from true conditions to their instructions.
-	 *         This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'c' - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'm' - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'q' - If using 'm', also learn to update the sequence pointer after a correct free recall.
-	 *   'e' - Use epset matching to guide spreading. Learns epset contents for task if none exist.  
+	 *   '1' - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   '2' - Learn associative phase: hierarchical PROP composition
+	 *   '3' - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   's' - Enable spreading to bias fetching 
 	 * @param str A string of learning mode flags
 	 * @param t The chunking threshold
 	 */
@@ -100,81 +71,49 @@ public class LearnConfig {
 	/**
 	 * Reset the learning configuration. 
 	 * Learn flags:
-	 *   '1' - Learn memory addresses (source address chunks if not enabled)
-	 *   '2' - Learn hierarchical PROP composition
-	 *   '3' - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'a' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   's' - Learn chunks that cause spread from true conditions to their instructions.
-	 *         This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'c' - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'm' - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'q' - If using 'm', also learn to update the sequence pointer after a correct free recall.
-	 *   'e' - Use epset matching to guide spreading. Learns epset contents for task if none exist.
+	 *   '1' - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   '2' - Learn associative phase: hierarchical PROP composition
+	 *   '3' - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   's' - Enable spreading to bias fetching 
 	 * @param str The string of learning mode flags
 	 */
 	public void set(String str) {
-		if (str.contains("1")) {this.addresses = true;} else {this.addresses = false;}
-		if (str.contains("2")) {this.proposals = true;} else {this.proposals = false;}
-		if (str.contains("3")) {this.autos = true;} else {this.autos = false;}
-		if (str.contains("a")) {this.addressChunks = true;} else {this.addressChunks = false;}
+		if (str.contains("1")) {this.cognitive = true;} else {this.cognitive = false;}
+		if (str.contains("2")) {this.associative = true;} else {this.associative = false;}
+		if (str.contains("3")) {this.auto = true;} else {this.auto = false;}
 		if (str.contains("s")) {this.spreading = true;} else {this.spreading = false;}
-		if (str.contains("c")) {this.conditions = true;} else {this.conditions = false;}
-		if (str.contains("m")) {this.manual = true;} else {this.manual = false;}
-		if (str.contains("q")) {this.seqs = true;} else {this.seqs = false;}
-		if (str.contains("e")) {this.epsets = true;} else {this.epsets = false;}
 	}
 	
 	/**
 	 * Reset the learning configuration. 
 	 * Learn flags:
-	 *   'addresses'     - Learn memory addresses (source address chunks if not enabled)
-	 *   'proposals'     - Learn hierarchical PROP composition
-	 *   'autos'         - Learn fully proceduralized (autonomous) rules for each PROP instruction set
-	 *   'conditions'    - Learn condition spread chunks from scratch (source condition chunks if not enabled)
-	 *   'spreading'     - Learn chunks that cause spread from true conditions to their instructions.
-	 *                     This flag also causes the agent to start each fetch with free spread-based recall.
-	 *   'manual'        - Use a manual fetch ordering for training the task (source the fetch sequence file)
-	 *   'seq'           - If using 'm', also learn to update the sequence pointer after a correct free recall. 
-	 *   'addressChunks' - Learn memory addressing chunks (should only be used for generating the source file for '1')
-	 *   'epsets'		 - Use epset matching to guide spreading. Learns epset contents for task if none exist.
+	 *   'cognitive'     - Learn cognitive phase: choosing decisions appropriately for task structure
+	 *   'associative'   - Learn associative phase: hierarchical PROP composition
+	 *   'auto'          - Learn autonomous phase: fully proceduralized (autonomous) rules for each PROP instruction set
+	 *   'spreading'     - Enable spreading to bias fetching 
 	 */
-	public void set(boolean addresses, boolean proposals, boolean autos, boolean conditions, boolean spreading, boolean manual, boolean seqs, boolean addressChunks, boolean epsets) {
-		this.addresses = addresses;
-		this.proposals = proposals;
-		this.autos = autos;
-		this.conditions = conditions;
+	public void set(boolean cognitive, boolean associative, boolean auto, boolean spreading) {
+		this.cognitive = cognitive;
+		this.associative = associative;
+		this.auto = auto;
 		this.spreading = spreading;
-		this.manual = manual;
-		this.seqs = seqs;
-		this.addressChunks = addressChunks;
-		this.epsets = epsets;
 	}
 	
 	public void setChunkThreshold(int t) { chunkThreshold = t; }
 	
-	public boolean learnsAddresses() { return addresses; }
-	public boolean learnsProposals() { return proposals; }
-	public boolean learnsAutos() { return autos; }
-	public boolean learnsAllConditions() { return conditions; }
-	public boolean learnsSpreading() { return spreading; }
-	public boolean usesManual() { return manual; }
-	public boolean learnsManualSeqs() { return seqs; }
-	public boolean learnsAddressChunks() { return addressChunks; }
-	public boolean usesEpsets() { return epsets; }
+	public boolean learnsCognitive() { return cognitive; }
+	public boolean learnsAssociative() { return associative; }
+	public boolean learnsAuto() { return auto; }
+	public boolean usesSpreading() { return spreading; }
 	public int getChunkThreshold() { return chunkThreshold; }
 	
 	@Override
 	public String toString() {
 		String retVal = "";
-		if (addresses) {retVal += "1";}
-		if (proposals) {retVal += "2";}
-		if (autos) {retVal += "3";}
-		if (addressChunks) {retVal += "a";}
+		if (cognitive) {retVal += "1";}
+		if (associative) {retVal += "2";}
+		if (auto) {retVal += "3";}
 		if (spreading) {retVal += "s";}
-		if (conditions) {retVal += "c";}
-		if (manual) {retVal += "m";}
-		if (seqs) {retVal += "q";}
-		if (epsets) {retVal += "e";}
 		retVal += "_t" + chunkThreshold;
 		if (commandName != "") {retVal += commandName;}
 		return retVal;

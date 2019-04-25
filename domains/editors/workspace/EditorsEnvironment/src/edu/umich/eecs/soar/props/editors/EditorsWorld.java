@@ -33,9 +33,6 @@ public class EditorsWorld extends PROPsEnvironment {
 		this.setAgentName("EditorsAgent");
 		this.setPropsDir(props_dir);
 		
-		//this.setCondChunkFile(proj_dir + "editors_agent_condspread_chunks.soar");
-		//this.setAddressChunkFile(proj_dir + "editors_agent_L1_chunks.soar");
-		//this.setFetchSeqFile(proj_dir + "editors_agent_fetch_procedures.soar");
 		this.setInstructionsFile(proj_dir + "editors_agent3_instructions.soar");
 		this.setSoarAgentFile(proj_dir + "editors_agent3.soar");
 		

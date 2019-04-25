@@ -48,9 +48,6 @@ public class ElioWorld extends PROPsEnvironment {
 		this.setAgentName("ElioAgent");
 		this.setPropsDir(props_dir);
 		
-		this.setCondChunkFile(proj_dir + "elio_agent_condspread_chunks.soar");
-		this.setAddressChunkFile(proj_dir + "elio_agent_L1_chunks.soar");
-		this.setFetchSeqFile(proj_dir + "elio_agent_fetch_procedures.soar");
 		this.setInstructionsFile(proj_dir + "elio_agent3_instructions.soar");
 		this.setSoarAgentFile(proj_dir + "elio_agent.soar");
 		

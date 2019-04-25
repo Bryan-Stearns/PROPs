@@ -4,7 +4,7 @@ chunk only
 chunk add-ltm-links on
 #chunk add-osk off
 
-chunk confidence-threshold 3
+chunk confidence-threshold 1
 
 #explain all on
 #explain justifications on
@@ -36,7 +36,8 @@ source props_epsets.soar
 source props_primitives.soar
 source props_apply_buffer.soar
 source props_auto_addressing.soar
-source props_rl.soar
+#source props_rl.soar
+#source props_prohibit_list.soar
 
 multi-attributes condition 4
 multi-attributes action 4
@@ -69,6 +70,6 @@ chunk singleton identifier 1 constant
 chunk singleton identifier 2 constant
 chunk singleton identifier 3 constant
 chunk singleton identifier 4 constant
+chunk singleton operator name constant
 
-#chunk interrupt on
 

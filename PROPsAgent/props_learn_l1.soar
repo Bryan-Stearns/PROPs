@@ -1,0 +1,32 @@
+#####    Author: Bryan Stearns, 2019
+#   This code turns on extra deliberation for each decision.
+#   The agent will compete choices with (wait). With practice, choices will be given greater preference.
+#   NOTE: This assumes props_rl.soar has been sourced.
+#####
+
+# Default wait operator
+sp {propose*props*default-wait
+    (state <s> ^type state
+              -^const
+              -^operator.name wait)
+-->
+    (<s> ^operator <o> + = 0.5)
+    (<o> ^name wait)
+}
+
+# Give reward for simply choosing an epset operate
+sp {apply*props*retrieve-epset*success*return-reward
+    (state <s> ^operator.name props-load-epset
+               ^superstate.reward-link <srl>)
+-->
+    (<srl> ^reward.value 0.175)
+}
+
+# Clean up reward-link
+sp {set*props*reward-link*clean
+    (state <s> ^superstate.reward-link <rl>
+               ^operator.name <> props-load-epset)
+    (<rl> ^reward <r>)
+-->
+    (<rl> ^reward <r> -)
+}
