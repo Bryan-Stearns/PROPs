@@ -4,7 +4,8 @@ Verbose output files are then run through the parse_props_verbose.py file found 
 The naming convention of these files:  
 * `l123` - This refers to the levels of learning used. L1 is the primitive operator instantiation learning introduced in PROP1. L2 is the generic Associative Phase learning, common to all these models (learn hierarchical compilation of rules). L3 is the optional Autonomous Phase learning (learn fully automatic rules for operator proposals and actions).  
 * `sc_lc` - This indicates that spreading activation from conditions ("sc") and learning chunks for that condition spread ("lc") were both enabled. Together this corresponds to Cognitive Phase learning in the model (learn what instructions to fetch).  
-* `X1prN` - The value of N is the number of msec simulated per decision. If no N is given, 50 msec / decision is assumed.
+* `X1prN` - The value of N is the number of msec simulated per decision. If no N is given, 50 msec / decision is assumed.  
+* `tN` - This indicates the chunk threshold used, where N is the threshold number.
 
 The individual files are tab-separated records of stats per agent task action. The columns are as follows:
 
