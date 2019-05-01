@@ -1,0 +1,392 @@
+#####    Author: Bryan Stearns, 2018
+#   This code supports agent instructions using smem.
+#
+##        OPERATORS
+#   (o-supported operations piggy-back on other operators.)
+#   
+##        STRUCTURE
+#  (<s> ^smem (<smem>                       | The architecture's smem link
+#           ^command (<scmd>                | The architecture's smem command link
+#       ^G                                  | Goal buffer
+#           ^Gtask                          |   If set to "finish", then reset the buffers
+#           ^clear-rt                       |   If this exists, then clear the RT buffer results
+#       ^WM                                 | Working memory buffer
+#           ^slot[1,2,3,...]
+#       ^NW                                 | NewWM buffer
+#           ^wm                             |   An individual newwm command (a new declarative 'chunk' to replace current WM contents)
+#       ^Q                                  | Query buffer
+#           ^query                          |   An individual query command for smem
+#           ^wm-query                       |   A query for an past declarative WM 'chunk' (object), still stored in working memory within the pointer network
+#           ^retrieve                       |   A retrieve command for a specific WM 'chunk' (object), still stored in working memory
+#       ^RT                                 | Where Q results are placed
+#       ^AC                                 | The action buffer
+#           ^action                         |   An individual action command
+#       ^V                                  | The input (visual) buffer
+#                     
+#####
+
+# CHUNK SINGLETON COMMANDS ARE ESSENTIAL TO PREVENT CHUNKS MATCHING SEVERAL TIMES
+chunk singleton state G identifier
+chunk singleton state V identifier
+chunk singleton state WM identifier
+chunk singleton state NW identifier
+chunk singleton state RT identifier
+chunk singleton state Q identifier
+chunk singleton state AC identifier
+chunk singleton state flags identifier
+chunk singleton identifier RTid identifier
+chunk singleton identifier props-agnostic-add constant
+
+
+### INIT ###
+
+sp {propose*props*memory*init
+    (state <s> ^superstate nil
+                -^WM)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name buffer-init)
+}
+sp {apply*props*memory*init
+    (state <s> ^operator.name buffer-init
+                ^io.output-link <ol>)
+-->
+    (<s>    ^G <g>        # control
+            ^V <v>        # input
+            ^WM <w>       # variables
+            ^NW <n>       # newWM
+            ^RT <r>       # retrieval results
+            ^Q <q>        # retrieval queries
+            ^AC <a>       # actions
+            ^flags <f>)   # meta commands for 'architectural' processes
+    (<a> ^props-agnostic-add true)    # Learned actions which add to AC don't test for or replace existing values
+    (<q> ^props-agnostic-add true)
+    (<n> ^props-agnostic-add true)
+    (<f> ^props-agnostic-add true)
+    (write (crlf) INITTED (crlf))
+}
+
+sp {elaborate*props*memory*agent-smem
+    (state <s> ^superstate <> nil
+                -^const)
+-->
+    (<s> ^Q <q>        # retrieval queries
+        ^RT <r>        # retrieval results
+        ^flags <f>)    # meta commands for 'architectural' processes
+    (<f> ^props-agnostic-add true)
+    (<q> ^props-agnostic-add true)
+}
+
+
+### RESET ###
+
+sp {propose*props*memory*reset
+    (state <s> ^G.Gtask finish
+                ^AC <a>)
+    -(<s> ^prop-apply-buffer.apply.dest-id <a>)    # Let any output actions complete first
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name actransfer-finish)
+}
+sp {apply*props*memory*reset
+    (state <s> ^operator.name actransfer-finish
+                ^G <g>
+                ^WM <w>
+                ^AC <a>
+                ^RT <r>
+                ^flags <f>)
+-->
+    # Reset buffers
+    (<s> ^G <g> -
+        ^G <g2> 
+        ^WM <w> -
+        ^WM <w2>
+        ^RT <r> -
+        ^RT <r2>
+        ^AC <a> -
+        ^AC <a2>
+        ^flags <f> -
+        ^flags <f2>)
+    (<a2> ^props-agnostic-add true)
+    (<f2> ^props-agnostic-add true)
+    (write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
+}
+
+sp {elaborate*props*memory*finish
+    (state <s> ^G.Gtask finish
+                ^io.output-link <ol>)
+-->
+    # Proclaim finitude
+    (<ol> ^finish <f>)
+    (<f> ^finish true)
+}
+
+
+
+### SMEM COMMANDS ###
+
+# RESPOND TO WM-QUERY COMMANDS BY SEARCHING FOR THE APPROPRIATE RETRIEVAL
+sp {set*props*memory*wm-query*search
+    (state <s> ^Q <q>)
+    (<q> ^object <wmq>)
+    (<wmq> ^root.WMnext <cand>
+           ^q-type wm-query)
+    -{(<wmq> ^{<attr> <> root <> result <> dc-stamp <> q-type} <val>)
+      (<cand> -^<attr> <val>)}                # It is not the case that the query has an attribute value that the candidate does not have
+-->
+    (<wmq> ^result <cand>)
+}
+
+sp {elaborate*props*memory*wm-query*return-result
+    (state <s> ^Q <q>
+                ^RT <rt>)
+    (<q> ^object <wmq>)
+    (<wmq> ^result <res>
+           ^q-type wm-query)
+    -{(<wmq> ^result > <res>)}        # Only return the first if there are multiple results
+    (<res> ^<attr> <val>)
+    -{(<q> ^object <o1> ^object <> <o1>)}    # Wait until any old results are retracted before putting new ones in
+-->
+    (<rt> ^<attr> <val>)
+}
+sp {elaborate*props*memory*wm-query*return-result*id
+    (state <s> ^Q <q>
+                ^RT <rt>)
+    (<q> ^object <wmq>)
+    (<wmq> ^result <res>
+           ^q-type wm-query)
+    -{(<wmq> ^result > <res>)}        # Only return the first if there are multiple results
+    (<res> ^<attr> <val>)
+    -{(<q> ^object <o1> ^object <> <o1>)}    # Wait until any old results are retracted before putting new ones in
+-->
+    (<rt> ^RTid <res>)
+}
+
+sp {elaborate*props*memory*wm-query*error
+    (state <s> ^smem <smem>
+                ^Q <q>
+                ^RT <r>)
+    (<q> ^object <wmq>)
+    (<wmq> -^result 
+           ^q-type wm-query)
+-->
+    (<smem> ^rt-result error)
+}
+
+# RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
+sp {elaborate*props*memory*retrieval
+    (state <s> ^Q <q>
+                ^RT <rt>)
+    (<q> ^object <r>
+         ^stamp.command <r>)
+    -{(<q> ^object {<r2> <> <r>})
+      (<r2> ^q-type retrieve)}        # Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
+    (<r> ^retrieve <ret>)
+    (<ret> ^<attr> <val>)
+    -{(<q> ^object <> <r>)}        # Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
+-->
+    (<rt> ^<attr> <val>)
+    #(write (crlf) |*** WM-RETRIEVE: | <r> )
+}
+sp {elaborate*props*memory*retrieval*id
+    (state <s> ^Q <q>
+                ^RT <rt>)
+    (<q> ^object <r>
+         ^stamp.command <r>)
+    -{(<q> ^object {<r2> <> <r>})}
+    #  (<r2> ^q-type retrieve)}        # Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
+    (<r> ^retrieve <ret>)
+    (<ret> ^<attr> <val>)
+-->
+    (<rt> ^RTid <ret>)
+    #(write (crlf) |*** WM-RETRIEVE: | <r> )
+}
+
+# PROCESS NEW SMEM COMMANDS AND DC-STAMP THEM
+sp {set*props*memory*smem-command*stamp
+    :o-support
+    (state <s> ^Q <q>)
+    (<q> ^object <cmd>)
+    #(<cmd> ^q-type << query retrieve wm-query >>)
+    -{(<q> ^stamp <st>)
+      (<st> ^command <cmd>)}
+-->
+    (<q> ^stamp <stnew>)
+    (<stnew> ^command <cmd>
+            ^dc (dc))
+}
+
+# TRANSFER QUERIES TO SMEM
+sp {elaborate*props*memory*query*transfer-start
+    (state <s> ^Q.object <q>
+                ^smem.command <scmd>)
+    (<scmd> -^store )
+    (<q> ^q-type query)
+-->
+    (<scmd> ^query <qnew>)
+}
+sp {elaborate*props*memory*query*transfer-augs
+    (state <s> ^Q.object <q>
+                ^smem.command <scmd>)
+    (<scmd> -^store 
+            ^query <query>)
+    (<q> ^{<attr> <> q-type <> dc-stamp} <val>
+         ^q-type query)
+-->
+    (<query> ^<attr> <val>)
+}
+
+# TRANSFER QUERY RESULTS FROM SMEM
+sp {elaborate*props*memory*query*collect
+    (state <s> ^smem.result.retrieved <sret>
+                ^Q <q>
+                ^RT <r>)
+    (<sret> ^<slot> <val>)
+    -{(<q> ^object <o1> ^object <> <o1>)}    # Wait until any old results are retracted before putting new ones in
+-->
+    (<r> ^<slot> <val> )
+}
+sp {elaborate*props*memory*query*collect*id
+    (state <s> ^smem.result.retrieved <sret>
+                ^Q <q>
+                ^RT <r>)
+    (<sret> ^<slot> <val>)
+    -{(<q> ^object <o1> ^object <> <o1>)}    # Wait until any old results are retracted before putting new ones in
+-->
+    (<r> ^RTid <sret>)
+}
+
+# REMOVE OLD QUERIES WHEN NEW ONES ARISE
+sp {set*props*memory*replace-q-command
+    "If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
+    :o-support
+    (state <s> ^Q <q>)
+    (<q> ^object <q1>
+        ^object {<q2> <> <q1>}
+        ^stamp <st1>
+        ^stamp <st2>)
+    (<st1> ^command <q1>
+            ^dc <dc1>)
+    (<st2> ^command <q2>
+            ^dc < <dc1>)
+-->
+    (<q> ^object <q2> -
+        ^stamp <st2> -)
+}
+
+sp {elaborate*props*memory*query*success
+    (state <s> ^smem <smem>
+            ^RT <r>)
+    (<r> ^<any> )
+    (<smem> -^rt-result error)
+-->
+    (<smem> ^rt-result success)
+}
+sp {elaborate*props*memory*query*failure*error
+    (state <s> ^smem <smem>
+            ^RT <r>)
+    (<smem> ^result.failure
+            ^command.query.<any>)
+-->
+    (<smem> ^rt-result error)
+}
+
+
+# CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
+sp {apply*props*memory*clear-rt*clear-command
+    :o-support
+    (state <s> ^flags <f>
+            ^Q <q>)
+    (<q> ^object <rt>
+        ^stamp <st>)
+    (<st> ^command <rt>)
+    (<f> ^object.clear-rt <any>)
+-->
+    (<q> ^object <rt> -
+        ^stamp <st> -)
+}
+sp {apply*props*memory*smem-command*clear-empty
+    :o-support
+    (state <s> ^flags <f>
+            ^Q <q>)
+    (<q> -^object <qry>)
+    (<f> ^object <obj>)
+    (<obj> ^clear-rt <any>)
+-->
+    (<f> ^object <obj> -)
+}
+
+
+### NEWWM COMMANDS ###
+# (makes linked list of WM objects)
+  
+sp {set*props*memory*newwm*stamp
+    :o-support
+    (state <s> ^NW <n>)
+    (<n> ^object <cmd>)
+    -{(<n> ^stamp <st>)
+      (<st> ^command <cmd>)}
+-->
+    (<n> ^stamp <stnew>)
+    (<stnew> ^command <cmd>
+            ^dc (dc))
+}
+sp {set*props*memory*newwm*swap
+    :o-support
+    (state <s> ^NW <n>
+                ^WM <w>)
+    (<n> ^object <nw>
+        ^stamp <st>
+        -^swapped-dc <dc>)    # Only perform one newWM swap per decision cycle (so chunks that create commands don't fire infinitely)
+    (<st> ^command <nw>
+        ^dc <dc>)
+-->
+    (<s> ^WM <w> -
+        ^WM <nw>)
+    (<w> ^WMnext <nw>)    # Save the forward pointer, rather than the Actransfer-esque backwards pointer
+    (<n> ^object <nw> -
+        ^stamp <st> -
+        ^swapped-dc <dc>)
+    #(<nw> ^status complete)
+    #(write (crlf) |*** WM-STORE: | <w> )
+}
+sp {set*props*memory*newwm*clear-swapped
+    "Keep only the most recent swap on record."
+    :o-support
+    (state <s> ^NW <n>)
+    (<n> ^swapped-dc <dcold>
+        ^swapped-dc > <dcold>)
+-->
+    (<n> ^swapped-dc <dcold> -)
+}
+sp {set*props*memory*newwm*remove-duplicates
+    "A failsafe in case the user makes a chunk that would infinitely remake newWM commands, if conditioned on WM."
+    :o-support
+    (state <s> ^NW <n>)
+    (<n> ^swapped-dc <dc>
+        ^object <cmd>
+        ^stamp <st>)
+    (<st> ^command <cmd>
+        ^dc <dc>)        # If there's an unprocessed command but there has already been a swap this cycle
+-->
+    (<n> ^object <cmd> -)    # Then remove the extra command. Only one allowed per cycle.
+    #(<cmd> ^status complete)
+}
+
+sp {set*props*memory*update-wmnext*add
+    :o-support
+    (state <s> ^WM <w>)
+    (<w> ^WMprev <wmp>)
+    (<wmp> -^WMnext <w>)
+-->
+    (<wmp> ^WMnext <w>)
+}
+sp {set*props*memory*update-wmnext*remove        # (Never fires apparently)
+    :o-support
+    (state <s> ^WM <w>)
+    (<w> ^WMnext <wmn>)
+    (<wmn> -^WMprev <w>)
+-->
+    (<w> ^WMnext <wmn> -)
+}
+

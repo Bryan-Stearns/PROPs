@@ -1,0 +1,63 @@
+#####    Author: Bryan Stearns, 2019
+#   Have each state have input context holding changes in perception from state above.
+#   Topstate keeps o-supported buffer of changes from input-link. Substates keep i-supported buffers of deltas in <ss> buffer items.
+#   The input context is the same format as an epset/procedure context. Delta conditions are the before, actions point to the after.
+#
+##        OPERATORS
+#   (None)
+#   
+##        STRUCTURE
+#  (<s> ^props-epset (<pe>                  | A set of instructed proposals, fetched from SMEM
+#####
+
+sp {elaborate*props*input-context
+	(state <s> ^type state)
+-->
+	(<s> ^input-context <c>)
+}
+
+sp {set*props*input-context*topstate-input*add
+	:o-support
+	(state <s> ^input-context <ic>
+				^io.input-link <il>)
+	(<il> ^<attr> <val>)
+-->
+	(<ic> ^delta <dnew>)
+	(<dnew> ^delta-action <anew>
+			^dc-stamp (dc))
+	(<anew> ^attr1 <attr>
+			^val <val>)
+}
+
+sp {set*props*input-context*topstate-input*remove
+	"Remove oldest delta when there is more than one change on the same address"
+	:o-support
+	(state <s> ^input-context <ic>)
+	(<ic> ^delta <d1>
+			^delta <d2>
+			^delta <d3>)
+	(<d1> ^attr <attr>
+			^dc-stamp <dc1>)
+	(<d2> ^attr <attr>
+			^dc-stamp {<dc2> > <dc1>})
+	(<d3> ^attr <attr>
+			^dc-stamp {<dc3> > <dc1> > <dc2>})
+-->
+	(<ic> ^delta <d1> -)
+}
+
+# FIXME: Any chunk should not condition on the action
+sp {elaborate*props*input-context*superstate-delta
+	(state <s> ^superstate.input-context <sic>
+				^input-context <ic>)
+	(<sic> ^delta <d1>
+			^delta {<d2> <> <d1>})
+	(<d1> ^attr1 <attr>
+		^dc-stamp <dc>)
+	(<d2> ^attr1 <attr>
+		^dc-stamp > <dc>)
+-->
+	(<ic> ^delta <dnew>)
+	(<dnew> ^condition <cnew>
+			^action <d2>)
+}

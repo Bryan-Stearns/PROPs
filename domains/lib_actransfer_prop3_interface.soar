@@ -20,12 +20,8 @@
 #			^Vvalue
 #####
 
-smem --set learning on
 
 # CHUNK SINGLETON COMMANDS ARE ESSENTIAL TO PREVENT CHUNKS MATCHING SEVERAL TIMES
-chunk singleton state G identifier
-chunk singleton state V identifier
-chunk singleton state WM identifier
 chunk singleton identifier slot1 identifier
 chunk singleton identifier slot2 identifier
 chunk singleton identifier slot3 identifier
@@ -34,90 +30,14 @@ chunk singleton identifier slot1 constant
 chunk singleton identifier slot2 constant
 chunk singleton identifier slot3 constant
 chunk singleton identifier slot4 constant
-chunk singleton state NW identifier
-chunk singleton state RT identifier
-chunk singleton state Q identifier
-chunk singleton state AC identifier
-chunk singleton state flags identifier
-chunk singleton identifier RTid identifier
-chunk singleton identifier props-agnostic-add constant
 
 
-# Buffer Init #
-sp {lib*actr*propose*init
-	(state <s> ^superstate nil
-				-^WM)
--->
-	(<s> ^operator <o> + >)
-	(<o> ^name buffer-init)
-}
-sp {lib*actr*apply*init
-	(state <s> ^operator.name buffer-init
-				^io.output-link <ol>)
--->
-	(<s> 	^G <g>		# control
-			^V <v>		# input
-			^WM <w>		# variables
-			^NW <n>		# newWM
-			^RT <r>		# retrieval results
-			^Q <q>		# retrieval queries
-			^AC <a>		# actions
-			^flags <f>)	# meta commands for 'architectural' processes
-	(<a> ^props-agnostic-add true)	# Learned actions which add to AC don't test for or replace existing values
-	(<q> ^props-agnostic-add true)
-	(<n> ^props-agnostic-add true)
-	(<f> ^props-agnostic-add true)
-	(write (crlf) INITTED (crlf))
-}
 
-# FINISH #
-# Custom for Soar - don't include as a PROP instruction set #
-sp {lib*actr*propose*finish
-	(state <s> ^G.Gtask finish
-				^AC <a>)
-	-(<s> ^prop-apply-buffer.apply.dest-id <a>)	# Let any output actions complete first
--->
-	(<s> ^operator <o> + >)
-	(<o> ^name actransfer-finish)
-}
-sp {lib*actr*apply*finish
-	(state <s> ^operator.name actransfer-finish
-				^G <g>
-				^WM <w>
-				^AC <a>
-				^RT <r>
-				^flags <f>)
--->
-	# Reset buffers
-	(<s> ^G <g> -
-		^G <g2> 
-		^WM <w> -
-		^WM <w2>
-		^RT <r> -	# FIXME: This wasn't reset before, why?
-		^RT <r2>
-		^AC <a> -
-		^AC <a2>
-		^flags <f> -
-		^flags <f2>)
-	(<a2> ^props-agnostic-add true)
-	(<f2> ^props-agnostic-add true)
-	(write (crlf) (crlf) |*** TASK FINISHED ***| (crlf) )
-}
-
-
-sp {lib*actr*elaborate*finish
-	(state <s> ^G.Gtask finish
-				^io.output-link <ol>)
--->
-	# Proclaim finitude
-	(<ol> ^finish <f>)
-	(<f> ^finish true)
-}
 
 #### SWITCH TO SECONDARY BEHAVIOR IN CASE OF LACK OF PROPS INSTRUCTIONS ####
 # (IN THIS CASE, HALTING)
 sp {lib*actr*instruction*search*impasse
-	(state <s>	^WM 
+	(state <s>	^superstate nil 
 				^props-flag impasse)
 -->
 	(write |    Well, well, well. I see I've run out of instructions. Goodnight.| (crlf) )
@@ -125,7 +45,8 @@ sp {lib*actr*instruction*search*impasse
 }
 
 
-#### TASK-SPECIFIC: TRANSFER INPUT TO VISUAL ####
+#### INPUT ####
+
 sp {lib*actr*elaborate*visual*in
 	(state <s> ^V <v>
 				^io.input-link <il>)
@@ -143,8 +64,6 @@ sp {lib*actr*elaborate*visual*debug*in-1
 	(<il> ^slot1 <i1>
 		-^slot2)
 -->
-	#(<v> ^Vlabel <i1>
-	#	^Vvalue <i2>)
 	(write (crlf) |Read: "| <i1> |"|)
 }
 sp {lib*actr*elaborate*visual*debug*in-2
@@ -162,7 +81,7 @@ sp {lib*actr*elaborate*visual*debug*in-3
 	(<il> ^slot1 <i1>
 		^slot2 <i2>
 		^slot3 <i3>
-		-^slot4 )
+		-^slot4)
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |"|)
 }
@@ -172,9 +91,21 @@ sp {lib*actr*elaborate*visual*debug*in-4
 	(<il> ^slot1 <i1>
 		^slot2 <i2>
 		^slot3 <i3>
-		^slot4 <i4>)
+		^slot4 <i4>
+		-^slot5)
 -->
 	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |" "| <i4> |"|)
+}
+sp {lib*actr*elaborate*visual*debug*in-5
+	(state <s> ^V <v>
+				^io.input-link <il>)
+	(<il> ^slot1 <i1>
+		^slot2 <i2>
+		^slot3 <i3>
+		^slot4 <i4>
+		^slot5 <i5>)
+-->
+	(write (crlf) |Read: "| <i1> |" "| <i2> |" "| <i3> |" "| <i4> |" "| <i5> |"|)
 }
 
 
@@ -186,348 +117,82 @@ sp {lib*actr*elaborate*input*task
 	(<g> -^Gtask finish)
 	-{(<s> ^locks.lock <l>)
 	  (<l> ^id1 <g>
-		   ^attr1 Gtask)}		# Locks enabled using props_epsets.soar
+		   ^attr1 Gtask)}		# Locks enabled using props_apply_buffer.soar
 -->
 	(<g> ^Gtask <task>)
 	(write (crlf) |*** TASK SET TO | <task> | ***| )
 }
 
-# Elaborate operator names as task names
-#sp {lib*actr*elaborate*operator-goal
-#	(state <s> ^topstate <ts>
-#				^props-epset.props-epset-name <name>)
-#	(<ts> ^G <g>)
-#-->
-#	(<g> ^Ggoal <name>)
-#}
+
+### OUTPUT ###
+
+sp {lib*actr*elaborate*action*out
+	(state <s> ^AC.object <a>
+				^io.output-link <ol>)
+-->
+	(<ol> ^say <a>)
+}
+sp {lib*actr*set*output*clean
+    :o-support
+    (state <s> ^io.output-link <ol>
+                ^AC <a>)
+    (<ol> ^say <os>)
+    (<a> ^object <os>)
+    (<os> ^status complete)
+-->
+    (<a> ^object <os> -)
+}
 
 # DEBUG PRINT OUTPUT: Assuming action slots follow certain format
 sp {lib*actr*elaborate*action*output-1
-	(state <s> ^AC.object <a>
-				^io.output-link <ol>)
+	(state <s> ^AC.object <a>)
 	(<a> ^slot1 <o1>
 		-^slot2 <o2>)
 -->
-	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> (crlf) )
 }
 sp {lib*actr*elaborate*action*output-2
-	(state <s> ^AC.object <a>
-				^io.output-link <ol>)
+	(state <s> ^AC.object <a>)
 	(<a> ^slot1 <o1>
 		^slot2 <o2>
 		-^slot3)
 -->
-	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> (crlf) )
 }
 sp {lib*actr*elaborate*action*output-3
-	(state <s> ^AC.object <a>
-				^io.output-link <ol>)
+	(state <s> ^AC.object <a>)
 	(<a> ^slot1 <o1>
 		^slot2 <o2>
 		^slot3 <o3>
 		-^slot4)
 -->
-	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> | | <o3> (crlf) )
 }
 sp {lib*actr*elaborate*action*output-4
-	(state <s> ^AC.object <a>
-				^io.output-link <ol>)
+	(state <s> ^AC.object <a>)
 	(<a> ^slot1 <o1>
 		^slot2 <o2>
 		^slot3 <o3>
-		^slot4 <o4>)
+		^slot4 <o4>
+		-^slot5)
 -->
-	(<ol> ^say <a>)
 	(write (crlf) |Say: | <o1> | | <o2> | | <o3> | | <o4> (crlf) )
 }
-
-
-sp {lib*actr*set*clean*output
-	:o-support
-	(state <s> ^io.output-link <ol>
-				^AC <a>)
-	(<ol> ^say <os>)
-	(<a> ^object <os>)
-	(<os> ^status complete)
+sp {lib*actr*elaborate*action*output-5
+	(state <s> ^AC.object <a>)
+	(<a> ^slot1 <o1>
+		^slot2 <o2>
+		^slot3 <o3>
+		^slot4 <o4>
+		^slot5 <o5>)
 -->
-	(<a> ^object <os> -)
-}
-
-
-# RESPOND TO WM-QUERY COMMANDS BY SEARCHING FOR THE APPROPRIATE RETRIEVAL
-sp {lib*actr*set*wm-query*search
-	(state <s> ^Q <q>)
-	(<q> ^object <wmq>)
-	(<wmq> ^root.WMnext <cand>
-		   ^q-type wm-query)
-	-{(<wmq> ^{<attr> <> root <> result <> dc-stamp <> q-type} <val>)
-	  (<cand> -^<attr> <val>)}				# It is not the case that the query has an attribute value that the candidate does not have
--->
-	(<wmq> ^result <cand>)
-}
-
-sp {lib*actr*elaborate*wm-query*return-result
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^object <wmq>)
-	(<wmq> ^result <res>
-		   ^q-type wm-query)
-	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
-	(<res> ^<attr> <val>)
-	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
--->
-	(<rt> ^<attr> <val>)
-}
-sp {lib*actr*elaborate*wm-query*return-result*id
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^object <wmq>)
-	(<wmq> ^result <res>
-		   ^q-type wm-query)
-	-{(<wmq> ^result > <res>)}		# Only return the first if there are multiple results
-	(<res> ^<attr> <val>)
-	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
--->
-	(<rt> ^RTid <res>)
-}
-
-sp {lib*actr*elaborate*wm-query*error
-	(state <s> ^smem <smem>
-				^Q <q>
-				^RT <r>)
-	(<q> ^object <wmq>)
-	(<wmq> -^result 
-		   ^q-type wm-query)
--->
-	(<smem> ^rt-result error)
-}
-
-# RESPOND TO RETRIEVALS BY FOLLOWING WM POINTERS
-sp {lib*actr*elaborate*retrieval
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^object <r>
-		 ^stamp.command <r>)
-	-{(<q> ^object {<r2> <> <r>})
-	  (<r2> ^q-type retrieve)}		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
-	(<r> ^retrieve <ret>)
-	(<ret> ^<attr> <val>)
-	-{(<q> ^object <> <r>)}		# Don't replace until the old retrieve has been removed - else it would then trigger this rule before removal
--->
-	(<rt> ^<attr> <val>)
-	#(write (crlf) |*** WM-RETRIEVE: | <r> )
-}
-sp {lib*actr*elaborate*retrieval*id
-	(state <s> ^Q <q>
-				^RT <rt>)
-	(<q> ^object <r>
-		 ^stamp.command <r>)
-	-{(<q> ^object {<r2> <> <r>})}
-	#  (<r2> ^q-type retrieve)}		# Avoid the edge case where a chunk repeatedly fires to recreate the same retrieve command
-	(<r> ^retrieve <ret>)
-	(<ret> ^<attr> <val>)
--->
-	(<rt> ^RTid <ret>)
-	#(write (crlf) |*** WM-RETRIEVE: | <r> )
-}
-
-# PROCESS NEW SMEM COMMANDS AND DC-STAMP THEM
-sp {lib*actr*set*smem-command*stamp
-	:o-support
-	(state <s> ^Q <q>)
-	(<q> ^object <cmd>)
-	#(<cmd> ^q-type << query retrieve wm-query >>)
-	-{(<q> ^stamp <st>)
-	  (<st> ^command <cmd>)}
--->
-	(<q> ^stamp <stnew>)
-	(<stnew> ^command <cmd>
-			^dc (dc))
-}
-
-# TRANSFER QUERIES TO SMEM
-sp {lib*actr*elaborate*query*transfer-start
-	(state <s> ^Q.object <q>
-				^smem.command <scmd>)
-	(<scmd> -^store 
-			-^query.props-epset-name )
-	(<q> ^q-type query)
--->
-	(<scmd> ^query <qnew>)
-}
-sp {lib*actr*elaborate*query*transfer-augs
-	(state <s> ^Q.object <q>
-				^smem.command <scmd>)
-	(<scmd> -^store 
-			^query <query>)
-	(<query> -^props-epset-name )
-	(<q> ^{<attr> <> q-type <> dc-stamp} <val>
-		 ^q-type query)
--->
-	(<query> ^<attr> <val>)
-}
-
-# TRANSFER QUERY RESULTS FROM SMEM
-sp {lib*actr*elaborate*query*collect
-	(state <s> ^smem.result.retrieved <sret>
-				^Q <q>
-				^RT <r>)
-	(<sret> ^<slot> <val>)
-	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
--->
-	(<r> ^<slot> <val> )
-}
-sp {lib*actr*elaborate*query*collect*id
-	(state <s> ^smem.result.retrieved <sret>
-				^Q <q>
-				^RT <r>)
-	(<sret> ^<slot> <val>)
-	-{(<q> ^object <o1> ^object <> <o1>)}	# Wait until any old results are retracted before putting new ones in
--->
-	(<r> ^RTid <sret>)
-}
-
-# REMOVE OLD QUERIES WHEN NEW ONES ARISE
-sp {lib*actr*set*replace-q-command
-	"If there is a retrieve newer than a retrieve, based on the dc-stamp, then remove the old one and dont clear RT"
-	:o-support
-	(state <s> ^Q <q>)
-	(<q> ^object <q1>
-		^object {<q2> <> <q1>}
-		^stamp <st1>
-		^stamp <st2>)
-	(<st1> ^command <q1>
-			^dc <dc1>)
-	(<st2> ^command <q2>
-			^dc < <dc1>)
--->
-	(<q> ^object <q2> -
-		^stamp <st2> -)
-	#(<q2> ^status complete)
-}
-
-sp {lib*actr*elaborate*query*success
-	(state <s> ^smem <smem>
-			^RT <r>)
-	(<r> ^<any> )
-	(<smem> -^rt-result error)
--->
-	(<smem> ^rt-result success)
-}
-sp {lib*actr*elaborate*query*failure*error
-	(state <s> ^smem <smem>
-			^RT <r>)
-	(<smem> ^result.failure
-			^command.query.<any>)
--->
-	(<smem> ^rt-result error)
+	(write (crlf) |Say: | <o1> | | <o2> | | <o3> | | <o4> | | <o5> (crlf) )
 }
 
 
 
-# CLEAN RETRIEVAL BUFFER COMMAND AFTER GETTING RESULT
-sp {lib*actr*apply*clear-rt*clear-command
-	:o-support
-	(state <s> ^G <g>
-			^flags <f>
-			^Q <q>)
-	(<q> ^object <rt>
-		^stamp <st>)
-	(<st> ^command <rt>)
-	(<f> ^object.clear-rt <any>)
--->
-	(<q> ^object <rt> -
-		^stamp <st> -)
-	#(<rt> ^status complete)
-}
-sp {lib*actr*apply*smem-command*clear-empty
-	:o-support
-	(state <s> ^G <g>
-			^flags <f>
-			^Q <q>)
-	(<q> -^object <qry>)
-	(<f> ^object <obj>)
-	(<obj> ^clear-rt <any>)
--->
-	(<f> ^object <obj> -)
-}
+### ADD WAIT OPERATOR BEHAVIOR ###
 
-
-# NEWWM #
-sp {lib*actr*set*newwm*stamp
-	:o-support
-	(state <s> ^NW <n>)
-	(<n> ^object <cmd>)
-	-{(<n> ^stamp <st>)
-	  (<st> ^command <cmd>)}
--->
-	(<n> ^stamp <stnew>)
-	(<stnew> ^command <cmd>
-			^dc (dc))
-}
-sp {lib*actr*set*newwm*swap
-	:o-support
-	(state <s> ^NW <n>
-				^WM <w>)
-	(<n> ^object <nw>
-		^stamp <st>
-		-^swapped-dc <dc>)	# Only perform one newWM swap per decision cycle (so chunks that create commands don't fire infinitely)
-	(<st> ^command <nw>
-		^dc <dc>)
--->
-	(<s> ^WM <w> -
-		^WM <nw>)
-	(<w> ^WMnext <nw>)	# Save the forward pointer, rather than the Actransfer-esque backwards pointer
-	(<n> ^object <nw> -
-		^stamp <st> -
-		^swapped-dc <dc>)
-	#(<nw> ^status complete)
-	#(write (crlf) |*** WM-STORE: | <w> )
-}
-sp {lib*actr*set*newwm*clear-swapped
-	"Keep only the most recent swap on record."
-	:o-support
-	(state <s> ^NW <n>)
-	(<n> ^swapped-dc <dcold>
-		^swapped-dc > <dcold>)
--->
-	(<n> ^swapped-dc <dcold> -)
-}
-sp {lib*actr*set*newwm*remove-duplicates
-	"A failsafe in case the user makes a chunk that would infinitely remake newWM commands, if conditioned on WM."
-	:o-support
-	(state <s> ^NW <n>)
-	(<n> ^swapped-dc <dc>
-		^object <cmd>
-		^stamp <st>)
-	(<st> ^command <cmd>
-		^dc <dc>)		# If there's an unprocessed command but there has already been a swap this cycle
--->
-	(<n> ^object <cmd> -)	# Then remove the extra command. Only one allowed per cycle.
-	#(<cmd> ^status complete)
-}
-
-sp {lib*actr*set*update-wmnext*add
-	:o-support
-	(state <s> ^WM <w>)
-	(<w> ^WMprev <wmp>)
-	(<wmp> -^WMnext <w>)
--->
-	(<wmp> ^WMnext <w>)
-}
-sp {lib*actr*set*update-wmnext*remove		# (Never fires apparently)
-	:o-support
-	(state <s> ^WM <w>)
-	(<w> ^WMnext <wmn>)
-	(<wmn> -^WMprev <w>)
--->
-	(<w> ^WMnext <wmn> -)
-}
-
-# ADD WAIT OPERATOR BEHAVIOR
 sp {lib*actr*propose*wait
 	(state <s> ^topstate.io.input-link.slot1 |pending|
 				-^operator.name |wait-pending|)
@@ -542,4 +207,3 @@ sp {lib*actr*propose*idle
 	(<s> ^operator <o> + > !)
 	(<o> ^name wait-pending)
 }
-

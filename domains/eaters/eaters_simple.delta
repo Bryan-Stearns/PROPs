@@ -1,0 +1,20 @@
+; (I2 ^back purple ^east red ^food-remaining 9 ^front red ^left wall ^north wall
+;       ^orientation east ^right red ^score 0 ^score-diff 0 ^south red ^time 1
+;       ^west purple ^x 1 ^y 2)
+
+; Possible actions: forward, rotate
+(add-instr eaters :input (Ifront Iback Ileft Iright Iorientation Ix Iy) :variables (WMnorth WMsouth WMeast WMwest) :declarative (RTnone)
+	;~ forward
+	(ins :condition (Ifront <> wall) :action (forward -> AC1) :description "Try to go forward if able")
+	;~ rotate-wall
+	(ins :condition (Ifront = wall) :action (rotate -> AC1) :description "rotate if not able to go forward")
+	;~ rotate-free
+	(ins :condition (Ifront <> wall) :action (rotate -> AC1) :description "Rotate even if able to go forward")
+
+) 
+
+(add-task eaters
+	(operator eaters-forward)
+	(operator eaters-rotate-wall)
+	(operator eaters-rotate-free)
+)

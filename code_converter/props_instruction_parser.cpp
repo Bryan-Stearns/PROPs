@@ -112,7 +112,7 @@ std::string props_instruction_parser::nextLine(std::stringstream &ss) {
 				&& line.compare(0,12,"# (add-task ")
 				&& line.compare(0,11,"# operator ")
 				&& line.compare(0,8,"# (elab ")
-				&& line.compare(0,8,"# :lock ")
+				&& line.compare(0,3,"# :")
 				&& line.compare(0,4,"# ;~")
 				&& line.compare(0,3,"# )"))		// Allow special comment-nested meta data to pass
 			line = trim(line);
@@ -387,7 +387,7 @@ bool props_instruction_parser::getAppliedOperator(const std::vector<arg_chain> &
 /**
  * Returns true unless there was an error, and false if there was one.
  */
-bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions) {
+bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants, std::vector<arg_id_chain> &conditions, std::vector<arg_id_chain> &actions, std::vector<std::string> &comments) {
 
 	std::stringstream ss;
 	std::string sToken = "";
@@ -431,6 +431,10 @@ bool props_instruction_parser::parsePropsFile(std::vector<arg_chain> &constants,
 					break;
 				ss >> std::ws >> sToken;
 			}
+		}
+		else if (!sToken.compare(0,3, "# :")) {
+			// It's some other comment directive. Return it for someone else to parse.
+			comments.push_back(trim(sToken.substr(2)));
 		}
 		else if (!sToken.compare("# ) ")) {
 			// Close an elab context
@@ -746,9 +750,10 @@ std::vector<std::string> props_instruction_parser::buildProps2Instructions() {
 		auto constants = std::vector<arg_chain>();
 		auto conditions = std::vector<arg_id_chain>();
 		auto actions = std::vector<arg_id_chain>();
+		auto comments = std::vector<std::string>();	// unused, just there because parsePropsFile requires it after PROP2
 
 		// Load the consts, conditions, and actions for the next rule in the file
-		if (!parsePropsFile(constants, conditions, actions)) {
+		if (!parsePropsFile(constants, conditions, actions, comments)) {
 			insList.clear();
 			return insList;
 		}
@@ -1012,15 +1017,15 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 	std::map<std::string, int> opNameInstMap;								// Maps operator name to instNumber for the delta that proposes it
 
 	epsetLocks = std::vector<std::string>();
-	auto cmtDirectives = std::vector<std::string>();
 
 	while (inFile.good()) {
 		auto constants = std::vector<arg_chain>();
 		auto conditions = std::vector<arg_id_chain>();
 		auto actions = std::vector<arg_id_chain>();
+		auto cmtDirectives = std::vector<std::string>();
 
 		// Load the consts, conditions, and actions for the next rule in the file
-		if (!parsePropsFile(constants, conditions, actions)) {
+		if (!parsePropsFile(constants, conditions, actions, cmtDirectives)) {
 			// There was an error. Don't write to file.
 			insList.clear();
 			return insList;
@@ -1103,7 +1108,7 @@ std::vector<std::string> props_instruction_parser::buildProps3Instructions() {
 				instrs << "(<epset-task-" << currTaskList.back() << "> ^delta <delta-rule" << instNumber << ">)" << std::endl;
 			}
 			// Add this operator as a delta in the task epset
-			instrs << "(<delta-rule" << instNumber << "> ^" << ((rType==PROPOSAL) ? "op-name " : "elab-name ") << currOpName << std::endl
+			instrs << "(<delta-rule" << instNumber << "> ^" << ((rType==PROPOSAL) ? ((std::find(cmtDirectives.begin(), cmtDirectives.end(), ":elaborate") != cmtDirectives.end()) ? "elab-name " : "op-name ") : "elab-instance ") << currOpName << std::endl
 					<< "\t^const <Q" << constNumber << ">" << std::endl
 					<< "\t^pref-weight 0.0)" << std::endl;
 

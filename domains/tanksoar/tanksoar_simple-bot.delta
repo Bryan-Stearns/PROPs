@@ -1,0 +1,51 @@
+
+; Use the following slot ordering: {blocked-forward:1 blocked-backward:2 blocked-left:3 blocked-right:4 
+;									incoming-forward:5 incoming-backward:6 incoming-left:7 incoming-right:8 
+;									smell-color:9 smell-distance:10 sound:11 
+;									clock:12 direction:13 energy:14 energyrecharger:15 health:16 healthrecharger:17 missiles:18 my-color:19
+;									radar-distance:20 radar-setting:21 radar-status:22 random:23 resurrect:24 shield-status:25 x:26 y:27}
+
+; Possible actions: (move direction <left/right/forward/backward/none>), (rotate direction <left/right>),
+;					(fire weapon missile), (radar switch <on/off>), (radar-power setting <1-14>), (shields switch <on/off>)
+
+
+
+(add-instr tanksoar :input (Ib-front Ib-back Ib-left Ib-right Ii-front Ii-back Ii-left Ii-right 
+							Ism-col Ism-dist Isound Iclock Idirection Ienergy Ienergy-rc Ihealth Ihealth-rc
+							Imissiles Imy-color Ir-dist Ir-setting Ir-status Irandom Iresurrect Ishield Ix Iy) 
+					:variables (WMb-any WMi-any WMm-energy-low WMview-unknown WMr-salient-any WMr-tank-any WMr-missiles-any WMr-good-any) :declarative (RTnone)
+	;~ turn-backward
+	(ins :condition (Ib-front = yes Ib-left = yes Ib-right = yes) :action ((rotate direction left) -> AC) :description "Turn around if trapped")
+
+	;~ wander
+	(ins :condition (WMi-any != yes WMr-tank-any != yes Isound = silent) :subgoal "wander" :description "Wander if nothing better to do.")
+
+	;~ attack
+	(ins :condition (WMr-tank-any = yes) :subgoal "attack" :description "Attack if seeing any tank")
+)
+
+(add-instr attack :input ()
+	;~ fire-missile
+	(ins :condition (
+)
+
+(add-instr wander :input ()
+
+	;~ turn-left
+	(ins :condition (Ib-front = yes Ib-left = no) :action ((rotate direction left) -> AC yes -> WMview-unknown) )
+	;~ turn-right
+	(ins :condition (Ib-front = yes Ib-left = no) :action ((rotate direction right) -> AC yes -> WMview-unknown) )
+	;~ radar-on
+	(ins :condition (WMview-unknown = yes) :action ((radar-power setting 13) -> AC no -> WMview-unknown) )
+	;~ radar-off
+	(ins :condition (WMr-salient-any != yes Ir-status = on) :action ((radar switch off) -> AC) )
+	;~ forward
+	(ins :condition (WMview-unknown = no) :action ((move direction forward) -> AC) )
+
+) 
+
+(add-task tanksoar
+	(operator tanksoar-turn-backward)
+	(operator tanksoar-wander-turn-left)
+	(operator tanksoar-wander-turn-right)
+)

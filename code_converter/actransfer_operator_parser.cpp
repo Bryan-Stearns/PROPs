@@ -456,12 +456,13 @@ bool actransfer_operator_parser::getRawProps1(std::stringstream & ss, parse_type
 
 	// Check syntax
 	sToken = nextToken(ss);
-	if (!sToken.compare(":subgoal")) {
+	if (!sToken.compare(":subgoal") || !sToken.compare(":elaborate")) {
 		// This is an operator proposal only, without other actions (for an ONC subgoal).
 		// Get the operator name
 		nextToken(ss);			// read '"'
 		sToken = nextToken(ss); // read operator/subgoal name
 		condConsts.insert(condConsts.begin(), sToken);
+		cmtDirectives.push_back(sToken);
 		// Skip to the next rule
 		actions.clear();
 		// Read to the end of the instruction
@@ -692,7 +693,7 @@ bool actransfer_operator_parser::getRawProps2(std::stringstream & ss, parse_type
 	std::string sToken = nextToken(ss);	// "(" or ";~"
 
 	// Handle directives if any
-	while (!sToken.compare("(") || !sToken.compare(")") || !sToken.compare("add-instr") || !sToken.compare("add-operators") || !sToken.compare("add-task") || !sToken.compare("elab") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':') {
+	while (sToken.compare("ins")/*!sToken.compare("(") || !sToken.compare(")") || !sToken.compare("add-instr") || !sToken.compare("add-operators") || !sToken.compare("add-task") || !sToken.compare("elab") || !sToken.compare(";~") || !sToken.compare(";~~") || sToken.at(0) == ':'*/) {
 		if (!sToken.compare("add-instr")) {
 			pmode = INSTR;
 			initSlotRefMap();
@@ -701,7 +702,7 @@ bool actransfer_operator_parser::getRawProps2(std::stringstream & ss, parse_type
 			readInstrSettings(ss, slotRefMap);	// These will add task-specific refs to the master refs, without overwriting
 		}
 		else if (!sToken.compare("add-task")) {
-			//pmode = INSTR;
+			pmode = TASK;
 			currTaskName = nextToken(ss);
 			cmtDirectives.push_back("(add-task "+currTaskName);
 			sToken = nextToken(ss); // '('
@@ -749,11 +750,11 @@ bool actransfer_operator_parser::getRawProps2(std::stringstream & ss, parse_type
 			cmtDirectives.push_back(";~~ " + currRule_h2);
 		}
 		else if (!sToken.compare(")")) {
-			//if (pmode == ELAB) {
-				pmode = INSTR;
+			if (pmode != NONE) {
+				pmode = NONE;
 				lockSlots.clear();
 				cmtDirectives.push_back(") ");
-			//}
+			}
 		}
 
 		sToken = nextToken(ss);
@@ -862,8 +863,9 @@ bool actransfer_operator_parser::getRawProps2(std::stringstream & ss, parse_type
 
 	// Check syntax
 	sToken = nextToken(ss);
-	if (!sToken.compare(":subgoal")) {
+	if (!sToken.compare(":subgoal") || !sToken.compare(":elaborate")) {
 		// This is an operator proposal only, without other actions (for an ONC subgoal).
+		cmtDirectives.push_back(sToken);
 		// Get the operator name
 		nextToken(ss);			// read '"'
 		sToken = nextToken(ss); // read operator/subgoal name
@@ -1666,7 +1668,7 @@ int actransfer_operator_parser::convertToPropsInstructions() {
 		// Print header
 		outFile.open(outPathFull.c_str(), std::ios::trunc);
 		outFile << "#####" << std::endl
-				<< "# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS" << std::endl
+				<< "# THIS FILE TRANSLATES THE INSTRUCTIONS" << std::endl
 				<< "# FROM '" << inPath << "' INTO INTERMEDIATE PROP INSTRUCTIONS." << std::endl
 				<< "#####" << std::endl << std::endl;
 
@@ -1689,7 +1691,7 @@ int actransfer_operator_parser::convertToPropsInstructions() {
 		// Print header
 		outFile.open(outPathFull.c_str(), std::ios::trunc);
 		outFile << "#####" << std::endl
-				<< "# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS" << std::endl
+				<< "# THIS FILE TRANSLATES THE INSTRUCTIONS" << std::endl
 				<< "# FROM '" << inPath << "' INTO SOURCEABLE SOAR PRODUCTIONS." << std::endl
 				<< "#####" << std::endl << std::endl;
 

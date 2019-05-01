@@ -59,7 +59,8 @@ sp {elaborate*rootstate*cascade
 # INHERIT CONST STRUCTS FROM SUPERSTATE EPSETS
 sp {elaborate*epset*consts
     # Need to access consts in state the same way regardless of whether consts come from local epset or superstate epset, so that chunks will transfer
-    (state <s> ^props-pre-cbset.const <c>)
+    (state <s> #^props-pre-cbset.const <c>)
+                ^prop-apply-buffer.epset.const <c>)
 -->
     (<s> ^const <c>)
 }
@@ -88,7 +89,7 @@ sp {elaborate*props*delta*conditions*all-true
 ### 
 
 sp {propose*props*eval*query*epset*topstate
-    "Load an epset to bias fetching for the task"
+    "Load an initial epset for the task"
     (state <s> ^G.Gtask {<task> <> finish}    # Finish triggers interface response
                ^superstate nil
                ^smem.result <sres>
@@ -102,16 +103,35 @@ sp {propose*props*eval*query*epset*topstate
          ^epset-name <task>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
     (<dblank> ^op-name <task>)
 }
-
+sp {propose*props*eval*query*epset*substate*apply-known
+    "Load an epset to apply a parent delta (operator)"
+    (state <s> ^superstate <ss>
+               ^impasse no-change
+               ^attribute operator
+               ^smem.result <sres>
+               ^prop-apply-buffer <pab>)
+    (<pab> -^epset.props-epset-name <name>)
+    (<sres> -^<< retrieved failure >> )
+    (<ss> ^operator <oo>     # If the superstate epset had a const, it'd be proposing cbsets
+         -^const)
+    (<oo> ^delta <d> #.apply-name <name>
+         ^name <name>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name (concat |props-load_| <name>)
+         ^name2 props-load-epset
+         ^delta <d>
+         ^epset-name <name>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
+}
 # Propose an epset's delta 
 sp {propose*props*epset*delta*condition*all-true
-    "Propose the operator if all conditions are true."
+    "Load an epset for an elaboration."
     (state <s> ^prop-apply-buffer <b>
               #-^Q.object    # Don't make a query if the smem command is already in use
                ^delta-info.<d> <info>)
     (<b> ^epset.delta <d>
         -^epset.props-epset-name <name>)
-    (<d> ^op-name <name>
+    (<d> ^elab-name <name>
         -^prop-apply
         -^has-action)    # Only for conditions
     (<info> ^all-conds-true true)
@@ -129,7 +149,7 @@ sp {apply*props*eval*query*epset
     (state <s> ^operator <o>
                ^smem.command <scmd>)
     (<o> ^name2 props-load-epset
-         ^delta <d>
+         #^delta <d>
          ^epset-name <name>)
 -->
     (<scmd> ^query <q>
@@ -202,7 +222,7 @@ sp {apply*props*retrieve-epset*success*elab-lock
     (<pab> -^epset <e>
             ^epset <eparent>)
     (<eparent> ^delta <d>)
-    (<d> ^op-name <oname>)
+    (<d> ^elab-name <oname>)
     (<smem> ^command <scmd>
            ^result.retrieved <e>)
     (<scmd> ^query <q>)
@@ -249,30 +269,30 @@ sp {apply*props*retrieve-epset*success*elab-lock
 # Fetch instructions for applying a superstate operator
 ###
 
-sp {propose*props*eval*query*pre-cbset
-    "Load an epset to apply a parent delta (operator)"
-    (state <s> ^superstate.operator <oo>
-               ^impasse no-change
-               ^attribute operator
-              -^const     # If the superstate epset had a const, it'd be proposing cbsets
-              -^smem.result.<< retrieved failure >>)
-    (<oo> ^delta 
-         ^name <name>)
--->
-    (<s> ^operator <o> + >)
-    (<o> ^name props-load-pre-cbset
-        ^epset-name <name>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
-}
-sp {apply*props*eval*query*pre-cbset
-    (state <s> ^operator <o>
-               ^smem.command <scmd>)
-    (<o> ^name props-load-pre-cbset
-         ^epset-name <name>)
--->
-    (<scmd> ^query <q>
-            ^depth 3)    # Retrieve down to epset.delta.prop for condition details
-    (<q> ^props-epset-name <name>)
-}
+#sp {propose*props*eval*query*pre-cbset
+#    "Load an epset to apply a parent delta (operator)"
+#    (state <s> ^superstate.operator <oo>
+#               ^impasse no-change
+#               ^attribute operator
+#              -^const     # If the superstate epset had a const, it'd be proposing cbsets
+#              -^smem.result.<< retrieved failure >>)
+#    (<oo> ^delta 
+#         ^name <name>)
+#-->
+#    (<s> ^operator <o> + >)
+#    (<o> ^name props-load-pre-cbset
+#        ^epset-name <name>)        # Remove this line for free epset retrievals (should then prohibit used epsets for a time though)
+#}
+#sp {apply*props*eval*query*pre-cbset
+#    (state <s> ^operator <o>
+#               ^smem.command <scmd>)
+#    (<o> ^name props-load-pre-cbset
+#         ^epset-name <name>)
+#-->
+#    (<scmd> ^query <q>
+#            ^depth 3)    # Retrieve down to epset.delta.prop for condition details
+#    (<q> ^props-epset-name <name>)
+#}
 
 
 ### OPERATOR ### 
@@ -281,27 +301,27 @@ sp {apply*props*eval*query*pre-cbset
 # Pull the query result
 ### 
 
-sp {propose*props*retrieve-pre-cbset
-    (state <s> ^smem.result.retrieved <e>
-               ^superstate <> nil
-              -^props-pre-cbset)
-    (<e> ^props-epset-name <name>)
--->
-    (<s> ^operator <o> + >)
-    (<o> ^name props-retrieve-pre-cbset)
-}
-sp {apply*props*retrieve-pre-cbset*success
-    (state <s> ^operator.name props-retrieve-pre-cbset
-               ^smem <smem>
-              -^props-pre-cbset)
-    (<smem> ^command <scmd>
-           ^result.retrieved <e>)
-    (<scmd> ^query <q>)
--->
-    #(force-learn <s>)
-    (<s> ^props-pre-cbset <e>)
-    (<scmd> ^query <q> -)
-}
+#sp {propose*props*retrieve-pre-cbset
+#    (state <s> ^smem.result.retrieved <e>
+#               ^superstate <> nil
+#              -^props-pre-cbset)
+#    (<e> ^props-epset-name <name>)
+#-->
+#    (<s> ^operator <o> + >)
+#    (<o> ^name props-retrieve-pre-cbset)
+#}
+#sp {apply*props*retrieve-pre-cbset*success
+#    (state <s> ^operator.name props-retrieve-pre-cbset
+#               ^smem <smem>
+#              -^props-pre-cbset)
+#    (<smem> ^command <scmd>
+#           ^result.retrieved <e>)
+#    (<scmd> ^query <q>)
+#-->
+#    #(force-learn <s>)
+#    (<s> ^props-pre-cbset <e>)
+#    (<scmd> ^query <q> -)
+#}
 
 ### OPERATOR ### 
 # props-load-cbset
@@ -401,8 +421,8 @@ sp {propose*props*epset*operator*condition*all-true
     (state <s> ^prop-apply-buffer.epset <pe>
                ^delta-info.<d> <info>)
     (<pe> ^delta <d>)
-    (<d> ^op-name <name>
-         ^has-action true)
+    (<d> ^op-name <name>)
+         #^has-action true)
     (<info> ^all-conds-true true)
     #-{(<d> ^prop.name <cname>)
     #  (<info> -^cond-success <cname>)} # It is not the case that this delta has untrue conditions
@@ -415,7 +435,7 @@ sp {propose*props*epset*operator*condition*all-true
 # Propose an epset's pre-cbset rule application
 sp {propose*props*pre-epset*delta*action
     "Propose the operator if it hasnt been applied yet."
-    (state <s> ^props-pre-cbset <pe>
+    (state <s> ^prop-apply-buffer.epset <pe>
               -^props-flag apply-buffer-nonempty)
     (<pe> ^delta <d>
           ^const)              # Is a pre-cbset epset
@@ -516,9 +536,10 @@ sp {apply*props*cbset-return*to-topstate
     "When finished composing actions, simply return the apply buffer."
     (state <s> ^operator.name props-cbset-return
                ^prop-working-buffer.apply <pa>
-               ^topstate <sss>
-               ^superstate.superstate <sss>)
-    (<sss> ^prop-apply-buffer <sb>
+               #^topstate <sss>
+               ^superstate <ss>)
+               #^superstate.superstate <sss>)
+    (<ss> ^prop-apply-buffer <sb>
            ^operator.delta <d>)
 -->
     (<sb> ^apply <pa>)

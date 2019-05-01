@@ -1,0 +1,66 @@
+#####
+# THIS FILE TRANSLATES THE INSTRUCTIONS
+# FROM 'eaters_simple.delta' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+# (add-instr eaters
+# ;~ forward
+pp {propose*eaters_simple*eaters*forward
+	const1 eaters_simple-eaters-forward
+	const2 wall
+	--
+	s.V.slot1 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*eaters_simple*eaters*forward
+	const1 eaters_simple-eaters-forward
+	const2 forward
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# ;~ rotate-wall
+pp {propose*eaters_simple*eaters*rotate-wall
+	const1 eaters_simple-eaters-rotate-wall
+	const2 wall
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*eaters_simple*eaters*rotate-wall
+	const1 eaters_simple-eaters-rotate-wall
+	const2 rotate
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# ;~ rotate-free
+pp {propose*eaters_simple*eaters*rotate-free
+	const1 eaters_simple-eaters-rotate-free
+	const2 wall
+	--
+	s.V.slot1 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*eaters_simple*eaters*rotate-free
+	const1 eaters_simple-eaters-rotate-free
+	const2 rotate
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# ) 
+# (add-task eaters
+# operator eaters-forward
+# operator eaters-rotate-wall
+# operator eaters-rotate-free
+# ) 

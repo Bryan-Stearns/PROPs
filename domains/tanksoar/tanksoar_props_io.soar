@@ -1,0 +1,262 @@
+### TASK ###
+
+sp {elaborate*eaters*task
+	(state <s> ^G <g>)
+-->
+	(<g> ^Gtask tanksoar)
+}
+
+### INPUT ###
+
+# Use the following slot ordering: {blocked-forward:1 blocked-backward:2 blocked-left:3 blocked-right:4 
+#									incoming-forward:5 incoming-backward:6 incoming-left:7 incoming-right:8 
+#									smell-color:9 smell-distance:10 sound:11 
+#									clock:12 direction:13 energy:14 energyrecharger:15 health:16 healthrecharger:17 missiles:18 my-color:19
+#									radar-distance:20 radar-setting:21 radar-status:22 random:23 resurrect:24 shield-status:25 x:26 y:27}
+
+# Slots 1-4: input-link.blocked
+sp {elaborate*tanksoar*input*blocked*forward
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^blocked.forward <val>)
+-->
+	(<v> ^slot1 <val>)
+}
+sp {elaborate*tanksoar*input*blocked*backward
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^blocked.backward <val>)
+-->
+	(<v> ^slot2 <val>)
+}
+sp {elaborate*tanksoar*input*blocked*left
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^blocked.left <val>)
+-->
+	(<v> ^slot3 <val>)
+}
+sp {elaborate*tanksoar*input*blocked*right
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^blocked.right <val>)
+-->
+	(<v> ^slot4 <val>)
+}
+
+# Slots 5-8: input-link.incoming
+sp {elaborate*tanksoar*input*incoming*forward
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^incoming.forward <val>)
+-->
+	(<v> ^slot5 <val>)
+}
+sp {elaborate*tanksoar*input*incoming*backward
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^incoming.backward <val>)
+-->
+	(<v> ^slot6 <val>)
+}
+sp {elaborate*tanksoar*input*incoming*left
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^incoming.left <val>)
+-->
+	(<v> ^slot7 <val>)
+}
+sp {elaborate*tanksoar*input*incoming*right
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^incoming.right <val>)
+-->
+	(<v> ^slot8 <val>)
+}
+
+# Slots 9-11: input-link.<< smell sound >>
+sp {elaborate*tanksoar*input*smell*color
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^smell.color <val>)
+-->
+	(<v> ^slot9 <val>)
+}
+sp {elaborate*tanksoar*input*smell*distance
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^smell.distance <val>)
+-->
+	(<v> ^slot10 <val>)
+}
+sp {elaborate*tanksoar*input*sound
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^sound <val>)
+-->
+	(<v> ^slot11 <val>)
+}
+
+# Slots 12-27: misc
+sp {elaborate*tanksoar*input*clock
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^clock <val>)
+-->
+	(<v> ^slot12 <val>)
+}
+sp {elaborate*tanksoar*input*direction
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^direction <val>)
+-->
+	(<v> ^slot13 <val>)
+}
+sp {elaborate*tanksoar*input*energy
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^energy <val>)
+-->
+	(<v> ^slot14 <val>)
+}
+sp {elaborate*tanksoar*input*energyrecharger
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^energyrecharger <val>)
+-->
+	(<v> ^slot15 <val>)
+}
+sp {elaborate*tanksoar*input*health
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^health <val>)
+-->
+	(<v> ^slot16 <val>)
+}
+sp {elaborate*tanksoar*input*healthrecharger
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^healthrecharger <val>)
+-->
+	(<v> ^slot17 <val>)
+}
+sp {elaborate*tanksoar*input*missiles
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^missiles <val>)
+-->
+	(<v> ^slot18 <val>)
+}
+sp {elaborate*tanksoar*input*my-color
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^my-color <val>)
+-->
+	(<v> ^slot19 <val>)
+}
+sp {elaborate*tanksoar*input*radar-distance
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^radar-distance <val>)
+-->
+	(<v> ^slot20 <val>)
+}
+sp {elaborate*tanksoar*input*radar-setting
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^radar-setting <val>)
+-->
+	(<v> ^slot21 <val>)
+}
+sp {elaborate*tanksoar*input*radar-status
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^radar-status <val>)
+-->
+	(<v> ^slot22 <val>)
+}
+sp {elaborate*tanksoar*input*random
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^random <val>)
+-->
+	(<v> ^slot23 <val>)
+}
+sp {elaborate*tanksoar*input*resurrect
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^resurrect <val>)
+-->
+	(<v> ^slot24 <val>)
+}
+sp {elaborate*tanksoar*input*shield-status
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^shield-status <val>)
+-->
+	(<v> ^slot25 <val>)
+}
+sp {elaborate*tanksoar*input*x
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^x <val>)
+-->
+	(<v> ^slot26 <val>)
+}
+sp {elaborate*tanksoar*input*y
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^y <val>)
+-->
+	(<v> ^slot27 <val>)
+}
+
+
+### OUTPUT ###
+
+sp {elaborate*tanksoar*action*out
+	(state <s> ^AC.object <a>
+				^io.output-link <ol>)
+	(<a> ^slot1 <cmd-attr1>
+		^slot2 <cmd-attr2>
+		^slot3 <cmd-val>)
+-->
+	(<ol> ^<cmd-attr1> <newid>)
+	(<newid> ^<cmd-attr2> <cmd-val>)
+}
+
+# cleans the output-link once commands complete
+sp {apply*tanksoar*cleanup*output-link
+   (state <s> ^operator <op>
+              ^AC <ac>
+              ^io.output-link <out>)
+   (<ac> ^object <ao>)
+   (<ao> ^slot1 <cmd>)
+   (<out> ^<cmd> <id>)
+   (<id> ^status)
+-->
+   (<ac> ^object <ao> -)
+}
+
+# TURN RADAR ON/OFF WHEN POWER TURNED UP
+sp {elaborate*tanksoar*action*out*radar-on
+	(state <s> ^AC.object <a>
+				^io.output-link <ol>)
+	(<a> ^slot1 radar
+		^slot2 setting
+		^slot3 > 0)
+-->
+	(<ol> ^radar <newid>)
+	(<newid> ^switch on)
+}
+
+
+### WM ELABORATIONS ###
+
+sp {elaborate*tanksoar*wm*blocked-any
+	(state <s> ^io.input-link <il>
+				^WM <wm>)
+	(<il> ^blocked <any>)
+-->
+	(<wm> ^slot1 yes)
+}

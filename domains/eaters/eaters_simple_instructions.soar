@@ -1,0 +1,80 @@
+#####
+# THIS FILE TRANSLATES THE PROPS INSTRUCTIONS
+# FROM 'eaters_simple.prop' INTO SMEM INSTRUCTIONS USABLE
+# BY A PROPS SOAR AGENT.
+#####
+
+# BEGIN INSTRUCTIONS
+
+smem --add {
+
+
+(<epset-task-eaters> ^props-epset-name eaters
+	^delta <delta-rule1>
+	^delta <delta-rule3>
+	^delta <delta-rule5>)
+
+(<Q6>  ^1 eaters_simple-eaters-rotate-free ^2 rotate)
+(<delta-rule5> ^has-action true)
+(<pre-cbset-rule6> ^props-epset-name eaters_simple-eaters-rotate-free
+	^const <Q6>
+	^delta <delta_PA2>)
+
+(<Q5>  ^1 eaters_simple-eaters-rotate-free ^2 wall)
+(<delta-rule5> ^op-name eaters_simple-eaters-rotate-free
+	^const <Q5>
+	^pref-weight 0.0)
+(<delta-rule5> ^prop <prop-C1>)
+
+(<Q4>  ^1 eaters_simple-eaters-rotate-wall ^2 rotate)
+(<delta-rule3> ^has-action true)
+(<pre-cbset-rule4> ^props-epset-name eaters_simple-eaters-rotate-wall
+	^const <Q4>
+	^delta <delta_PA2>)
+
+(<Q3>  ^1 eaters_simple-eaters-rotate-wall ^2 wall)
+(<delta-rule3> ^op-name eaters_simple-eaters-rotate-wall
+	^const <Q3>
+	^pref-weight 0.0)
+(<delta-rule3> ^prop <prop-C3>)
+(<prop-C3> ^name |_PC3|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q2>  ^1 eaters_simple-eaters-forward ^2 forward)
+(<delta_PA2> ^prop-apply true
+	^item-name |_PA2|
+	^op-name |_PA2|)
+(<cbset_PA2> ^props-cbset-name |_PA2|
+	^delta <delta-null_PA2>)
+(<delta-null_PA2> ^prop-apply true
+	^prop <prop-A2>)
+(<prop-A2> ^name |_PA2|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 AC
+	^address2 props$const)
+(<delta-rule1> ^has-action true)
+(<pre-cbset-rule2> ^props-epset-name eaters_simple-eaters-forward
+	^const <Q2>
+	^delta <delta_PA2>)
+
+(<Q1>  ^1 eaters_simple-eaters-forward ^2 wall)
+(<delta-rule1> ^op-name eaters_simple-eaters-forward
+	^const <Q1>
+	^pref-weight 0.0)
+(<delta-rule1> ^prop <prop-C1>)
+(<prop-C1> ^name |_PC1|
+	^prop-type inequality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+}

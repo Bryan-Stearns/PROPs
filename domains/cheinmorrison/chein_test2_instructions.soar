@@ -681,7 +681,7 @@ smem --add {
 	^elab-class elab-Vword-WMword
 	^wm-target slot3)
 (<epset-task-elab-Vword-WMword> ^delta <delta-rule18>)
-(<delta-rule18> ^elab-name general
+(<delta-rule18> ^elab-instance general
 	^const <Q18>
 	^pref-weight 0.0)
 (<delta-rule18> ^prop <prop-C3>)
@@ -697,7 +697,7 @@ smem --add {
 	^elab-class elab-WMcolor-WMword
 	^wm-target slot3)
 (<epset-task-elab-WMcolor-WMword> ^delta <delta-rule17>)
-(<delta-rule17> ^elab-name general
+(<delta-rule17> ^elab-instance general
 	^const <Q17>
 	^pref-weight 0.0)
 (<delta-rule17> ^prop <prop-C2>)
@@ -713,7 +713,7 @@ smem --add {
 	^elab-class elab-Vcolor-WMcolor
 	^wm-target slot2)
 (<epset-task-elab-Vcolor-WMcolor> ^delta <delta-rule16>)
-(<delta-rule16> ^elab-name general
+(<delta-rule16> ^elab-instance general
 	^const <Q16>
 	^pref-weight 0.0)
 (<delta-rule16> ^prop <prop-C1>)
@@ -730,7 +730,7 @@ smem --add {
 	^wm-target slot5)
 (<Q15>  ^1 yes ^2 no)
 (<epset-task-elab-no-WMprepare> ^delta <delta-rule15>)
-(<delta-rule15> ^elab-name idle
+(<delta-rule15> ^elab-instance idle
 	^const <Q15>
 	^pref-weight 0.0)
 (<delta-rule15> ^prop <prop-C15>)
@@ -747,7 +747,7 @@ smem --add {
 	^wm-target slot5)
 (<Q14>  ^1 yes)
 (<epset-task-elab-yes-WMprepare> ^delta <delta-rule14>)
-(<delta-rule14> ^elab-name focusing
+(<delta-rule14> ^elab-instance focusing
 	^const <Q14>
 	^pref-weight 0.0)
 (<delta-rule14> ^prop <prop-C15>)
@@ -771,7 +771,7 @@ smem --add {
 	^wm-target slot4)
 (<Q13>  ^1 pending ^2 yes)
 (<epset-task-elab-yes-WMcanprepare> ^delta <delta-rule13>)
-(<delta-rule13> ^elab-name focusing
+(<delta-rule13> ^elab-instance focusing
 	^const <Q13>
 	^pref-weight 0.0)
 (<delta-rule13> ^prop <prop-C13>)
@@ -791,13 +791,13 @@ smem --add {
 	^address2 props$const)
 
 (<Q12>  ^1 elab-no-WMprepare ^2 yes)
-(<delta-rule12> ^op-name elab-no-WMprepare
+(<delta-rule12> ^elab-name elab-no-WMprepare
 	^const <Q12>
 	^pref-weight 0.0)
 (<delta-rule12> ^prop <prop-C12>)
 
 (<Q11>  ^1 elab-yes-WMprepare ^2 yes)
-(<delta-rule11> ^op-name elab-yes-WMprepare
+(<delta-rule11> ^elab-name elab-yes-WMprepare
 	^const <Q11>
 	^pref-weight 0.0)
 (<delta-rule11> ^prop <prop-C12>)
@@ -848,7 +848,7 @@ smem --add {
 (<delta-rule9> ^prop <prop-C4>)
 
 (<Q8>  ^1 elab-yes-WMcanprepare ^2 yes)
-(<delta-rule8> ^op-name elab-yes-WMcanprepare
+(<delta-rule8> ^elab-name elab-yes-WMcanprepare
 	^const <Q8>
 	^pref-weight 0.0)
 (<delta-rule8> ^prop <prop-C9>)
@@ -861,13 +861,13 @@ smem --add {
 
 
 (<Q7>  ^1 elab-WMcolor-WMword ^2 yes)
-(<delta-rule7> ^op-name elab-WMcolor-WMword
+(<delta-rule7> ^elab-name elab-WMcolor-WMword
 	^const <Q7>
 	^pref-weight 0.0)
 (<delta-rule7> ^prop <prop-C8>)
 
 (<Q6>  ^1 elab-Vcolor-WMcolor ^2 yes)
-(<delta-rule6> ^op-name elab-Vcolor-WMcolor
+(<delta-rule6> ^elab-name elab-Vcolor-WMcolor
 	^const <Q6>
 	^pref-weight 0.0)
 (<delta-rule6> ^prop <prop-C8>)
@@ -931,7 +931,7 @@ smem --add {
 
 
 (<Q3>  ^1 elab-Vword-WMword)
-(<delta-rule3> ^op-name elab-Vword-WMword
+(<delta-rule3> ^elab-name elab-Vword-WMword
 	^const <Q3>
 	^pref-weight 0.0)
 (<delta-rule3> ^prop <prop-C3>)
@@ -942,7 +942,7 @@ smem --add {
 
 
 (<Q2>  ^1 elab-WMcolor-WMword)
-(<delta-rule2> ^op-name elab-WMcolor-WMword
+(<delta-rule2> ^elab-name elab-WMcolor-WMword
 	^const <Q2>
 	^pref-weight 0.0)
 (<delta-rule2> ^prop <prop-C2>)
@@ -953,7 +953,7 @@ smem --add {
 
 
 (<Q1>  ^1 elab-Vcolor-WMcolor)
-(<delta-rule1> ^op-name elab-Vcolor-WMcolor
+(<delta-rule1> ^elab-name elab-Vcolor-WMcolor
 	^const <Q1>
 	^pref-weight 0.0)
 (<delta-rule1> ^prop <prop-C1>)

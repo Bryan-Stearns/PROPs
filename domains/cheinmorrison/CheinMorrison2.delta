@@ -1,22 +1,22 @@
 (add-instr stroop :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare)
 	;~ focus-color
-	(ins :condition (Vcolor != nil) :subgoal "elab-Vcolor-WMcolor" :description "Get the color from the object.")
+	(ins :condition (Vcolor != nil) :elaborate "elab-Vcolor-WMcolor" :description "Get the color from the object.")
 	;~ focus-WMcolor
-	(ins :condition (WMcolor != nil) :subgoal "elab-WMcolor-WMword" :description "Get the word from the color.")
+	(ins :condition (WMcolor != nil) :elaborate "elab-WMcolor-WMword" :description "Get the word from the color.")
 	;~ focus-word
-	(ins :condition (Vword != nil) :subgoal "elab-Vword-WMword" :description "Get the word from the text.")
+	(ins :condition (Vword != nil) :elaborate "elab-Vword-WMword" :description "Get the word from the text.")
 
 	;~ act-say-word
 	(ins :condition (Vobject = yes WMword != nil) :action ((say WMword) -> AC) :description "Say the word")
 
 	;; Imagination
 	;~ imagine-color-WMcolor
-	(ins :condition (WMprepare = yes) :subgoal "elab-Vcolor-WMcolor" :description "Load the elab in preparation for percept.")
+	(ins :condition (WMprepare = yes) :elaborate "elab-Vcolor-WMcolor" :description "Load the elab in preparation for percept.")
 	;~ imagine-WMcolor-WMword
-	(ins :condition (WMprepare = yes) :subgoal "elab-WMcolor-WMword" :description "Load the elab in preparation for percept.")
+	(ins :condition (WMprepare = yes) :elaborate "elab-WMcolor-WMword" :description "Load the elab in preparation for percept.")
 
 	;~ imagine-yes-WMcanprepare
-	(ins :condition (Vobject != yes) :subgoal "elab-yes-WMcanprepare" :description "Note that can prepare between stimuli.")
+	(ins :condition (Vobject != yes) :elaborate "elab-yes-WMcanprepare" :description "Note that can prepare between stimuli.")
 
 	;~ finish
 	(ins :condition (Vobject = last) :action (finish -> Gtask) :description "Done with this block")
@@ -25,9 +25,9 @@
 (add-instr shared :input (Vobject Vcolor Vword) :working-memory (WMconcept WMcolor WMword WMcanprepare WMprepare)
 	;; Imagination
 	;~ imagine-yes-WMprepare
-	(ins :condition (WMcanprepare = yes) :subgoal "elab-yes-WMprepare" :description "Trigger preparation while idle")
+	(ins :condition (WMcanprepare = yes) :elaborate "elab-yes-WMprepare" :description "Trigger preparation while idle")
 	;~ imagine-no-WMprepare
-	(ins :condition (WMcanprepare = yes) :subgoal "elab-no-WMprepare" :description "Trigger mind-wandering while idle")
+	(ins :condition (WMcanprepare = yes) :elaborate "elab-no-WMprepare" :description "Trigger mind-wandering while idle")
 )
 
 ;; Elaborations

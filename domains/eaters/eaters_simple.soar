@@ -1,0 +1,50 @@
+#####
+# THIS FILE TRANSLATES THE INSTRUCTIONS
+# FROM 'eaters_simple.delta' INTO SOURCEABLE SOAR PRODUCTIONS.
+#####
+
+sp {propose*eaters_simple*eaters*forward
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 <> wall)
+	-->
+	(<o1> ^name eaters_simple-eaters-forward)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*eaters_simple*eaters*forward
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name eaters_simple-eaters-forward)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 forward)
+}
+sp {propose*eaters_simple*eaters*rotate-wall
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 wall)
+	-->
+	(<o1> ^name eaters_simple-eaters-rotate-wall)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*eaters_simple*eaters*rotate-wall
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name eaters_simple-eaters-rotate-wall)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 rotate)
+}
+sp {propose*eaters_simple*eaters*rotate-free
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 <> wall)
+	-->
+	(<o1> ^name eaters_simple-eaters-rotate-free)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*eaters_simple*eaters*rotate-free
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name eaters_simple-eaters-rotate-free)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 rotate)
+}

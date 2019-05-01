@@ -71,12 +71,12 @@ public class SMLClient {
 		//ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
 		//expList.add(new LearnConfig("12",1));
 		
-		world.runCheinExperiment("stroopChein", 3, expList); // 9 samples
+		//world.runCheinExperiment("stroopChein", 3, expList); // 9 samples
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
 		//world.runCheinDebug("verbalCWM", 1, "1");
-		//world.runCheinDebug("stroop", 1, "1");
+		world.runCheinDebug("stroop", 1, "1");
 		
 		//world.testStroop();
 		

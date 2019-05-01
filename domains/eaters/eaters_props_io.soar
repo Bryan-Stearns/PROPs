@@ -1,0 +1,85 @@
+### TASK ###
+
+sp {elaborate*eaters*task
+	(state <s> ^G <g>)
+-->
+	(<g> ^Gtask eaters)
+}
+
+### INPUT ###
+
+# Use the following slot ordering: {front:1 back:2 left:3 right:4 orientation:5 x:6 y:7}
+
+sp {elaborate*eaters*input*front
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^front <val>)
+-->
+	(<v> ^slot1 <val>)
+}
+sp {elaborate*eaters*input*back
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^back <val>)
+-->
+	(<v> ^slot2 <val>)
+}
+sp {elaborate*eaters*input*left
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^left <val>)
+-->
+	(<v> ^slot3 <val>)
+}
+sp {elaborate*eaters*input*right
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^right <val>)
+-->
+	(<v> ^slot4 <val>)
+}
+sp {elaborate*eaters*input*orientation
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^orientation <val>)
+-->
+	(<v> ^slot5 <val>)
+}
+sp {elaborate*eaters*input*x
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^x <val>)
+-->
+	(<v> ^slot6 <val>)
+}
+sp {elaborate*eaters*input*y
+	(state <s> ^io.input-link <il>
+				^V <v>)
+	(<il> ^y <val>)
+-->
+	(<v> ^slot7 <val>)
+}
+
+
+### OUTPUT ###
+
+sp {elaborate*eaters*action*out
+	(state <s> ^AC.object <a>
+				^io.output-link <ol>)
+	(<a> ^slot1 <cmd>)
+-->
+	(<ol> ^<cmd> <empty>)
+}
+
+# cleans the output-link once commands complete
+sp {apply*eaters*cleanup*output-link
+   (state <s> ^operator <op>
+              ^AC <ac>
+              ^io.output-link <out>)
+   (<ac> ^object <ao>)
+   (<ao> ^slot1 <cmd>)
+   (<out> ^<cmd> <id>)
+   (<id> ^status)
+-->
+   (<ac> ^object <ao> -)
+}

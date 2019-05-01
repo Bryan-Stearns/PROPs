@@ -24,7 +24,9 @@ public:
 	int convertToPropsInstructions();
 
 	enum parse_type {
-		INSTR = 0,
+		NONE = 0,
+		INSTR,
+		TASK,
 		ELAB
 	};
 
