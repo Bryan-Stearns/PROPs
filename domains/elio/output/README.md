@@ -9,5 +9,5 @@ The naming convention of these files:
 
 The individual files are tab-separated records of stats per agent task action. The columns are as follows:
 
-| task name | trial | task line | real-time latency (sec) | answer | decision cycles (total) | chunks total | sample (buggy) | decision cycles (simulated) | simulated time including cycles and retrievals | simulated time including cycles only | #failed instruction fetches | action latencies |  
+| task name | trial | task line | real-time latency (sec) | answer | decision cycles (total) | chunks total | sample (buggy) | decision cycles (simulated) | simulated time: DCs (total) + retrievals | simulated time: DCs (simulated) + retrievals | #failed instruction fetches | action latencies |  
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |  
