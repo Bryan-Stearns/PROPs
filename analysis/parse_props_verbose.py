@@ -25,6 +25,7 @@ def convertData(path, timepath, domain, actions):
     ltmTimeBuff = 0.0
     ltm_count = 0
     p_count = 0
+    p_total = 0
     fail_count = 0
     lastSuccessDC = 0
     lastSuccessTime = 0.0
@@ -34,7 +35,7 @@ def convertData(path, timepath, domain, actions):
     if NO_FAILS:
         outpath = path[:-4] + "_Xnf.dat"
     else:
-        outpath = path[:-4] + "_X.dat"
+        outpath = path[:-4] + "_C.dat"
 
     infile = open(path)
     if timepath:
@@ -71,11 +72,16 @@ def convertData(path, timepath, domain, actions):
         elif line.startswith("Learning new rule chunk"):
             p_count += 1
         # Don't count chunks that were reverted to justifications due to lack of confidence
-        elif line.startswith("Chunk confidence at"):
+        elif line.startswith("Chunk confidence at") and not line.rstrip().endswith("Making chunk:"):
             p_count -= 1
         # Count invalid instruction retrievals
         elif line.startswith(" *** RETRACTING"):
             fail_count += 1
+        #elif line.startswith("*** TASK SET TO "):
+        #    tsk = line[16:]
+        #    if tsk != lastProc:
+        #        p_count = 0
+        #    lastProc = tsk
         # Notice end of line instruction
         elif line.startswith("Say: "):
             if any(line[5:].strip() == a for a in actions):
@@ -84,6 +90,7 @@ def convertData(path, timepath, domain, actions):
                 ltmTimeBuff = 0.0;
                 ltm_count = 0
                 proc_dc = 0
+                p_count = 0
                 fail_count = 0
                 lastSuccessDC = 0
                 lastSuccessTime = 0.0
@@ -96,13 +103,22 @@ def convertData(path, timepath, domain, actions):
                 f = open(outpath, "a")
             
             entry = rows[rowentry]
-            ln = line[echoInd+5:].split()+[None, None, None, None]
+            ln = line[echoInd+5:].split()+[None, None, None, None, None, None]
             origlen = len(ln)
-            ln[origlen-4] = str(entry[0])                                               # DCs
-            ln[origlen-3] = '{0:.4f}'.format(float(entry[0])*DC_TIME+entry[3]+SHIFT)    # Total with LTM Time
-            ln[origlen-2] = str(entry[4])                                               # LTM Count
-            ln[origlen-1]= str(entry[5])                                                # Fails
-            ln = DELIM.join(ln)
+            tm = float(entry[0])*DC_TIME+entry[3]+SHIFT
+            if ln[0] != lastProc:
+                p_total = 0
+                lastProc = ln[0]
+            p_total += entry[1]     # Add the count of learned chunks to the running total
+            
+            ln[origlen-6] = str(entry[0])                                               # DCs
+            ln[origlen-5] = '{0:.4f}'.format(tm)                                        # DC time and LTM Time
+            ln[origlen-4] = str(entry[4])                                               # LTM Count
+            ln[origlen-3] = str(entry[5])                                               # Fail count
+            ln[origlen-2] = str(p_total)                                               # Chunk count
+            ln[origlen-1] = str(tm + float(ln[origlen-7]))                              # Total time (adding action latencies)
+            ln2 = ln[:5]+[ln[origlen-6], ln[origlen-2], ln[origlen-1]]
+            ln = DELIM.join(ln2)
             newline = ln + "\n"
             rowentry += 1
             f.write(newline)
@@ -113,8 +129,8 @@ def convertData(path, timepath, domain, actions):
             #print "Line: rows =", len(rows), ", rowentry =", rowentry  # Verify that record division are correct: these should be equal
             rows = []
             rowentry = 0
-            if lastProc != "a":
-                p_count = 0
+            #if lastProc != "a":
+            #    p_count = 0
         
     infile.close()
     if timepath:
@@ -124,9 +140,10 @@ def convertData(path, timepath, domain, actions):
 
 def main():
     #pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/results/'
-    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/'
-    conv_types = ['l123smc','l12smc']
-    samples = ['2']
+    #pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/'
+    pathdir = '/media/bryan/My Book/festus_extended/Documents/Research/PRIMsDuplications/Editors/'
+    conv_types = ['l123m','l12m']
+    samples = ['4']
     
     T = ['48']
     
