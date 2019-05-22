@@ -11,3 +11,8 @@ The individual files are tab-separated records of stats per agent task action. T
 
 | task name | trial | task line | real-time latency (sec) | answer | decision cycles (total) | chunks total | sample (buggy) | decision cycles (simulated) | simulated time: DCs (total) + retrievals | simulated time: DCs (simulated) + retrievals | #failed instruction fetches | action latencies |  
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |  
+
+The C files are similar, but simpler, and include chunking data:
+
+| task name | trial | task line | decision cycles | total chunks | simulated time (total) | gen proposal chunks | gen apply chunks | condition chunks | auto chunks |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
