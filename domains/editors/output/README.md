@@ -16,5 +16,5 @@ The X1 file columns are as follows:
 
 The C files are similar, but simpler, and include chunking data:
 
-| task condition | day | editor | trial | edit type | decision cycles | total chunks | simulated time (total) |  
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| task condition | day | editor | trial | edit type | decision cycles | total chunks | simulated time (total) | gen proposal chunks | gen apply chunks | condition chunks | auto chunks |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
