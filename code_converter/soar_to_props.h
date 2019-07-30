@@ -36,7 +36,7 @@ private:
 	bool getRawProps(std::stringstream &ss, std::map<std::string, std::string> &varToPath, std::vector<std::string> &constants, std::vector<Primitive> &conditions, std::vector<Primitive> &actions);
 	bool fillPaths(std::map<std::string, std::string> &varToPath, std::map<std::string, int> &constIds, std::vector<Primitive> &conditions, std::vector<Primitive> &actions);
 	void setReplaceProps(std::vector<Primitive> &actions);
-	void buildPropCode(std::string retval, const std::vector<std::string> &consts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
+	void buildPropCode(std::string &retval, const std::vector<std::string> &consts, const std::vector<Primitive> &conditions, const std::vector<Primitive> &actions);
 	std::vector<std::string> parseSoarFile();
 };
 
