@@ -407,7 +407,7 @@ void soar_to_props::setReplaceProps(std::vector<Primitive>& actions)
 }
 
 // Builds and returns the whole pp rule
-void soar_to_props::buildPropCode(std::string retval, const std::vector<std::string>& consts, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions)
+void soar_to_props::buildPropCode(std::string &retval, const std::vector<std::string>& consts, const std::vector<Primitive>& conditions, const std::vector<Primitive>& actions)
 {
 	// Begin with the normal header
 	retval = "pp {" + currRuleName + "\n";
