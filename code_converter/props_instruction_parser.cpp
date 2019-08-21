@@ -378,8 +378,9 @@ std::vector<std::string> props_instruction_parser::parsePropsFile() {
 			// Read pair (eg: "const1 val1")
 			std::string c1 = sToken,
 				c2;
-			ss >> std::ws >> c2;
-			constants.push_back({ c1, c2 });
+			ss >> std::ws;
+			std::getline(ss, c2);	// Let the value be multiple tokens long; assume a line break after the value
+			constants.push_back({ c1, "|" + c2 + "|" });
 
 			nextLine(ss);
 			ss >> sToken;

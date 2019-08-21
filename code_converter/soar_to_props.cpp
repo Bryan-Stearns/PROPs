@@ -97,6 +97,14 @@ std::string soar_to_props::nextToken(std::stringstream &ss) {
 		nextLine(ss);
 	}
 	ss >> token;
+	if (token.front() == '|') {	// Treat multi-token constants as single tokens
+		char nxt = token.back();
+		while (nxt != '|') {
+			nxt = ss.get();
+			token += nxt;
+		}
+		ss >> std::ws;
+	}
 	return token;
 }
 
