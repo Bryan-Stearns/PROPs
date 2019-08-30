@@ -40,7 +40,10 @@ std::map<std::string, std::string> soar_to_props::act_ops = std::map<std::string
 	{ "add", "=" },
 	//{ "add", ":=" },
 	{ "remove", "-" },
-	{ "acceptable", "+" },	// "-" for reject doubles as remove; "=" indifferent doubles as add
+	{ "acceptable", "+" },	// "-" for reject doubles as remove
+	{ "indifferent", "===" },
+	{ "best", ">" },
+	{ "worst", "<" },
 	{ "better", ">" },
 	{ "worse", "<" },
 	{ "require", "!" }
@@ -321,11 +324,18 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 					continue;
 				}
 
+				// Default: don't add extra preferences to operator proposals, if there's a proposal
+				bool addIndiff = false,
+					 addBest = false,
+					 addWorst = false,
+					 addRequire = false;
+
 				// If no '-' or other second command, is an add action
 				if (!ss.good()) {
 					opStr = "add";
 				}
 				else {
+
 					// Get cmd
 					sToken = nextToken(ss);
 					if (!sToken.compare(")")) {
@@ -337,19 +347,57 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 					}
 					else if (!sToken.compare("+") && !attr.compare("operator")) {
 						opStr = "acceptable";
-						// FIXME: check for indifferent/best/require/etc
 						// A proposal requires an operator name next:
-						for (int i = 0; i < 4; ++i)
-							nextToken(ss);		// Assume the next line is "(<o> ^name |name|)". Get the name.
+						while (sToken.compare("^name") != 0) {
+							// FIXME: check for indifferent/best/worst/require
+							sToken = nextToken(ss);
+							if (!sToken.compare("=")) {
+								addIndiff = true;
+							}
+							else if (!sToken.compare(">")) {
+								addBest = true;
+							}
+							else if (!sToken.compare("<")) {
+								addWorst = true;
+							}
+							else if (!sToken.compare("!")) {
+								addRequire = true;
+							}
+						}
+
+						// Get the operator name.
 						sToken = nextToken(ss);
 
 						path2 = trim_bars(sToken);
 						constants.push_back(path2);
 						path1 = id;
 					}
+					else if ((!sToken.compare(">") || !sToken.compare("<")) && !attr.compare("operator")) {
+						if (!sToken.compare(">")) {
+							opStr = "better";
+						}
+						else {
+							opStr = "worse";
+						}
+						path1 = id;
+						// FIXME: get name of second operator. This requires extracting it from the condition side, assuming ^name was tested there.
+					}
 				}
 
 				actions.push_back(Primitive(act_ops.at(opStr), path1, path2));
+				if (addIndiff) {
+					actions.push_back(Primitive(act_ops.at("indifferent"), path1, path2));
+				}
+				if (addBest) {
+					actions.push_back(Primitive(act_ops.at("best"), path1, path2));
+				}
+				if (addWorst) {
+					actions.push_back(Primitive(act_ops.at("worst"), path1, path2));
+				}
+				if (addRequire) {
+					actions.push_back(Primitive(act_ops.at("require"), path1, path2));
+				}
+
 
 				if (sToken.compare(")") != 0)
 					sToken = nextToken(ss);
@@ -455,7 +503,7 @@ void soar_to_props::buildPropCode(std::string &retval, const std::vector<std::st
 		}
 		else {
 			// Is an operator preference
-			retval += "\t" + p.path1 + "." + p.path2 + " " + p.op + "\n";
+			retval += "\t" + p.path1 + "." + p.path2 + " " + (!p.op.compare(act_ops["indifferent"]) ? "=" : p.op) + "\n";
 		}
 	}
 
