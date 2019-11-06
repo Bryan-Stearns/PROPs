@@ -638,12 +638,90 @@ sp {propose*props*sub*chain*iterate*transfer*chain
          ^literalize (+ 1 (int <l>) (int <attr>) (int <oldattr>)) )
 }
 
+# ASSUME AN OPERATOR REFERENCE IF A CONDITION USES A BAD ATTRIBUTE
+# The special format for referencing operator objects is <s1>.<op-name>, where <op-name> is a constant string.
+
+# CASE 1: The operator reference is at the end of the chain
+# Can assume the const number is in the symbol attr argument
+sp {propose*props*sub*chain*iterate*condition*find-operator*end
+    (state <s> ^props-sub <u>
+               ^rootstate <rs>
+               ^evalstate.const <const>)
+    (<u> ^sub <sub>)
+    (<sub>  -^curr-attr |done| 
+            -^status success
+            -^status fail)
+    # Special conditions:
+    (<u> ^symbol <sym>)
+    (<sym>  ^<tattr> <const-arg>
+            ^prop-type existence)
+    (<const> ^<const-arg> <name>)
+    (<sub>   ^curr-id <id>
+            -^curr-id props$rootstate        # Let replace*keywords do its job first
+             ^curr-attr <node>
+             ^target-attr <tattr>)
+    (<s> ^literalize <l>)
+    (<node> ^chain-attr props$const          # This is the marker the default interpreter code gives for const placeholder
+            ^chain-next |done|)
+    # Trace through the proposed operator
+    (<id> ^operator <so> +)
+    (<so> ^name <name>)
+-->
+    (<s> ^operator <o> + = >)
+    (<o> ^name props-sub-chain-iterate
+         ^rootstate <rs>
+         ^sub <sub>
+         ^note find-operator-proposal 
+         #^curr-id <id>
+         #^next-id <so>
+         ^curr-node <node>
+         ^next-node |done|
+         ^literalize (+ 1 (int <l>) (int <const-arg>)) )
+}
+# CASE 2: The proposed operator reference for a condition is in the middle of the chain (<s1>.<op-name>.foo)
+# Find the const number in the chain. 
+sp {propose*props*sub*chain*iterate*condition*find-operator*mid*exists
+    (state <s> ^props-sub <u>
+               ^rootstate <rs>
+               ^evalstate.const <const>)
+    (<u> ^sub <sub>)
+    (<sub>  -^curr-attr |done| 
+            -^status success
+            -^status fail)
+    # Special conditions:
+    (<u>  ^symbol <sym>)
+    (<sym>  ^prop-type equality)
+    (<sub>   ^curr-id <id>
+            -^curr-id props$rootstate        # Let replace*keywords do its job first
+             ^curr-attr <node>
+             ^target-arg id1
+            -^buff-chaining)
+    (<s> ^literalize <l>)
+    (<node> ^chain-attr props$const          # props$const is the marker the default interpreter code gives for op-name const placeholder
+            ^chain-next {<next> <> |done|})
+    (<next> ^chain-attr <const-arg>
+            ^chain-next <close>)
+    (<const> ^<const-arg> <name>)
+    (<id> ^operator <so> +)                  # Case where the operator proposal does already exist
+    (<so> ^name <name>)
+-->
+    (<s> ^operator <o> + >)
+    (<o> ^name props-sub-chain-iterate
+         ^rootstate <rs>
+         ^sub <sub>
+         ^note find-operator-proposal -mid
+         ^curr-id <id>
+         ^next-id <so>
+         ^literalize (+ 1 (int <l>) (int <const-arg>)) )
+}
+
+
 # ASSUME AN OPERATOR REFERENCE IF A PROPOSAL ACTION USES A BAD ATTRIBUTE
 # The special format for referencing operator objects is <s1>.<op-name>, where <op-name> is a constant string.
 
 # CASE 1: The operator reference is at the end of the chain
 # Can assume the const number is in the symbol attr argument
-sp {propose*props*sub*chain*iterate*find*operator*end
+sp {propose*props*sub*chain*iterate*action*find-operator*end
     (state <s> ^props-sub <u>
                ^rootstate <rs>
                ^evalstate.const <const>)
@@ -677,9 +755,9 @@ sp {propose*props*sub*chain*iterate*find*operator*end
          ^ops-val <name>
          ^ops-target <tattr>)
 }
-# CASE 2: The operator reference is in the middle of the chain (<s1>.<op-name>.foo, and the operator already exists
+# CASE 2: The operator reference for an action is in the middle of the chain (<s1>.<op-name>.foo), and the operator already exists
 # Find the const number in the chain. 
-sp {propose*props*sub*chain*iterate*find*operator*mid*exists
+sp {propose*props*sub*chain*iterate*action*find-operator*mid*exists
     (state <s> ^props-sub <u>
                ^rootstate <rs>
                ^evalstate.const <const>)
@@ -696,7 +774,7 @@ sp {propose*props*sub*chain*iterate*find*operator*mid*exists
              ^target-arg id1
             -^buff-chaining)
     (<s> ^literalize <l>)
-    (<node> ^chain-attr props$const          # This is the marker the default interpreter code gives for op-name const placeholder
+    (<node> ^chain-attr props$const          # props$const is the marker the default interpreter code gives for op-name const placeholder
             ^chain-next {<next> <> |done|})
     (<next> ^chain-attr <const-arg>
             ^chain-next <close>)
@@ -721,10 +799,10 @@ sp {propose*props*sub*chain*iterate*find*operator*mid*exists
          ^buff-val2 <so>)
     #(write |     (Substituting operator: | <so> | ^name | <name> |)| (crlf))
 }
-# CASE 3: The operator reference is in the middle of the chain, and the operator does not exist (it is being proposed)
+# CASE 3: The operator reference for Add is in the middle of the chain, and the operator does not exist (it is being proposed)
 # Doesn't explicityly test for absense of operator proposal, because that would get in the chunk.
 # If it exists already, the case 2 proposal will be preferred.
-sp {propose*props*sub*chain*iterate*find*operator*mid*new
+sp {propose*props*sub*chain*iterate*action*find-operator*mid*new
     (state <s> ^props-sub <u>
                ^rootstate <rs>
                ^evalstate.const <const>)
@@ -1026,7 +1104,8 @@ sp {propose*props*sub*chain*iterate*fail*operator*aug*name
     (<node> ^chain-attr operator
             ^chain-next <next-node>)
     (<const> ^<cnum> <opname>)
-    -(<id> ^operator.name <opname> )    # Make the chunked test on more than just '^operator.name'
+    -{(<id> ^operator <oi> +)
+      (<oi> ^name <opname> )}    # Make the chunked test on more than just '^operator.name'
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-sub-chain-fail
@@ -1054,7 +1133,8 @@ sp {propose*props*sub*chain*iterate*fail*operator*aug*unsupported
              ^curr-attr <node>)
     (<s>  ^literalize <l>)
     (<node> ^chain-attr operator)
-    -(<id> ^operator.name  )    # Make the chunk test on more than just '^operator.name'
+    -{(<id> ^operator <oi> +)
+      (<oi> ^name )}    # Make the chunk test on more than just '^operator.name'
 -->
     (<s> ^operator <o> + >)
     (<o> ^name props-sub-chain-fail
@@ -1119,6 +1199,7 @@ sp {apply*props*sub*return*result
 		 ^name sub-props -    # End sub props evaluation
          ^literalize <sl> -)
 }
+
 
 # IF SUBBING AN ADD ACTION WITH AN INTERMEDIATE CHAIN, MODIFY THE ACTION TO ADD THE BUFFER RATHER THAN THE LEAF
 # CASE 1: id1 is the target

@@ -352,7 +352,7 @@ sp {apply*props*do*inexistence
             ^id1 <id1>
 			-^id2 )
     # Compare:
-    (<id1> -^<attr1> <val>)
+    (<id1> -^<attr1> <val> +)
 -->
     (<prop> ^status success)
 }
@@ -367,7 +367,7 @@ sp {apply*props*do*inexistence*fail
             ^id1 <id1>
 			-^id2 )
     # Compare:
-    (<id1> ^<attr1> <val>)
+    (<id1> ^<attr1> <val> +)
 -->
     (<prop> ^status fail)
 }
@@ -383,7 +383,7 @@ sp {apply*props*do*negation
             ^attr1 <attr1>
             ^id1 <id1>)
     # Compare:
-    (<id1> -^<attr1> <val>)
+    (<id1> -^<attr1> <val> +)
 -->
     (<prop> ^status success)
 }
@@ -397,7 +397,7 @@ sp {apply*props*do*negation*fail
             ^attr1 <attr1>
             ^id1 <id1>)
     # Compare:
-    (<id1> ^<attr1> <val>)
+    (<id1> ^<attr1> <val> +)
 -->
     (<prop> ^status fail)
 }
@@ -413,7 +413,7 @@ sp {apply*props*do*existence
             ^attr1 <attr1>
             ^id1 <id1>)
     # Compare:
-    (<id1> ^<attr1> <val>)
+    (<id1> ^<attr1> <val> +)
 -->
     (<prop> ^status success)
 }
@@ -425,13 +425,32 @@ sp {apply*props*do*existence*fail
          ^literalize)
     (<prop> ^prop-type existence
             ^attr1 <attr1>
-            ^id1 <id1>)
+            ^id1 <id1>
+           -^sub1-link.chain-next.chain-attr |props$const|) # TODO: Is this sufficient to stop false failures for conditioning on proposal existence?
     # Compare:
     (<id1> -^<attr1> <val>)
 -->
     (<prop> ^status fail)
 }
-
+# Special case: existence of operator proposal
+sp {apply*props*do*existence*proposal
+    (state <s> ^operator <o>
+               ^superstate.const <const>)
+    (<o> ^name props-do
+         ^prop <prop>
+         ^proposal <ppl>
+         ^literalize)
+    (<prop> ^prop-type existence
+            ^attr1 <attr1>
+            ^id1 <id1>
+            ^sub1-link.chain-next.chain-attr |props$const|)
+    (<const> ^<attr1> <name>)
+    # Compare:
+    (<id1> ^operator <op1> +)
+    (<op1> ^name <name>)
+-->
+    (<prop> ^status success)
+}
 
 
 ### APPLY PRIMITIVE ACTIONS ###
@@ -847,7 +866,7 @@ sp {apply*props*success*action*indifferent
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
-    (<i> ^action (^prop-type acceptable
+    (<i> ^action (^prop-type indifferent  # Was "acceptable", changed 11/5/19
                  -^intermediate)
          ^id1 <id1>
          ^ops <ops>)

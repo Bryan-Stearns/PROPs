@@ -86,17 +86,17 @@ sp {elaborate*props*failure*blink
 }
 
 # DEBUGGING
-sp {catch*props*op-tie
-    (state <s> ^impasse tie
-               ^superstate <ss>
-               ^topstate.io.output-link <ol>)
--->
-    (write (cmd print <ss> -d 4))
-    (write (cmd preferences <ss> operator --names))
-    (<ol> ^error <e>)
-    (<e> ^msg |TIE| )
-    (interrupt)
-}
+#sp {catch*props*op-tie
+#    (state <s> ^impasse tie
+#               ^superstate <ss>
+#               ^topstate.io.output-link <ol>)
+#-->
+#    (write (cmd print <ss> -d 4))
+#    (write (cmd preferences <ss> operator --names))
+#    (<ol> ^error <e>)
+#    (<e> ^msg |TIE| )
+#    (interrupt)
+#}
 
 sp {catch*props*do-onc
     (state <s> ^impasse no-change

@@ -240,10 +240,16 @@ bool props_instruction_parser::substituteConstants(std::vector<arg_chain> &const
 	// Replace condition references
 	for (auto &s : conditions) {
 		auto c = &(s.first);
+		// 11/6/19: Also substitute on dot-separated tokens for conditions, since a constant may now be referenced as a slot in the case of operator proposal names
 		for (std::size_t i = 0; i < c->size(); ++i) {
-			if (dict.find(c->at(i)) != dict.end()) {
-				c->at(i) = CONST_ID + "." + dict.at(c->at(i));
+			auto tokens = tokenizeSlot(c->at(i));
+			for (std::size_t j = 0; j < tokens.size(); ++j) {
+				if (dict.find(tokens.at(j)) != dict.end()) {
+					tokens.at(j) = CONST_ID + "." + dict.at(tokens.at(j));
+				}
 			}
+			std::string repaired = untokenize(tokens);
+			c->at(i) = repaired;
 		}
 	}
 	// Replace action references
