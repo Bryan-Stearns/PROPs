@@ -2,7 +2,8 @@
 """
 Created on Thu Sep 26 13:20:28 2019
 
-This code takes a text file of an agent's generated chunks (from "print -fc") and creates a .gv file for visualizing the learned operator hierarchy.
+This code takes a text file of an agent's generated chunks (from "print -fc") 
+and creates a .gv file for visualizing the learned operator hierarchy.
 
 @author: bryan
 """
@@ -61,11 +62,12 @@ def makeDotFile(data, outpath):
     
     outfile.close()
 
+
 def main():
     path = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/elio/'
     
-    data = getOpHierarchy(path+"elio_agent_all_chunks.soar")
-    makeDotFile(data, path+"elio_procedure_hierarchy.gv")
+    data = getOpHierarchy(path+"elio_agent_all_chunks.soar") # Input file, containing the learned chunks
+    makeDotFile(data, path+"elio_procedure_hierarchy.gv")    # Output file
 
     
 if __name__ == "__main__": 
