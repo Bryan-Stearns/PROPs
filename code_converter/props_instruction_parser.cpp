@@ -48,37 +48,6 @@ props_instruction_parser::~props_instruction_parser() {
 	inFile.close();
 }
 
-// Custom tokenize separating a given 'ID.attr.attr.attr...' chain
-std::vector<std::string> props_instruction_parser::tokenizeSlot(std::string s) {
-	auto retval = std::vector<std::string>();
-	size_t ind = s.find_first_of(".");
-	// Replace the rootstate keyword in the ID if present
-	std::string substr = s.substr(0, ind);
-	if (substr.compare("s") == 0) {
-		s.replace(0, ind, ROOT_MARKER);
-		ind = s.find_first_of(".");
-	}
-	while (ind != std::string::npos) {
-		retval.push_back(s.substr(0, ind));
-		s = s.substr(ind + 1, s.size());
-		ind = s.find_first_of(".");
-	}
-	retval.push_back(s);
-
-	return retval;
-}
-
-// Recombines a {ID attr attr} vector into 'ID.attr.attr'
-std::string props_instruction_parser::untokenize(std::vector<std::string> tokens) {
-	std::string retval = "";
-	for (size_t i = 0; i<tokens.size(); ++i) {
-		retval += tokens.at(i);
-		if (i < tokens.size() - 1)
-			retval += ".";
-	}
-	return retval;
-}
-
 std::string props_instruction_parser::trim(std::string s) {
 	int start = s.find_first_not_of(" #\n\r\t");
 	int end = s.find_first_of("#");
@@ -184,7 +153,7 @@ bool props_instruction_parser::formatArgIdChain(std::vector<arg_id_chain> &chain
 			if (i == 1)		// skip the condition operator
 				continue;
 			// Check for bad ID:attr pair
-			auto tokenized = tokenizeSlot(c.at(i));
+			auto tokenized = tokenizeSlot(c.at(i), ROOT_MARKER);
 			if (tokenized.size() < 2 && tokenized.at(0).substr(0, 1).compare("|") != 0) {
 				printParseError("Invalid memory element '" + c.at(i) + "'. (Remember to separate your constants.)", false);
 				return false;
@@ -242,7 +211,7 @@ bool props_instruction_parser::substituteConstants(std::vector<arg_chain> &const
 		auto c = &(s.first);
 		// 11/6/19: Also substitute on dot-separated tokens for conditions, since a constant may now be referenced as a slot in the case of operator proposal names
 		for (std::size_t i = 0; i < c->size(); ++i) {
-			auto tokens = tokenizeSlot(c->at(i));
+			auto tokens = tokenizeSlot(c->at(i), ROOT_MARKER);
 			for (std::size_t j = 0; j < tokens.size(); ++j) {
 				if (dict.find(tokens.at(j)) != dict.end()) {
 					tokens.at(j) = CONST_ID + "." + dict.at(tokens.at(j));
@@ -262,7 +231,7 @@ bool props_instruction_parser::substituteConstants(std::vector<arg_chain> &const
 
 		// Substitute on dot-separated tokens, since a constant may be referenced as a slot in the case of operator names
 		for (std::size_t i = 0; i < a->size(); ++i) {
-			auto tokens = tokenizeSlot(a->at(i));
+			auto tokens = tokenizeSlot(a->at(i), ROOT_MARKER);
 			for (std::size_t j = 0; j < tokens.size(); ++j) {
 				if (dict.find(tokens.at(j)) != dict.end()) {
 					tokens.at(j) = CONST_ID + "." + dict.at(tokens.at(j));
@@ -309,6 +278,8 @@ bool props_instruction_parser::formatActions(std::vector<arg_id_chain> &actions)
 		//{ "==", "indifferent" },
 		{ ">", "better" },
 		{ "<", "worse" },
+		{ ">:", "better" },
+		{ ":<", "worse" },
 		{ "!", "require" }
 	};
 

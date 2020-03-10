@@ -10,6 +10,7 @@
 
 #include <string>
 #include <sstream>
+#include <vector>
 
 // Custom to_string
 template <typename T>
@@ -20,6 +21,8 @@ inline std::string toString(const T& n) {
 }
 
 std::string trim_bars(std::string str);
+std::vector<std::string> tokenizeSlot(std::string s, std::string root_marker = "props$rootstate");
+std::string untokenize(std::vector<std::string> tokens);
 
 
 // Stolen from Boost

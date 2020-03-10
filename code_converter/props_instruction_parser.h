@@ -24,8 +24,8 @@ public:
 
 private:
 
-	std::vector<std::string> tokenizeSlot(std::string s);
-	std::string untokenize(std::vector<std::string> tokens);
+	//std::vector<std::string> tokenizeSlot(std::string s);
+	//std::string untokenize(std::vector<std::string> tokens);
 	std::string trim(std::string str);
 	std::string nextLine(std::stringstream &ss);
 	bool isID(const std::string &str);

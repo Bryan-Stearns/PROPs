@@ -741,6 +741,9 @@ sp {propose*props*sub*chain*iterate*action*find-operator*end
     (<s> ^literalize <l>)
     (<node> ^chain-attr props$const          # This is the marker the default interpreter code gives for const placeholder
             ^chain-next |done|)
+    # Sub-case: The referenced operator doesn't exist (proposal action)
+    -{(<sub> ^<< curr-id next-id >>.operator <ro> +)
+      (<ro> ^name <name>)}
 -->
     (<s> ^operator <o> + = >)
     (<o> ^name props-sub-chain-iterate
@@ -751,6 +754,43 @@ sp {propose*props*sub*chain*iterate*action*find-operator*end
          ^next-node <next-node>
          ^literalize (+ 1 (int <l>) (int <tattr>) (int <const-arg>) ) # (all three are indeed needed)
          ^ops-id <op-new>
+         ^ops-attr name
+         ^ops-val <name>
+         ^ops-target <tattr>)
+}
+sp {propose*props*sub*chain*iterate*action*find-operator*end*exists
+    (state <s> ^props-sub <u>
+               ^rootstate <rs>
+               ^evalstate.const <const>)
+    (<u> ^sub <sub>)
+    (<sub>  -^curr-attr |done| 
+            -^status success
+            -^status fail)
+    # Special conditions:
+    (<u> ^symbol <sym>)
+    (<sym>  ^<tattr> <const-arg>
+            ^prop-type proposal)
+    (<const> ^<const-arg> <name>)
+    (<sub>   ^curr-id <id>
+            -^curr-id props$rootstate        # Let replace*keywords do its job first
+             ^curr-attr <node>
+             ^target-attr <tattr>)
+    (<s> ^literalize <l>)
+    (<node> ^chain-attr props$const          # This is the marker the default interpreter code gives for const placeholder
+            ^chain-next |done|)
+    # Sub-case: The referenced operator does exist (preference action on existing operator)
+    (<sub> ^curr-id.operator <ro> +)
+    (<ro> ^name <name>)
+-->
+    (<s> ^operator <o> + = >)
+    (<o> ^name props-sub-chain-iterate
+         ^rootstate <rs>
+         ^sub <sub>
+         ^sym <sym>
+         ^curr-node <node>
+         ^next-node <next-node>
+         ^literalize (+ 1 (int <l>) (int <tattr>) (int <const-arg>) ) # (all three are indeed needed)
+         ^ops-id <ro>
          ^ops-attr name
          ^ops-val <name>
          ^ops-target <tattr>)

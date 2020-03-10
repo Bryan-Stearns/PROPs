@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soaragent>
+  <startfile path="_firstload_props.soar" />
+  <members>
+    <member path="_firstload_props.soar" />
+    <member path="props_epsets.soar" />
+    <member path="props_primitives.soar" />
+    <member path="props_apply_buffer.soar" />
+    <member path="props_prohibit_list.soar" />
+    <member path="props_rl.soar" />
+    <member path="input_contexts.soar" />
+    <member path="props_memory.soar" />
+    <member path="props_backtrace.soar" />
+  </members>
+</soaragent>
+

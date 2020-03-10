@@ -947,7 +947,7 @@ sp {apply*props*success*action*best
     (<o> ^name props-result-success
          ^rootstate <rs>
          ^item <i>)
-    (<i> ^action (^prop-type better
+    (<i> ^action (^prop-type best
                  -^intermediate)
          ^id1 <id1>
         -^attr2

@@ -31,7 +31,9 @@ private:
 	std::string trim(std::string s);
 	std::string nextLine(std::stringstream & ss);
 	std::string nextToken(std::stringstream & ss);
-	std::string replacementPath(const std::string &str, std::map<std::string, std::string> &varToPath, bool &did_change);
+	std::string pathToOpRef(const std::string &path, const std::string &opName);
+	std::string replaceTokens(const std::string &str, std::map<std::string, int>& varToPath, bool & did_change);
+	std::string replacementPath(const std::string &str, std::map<std::string, std::string> &varToPath, bool &did_change, std::string matchStr = ">");
 	std::string replacementPath(const std::string &str, std::map<std::string, int> &const_ids, bool &did_change);
 	bool getRawProps(std::stringstream &ss, std::map<std::string, std::string> &varToPath, std::vector<std::string> &constants, std::vector<Primitive> &conditions, std::vector<Primitive> &actions);
 	bool fillPaths(std::map<std::string, std::string> &varToPath, std::map<std::string, int> &constIds, std::vector<Primitive> &conditions, std::vector<Primitive> &actions);

@@ -44,8 +44,8 @@ std::map<std::string, std::string> soar_to_props::act_ops = std::map<std::string
 	{ "indifferent", "===" },
 	{ "best", ">" },
 	{ "worst", "<" },
-	{ "better", ">" },
-	{ "worse", "<" },
+	{ "better", ">:" },
+	{ "worse", ":<" },
 	{ "require", "!" }
 };
 
@@ -111,11 +111,30 @@ std::string soar_to_props::nextToken(std::stringstream &ss) {
 	return token;
 }
 
+std::string soar_to_props::pathToOpRef(const std::string &path, const std::string &opName) {
+	int ind = path.find_first_of("operator");
+	if (ind == std::string::npos)
+		return path;
+
+	std::string retval = path.substr(0, ind) + opName;
+	if (path.length() > ind + 8) {
+		retval += path.substr(ind+8, std::string::npos);
+	}
+	return retval;
+}
+
+std::string soar_to_props::replaceTokens(const std::string &str, std::map<std::string, int>& constIds, bool & did_change) {
+	std::vector<std::string> tokens = tokenizeSlot(str, "s");
+	for (int i=1; i<tokens.size(); ++i) {
+		tokens[i] = replacementPath(tokens.at(i), constIds, did_change);
+	}
+	return untokenize(tokens);
+}
 // Returns: Replace a leading variable with the attribute path found in the given dictionary, if any
 // E.g., replaces <g>.foo.bar with s.arg1.foo.bar
-std::string soar_to_props::replacementPath(const std::string &str, std::map<std::string, std::string>& varToPath, bool & did_change)
+std::string soar_to_props::replacementPath(const std::string &str, std::map<std::string, std::string>& varToPath, bool & did_change, std::string matchStr)
 {
-	int i = str.find_first_of('>');
+	int i = str.find_first_of(matchStr);
 	if (i == std::string::npos)
 		return str;
 
@@ -129,6 +148,7 @@ std::string soar_to_props::replacementPath(const std::string &str, std::map<std:
 // Returns: Replace the given constant with its corresponding const name, if any
 std::string soar_to_props::replacementPath(const std::string & str, std::map<std::string, int>& constIds, bool & did_change)
 {
+	// FIXME: not if props$rootstate
 	if (!constIds.count(str))
 		return str;
 	return CONST_NAME + toString(constIds[str]);
@@ -142,8 +162,12 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 	std::string sToken = "";
 	char cToken;
 	bool hasOpNameCond = false;
+	bool skipThisAdd = false;
 	std::string opStr = "";
 	std::string path2 = "";
+
+	auto opVarToName = std::map<std::string, std::string>();  // map["<op>"] = "const1" : For tracking referenced operators and names in the LHS for use in the RHS
+	auto proposedNames = std::map<std::string, bool>();  // map["<op>"] = true : For tracking whether op tested as proposal condition, to link with operator name
 
 	sToken = nextToken(ss);
 
@@ -212,6 +236,7 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 		// Read attr:val pairs until reaching a ')'
 		sToken = nextToken(ss);
 		while (sToken.compare(")")) {
+			skipThisAdd = false;
 			opStr = "existence";
 			path2 = "";
 
@@ -227,7 +252,7 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 			}
 			std::string attr = sToken.substr(1);
 
-			// If no value, then it's an existence op
+			// (If no value, then it's an existence op)
 			if (ss.good()) {
 				// Get value
 				sToken = nextToken(ss);
@@ -247,31 +272,54 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 						opStr = "equality";
 						path2 = sToken;
 						varToPath[sToken] = id + "." + attr;
+						skipThisAdd = true;	// Don't make a condition just for establishing a variable
 					}
 				}
 				else if (sToken.compare(")")) {
 					// Is a const
-					if (!opStr.compare("negation"))
-						opStr = "inequality";
-					else
-						opStr = "equality";
 					path2 = trim_bars(sToken);
 					constants.push_back(path2);		// We'll need to remove duplicates later
+					if (!opStr.compare("negation"))
+						opStr = "inequality";
+					else {
+						opStr = "equality";
+						if (!attr.compare("name")) {
+							// Is an operator name: save the operator reference variable (if one doesn't exist, it won't be needed in the RHS)
+							opVarToName[id] = path2;
+							// Test if this operator was tested just as a proposal
+							if (proposedNames.count(id)) {
+								// Use formatting "s.op1" for proposal tests rather than "s.operator.name == op1"
+								//proposedNames[id] = path2;
+								id = tokenizeSlot(varToPath.at(id)).at(0);
+								attr = path2;
+								opStr = "existence";
+								path2 = "";
+							}
+						}
+					}
 				}
 			}
 
 			// TODO vars not claimed in actions or other conditions are also existence op
 			// If an apply rule for the Actransfer conversion, only positively test the operator name
-			if (!hasOpNameCond || !opStr.compare("negation") || !opStr.compare("inequality")) {
-				conditions.push_back(Primitive(cond_ops.at(opStr), id + "." + attr, path2));
-				// FIXME: this is hacky and only works if specific string used
-				if (!attr.compare("operator.name"))
-					hasOpNameCond = true;
+			if (!skipThisAdd) {
+				if (!hasOpNameCond || !opStr.compare("negation") || !opStr.compare("inequality")) {
+					conditions.push_back(Primitive(cond_ops.at(opStr), id + "." + attr, path2));
+					// FIXME: this is hacky and only works if specific string used
+					if (!attr.compare("operator.name"))
+						hasOpNameCond = true;
+				}
 			}
 
+			// Get token for next iteration, but check for extra args of proposal test
 			if (sToken.compare(")") != 0)
 				sToken = nextToken(ss);
-		}
+			if (!sToken.compare("+")) {
+				proposedNames[path2] = true;
+				sToken = nextToken(ss);
+			}
+
+		}	// end while (sToken.compare(")"))
 		sToken = nextToken(ss);
 	}	// end while (sToken != "-->")
 
@@ -311,13 +359,13 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 				std::string attr = sToken.substr(1);
 				path1 = id + "." + attr;
 				// Get value
-				sToken = nextToken(ss);
-				path2 = trim_bars(sToken);
-				if (sToken.front() != '<' || sToken.back() != '>')
+				std::string val = nextToken(ss);
+				path2 = trim_bars(val);
+				if (val.front() != '<' || val.back() != '>')
 					constants.push_back(path2);
-				else if (!varToPath.count(sToken) && attr.compare("operator") != 0) {
+				else if (!varToPath.count(val) && attr.compare("operator") != 0) {
 					// A var without LHS definition - we must be adding it here
-					varToPath[sToken] = path1;
+					varToPath[val] = path1;
 					// FIXME: In this version, this means don't create the id, but assume its augmentations do that
 					//		This really should make the id though. That PROP hasn't been implemented yet though.
 					sToken = nextToken(ss);
@@ -345,42 +393,79 @@ bool soar_to_props::getRawProps(std::stringstream & ss, std::map<std::string, st
 					else if (!sToken.compare("-")) {
 						opStr = "remove";
 					}
-					else if (!sToken.compare("+") && !attr.compare("operator")) {
-						opStr = "acceptable";
-						// A proposal requires an operator name next:
-						while (sToken.compare("^name") != 0) {
-							// FIXME: check for indifferent/best/worst/require
+					else if (!attr.compare("operator")) {
+						if (!sToken.compare("+")) {
+							opStr = "acceptable";
+							// A proposal requires an operator name next:
+							while (sToken.compare("^name") != 0) {
+								// FIXME: check for indifferent/best/worst/require
+								sToken = nextToken(ss);
+								if (!sToken.compare("=")) {
+									addIndiff = true;
+								}
+								else if (!sToken.compare(">")) {
+									addBest = true;
+								}
+								else if (!sToken.compare("<")) {
+									addWorst = true;
+								}
+								else if (!sToken.compare("!")) {
+									addRequire = true;
+								}
+
+								if (!sToken.compare("}")) {
+									printParseError("ERROR: Operator proposed (given '+' preference) without being given a name.", true);
+									return false;
+								}
+							}
+
+							// Get the operator name.
 							sToken = nextToken(ss);
-							if (!sToken.compare("=")) {
-								addIndiff = true;
-							}
-							else if (!sToken.compare(">")) {
-								addBest = true;
-							}
-							else if (!sToken.compare("<")) {
-								addWorst = true;
-							}
-							else if (!sToken.compare("!")) {
-								addRequire = true;
-							}
-						}
 
-						// Get the operator name.
-						sToken = nextToken(ss);
+							path2 = trim_bars(sToken);
+							constants.push_back(path2);
+							path1 = id;
+						}
+						else if (!sToken.compare(">") || !sToken.compare("<")) {
+							if (!opVarToName.count(val)) {
+								printParseError("ERROR: Operator variable referenced in RHS without a name in the LHS.", true);
+								return false;
+							}
+							else {
+								path2 = opVarToName.at(val);
+							}
 
-						path2 = trim_bars(sToken);
-						constants.push_back(path2);
-						path1 = id;
-					}
-					else if ((!sToken.compare(">") || !sToken.compare("<")) && !attr.compare("operator")) {
-						if (!sToken.compare(">")) {
-							opStr = "better";
+							path1 = id;
+
+							// FIXME: get name of second operator. This requires extracting it from the condition side, assuming ^name was tested there.
+							if (!sToken.compare(">")) {
+								sToken = nextToken(ss);
+								if (!sToken.compare(")")) {
+									// Is 'best'
+									opStr = "best";
+								}
+								else {
+									// Is 'better'
+									opStr = "better";
+									// Build operator refs as "s.opname" instead of "s.operator" to reference the specific proposal
+									path1 = pathToOpRef(varToPath.at(val), opVarToName.at(val));
+									path2 = pathToOpRef(varToPath.at(sToken), opVarToName.at(sToken));
+								}
+							}
+							else {
+								sToken = nextToken(ss);
+								if (!sToken.compare(")")) {
+									// Is 'worst'
+									opStr = "worst";
+								}
+								else {
+									// Is 'worse'
+									opStr = "worse";
+									path1 = opVarToName.at(val);
+									path2 = opVarToName.at(sToken);
+								}
+							}
 						}
-						else {
-							opStr = "worse";
-						}
-						path1 = id;
-						// FIXME: get name of second operator. This requires extracting it from the condition side, assuming ^name was tested there.
 					}
 				}
 
@@ -422,6 +507,10 @@ bool soar_to_props::fillPaths(std::map<std::string, std::string>& varToPath, std
 			p.path2 = replacementPath(p.path2, varToPath, madeChange);
 			// Replace any path2 constants  FIXME: if "s" was a constant, it would replace a single S1 id
 			p.path2 = replacementPath(p.path2, constIds, madeChange);
+
+			// Do also for the elements in path1, to convert operator names to const ids
+			p.path1 = replaceTokens(p.path1, constIds, madeChange);
+
 		}
 	}
 	// Do actions: iteratively replace opening <var>'s in paths, or constants with const name
@@ -434,6 +523,10 @@ bool soar_to_props::fillPaths(std::map<std::string, std::string>& varToPath, std
 			p.path2 = replacementPath(p.path2, varToPath, madeChange);
 			// Replace any path2 constants  FIXME: if "s" was a constant, it would replace a single S1 id
 			p.path2 = replacementPath(p.path2, constIds, madeChange);
+
+			// Do also for the elements in path1 and path2, to convert operator names to const ids
+			p.path1 = replaceTokens(p.path1, constIds, madeChange);
+			p.path2 = replaceTokens(p.path2, constIds, madeChange);
 		}
 	}
 
@@ -503,7 +596,15 @@ void soar_to_props::buildPropCode(std::string &retval, const std::vector<std::st
 		}
 		else {
 			// Is an operator preference
-			retval += "\t" + p.path1 + "." + p.path2 + " " + (!p.op.compare(act_ops["indifferent"]) ? "=" : p.op) + "\n";
+			if (!p.op.compare(act_ops["better"]) || !p.op.compare(act_ops["worse"])) {
+				retval += "\t" + p.path1 + " " + p.op + " " + p.path2 + "\n";
+			}
+			else if (!p.op.compare(act_ops["indifferent"])) {
+				retval += "\t" + p.path1 + "." + p.path2 + " =\n";
+			}
+			else {
+				retval += "\t" + p.path1 + "." + p.path2 + " " + p.op + "\n";
+			}
 		}
 	}
 
