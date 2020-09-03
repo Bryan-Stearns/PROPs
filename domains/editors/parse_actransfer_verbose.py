@@ -80,7 +80,7 @@ def main():
     #pathdir = 'C:\cygwin64\home\Bryan\'
     #pathdir = '/home/bryan/Dropbox/UM_misc/Soar/Research/'
     pathdir = '/home/bryan/Actransfer/supplemental/Actransfer distribution/Editors/MyResults/'
-    convertData(pathdir + 'editor_out2.dat')
+    convertData(pathdir + 'editor_noRT_out_s12.dat')
     
 
     

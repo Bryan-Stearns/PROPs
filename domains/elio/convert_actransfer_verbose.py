@@ -64,6 +64,7 @@ def convertData(path):
             
             entry = rows[rowentry]
             ln = "\t".join(line[:-1].replace("Resetting module imaginalreq", "").split())
+            # Save a row in the format: [ln], DCs, rules learned, sample, retreival count, avg retrieval time
             newline = ln + DELIM + str(entry[0]) + DELIM + str(entry[1]) + DELIM + str(entry[2]) + DELIM + str(entry[3]) + DELIM + '{0:.4f}'.format(entry[4]) + "\n"
             rowentry += 1
             f.write(newline)
@@ -84,12 +85,13 @@ def main():
     #pathdir = 'C:\cygwin64\home\Bryan\'
     #pathdir = '/home/bryan/Dropbox/UM_misc/Soar/Research/'
     pathdir = '/home/bryan/Actransfer/supplemental/Actransfer distribution/Elio/MyResults/'
-    convertData(pathdir + 'elio-out8.txt')
+    convertData(pathdir + 'elio_noRT_out_s8.dat')
     
-    convertData(pathdir + 'elio-doA-out.txt')
+    '''convertData(pathdir + 'elio-doA-out.txt')
     convertData(pathdir + 'elio-doB-out.txt')
     convertData(pathdir + 'elio-doC-out.txt')
     convertData(pathdir + 'elio-doD-out.txt')
+    '''
     
 
     
