@@ -119,6 +119,14 @@ std::string actransfer_operator_parser::nextToken(std::stringstream &ss) {
 			nextLine(ss);
 		}
 		ss >> token;
+		if (token.front() == '"') {	// Treat multi-token constants as single tokens
+			char nxt = token.back();
+			while (nxt != '"') {
+				nxt = ss.get();
+				token += nxt;
+			}
+			ss >> std::ws;
+		}
 	} while (token.length() == 0 && inFile.good());
 
 	return token;
