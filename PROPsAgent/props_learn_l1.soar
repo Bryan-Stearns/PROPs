@@ -10,16 +10,27 @@ sp {propose*props*default-wait
               -^const
               -^operator.name wait)
 -->
-    (<s> ^operator <o> + = 0.5)
+    (<s> ^operator <o> + = 0.5) # Was 0.5 for 2020 paper
     (<o> ^name wait)
 }
 
-# Give reward for simply choosing an epset operate
+# Not in 2020 paper:
+#sp {prefer*props*default-wait*stimuli
+#    "Reduce preference for wait if something changes on input"
+#    (state <s> ^operator <o> +
+#               ^io.input-link.input-changed true)
+#    (<o> ^name wait)
+#-->
+#    (<s> ^operator <o> = -0.5)
+#}
+
+# Give reward for simply choosing an epset operator
 sp {apply*props*retrieve-epset*success*return-reward
+    "Reinforces habit of choice"
     (state <s> ^operator.name props-load-epset
                ^superstate.reward-link <srl>)
 -->
-    (<srl> ^reward.value 0.175)
+    (<srl> ^reward.value 0.175) # Was 0.175 for 2020 paper
 }
 
 # Clean up reward-link

@@ -262,7 +262,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		this.runExperiments(taskName, samples, expList);
 	}
 	
-	public void makePreChunks() {
+	/*public void makePreChunks() {
 		List<Pair<String,String>> trainList = new ArrayList<Pair<String,String>>();
 		trainList.add(new Pair<String,String>("verbal-CWM","verbal-CWM"));
 		trainList.add(new Pair<String,String>("stroop","stroop"));
@@ -275,7 +275,7 @@ public class CheinMorrisonWorld extends PROPsEnvironment {
 		makeSpreadingChunks(trainList, task + "_agent_condspread_chunks.soar", false);
 		makeAddressingChunks(trainList, task + "_agent_L1_chunks.soar", false);
 		inDebug = false;
-	}
+	}*/
 	
 	public void testStroop() {
 		this.setConfig(new LearnConfig("12", 1));

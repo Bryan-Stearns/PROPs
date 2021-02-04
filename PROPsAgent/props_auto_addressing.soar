@@ -31,47 +31,47 @@ sp {elaborate*props*address1*buffer
     (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
-    (<c> ^address1 {<buff> <> RT <> Q <> smem <> flags}
+    (<c> ^address1 <buff> # {<buff> <> subRT <> subQ <> subsmem <> subflags} # There aren't any structures with the "sub-" prefix; this just disables the use of substate-local queries.
          ^name <cname>)
 -->
     (<d> ^cond-id1 <dcid>)
     (<dcid> ^name <cname>
             ^id1 <buff-id>)
 }
-sp {elaborate*props*address1*buffer*RT
-    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
-               ^pre-action-state.<buff> <buff-id>)
-    (<d> ^prop <c>)
-    (<c> ^address1 {<buff> << RT Q smem flags >>}
-         ^name <cname>)
--->
-    (<d> ^cond-id1 <dcid>)
-    (<dcid> ^name <cname>
-            ^id1 <buff-id>)
-}
+#sp {elaborate*props*address1*buffer*RT
+#    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
+#               ^pre-action-state.<buff> <buff-id>)
+#    (<d> ^prop <c>)
+#    (<c> ^address1 {<buff> << RT Q smem flags >>}
+#         ^name <cname>)
+#-->
+#    (<d> ^cond-id1 <dcid>)
+#    (<dcid> ^name <cname>
+#            ^id1 <buff-id>)
+#}
 
 sp {elaborate*props*address2*buffer
     (state <s> ^<< props-epset props-cbset >> (^delta <d> )
                ^topstate.<buff> <buff-id>)
     (<d> ^prop <c>)
-    (<c> ^address2 {<buff> <> RT <> Q <> smem <> flags}
+    (<c> ^address2 <buff> #{<buff> <> subRT <> subQ <> subsmem <> subflags}
          ^name <cname>)
 -->
     (<d> ^cond-id2 <dcid>)
     (<dcid> ^name <cname>
             ^id2 <buff-id>)
 }
-sp {elaborate*props*address2*buffer*RT
-    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
-               ^pre-action-state.<buff> <buff-id>)
-    (<d> ^prop <c>)
-    (<c> ^address2 {<buff> << RT Q smem flags >>}
-         ^name <cname>)
--->
-    (<d> ^cond-id2 <dcid>)
-    (<dcid> ^name <cname>
-            ^id2 <buff-id>)
-}
+#sp {elaborate*props*address2*buffer*RT
+#    (state <s> ^<< props-epset props-cbset >> (^delta <d> )
+#               ^pre-action-state.<buff> <buff-id>)
+#    (<d> ^prop <c>)
+#    (<c> ^address2 {<buff> << subRT subQ subsmem subflags >>}
+#         ^name <cname>)
+#-->
+#    (<d> ^cond-id2 <dcid>)
+#    (<dcid> ^name <cname>
+#            ^id2 <buff-id>)
+#}
 sp {elaborate*props*address2*cond-const
     (state <s> ^<< props-epset props-cbset >> (^delta <d> ) )
     (<d> ^const <dc>

@@ -2,7 +2,7 @@
 
 chunk only
 chunk add-ltm-links on
-#chunk add-osk off
+chunk add-osk off
 
 chunk confidence-threshold 1
 
@@ -71,5 +71,5 @@ chunk singleton identifier 2 constant
 chunk singleton identifier 3 constant
 chunk singleton identifier 4 constant
 chunk singleton operator name constant
-
+chunk singleton identifier io identifier
 

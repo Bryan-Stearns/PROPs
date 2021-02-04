@@ -24,8 +24,8 @@ public class SMLClient {
 	
 	public static void main(String[] args) {
 
-		ArrayList<Double> cmd1vals = generateParamSweep(0.02, 0.2, 0.02);
-		ArrayList<Double> cmd2vals = generateParamSweep(0.7, 0.9, 0.05);
+		ArrayList<Double> cmd1vals = generateParamSweep(0.02, 0.06, 0.02); 
+		ArrayList<Double> cmd2vals = generateParamSweep(0.775, 0.775, 0.05);
 		
 		CheinMorrisonWorld world = new CheinMorrisonWorld(true);
 		//world.setUseProps(false);
@@ -38,16 +38,18 @@ public class SMLClient {
 				cmds.add("rl --set learning-rate " + val1);
 				cmds.add("rl --set discount-rate " + val2);
 
-				expList.add(new LearnConfig("12", 1, cmds, String.format("_lr%02d_dr%02d", (int)(val1*100), (int)(val2*100))));
+				// Was "12", 1 for 2020 paper, with (wait) operator
+				expList.add(new LearnConfig("12", 1, cmds, String.format("_lr%02d_dr%03d", (int)(val1*100), (int)(val2*1000))));
 			}
 		}
 		
-		world.runCheinExperiment("stroopChein", 3, expList); // 9 samples
+		world.setVerbose(false);
+		world.runCheinExperiment("stroopChein", 4, expList); // 9 samples
 		
 		//world.setSoarAgentFile("cheinNR_agent.soar");
 		
 		//world.runCheinDebug("verbal-CWM", 1, "1");
-		//world.runCheinDebug("stroop", 1, "1");
+		//world.runCheinDebug("stroop", 1, "2");
 		
 		//world.testStroop();
 		

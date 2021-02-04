@@ -76,6 +76,45 @@ sp {elaborate*props*epset*delta*cond*neq
 -->
     (<d> ^cond-success <cname>)
 }
+# NIL1 AND NIL2 SPECIAL CASE CONDITIONS: (okay because conditions not chunked)
+#sp {elaborate*props*epset*delta*cond*neq-nil1
+#    "If only the first arg is nil, treat as inequality"
+#    (state <s> ^props-epset.delta <d>)
+#    (<d> ^prop <c>
+#         ^cond-id1 <cid1>
+#         ^cond-id2 <cid2>)
+#    (<cid1> ^name <cname>
+#            ^id1 <id1>)
+#    (<cid2> ^name <cname>
+#            ^id2 <id2>)
+#    (<c> ^prop-type inequality
+#         ^name <cname>
+#         ^attr1 <attr1>
+#         ^attr2 <attr2>)
+#    (<id1> -^<attr1> )
+#    (<id2> ^<attr2> <val>)
+#-->
+#    (<d> ^cond-success <cname>)
+#}
+#sp {elaborate*props*epset*delta*cond*neq-nil2
+#    "If only the second arg is nil, treat as inequality"
+#    (state <s> ^props-epset.delta <d>)
+#    (<d> ^prop <c>
+#         ^cond-id1 <cid1>
+#         ^cond-id2 <cid2>)
+#    (<cid1> ^name <cname>
+#            ^id1 <id1>)
+#    (<cid2> ^name <cname>
+#            ^id2 <id2>)
+#    (<c> ^prop-type inequality
+#         ^name <cname>
+#         ^attr1 <attr1>
+#         ^attr2 <attr2>)
+#    (<id1> ^<attr1> <val>)
+#    (<id2> -^<attr2>)
+#-->
+#    (<d> ^cond-success <cname>)
+#}
 sp {elaborate*props*epset*delta*cond*teq
     (state <s> ^props-epset.delta <d>)
     (<d> ^prop <c>
@@ -263,6 +302,26 @@ sp {apply*props*add
             ^attr1 <attr1>
             ^val <val>)
 }
+# ADD-NIL BEHAVIOR: REMOVED BECAUSE IS DIFF RESPONSE TO INSTRUCTIONS AND PREVENTS CHUNK TRANSFER
+#sp {apply*props*add-nil
+#    "If copying from a source that does not exist, treat as a remove command."
+#    (state <s> ^props-cbset.delta <d>
+#               ^prop-working-buffer.apply <ba>)
+#    (<d> ^prop <a>
+#         ^cond-id1 (^id1 <id1> ^name <pname> )
+#         ^cond-id2 (^id2 <id2> ^name <pname> ) )
+#    (<a> ^prop-type add
+#         ^name <pname>
+#         ^attr1 <attr1>
+#         ^attr2 <attr2>)
+#    (<id2> -^<attr2> <val>)
+#-->
+#    (<ba> ^delta-action <dnew>)
+#    (<dnew> ^prop-type remove
+#            ^name <pname>
+#            ^id1 <id1>
+#            ^attr1 <attr1>)
+#}
 sp {apply*props*remove
     (state <s> ^props-cbset.delta <d>
                ^prop-working-buffer.apply <ba>)

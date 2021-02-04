@@ -11,8 +11,8 @@
 decide indifferent-selection -b
 decide indifferent-selection -t 0.1
 rl --set learning on
-rl --set learning-rate 0.02  # default 0.3
-rl --set discount-rate 0.775   # default 0.9
+rl --set learning-rate 0.02    # Was 0.02 for 2020 paper; default 0.3
+rl --set discount-rate 0.775   # Was 0.775 for 2020 paper; default 0.9
 
 # Define elaboration of input-link reward to the RL interface
 sp {elaborate*props*reward*input
@@ -41,20 +41,20 @@ sp {elaborate*props*delta*cond-const
 }
 
 # Define the RL rules
-sp {props*delta*condition
-    :template
-    (state <s> ^operator <o> +)
-    (<o> ^delta <d>)
-    (<d> ^prop-name <name>)
--->
-    (<s> ^operator <o> = 0)
-}
+#sp {props*delta*condition
+#    :template
+#    (state <s> ^operator <o> +)
+#    (<o> ^delta <d>)
+#    (<d> ^prop-name <name>)
+#-->
+#    (<s> ^operator <o> = 0.0)
+#}
 
 sp {props*delta*constants
     :template
     (state <s> ^operator <o> +)
     (<o> ^delta.prop-const <val>)
 -->
-    (<s> ^operator <o> = 0)
+    (<s> ^operator <o> = 0.0)
 }
 

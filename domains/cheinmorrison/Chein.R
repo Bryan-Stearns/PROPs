@@ -76,14 +76,14 @@ PLOT_L2 <- TRUE           # The case where chunking was turned on for instructio
 PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
 
 PLOT_SOURCE <- "PROPS"
-PLOT_SWEEP <- FALSE
+PLOT_SWEEP <- TRUE
 
 t <- "1"
 sample <- "_s4"
-subfolder <- "sweep_20190325_states/"
+subfolder <- "" # "sweep_20190325_states/"
 
-LR <- if (PLOT_SWEEP) str_pad(25*(1:8), 4, pad="0") else c("0200")        # A range of learning-rates from 0.0025 to 0.02
-DR <- if (PLOT_SWEEP) str_pad(700+25*(0:4), 3, pad="0") else c("775")   # A range of discount-rates from 0.7 to 0.8
+LR <- if (PLOT_SWEEP) str_pad(02*(1:4), 2, pad="0") else c("02")        # A range of learning-rates from 0.0025 to 0.02
+DR <- if (PLOT_SWEEP) str_pad(775+25*(0:0), 3, pad="0") else c("775")   # A range of discount-rates from 0.7 to 0.8
 
 
 modelpath <- ifelse(PLOT_SOURCE=="PRIMS",
@@ -125,7 +125,7 @@ for (lr in LR) {
     
     
     # Rehearsal model Stroop data:
-    sdat <- read.table(paste(modelpath,subfolder,"stroopChein",graphname,"_X.dat",sep=""), fill=TRUE, 
+    sdat <- read.table(paste(modelpath,subfolder,"stroopChein",graphname,".dat",sep=""), fill=TRUE, 
                       col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
     #sres <- with(sdat,tapply(RT,list(day,condition,type),mean))  # sres = RT in [{1,21}, {CONTROL,EXP}, {CONGRUENT,INCONGRUENT}]
     sres <- aggregate(sdat$RT,list(day=sdat$day,condition=sdat$condition,type=sdat$type),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
@@ -148,20 +148,20 @@ for (lr in LR) {
 }
 
 # Non-rehearsal model Stroop data:
-sdatNR <- read.table(paste(modelpath,"stroopCheinNR",graphname,"_X.dat",sep=""), fill=TRUE, 
+sdatNR <- read.table(paste(modelpath,"stroopCheinNR",graphname,".dat",sep=""), fill=TRUE, 
                     col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
 sresNR <- with(sdatNR,tapply(RT,list(day,condition,type),mean))
 
 
 
 # Rehearsal model VCWM data:
-vdat <- read.table(paste(modelpath,subfolder,"WMChein",graphname,"_X.dat",sep=""), fill=TRUE, 
+vdat <- read.table(paste(modelpath,subfolder,"WMChein",graphname,".dat",sep=""), fill=TRUE, 
                    col.names = c("day","span","correct","DC","FT","fetches","prepares"))
 vdat.m <- with(vdat[vdat$correct==1,],tapply(span,day,mean))
 #vdat.m <- with(vdat,tapply(span,day,mean))
 
 # Non-rehearsal model VCWM data:
-vdatNR <- read.table(paste(modelpath,subfolder,"WMCheinNR",graphname,"_X.dat",sep=""), fill=TRUE, 
+vdatNR <- read.table(paste(modelpath,subfolder,"WMCheinNR",graphname,".dat",sep=""), fill=TRUE, 
                    col.names = c("day","span","correct","DC","FT","fetches","prepares"))
 vdatNR.m <- with(vdatNR[vdatNR$correct==1,],tapply(span,day,mean))
 #vdat.m <- with(vdat,tapply(span,day,mean))
