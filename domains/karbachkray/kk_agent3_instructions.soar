@@ -1,0 +1,1596 @@
+#####
+# THIS FILE TRANSLATES THE PROPS INSTRUCTIONS
+# FROM 'kk_agent3.prop' INTO SMEM INSTRUCTIONS USABLE
+# BY A PROPS SOAR AGENT.
+#####
+
+# BEGIN INSTRUCTIONS
+
+smem --add {
+(<delta_PA11_PA21> ^prop-apply true
+	^op-name |_PA11_PA21|
+	^item-name |_PA11|
+	^item-name |_PA21|)
+(<cbset_PA11_PA21> ^props-cbset-name |_PA11_PA21|
+	 ^delta <delta_PA11>
+	 ^delta <delta_PA21>)
+(<delta_PA11_PA34> ^prop-apply true
+	^op-name |_PA11_PA34|
+	^item-name |_PA11|
+	^item-name |_PA34|)
+(<cbset_PA11_PA34> ^props-cbset-name |_PA11_PA34|
+	 ^delta <delta_PA11>
+	 ^delta <delta_PA34>)
+(<delta_PA16_PA17> ^prop-apply true
+	^op-name |_PA16_PA17|
+	^item-name |_PA16|
+	^item-name |_PA17|)
+(<cbset_PA16_PA17> ^props-cbset-name |_PA16_PA17|
+	 ^delta <delta_PA16>
+	 ^delta <delta_PA17>)
+(<delta_PA20_PA21> ^prop-apply true
+	^op-name |_PA20_PA21|
+	^item-name |_PA20|
+	^item-name |_PA21|)
+(<cbset_PA20_PA21> ^props-cbset-name |_PA20_PA21|
+	 ^delta <delta_PA20>
+	 ^delta <delta_PA21>)
+(<delta_PA21_PA32> ^prop-apply true
+	^op-name |_PA21_PA32|
+	^item-name |_PA21|
+	^item-name |_PA32|)
+(<cbset_PA21_PA32> ^props-cbset-name |_PA21_PA32|
+	 ^delta <delta_PA21>
+	 ^delta <delta_PA32>)
+(<delta_PA21_PA54> ^prop-apply true
+	^op-name |_PA21_PA54|
+	^item-name |_PA21|
+	^item-name |_PA54|)
+(<cbset_PA21_PA54> ^props-cbset-name |_PA21_PA54|
+	 ^delta <delta_PA21>
+	 ^delta <delta_PA54>)
+(<delta_PA23_PA24> ^prop-apply true
+	^op-name |_PA23_PA24|
+	^item-name |_PA23|
+	^item-name |_PA24|)
+(<cbset_PA23_PA24> ^props-cbset-name |_PA23_PA24|
+	 ^delta <delta_PA23>
+	 ^delta <delta_PA24>)
+(<delta_PA26_PA27> ^prop-apply true
+	^op-name |_PA26_PA27|
+	^item-name |_PA26|
+	^item-name |_PA27|)
+(<cbset_PA26_PA27> ^props-cbset-name |_PA26_PA27|
+	 ^delta <delta_PA26>
+	 ^delta <delta_PA27>)
+(<delta_PA30_PA4> ^prop-apply true
+	^op-name |_PA30_PA4|
+	^item-name |_PA30|
+	^item-name |_PA4|)
+(<cbset_PA30_PA4> ^props-cbset-name |_PA30_PA4|
+	 ^delta <delta_PA30>
+	 ^delta <delta_PA4>)
+(<delta_PA37_PA38> ^prop-apply true
+	^op-name |_PA37_PA38|
+	^item-name |_PA37|
+	^item-name |_PA38|)
+(<cbset_PA37_PA38> ^props-cbset-name |_PA37_PA38|
+	 ^delta <delta_PA37>
+	 ^delta <delta_PA38>)
+(<delta_PA39_PA40> ^prop-apply true
+	^op-name |_PA39_PA40|
+	^item-name |_PA39|
+	^item-name |_PA40|)
+(<cbset_PA39_PA40> ^props-cbset-name |_PA39_PA40|
+	 ^delta <delta_PA39>
+	 ^delta <delta_PA40>)
+(<delta_PA3_PA4> ^prop-apply true
+	^op-name |_PA3_PA4|
+	^item-name |_PA3|
+	^item-name |_PA4|)
+(<cbset_PA3_PA4> ^props-cbset-name |_PA3_PA4|
+	 ^delta <delta_PA3>
+	 ^delta <delta_PA4>)
+(<delta_PA3_PA45> ^prop-apply true
+	^op-name |_PA3_PA45|
+	^item-name |_PA3|
+	^item-name |_PA45|)
+(<cbset_PA3_PA45> ^props-cbset-name |_PA3_PA45|
+	 ^delta <delta_PA3>
+	 ^delta <delta_PA45>)
+(<delta_PA3_PA49> ^prop-apply true
+	^op-name |_PA3_PA49|
+	^item-name |_PA3|
+	^item-name |_PA49|)
+(<cbset_PA3_PA49> ^props-cbset-name |_PA3_PA49|
+	 ^delta <delta_PA3>
+	 ^delta <delta_PA49>)
+(<delta_PA4_PA7> ^prop-apply true
+	^op-name |_PA4_PA7|
+	^item-name |_PA4|
+	^item-name |_PA7|)
+(<cbset_PA4_PA7> ^props-cbset-name |_PA4_PA7|
+	 ^delta <delta_PA4>
+	 ^delta <delta_PA7>)
+(<delta_PA8_PA9> ^prop-apply true
+	^op-name |_PA8_PA9|
+	^item-name |_PA8|
+	^item-name |_PA9|)
+(<cbset_PA8_PA9> ^props-cbset-name |_PA8_PA9|
+	 ^delta <delta_PA8>
+	 ^delta <delta_PA9>)
+(<delta_PA11_PA20_PA21> ^prop-apply true
+	^op-name |_PA11_PA20_PA21|
+	^item-name |_PA11|
+	^item-name |_PA21|
+	^item-name |_PA20|)
+(<cbset_PA11_PA20_PA21> ^props-cbset-name |_PA11_PA20_PA21|
+	 ^delta <delta_PA11_PA21>
+	 ^delta <delta_PA20>)
+(<delta_PA11_PA21_PA37> ^prop-apply true
+	^op-name |_PA11_PA21_PA37|
+	^item-name |_PA11|
+	^item-name |_PA21|
+	^item-name |_PA37|)
+(<cbset_PA11_PA21_PA37> ^props-cbset-name |_PA11_PA21_PA37|
+	 ^delta <delta_PA11_PA21>
+	 ^delta <delta_PA37>)
+(<delta_PA11_PA21_PA37_PA38> ^prop-apply true
+	^op-name |_PA11_PA21_PA37_PA38|
+	^item-name |_PA11|
+	^item-name |_PA21|
+	^item-name |_PA37|
+	^item-name |_PA38|)
+(<cbset_PA11_PA21_PA37_PA38> ^props-cbset-name |_PA11_PA21_PA37_PA38|
+	 ^delta <delta_PA11_PA21>
+	 ^delta <delta_PA37_PA38>)
+(<delta_PA16_PA17_PA18> ^prop-apply true
+	^op-name |_PA16_PA17_PA18|
+	^item-name |_PA16|
+	^item-name |_PA17|
+	^item-name |_PA18|)
+(<cbset_PA16_PA17_PA18> ^props-cbset-name |_PA16_PA17_PA18|
+	 ^delta <delta_PA16_PA17>
+	 ^delta <delta_PA18>)
+(<delta_PA16_PA17_PA36> ^prop-apply true
+	^op-name |_PA16_PA17_PA36|
+	^item-name |_PA16|
+	^item-name |_PA17|
+	^item-name |_PA36|)
+(<cbset_PA16_PA17_PA36> ^props-cbset-name |_PA16_PA17_PA36|
+	 ^delta <delta_PA16_PA17>
+	 ^delta <delta_PA36>)
+(<delta_PA16_PA17_PA43> ^prop-apply true
+	^op-name |_PA16_PA17_PA43|
+	^item-name |_PA16|
+	^item-name |_PA17|
+	^item-name |_PA43|)
+(<cbset_PA16_PA17_PA43> ^props-cbset-name |_PA16_PA17_PA43|
+	 ^delta <delta_PA16_PA17>
+	 ^delta <delta_PA43>)
+(<delta_PA16_PA17_PA56> ^prop-apply true
+	^op-name |_PA16_PA17_PA56|
+	^item-name |_PA16|
+	^item-name |_PA17|
+	^item-name |_PA56|)
+(<cbset_PA16_PA17_PA56> ^props-cbset-name |_PA16_PA17_PA56|
+	 ^delta <delta_PA16_PA17>
+	 ^delta <delta_PA56>)
+(<delta_PA26_PA27_PA30_PA4> ^prop-apply true
+	^op-name |_PA26_PA27_PA30_PA4|
+	^item-name |_PA26|
+	^item-name |_PA27|
+	^item-name |_PA30|
+	^item-name |_PA4|)
+(<cbset_PA26_PA27_PA30_PA4> ^props-cbset-name |_PA26_PA27_PA30_PA4|
+	 ^delta <delta_PA26_PA27>
+	 ^delta <delta_PA30_PA4>)
+(<delta_PA2_PA3_PA4> ^prop-apply true
+	^op-name |_PA2_PA3_PA4|
+	^item-name |_PA2|
+	^item-name |_PA3|
+	^item-name |_PA4|)
+(<cbset_PA2_PA3_PA4> ^props-cbset-name |_PA2_PA3_PA4|
+	 ^delta <delta_PA2>
+	 ^delta <delta_PA3_PA4>)
+(<delta_PA3_PA45_PA46> ^prop-apply true
+	^op-name |_PA3_PA45_PA46|
+	^item-name |_PA3|
+	^item-name |_PA45|
+	^item-name |_PA46|)
+(<cbset_PA3_PA45_PA46> ^props-cbset-name |_PA3_PA45_PA46|
+	 ^delta <delta_PA3_PA45>
+	 ^delta <delta_PA46>)
+(<delta_PA3_PA49_PA50> ^prop-apply true
+	^op-name |_PA3_PA49_PA50|
+	^item-name |_PA3|
+	^item-name |_PA49|
+	^item-name |_PA50|)
+(<cbset_PA3_PA49_PA50> ^props-cbset-name |_PA3_PA49_PA50|
+	 ^delta <delta_PA3_PA49>
+	 ^delta <delta_PA50>)
+(<delta_PA4_PA7_PA8_PA9> ^prop-apply true
+	^op-name |_PA4_PA7_PA8_PA9|
+	^item-name |_PA4|
+	^item-name |_PA7|
+	^item-name |_PA8|
+	^item-name |_PA9|)
+(<cbset_PA4_PA7_PA8_PA9> ^props-cbset-name |_PA4_PA7_PA8_PA9|
+	 ^delta <delta_PA4_PA7>
+	 ^delta <delta_PA8_PA9>)
+(<delta_PA11_PA21_PA37_PA38_PA39_PA40> ^prop-apply true
+	^op-name |_PA11_PA21_PA37_PA38_PA39_PA40|
+	^item-name |_PA11|
+	^item-name |_PA21|
+	^item-name |_PA37|
+	^item-name |_PA38|
+	^item-name |_PA39|
+	^item-name |_PA40|)
+(<cbset_PA11_PA21_PA37_PA38_PA39_PA40> ^props-cbset-name |_PA11_PA21_PA37_PA38_PA39_PA40|
+	 ^delta <delta_PA11_PA21_PA37_PA38>
+	 ^delta <delta_PA39_PA40>)
+
+(<Q128>  ^1 stroop-wrong-answer ^2 stroop ^3 blue-word)
+(<epset-task-idle> ^delta <delta-rule128>)
+(<delta-rule128> ^op-name stroop-wrong-answer
+	^const <Q128>)
+(<delta-rule128> ^prop <prop-C59>)
+(<delta-rule128> ^prop <prop-C14>)
+
+(<Q127>  ^1 stroop-answer ^2 stroop)
+(<epset-task-idle> ^delta <delta-rule127>)
+(<delta-rule127> ^op-name stroop-answer
+	^const <Q127>)
+(<delta-rule127> ^prop <prop-C59>)
+(<delta-rule127> ^prop <prop-C42>)
+
+(<Q126>  ^1 ABCD-choose-task ^2 task-switching-CD ^3 yes)
+(<epset-task-idle> ^delta <delta-rule126>)
+(<delta-rule126> ^op-name ABCD-choose-task
+	^const <Q126>)
+(<delta-rule126> ^prop <prop-C59>)
+(<delta-rule126> ^prop <prop-C61>)
+
+(<Q125>  ^1 ABCD-choose-task ^2 task-switching-AB ^3 yes)
+(<epset-task-idle> ^delta <delta-rule125>)
+(<delta-rule125> ^op-name ABCD-choose-task
+	^const <Q125>)
+(<delta-rule125> ^prop <prop-C59>)
+(<delta-rule125> ^prop <prop-C61>)
+(<prop-C61> ^name |_PC61|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+
+(<Q124>  ^1 kk-idle-wait ^2 wait)
+(<pre-cbset-rule124> ^props-epset-name kk-idle-wait
+	^const <Q124>
+	^delta <delta_PA11>)
+
+(<epset-task-idle> ^props-epset-name idle)
+(<Q123>  ^1 kk-idle-wait ^2 pending)
+(<epset-task-idle> ^delta <delta-rule123>)
+(<delta-rule123> ^op-name kk-idle-wait
+	^const <Q123>)
+(<delta-rule123> ^prop <prop-C6>)
+
+(<Q122>  ^1 stroop-answer ^2 stroop)
+(<epset-task-prepare> ^delta <delta-rule122>)
+(<delta-rule122> ^op-name stroop-answer
+	^const <Q122>)
+(<delta-rule122> ^prop <prop-C59>)
+
+(<Q121>  ^1 ABCD-choose-task ^2 task-switching-CD)
+(<epset-task-prepare> ^delta <delta-rule121>)
+(<delta-rule121> ^op-name ABCD-choose-task
+	^const <Q121>)
+(<delta-rule121> ^prop <prop-C59>)
+
+(<Q120>  ^1 ABCD-choose-task ^2 task-switching-AB)
+(<epset-task-prepare> ^delta <delta-rule120>)
+(<delta-rule120> ^op-name ABCD-choose-task
+	^const <Q120>)
+(<delta-rule120> ^prop <prop-C59>)
+
+(<epset-task-prepare> ^props-epset-name prepare)
+(<Q119>  ^1 cs-rehearse ^2 count-span)
+(<epset-task-prepare> ^delta <delta-rule119>)
+(<delta-rule119> ^op-name cs-rehearse
+	^const <Q119>)
+(<delta-rule119> ^prop <prop-C59>)
+
+(<Q118>  ^1 kk-stroop-answer-retrieve-color ^2 s-mapping ^3 query)
+(<pre-cbset-rule118> ^props-epset-name kk-stroop-answer-retrieve-color
+	^const <Q118>
+	^delta <delta_PA16_PA17_PA36>)
+
+(<Q117>  ^1 kk-stroop-answer-retrieve-color)
+(<epset-task-stroop-answer> ^delta <delta-rule117>)
+(<delta-rule117> ^op-name kk-stroop-answer-retrieve-color
+	^const <Q117>)
+(<delta-rule117> ^prop <prop-C35>)
+
+(<epset-task-stroop-answer> ^props-epset-name stroop-answer)
+(<Q116>  ^1 idle ^2 yes)
+(<epset-task-stroop-answer> ^delta <delta-rule116>)
+(<delta-rule116> ^op-name idle
+	^const <Q116>)
+(<delta-rule116> ^prop <prop-C60>)
+(<prop-C60> ^name |_PC60|
+	^prop-type inequality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<epset-task-stroop-wrong-answer> ^props-epset-name stroop-wrong-answer)
+(<Q115>  ^1 stroop-answer ^2 stroop)
+(<epset-task-stroop-wrong-answer> ^delta <delta-rule115>)
+(<delta-rule115> ^op-name stroop-answer
+	^const <Q115>)
+(<delta-rule115> ^prop <prop-C59>)
+(<prop-C59> ^name |_PC59|
+	^prop-type equality
+	^attr1 task
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q114>  ^1 kk-stroop-finish ^2 finish)
+(<pre-cbset-rule114> ^props-epset-name kk-stroop-finish
+	^const <Q114>
+	^delta <delta_PA21_PA32>)
+
+(<Q113>  ^1 kk-stroop-finish ^2 last)
+(<epset-task-stroop> ^delta <delta-rule113>)
+(<delta-rule113> ^op-name kk-stroop-finish
+	^const <Q113>)
+(<delta-rule113> ^prop <prop-C6>)
+
+(<Q112>  ^1 kk-stroop-say-correct ^2 say)
+(<pre-cbset-rule112> ^props-epset-name kk-stroop-say-correct
+	^const <Q112>
+	^delta <delta_PA11_PA21_PA37>)
+
+(<Q111>  ^1 kk-stroop-say-correct)
+(<epset-task-stroop> ^delta <delta-rule111>)
+(<delta-rule111> ^op-name kk-stroop-say-correct
+	^const <Q111>)
+(<delta-rule111> ^prop <prop-C58>)
+(<prop-C58> ^name |_PC58|
+	^prop-type equality
+	^attr1 slot2
+	^attr2 slot2
+	^address1 RT
+	^address2 V)
+
+
+(<Q110>  ^1 idle ^2 last)
+(<epset-task-stroop> ^delta <delta-rule110>)
+(<delta-rule110> ^op-name idle
+	^const <Q110>)
+(<delta-rule110> ^prop <prop-C52>)
+(<delta-rule110> ^prop <prop-C57>)
+
+(<epset-task-stroop> ^props-epset-name stroop)
+(<Q109>  ^1 prepare ^2 last)
+(<epset-task-stroop> ^delta <delta-rule109>)
+(<delta-rule109> ^op-name prepare
+	^const <Q109>)
+(<delta-rule109> ^prop <prop-C52>)
+(<delta-rule109> ^prop <prop-C57>)
+(<prop-C57> ^name |_PC57|
+	^prop-type inexistence
+	^attr1 slot2
+	^attr2 slot2
+	^address1 RT
+	^address2 V)
+
+
+(<Q108>  ^1 kk-ABCD-choose-task-set-task)
+(<pre-cbset-rule108> ^props-epset-name kk-ABCD-choose-task-set-task
+	^const <Q108>
+	^delta <delta_PA20_PA21>)
+
+(<Q107>  ^1 kk-ABCD-choose-task-set-task)
+(<epset-task-ABCD-choose-task> ^delta <delta-rule107>)
+(<delta-rule107> ^op-name kk-ABCD-choose-task-set-task
+	^const <Q107>)
+(<delta-rule107> ^prop <prop-C19>)
+
+(<Q106>  ^1 kk-ABCD-choose-task-retrieve-other-task ^2 other-task ^3 query)
+(<delta_PA56> ^prop-apply true
+	^item-name |_PA56|
+	^op-name |_PA56|)
+(<cbset_PA56> ^props-cbset-name |_PA56|
+	^delta <delta-null_PA56>)
+(<delta-null_PA56> ^prop-apply true
+	^prop <prop-A56>)
+(<prop-A56> ^name |_PA56|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 Q
+	^address2 WM)
+(<pre-cbset-rule106> ^props-epset-name kk-ABCD-choose-task-retrieve-other-task
+	^const <Q106>
+	^delta <delta_PA16_PA17_PA56>)
+
+(<Q105>  ^1 kk-ABCD-choose-task-retrieve-other-task)
+(<epset-task-ABCD-choose-task> ^delta <delta-rule105>)
+(<delta-rule105> ^op-name kk-ABCD-choose-task-retrieve-other-task
+	^const <Q105>)
+(<delta-rule105> ^prop <prop-C55>)
+(<prop-C55> ^name |_PC55|
+	^prop-type equality
+	^attr1 slot2
+	^attr2 slot3
+	^address1 WM
+	^address2 WM)
+
+(<delta-rule105> ^prop <prop-C15>)
+
+(<Q104>  ^1 kk-ABCD-choose-task-repeat-same-task)
+(<delta_PA54> ^prop-apply true
+	^item-name |_PA54|
+	^op-name |_PA54|)
+(<cbset_PA54> ^props-cbset-name |_PA54|
+	^delta <delta-null_PA54>)
+(<delta-null_PA54> ^prop-apply true
+	^prop <prop-A54>)
+(<prop-A54> ^name |_PA54|
+	^prop-type add
+	^attr1 slot1
+	^attr2 slot2
+	^address1 WM
+	^address2 WM)
+(<pre-cbset-rule104> ^props-epset-name kk-ABCD-choose-task-repeat-same-task
+	^const <Q104>
+	^delta <delta_PA21_PA54>)
+
+(<epset-task-ABCD-choose-task> ^props-epset-name ABCD-choose-task)
+(<Q103>  ^1 kk-ABCD-choose-task-repeat-same-task)
+(<epset-task-ABCD-choose-task> ^delta <delta-rule103>)
+(<delta-rule103> ^op-name kk-ABCD-choose-task-repeat-same-task
+	^const <Q103>)
+(<delta-rule103> ^prop <prop-C53>)
+(<prop-C53> ^name |_PC53|
+	^prop-type inequality
+	^attr1 slot2
+	^attr2 slot3
+	^address1 WM
+	^address2 WM)
+
+(<delta-rule103> ^prop <prop-C15>)
+
+(<Q102>  ^1 kk-task-switching-CD-finish ^2 finish)
+(<pre-cbset-rule102> ^props-epset-name kk-task-switching-CD-finish
+	^const <Q102>
+	^delta <delta_PA21_PA32>)
+
+(<Q101>  ^1 kk-task-switching-CD-finish ^2 last)
+(<epset-task-task-switching-CD> ^delta <delta-rule101>)
+(<delta-rule101> ^op-name kk-task-switching-CD-finish
+	^const <Q101>)
+(<delta-rule101> ^prop <prop-C6>)
+
+(<Q100>  ^1 prepare ^2 last ^3 blankCD)
+(<epset-task-task-switching-CD> ^delta <delta-rule100>)
+(<delta-rule100> ^op-name prepare
+	^const <Q100>)
+(<delta-rule100> ^prop <prop-C52>)
+(<delta-rule100> ^prop <prop-C51>)
+
+(<Q99>  ^1 ABCD-choose-task ^2 yes ^3 blankCD)
+(<epset-task-task-switching-CD> ^delta <delta-rule99>)
+(<delta-rule99> ^op-name ABCD-choose-task
+	^const <Q99>)
+(<delta-rule99> ^prop <prop-C6>)
+(<delta-rule99> ^prop <prop-C51>)
+
+(<Q98>  ^1 number-task ^2 yes)
+(<epset-task-task-switching-CD> ^delta <delta-rule98>)
+(<delta-rule98> ^op-name number-task
+	^const <Q98>)
+(<delta-rule98> ^prop <prop-C6>)
+(<delta-rule98> ^prop <prop-C48>)
+
+(<Q97>  ^1 transport-task ^2 yes)
+(<epset-task-task-switching-CD> ^delta <delta-rule97>)
+(<delta-rule97> ^op-name transport-task
+	^const <Q97>)
+(<delta-rule97> ^prop <prop-C6>)
+(<delta-rule97> ^prop <prop-C48>)
+
+(<Q96>  ^1 kk-task-switching-CD-init ^2 blankCD)
+(<pre-cbset-rule96> ^props-epset-name kk-task-switching-CD-init
+	^const <Q96>
+	^delta <delta_PA3_PA49_PA50>)
+
+(<epset-task-task-switching-CD> ^props-epset-name task-switching-CD)
+(<Q95>  ^1 kk-task-switching-CD-init)
+(<epset-task-task-switching-CD> ^delta <delta-rule95>)
+(<delta-rule95> ^op-name kk-task-switching-CD-init
+	^const <Q95>)
+(<delta-rule95> ^prop <prop-C44>)
+
+(<Q94>  ^1 kk-single-task-D-finish ^2 finish)
+(<pre-cbset-rule94> ^props-epset-name kk-single-task-D-finish
+	^const <Q94>
+	^delta <delta_PA21_PA32>)
+
+(<Q93>  ^1 kk-single-task-D-finish ^2 last)
+(<epset-task-single-task-D> ^delta <delta-rule93>)
+(<delta-rule93> ^op-name kk-single-task-D-finish
+	^const <Q93>)
+(<delta-rule93> ^prop <prop-C6>)
+
+(<Q92>  ^1 number-task ^2 yes)
+(<epset-task-single-task-D> ^delta <delta-rule92>)
+(<delta-rule92> ^op-name number-task
+	^const <Q92>)
+(<delta-rule92> ^prop <prop-C6>)
+(<delta-rule92> ^prop <prop-C48>)
+
+(<Q91>  ^1 idle ^2 pending)
+(<epset-task-single-task-D> ^delta <delta-rule91>)
+(<delta-rule91> ^op-name idle
+	^const <Q91>)
+(<delta-rule91> ^prop <prop-C6>)
+
+(<Q90>  ^1 kk-single-task-D-ready ^2 number-task)
+(<pre-cbset-rule90> ^props-epset-name kk-single-task-D-ready
+	^const <Q90>
+	^delta <delta_PA3>)
+
+(<Q89>  ^1 kk-single-task-D-ready ^2 blankCD)
+(<epset-task-single-task-D> ^delta <delta-rule89>)
+(<delta-rule89> ^op-name kk-single-task-D-ready
+	^const <Q89>)
+(<delta-rule89> ^prop <prop-C47>)
+
+(<Q88>  ^1 kk-single-task-D-init ^2 number-task ^3 blankCD)
+(<pre-cbset-rule88> ^props-epset-name kk-single-task-D-init
+	^const <Q88>
+	^delta <delta_PA3_PA45_PA46>)
+
+(<epset-task-single-task-D> ^props-epset-name single-task-D)
+(<Q87>  ^1 kk-single-task-D-init)
+(<epset-task-single-task-D> ^delta <delta-rule87>)
+(<delta-rule87> ^op-name kk-single-task-D-init
+	^const <Q87>)
+(<delta-rule87> ^prop <prop-C44>)
+
+(<Q86>  ^1 kk-single-task-C-finish ^2 finish)
+(<pre-cbset-rule86> ^props-epset-name kk-single-task-C-finish
+	^const <Q86>
+	^delta <delta_PA21_PA32>)
+
+(<Q85>  ^1 kk-single-task-C-finish ^2 last)
+(<epset-task-single-task-C> ^delta <delta-rule85>)
+(<delta-rule85> ^op-name kk-single-task-C-finish
+	^const <Q85>)
+(<delta-rule85> ^prop <prop-C6>)
+
+(<Q84>  ^1 transport-task ^2 yes)
+(<epset-task-single-task-C> ^delta <delta-rule84>)
+(<delta-rule84> ^op-name transport-task
+	^const <Q84>)
+(<delta-rule84> ^prop <prop-C6>)
+(<delta-rule84> ^prop <prop-C48>)
+
+(<Q83>  ^1 idle ^2 pending)
+(<epset-task-single-task-C> ^delta <delta-rule83>)
+(<delta-rule83> ^op-name idle
+	^const <Q83>)
+(<delta-rule83> ^prop <prop-C6>)
+
+(<Q82>  ^1 kk-single-task-C-ready ^2 transport-task)
+(<pre-cbset-rule82> ^props-epset-name kk-single-task-C-ready
+	^const <Q82>
+	^delta <delta_PA3>)
+
+(<Q81>  ^1 kk-single-task-C-ready ^2 blankCD)
+(<epset-task-single-task-C> ^delta <delta-rule81>)
+(<delta-rule81> ^op-name kk-single-task-C-ready
+	^const <Q81>)
+(<delta-rule81> ^prop <prop-C47>)
+
+(<Q80>  ^1 kk-single-task-C-init ^2 transport-task ^3 blankCD)
+(<pre-cbset-rule80> ^props-epset-name kk-single-task-C-init
+	^const <Q80>
+	^delta <delta_PA3_PA45_PA46>)
+
+(<epset-task-single-task-C> ^props-epset-name single-task-C)
+(<Q79>  ^1 kk-single-task-C-init)
+(<epset-task-single-task-C> ^delta <delta-rule79>)
+(<delta-rule79> ^op-name kk-single-task-C-init
+	^const <Q79>)
+(<delta-rule79> ^prop <prop-C44>)
+
+(<Q78>  ^1 kk-number-task-press-key ^2 press-key ^3 blankCD)
+(<pre-cbset-rule78> ^props-epset-name kk-number-task-press-key
+	^const <Q78>
+	^delta <delta_PA11_PA21_PA37_PA38_PA39_PA40>)
+
+(<Q77>  ^1 kk-number-task-press-key)
+(<epset-task-number-task> ^delta <delta-rule77>)
+(<delta-rule77> ^op-name kk-number-task-press-key
+	^const <Q77>)
+(<delta-rule77> ^prop <prop-C19>)
+
+(<Q76>  ^1 kk-number-task-get-key ^2 mapping ^3 query)
+(<pre-cbset-rule76> ^props-epset-name kk-number-task-get-key
+	^const <Q76>
+	^delta <delta_PA16_PA17_PA43>)
+
+(<Q75>  ^1 kk-number-task-get-key)
+(<epset-task-number-task> ^delta <delta-rule75>)
+(<delta-rule75> ^op-name kk-number-task-get-key
+	^const <Q75>)
+(<delta-rule75> ^prop <prop-C42>)
+(<delta-rule75> ^prop <prop-C15>)
+
+(<Q74>  ^1 kk-number-task-get-property ^2 get-property ^3 number-property)
+(<pre-cbset-rule74> ^props-epset-name kk-number-task-get-property
+	^const <Q74>
+	^delta <delta_PA11_PA34>)
+
+(<epset-task-number-task> ^props-epset-name number-task)
+(<Q73>  ^1 kk-number-task-get-property)
+(<epset-task-number-task> ^delta <delta-rule73>)
+(<delta-rule73> ^op-name kk-number-task-get-property
+	^const <Q73>)
+(<delta-rule73> ^prop <prop-C41>)
+
+(<Q72>  ^1 kk-transport-task-press-key ^2 press-key ^3 blankCD)
+(<pre-cbset-rule72> ^props-epset-name kk-transport-task-press-key
+	^const <Q72>
+	^delta <delta_PA11_PA21_PA37_PA38_PA39_PA40>)
+
+(<Q71>  ^1 kk-transport-task-press-key)
+(<epset-task-transport-task> ^delta <delta-rule71>)
+(<delta-rule71> ^op-name kk-transport-task-press-key
+	^const <Q71>)
+(<delta-rule71> ^prop <prop-C19>)
+
+(<Q70>  ^1 kk-transport-task-get-key ^2 mapping ^3 query)
+(<pre-cbset-rule70> ^props-epset-name kk-transport-task-get-key
+	^const <Q70>
+	^delta <delta_PA16_PA17_PA36>)
+
+(<Q69>  ^1 kk-transport-task-get-key)
+(<epset-task-transport-task> ^delta <delta-rule69>)
+(<delta-rule69> ^op-name kk-transport-task-get-key
+	^const <Q69>)
+(<delta-rule69> ^prop <prop-C35>)
+(<delta-rule69> ^prop <prop-C15>)
+
+(<Q68>  ^1 kk-transport-task-get-property ^2 get-property ^3 transport-property)
+(<pre-cbset-rule68> ^props-epset-name kk-transport-task-get-property
+	^const <Q68>
+	^delta <delta_PA11_PA34>)
+
+(<epset-task-transport-task> ^props-epset-name transport-task)
+(<Q67>  ^1 kk-transport-task-get-property)
+(<epset-task-transport-task> ^delta <delta-rule67>)
+(<delta-rule67> ^op-name kk-transport-task-get-property
+	^const <Q67>)
+(<delta-rule67> ^prop <prop-C33>)
+
+(<Q66>  ^1 kk-task-switching-AB-finish ^2 finish)
+(<pre-cbset-rule66> ^props-epset-name kk-task-switching-AB-finish
+	^const <Q66>
+	^delta <delta_PA21_PA32>)
+
+(<Q65>  ^1 kk-task-switching-AB-finish ^2 last)
+(<epset-task-task-switching-AB> ^delta <delta-rule65>)
+(<delta-rule65> ^op-name kk-task-switching-AB-finish
+	^const <Q65>)
+(<delta-rule65> ^prop <prop-C6>)
+
+(<Q64>  ^1 idle ^2 last ^3 blankAB)
+(<epset-task-task-switching-AB> ^delta <delta-rule64>)
+(<delta-rule64> ^op-name idle
+	^const <Q64>)
+(<delta-rule64> ^prop <prop-C52>)
+(<delta-rule64> ^prop <prop-C51>)
+
+(<Q63>  ^1 prepare ^2 last ^3 blankAB)
+(<epset-task-task-switching-AB> ^delta <delta-rule63>)
+(<delta-rule63> ^op-name prepare
+	^const <Q63>)
+(<delta-rule63> ^prop <prop-C52>)
+(<prop-C52> ^name |_PC52|
+	^prop-type inexistence
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule63> ^prop <prop-C51>)
+
+(<Q62>  ^1 ABCD-choose-task ^2 yes ^3 blankAB)
+(<epset-task-task-switching-AB> ^delta <delta-rule62>)
+(<delta-rule62> ^op-name ABCD-choose-task
+	^const <Q62>)
+(<delta-rule62> ^prop <prop-C6>)
+(<delta-rule62> ^prop <prop-C51>)
+(<prop-C51> ^name |_PC51|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q61>  ^1 size-task ^2 yes)
+(<epset-task-task-switching-AB> ^delta <delta-rule61>)
+(<delta-rule61> ^op-name size-task
+	^const <Q61>)
+(<delta-rule61> ^prop <prop-C6>)
+(<delta-rule61> ^prop <prop-C48>)
+
+(<Q60>  ^1 food-task ^2 yes)
+(<epset-task-task-switching-AB> ^delta <delta-rule60>)
+(<delta-rule60> ^op-name food-task
+	^const <Q60>)
+(<delta-rule60> ^prop <prop-C6>)
+(<delta-rule60> ^prop <prop-C48>)
+
+(<Q59>  ^1 kk-task-switching-AB-init ^2 blankAB)
+(<delta_PA49> ^prop-apply true
+	^item-name |_PA49|
+	^op-name |_PA49|)
+(<cbset_PA49> ^props-cbset-name |_PA49|
+	^delta <delta-null_PA49>)
+(<delta-null_PA49> ^prop-apply true
+	^prop <prop-A49>)
+(<prop-A49> ^name |_PA49|
+	^prop-type add
+	^attr1 slot2
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<delta_PA50> ^prop-apply true
+	^item-name |_PA50|
+	^op-name |_PA50|)
+(<cbset_PA50> ^props-cbset-name |_PA50|
+	^delta <delta-null_PA50>)
+(<delta-null_PA50> ^prop-apply true
+	^prop <prop-A50>)
+(<prop-A50> ^name |_PA50|
+	^prop-type add
+	^attr1 slot3
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule59> ^props-epset-name kk-task-switching-AB-init
+	^const <Q59>
+	^delta <delta_PA3_PA49_PA50>)
+
+(<epset-task-task-switching-AB> ^props-epset-name task-switching-AB)
+(<Q58>  ^1 kk-task-switching-AB-init)
+(<epset-task-task-switching-AB> ^delta <delta-rule58>)
+(<delta-rule58> ^op-name kk-task-switching-AB-init
+	^const <Q58>)
+(<delta-rule58> ^prop <prop-C44>)
+
+(<Q57>  ^1 kk-single-task-B-finish ^2 finish)
+(<pre-cbset-rule57> ^props-epset-name kk-single-task-B-finish
+	^const <Q57>
+	^delta <delta_PA21_PA32>)
+
+(<Q56>  ^1 kk-single-task-B-finish ^2 last)
+(<epset-task-single-task-B> ^delta <delta-rule56>)
+(<delta-rule56> ^op-name kk-single-task-B-finish
+	^const <Q56>)
+(<delta-rule56> ^prop <prop-C6>)
+
+(<Q55>  ^1 size-task ^2 yes)
+(<epset-task-single-task-B> ^delta <delta-rule55>)
+(<delta-rule55> ^op-name size-task
+	^const <Q55>)
+(<delta-rule55> ^prop <prop-C6>)
+(<delta-rule55> ^prop <prop-C48>)
+
+(<Q54>  ^1 idle ^2 pending)
+(<epset-task-single-task-B> ^delta <delta-rule54>)
+(<delta-rule54> ^op-name idle
+	^const <Q54>)
+(<delta-rule54> ^prop <prop-C6>)
+
+(<Q53>  ^1 kk-single-task-B-ready ^2 size-task)
+(<pre-cbset-rule53> ^props-epset-name kk-single-task-B-ready
+	^const <Q53>
+	^delta <delta_PA3>)
+
+(<Q52>  ^1 kk-single-task-B-ready ^2 blankAB)
+(<epset-task-single-task-B> ^delta <delta-rule52>)
+(<delta-rule52> ^op-name kk-single-task-B-ready
+	^const <Q52>)
+(<delta-rule52> ^prop <prop-C47>)
+
+(<Q51>  ^1 kk-single-task-B-init ^2 size-task ^3 blankAB)
+(<pre-cbset-rule51> ^props-epset-name kk-single-task-B-init
+	^const <Q51>
+	^delta <delta_PA3_PA45_PA46>)
+
+(<epset-task-single-task-B> ^props-epset-name single-task-B)
+(<Q50>  ^1 kk-single-task-B-init)
+(<epset-task-single-task-B> ^delta <delta-rule50>)
+(<delta-rule50> ^op-name kk-single-task-B-init
+	^const <Q50>)
+(<delta-rule50> ^prop <prop-C44>)
+
+(<Q49>  ^1 kk-single-task-A-finish ^2 finish)
+(<pre-cbset-rule49> ^props-epset-name kk-single-task-A-finish
+	^const <Q49>
+	^delta <delta_PA21_PA32>)
+
+(<Q48>  ^1 kk-single-task-A-finish ^2 last)
+(<epset-task-single-task-A> ^delta <delta-rule48>)
+(<delta-rule48> ^op-name kk-single-task-A-finish
+	^const <Q48>)
+(<delta-rule48> ^prop <prop-C6>)
+
+(<Q47>  ^1 food-task ^2 yes)
+(<epset-task-single-task-A> ^delta <delta-rule47>)
+(<delta-rule47> ^op-name food-task
+	^const <Q47>)
+(<delta-rule47> ^prop <prop-C6>)
+(<delta-rule47> ^prop <prop-C48>)
+(<prop-C48> ^name |_PC48|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 1
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q46>  ^1 idle ^2 pending)
+(<epset-task-single-task-A> ^delta <delta-rule46>)
+(<delta-rule46> ^op-name idle
+	^const <Q46>)
+(<delta-rule46> ^prop <prop-C6>)
+
+(<Q45>  ^1 kk-single-task-A-ready ^2 food-task)
+(<pre-cbset-rule45> ^props-epset-name kk-single-task-A-ready
+	^const <Q45>
+	^delta <delta_PA3>)
+
+(<Q44>  ^1 kk-single-task-A-ready ^2 blankAB)
+(<epset-task-single-task-A> ^delta <delta-rule44>)
+(<delta-rule44> ^op-name kk-single-task-A-ready
+	^const <Q44>)
+(<delta-rule44> ^prop <prop-C47>)
+(<prop-C47> ^name |_PC47|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+
+
+(<Q43>  ^1 kk-single-task-A-init ^2 food-task ^3 blankAB)
+(<delta_PA45> ^prop-apply true
+	^item-name |_PA45|
+	^op-name |_PA45|)
+(<cbset_PA45> ^props-cbset-name |_PA45|
+	^delta <delta-null_PA45>)
+(<delta-null_PA45> ^prop-apply true
+	^prop <prop-A45>)
+(<prop-A45> ^name |_PA45|
+	^prop-type add
+	^attr1 slot2
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+(<delta_PA46> ^prop-apply true
+	^item-name |_PA46|
+	^op-name |_PA46|)
+(<cbset_PA46> ^props-cbset-name |_PA46|
+	^delta <delta-null_PA46>)
+(<delta-null_PA46> ^prop-apply true
+	^prop <prop-A46>)
+(<prop-A46> ^name |_PA46|
+	^prop-type add
+	^attr1 slot3
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule43> ^props-epset-name kk-single-task-A-init
+	^const <Q43>
+	^delta <delta_PA3_PA45_PA46>)
+
+(<epset-task-single-task-A> ^props-epset-name single-task-A)
+(<Q42>  ^1 kk-single-task-A-init)
+(<epset-task-single-task-A> ^delta <delta-rule42>)
+(<delta-rule42> ^op-name kk-single-task-A-init
+	^const <Q42>)
+(<delta-rule42> ^prop <prop-C44>)
+(<prop-C44> ^name |_PC44|
+	^prop-type negation
+	^attr1 slot1
+	^address1 WM)
+
+
+(<Q41>  ^1 kk-size-task-press-key ^2 press-key ^3 blankAB)
+(<pre-cbset-rule41> ^props-epset-name kk-size-task-press-key
+	^const <Q41>
+	^delta <delta_PA11_PA21_PA37_PA38_PA39_PA40>)
+
+(<Q40>  ^1 kk-size-task-press-key)
+(<epset-task-size-task> ^delta <delta-rule40>)
+(<delta-rule40> ^op-name kk-size-task-press-key
+	^const <Q40>)
+(<delta-rule40> ^prop <prop-C19>)
+
+(<Q39>  ^1 kk-size-task-get-key ^2 mapping ^3 query)
+(<delta_PA43> ^prop-apply true
+	^item-name |_PA43|
+	^op-name |_PA43|)
+(<cbset_PA43> ^props-cbset-name |_PA43|
+	^delta <delta-null_PA43>)
+(<delta-null_PA43> ^prop-apply true
+	^prop <prop-A43>)
+(<prop-A43> ^name |_PA43|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 Q
+	^address2 V)
+(<pre-cbset-rule39> ^props-epset-name kk-size-task-get-key
+	^const <Q39>
+	^delta <delta_PA16_PA17_PA43>)
+
+(<Q38>  ^1 kk-size-task-get-key)
+(<epset-task-size-task> ^delta <delta-rule38>)
+(<delta-rule38> ^op-name kk-size-task-get-key
+	^const <Q38>)
+(<delta-rule38> ^prop <prop-C42>)
+(<prop-C42> ^name |_PC42|
+	^prop-type existence
+	^attr1 slot3
+	^address1 V)
+
+(<delta-rule38> ^prop <prop-C15>)
+
+(<Q37>  ^1 kk-size-task-get-property ^2 get-property ^3 size-property)
+(<pre-cbset-rule37> ^props-epset-name kk-size-task-get-property
+	^const <Q37>
+	^delta <delta_PA11_PA34>)
+
+(<epset-task-size-task> ^props-epset-name size-task)
+(<Q36>  ^1 kk-size-task-get-property)
+(<epset-task-size-task> ^delta <delta-rule36>)
+(<delta-rule36> ^op-name kk-size-task-get-property
+	^const <Q36>)
+(<delta-rule36> ^prop <prop-C41>)
+(<prop-C41> ^name |_PC41|
+	^prop-type negation
+	^attr1 slot3
+	^address1 V)
+
+
+(<Q35>  ^1 kk-food-task-press-key ^2 press-key ^3 blankAB)
+(<delta_PA37> ^prop-apply true
+	^item-name |_PA37|
+	^op-name |_PA37|)
+(<cbset_PA37> ^props-cbset-name |_PA37|
+	^delta <delta-null_PA37>)
+(<delta-null_PA37> ^prop-apply true
+	^prop <prop-A37>)
+(<prop-A37> ^name |_PA37|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot3
+	^address1 AC
+	^address2 RT)
+(<delta_PA38> ^prop-apply true
+	^item-name |_PA38|
+	^op-name |_PA38|)
+(<cbset_PA38> ^props-cbset-name |_PA38|
+	^delta <delta-null_PA38>)
+(<delta-null_PA38> ^prop-apply true
+	^prop <prop-A38>)
+(<prop-A38> ^name |_PA38|
+	^prop-type add
+	^attr1 slot3
+	^attr2 slot2
+	^address1 WM
+	^address2 WM)
+(<delta_PA39> ^prop-apply true
+	^item-name |_PA39|
+	^op-name |_PA39|)
+(<cbset_PA39> ^props-cbset-name |_PA39|
+	^delta <delta-null_PA39>)
+(<delta-null_PA39> ^prop-apply true
+	^prop <prop-A39>)
+(<prop-A39> ^name |_PA39|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot1
+	^address1 WM
+	^address2 WM)
+(<delta_PA40> ^prop-apply true
+	^item-name |_PA40|
+	^op-name |_PA40|)
+(<cbset_PA40> ^props-cbset-name |_PA40|
+	^delta <delta-null_PA40>)
+(<delta-null_PA40> ^prop-apply true
+	^prop <prop-A40>)
+(<prop-A40> ^name |_PA40|
+	^prop-type add
+	^attr1 slot1
+	^attr2 3
+	^address1 WM
+	^address2 props$const)
+(<pre-cbset-rule35> ^props-epset-name kk-food-task-press-key
+	^const <Q35>
+	^delta <delta_PA11_PA21_PA37_PA38_PA39_PA40>)
+
+(<Q34>  ^1 kk-food-task-press-key)
+(<epset-task-food-task> ^delta <delta-rule34>)
+(<delta-rule34> ^op-name kk-food-task-press-key
+	^const <Q34>)
+(<delta-rule34> ^prop <prop-C19>)
+
+(<Q33>  ^1 kk-food-task-get-key ^2 mapping ^3 query)
+(<delta_PA36> ^prop-apply true
+	^item-name |_PA36|
+	^op-name |_PA36|)
+(<cbset_PA36> ^props-cbset-name |_PA36|
+	^delta <delta-null_PA36>)
+(<delta-null_PA36> ^prop-apply true
+	^prop <prop-A36>)
+(<prop-A36> ^name |_PA36|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot2
+	^address1 Q
+	^address2 V)
+(<pre-cbset-rule33> ^props-epset-name kk-food-task-get-key
+	^const <Q33>
+	^delta <delta_PA16_PA17_PA36>)
+
+(<Q32>  ^1 kk-food-task-get-key)
+(<epset-task-food-task> ^delta <delta-rule32>)
+(<delta-rule32> ^op-name kk-food-task-get-key
+	^const <Q32>)
+(<delta-rule32> ^prop <prop-C35>)
+(<prop-C35> ^name |_PC35|
+	^prop-type existence
+	^attr1 slot2
+	^address1 V)
+
+(<delta-rule32> ^prop <prop-C15>)
+
+(<Q31>  ^1 kk-food-task-get-property ^2 get-property ^3 food-property)
+(<delta_PA34> ^prop-apply true
+	^item-name |_PA34|
+	^op-name |_PA34|)
+(<cbset_PA34> ^props-cbset-name |_PA34|
+	^delta <delta-null_PA34>)
+(<delta-null_PA34> ^prop-apply true
+	^prop <prop-A34>)
+(<prop-A34> ^name |_PA34|
+	^prop-type add
+	^attr1 slot2
+	^attr2 3
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule31> ^props-epset-name kk-food-task-get-property
+	^const <Q31>
+	^delta <delta_PA11_PA34>)
+
+(<epset-task-food-task> ^props-epset-name food-task)
+(<Q30>  ^1 kk-food-task-get-property)
+(<epset-task-food-task> ^delta <delta-rule30>)
+(<delta-rule30> ^op-name kk-food-task-get-property
+	^const <Q30>)
+(<delta-rule30> ^prop <prop-C33>)
+(<prop-C33> ^name |_PC33|
+	^prop-type negation
+	^attr1 slot2
+	^address1 V)
+
+
+(<Q29>  ^1 kk-cs-report-finish ^2 finish)
+(<delta_PA32> ^prop-apply true
+	^item-name |_PA32|
+	^op-name |_PA32|)
+(<cbset_PA32> ^props-cbset-name |_PA32|
+	^delta <delta-null_PA32>)
+(<delta-null_PA32> ^prop-apply true
+	^prop <prop-A32>)
+(<prop-A32> ^name |_PA32|
+	^prop-type add
+	^attr1 Gtask
+	^attr2 2
+	^address1 G
+	^address2 props$const)
+(<pre-cbset-rule29> ^props-epset-name kk-cs-report-finish
+	^const <Q29>
+	^delta <delta_PA21_PA32>)
+
+(<Q28>  ^1 kk-cs-report-finish ^2 zero)
+(<epset-task-cs-report> ^delta <delta-rule28>)
+(<delta-rule28> ^op-name kk-cs-report-finish
+	^const <Q28>)
+(<delta-rule28> ^prop <prop-C31>)
+(<prop-C31> ^name |_PC31|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 RT
+	^address2 props$const)
+
+
+(<Q27>  ^1 kk-cs-report-report ^2 wm-query ^3 report)
+(<delta_PA30> ^prop-apply true
+	^item-name |_PA30|
+	^op-name |_PA30|)
+(<cbset_PA30> ^props-cbset-name |_PA30|
+	^delta <delta-null_PA30>)
+(<delta-null_PA30> ^prop-apply true
+	^prop <prop-A30>)
+(<prop-A30> ^name |_PA30|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot1
+	^address1 AC
+	^address2 RT)
+(<pre-cbset-rule27> ^props-epset-name kk-cs-report-report
+	^const <Q27>
+	^delta <delta_PA26_PA27_PA30_PA4>)
+
+(<Q26>  ^1 kk-cs-report-report ^2 error ^3 zero)
+(<epset-task-cs-report> ^delta <delta-rule26>)
+(<delta-rule26> ^op-name kk-cs-report-report
+	^const <Q26>)
+(<delta-rule26> ^prop <prop-C25>)
+(<delta-rule26> ^prop <prop-C29>)
+(<prop-C29> ^name |_PC29|
+	^prop-type inequality
+	^attr1 slot1
+	^attr2 3
+	^address1 RT
+	^address2 props$const)
+
+
+(<Q25>  ^1 kk-cs-report-start ^2 retrieve)
+(<pre-cbset-rule25> ^props-epset-name kk-cs-report-start
+	^const <Q25>
+	^delta <delta_PA23_PA24>)
+
+(<epset-task-cs-report> ^props-epset-name cs-report)
+(<Q24>  ^1 kk-cs-report-start)
+(<epset-task-cs-report> ^delta <delta-rule24>)
+(<delta-rule24> ^op-name kk-cs-report-start
+	^const <Q24>)
+(<delta-rule24> ^prop <prop-C22>)
+
+(<Q23>  ^1 kk-cs-rehearse-restart ^2 retrieve)
+(<pre-cbset-rule23> ^props-epset-name kk-cs-rehearse-restart
+	^const <Q23>
+	^delta <delta_PA23_PA24>)
+
+(<Q22>  ^1 kk-cs-rehearse-restart ^2 error)
+(<epset-task-cs-rehearse> ^delta <delta-rule22>)
+(<delta-rule22> ^op-name kk-cs-rehearse-restart
+	^const <Q22>)
+(<delta-rule22> ^prop <prop-C28>)
+(<prop-C28> ^name |_PC28|
+	^prop-type equality
+	^attr1 rt-result
+	^attr2 2
+	^address1 smem
+	^address2 props$const)
+
+
+(<Q21>  ^1 kk-cs-rehearse-next ^2 wm-query)
+(<delta_PA26> ^prop-apply true
+	^item-name |_PA26|
+	^op-name |_PA26|)
+(<cbset_PA26> ^props-cbset-name |_PA26|
+	^delta <delta-null_PA26>)
+(<delta-null_PA26> ^prop-apply true
+	^prop <prop-A26>)
+(<prop-A26> ^name |_PA26|
+	^prop-type add
+	^attr1 root
+	^attr2 RTid
+	^address1 Q
+	^address2 RT)
+(<delta_PA27> ^prop-apply true
+	^item-name |_PA27|
+	^op-name |_PA27|)
+(<cbset_PA27> ^props-cbset-name |_PA27|
+	^delta <delta-null_PA27>)
+(<delta-null_PA27> ^prop-apply true
+	^prop <prop-A27>)
+(<prop-A27> ^name |_PA27|
+	^prop-type add
+	^attr1 q-type
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<pre-cbset-rule21> ^props-epset-name kk-cs-rehearse-next
+	^const <Q21>
+	^delta <delta_PA26_PA27>)
+
+(<Q20>  ^1 kk-cs-rehearse-next ^2 error)
+(<epset-task-cs-rehearse> ^delta <delta-rule20>)
+(<delta-rule20> ^op-name kk-cs-rehearse-next
+	^const <Q20>)
+(<delta-rule20> ^prop <prop-C25>)
+(<prop-C25> ^name |_PC25|
+	^prop-type inequality
+	^attr1 rt-result
+	^attr2 2
+	^address1 smem
+	^address2 props$const)
+
+
+(<Q19>  ^1 kk-cs-rehearse-start ^2 retrieve)
+(<delta_PA23> ^prop-apply true
+	^item-name |_PA23|
+	^op-name |_PA23|)
+(<cbset_PA23> ^props-cbset-name |_PA23|
+	^delta <delta-null_PA23>)
+(<delta-null_PA23> ^prop-apply true
+	^prop <prop-A23>)
+(<prop-A23> ^name |_PA23|
+	^prop-type add
+	^attr1 q-type
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<delta_PA24> ^prop-apply true
+	^item-name |_PA24|
+	^op-name |_PA24|)
+(<cbset_PA24> ^props-cbset-name |_PA24|
+	^delta <delta-null_PA24>)
+(<delta-null_PA24> ^prop-apply true
+	^prop <prop-A24>)
+(<prop-A24> ^name |_PA24|
+	^prop-type add
+	^attr1 retrieve
+	^attr2 Gtop
+	^address1 Q
+	^address2 G)
+(<pre-cbset-rule19> ^props-epset-name kk-cs-rehearse-start
+	^const <Q19>
+	^delta <delta_PA23_PA24>)
+
+(<epset-task-cs-rehearse> ^props-epset-name cs-rehearse)
+(<Q18>  ^1 kk-cs-rehearse-start)
+(<epset-task-cs-rehearse> ^delta <delta-rule18>)
+(<delta-rule18> ^op-name kk-cs-rehearse-start
+	^const <Q18>)
+(<delta-rule18> ^prop <prop-C22>)
+(<prop-C22> ^name |_PC22|
+	^prop-type negation
+	^attr1 rt-result
+	^address1 smem)
+
+
+(<Q17>  ^1 kk-count-circles-update-count ^2 attend-next)
+(<delta_PA20> ^prop-apply true
+	^item-name |_PA20|
+	^op-name |_PA20|)
+(<cbset_PA20> ^props-cbset-name |_PA20|
+	^delta <delta-null_PA20>)
+(<delta-null_PA20> ^prop-apply true
+	^prop <prop-A20>)
+(<prop-A20> ^name |_PA20|
+	^prop-type add
+	^attr1 slot1
+	^attr2 slot3
+	^address1 WM
+	^address2 RT)
+(<delta_PA21> ^prop-apply true
+	^item-name |_PA21|
+	^op-name |_PA21|)
+(<cbset_PA21> ^props-cbset-name |_PA21|
+	^delta <delta-null_PA21>)
+(<delta-null_PA21> ^prop-apply true
+	^prop <prop-A21>)
+(<prop-A21> ^name |_PA21|
+	^prop-type add
+	^attr1 clear-rt
+	^attr2 1
+	^address1 flags
+	^address2 props$const)
+(<pre-cbset-rule17> ^props-epset-name kk-count-circles-update-count
+	^const <Q17>
+	^delta <delta_PA11_PA20_PA21>)
+
+(<Q16>  ^1 kk-count-circles-update-count)
+(<epset-task-count-circles> ^delta <delta-rule16>)
+(<delta-rule16> ^op-name kk-count-circles-update-count
+	^const <Q16>)
+(<delta-rule16> ^prop <prop-C19>)
+(<prop-C19> ^name |_PC19|
+	^prop-type existence
+	^attr1 slot3
+	^address1 RT)
+
+
+(<Q15>  ^1 kk-count-circles-see-blue-circle ^2 count-fact ^3 query)
+(<delta_PA16> ^prop-apply true
+	^item-name |_PA16|
+	^op-name |_PA16|)
+(<cbset_PA16> ^props-cbset-name |_PA16|
+	^delta <delta-null_PA16>)
+(<delta-null_PA16> ^prop-apply true
+	^prop <prop-A16>)
+(<prop-A16> ^name |_PA16|
+	^prop-type add
+	^attr1 q-type
+	^attr2 3
+	^address1 Q
+	^address2 props$const)
+(<delta_PA17> ^prop-apply true
+	^item-name |_PA17|
+	^op-name |_PA17|)
+(<cbset_PA17> ^props-cbset-name |_PA17|
+	^delta <delta-null_PA17>)
+(<delta-null_PA17> ^prop-apply true
+	^prop <prop-A17>)
+(<prop-A17> ^name |_PA17|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 Q
+	^address2 props$const)
+(<delta_PA18> ^prop-apply true
+	^item-name |_PA18|
+	^op-name |_PA18|)
+(<cbset_PA18> ^props-cbset-name |_PA18|
+	^delta <delta-null_PA18>)
+(<delta-null_PA18> ^prop-apply true
+	^prop <prop-A18>)
+(<prop-A18> ^name |_PA18|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot1
+	^address1 Q
+	^address2 WM)
+(<pre-cbset-rule15> ^props-epset-name kk-count-circles-see-blue-circle
+	^const <Q15>
+	^delta <delta_PA16_PA17_PA18>)
+
+(<Q14>  ^1 kk-count-circles-see-blue-circle ^2 blue ^3 circle)
+(<epset-task-count-circles> ^delta <delta-rule14>)
+(<delta-rule14> ^op-name kk-count-circles-see-blue-circle
+	^const <Q14>)
+(<delta-rule14> ^prop <prop-C13>)
+(<prop-C13> ^name |_PC13|
+	^prop-type equality
+	^attr1 slot2
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule14> ^prop <prop-C14>)
+(<prop-C14> ^name |_PC14|
+	^prop-type equality
+	^attr1 slot3
+	^attr2 3
+	^address1 V
+	^address2 props$const)
+
+(<delta-rule14> ^prop <prop-C15>)
+(<prop-C15> ^name |_PC15|
+	^prop-type negation
+	^attr1 slot3
+	^address1 RT)
+
+
+(<Q13>  ^1 kk-count-circles-ignore-shape ^2 attend-next)
+(<pre-cbset-rule13> ^props-epset-name kk-count-circles-ignore-shape
+	^const <Q13>
+	^delta <delta_PA11>)
+
+(<Q12>  ^1 kk-count-circles-ignore-shape ^2 circle)
+(<epset-task-count-circles> ^delta <delta-rule12>)
+(<delta-rule12> ^op-name kk-count-circles-ignore-shape
+	^const <Q12>)
+(<delta-rule12> ^prop <prop-C12>)
+(<prop-C12> ^name |_PC12|
+	^prop-type inequality
+	^attr1 slot3
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q11>  ^1 kk-count-circles-ignore-color ^2 attend-next)
+(<delta_PA11> ^prop-apply true
+	^item-name |_PA11|
+	^op-name |_PA11|)
+(<cbset_PA11> ^props-cbset-name |_PA11|
+	^delta <delta-null_PA11>)
+(<delta-null_PA11> ^prop-apply true
+	^prop <prop-A11>)
+(<prop-A11> ^name |_PA11|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule11> ^props-epset-name kk-count-circles-ignore-color
+	^const <Q11>
+	^delta <delta_PA11>)
+
+(<epset-task-count-circles> ^props-epset-name count-circles)
+(<Q10>  ^1 kk-count-circles-ignore-color ^2 blue)
+(<epset-task-count-circles> ^delta <delta-rule10>)
+(<delta-rule10> ^op-name kk-count-circles-ignore-color
+	^const <Q10>)
+(<delta-rule10> ^prop <prop-C10>)
+(<prop-C10> ^name |_PC10|
+	^prop-type inequality
+	^attr1 slot2
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q9>  ^1 cs-report ^2 report)
+(<epset-task-cs-read-prompt> ^delta <delta-rule9>)
+(<delta-rule9> ^op-name cs-report
+	^const <Q9>)
+(<delta-rule9> ^prop <prop-C6>)
+
+(<Q8>  ^1 kk-cs-read-prompt-store-count ^2 zero ^3 say)
+(<delta_PA7> ^prop-apply true
+	^item-name |_PA7|
+	^op-name |_PA7|)
+(<cbset_PA7> ^props-cbset-name |_PA7|
+	^delta <delta-null_PA7>)
+(<delta-null_PA7> ^prop-apply true
+	^prop <prop-A7>)
+(<prop-A7> ^name |_PA7|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 NW
+	^address2 props$const)
+(<delta_PA8> ^prop-apply true
+	^item-name |_PA8|
+	^op-name |_PA8|)
+(<cbset_PA8> ^props-cbset-name |_PA8|
+	^delta <delta-null_PA8>)
+(<delta-null_PA8> ^prop-apply true
+	^prop <prop-A8>)
+(<prop-A8> ^name |_PA8|
+	^prop-type add
+	^attr1 WMprev
+	^attr2 WM
+	^address1 NW
+	^address2 props$rootstate)
+(<delta_PA9> ^prop-apply true
+	^item-name |_PA9|
+	^op-name |_PA9|)
+(<cbset_PA9> ^props-cbset-name |_PA9|
+	^delta <delta-null_PA9>)
+(<delta-null_PA9> ^prop-apply true
+	^prop <prop-A9>)
+(<prop-A9> ^name |_PA9|
+	^prop-type add
+	^attr1 slot2
+	^attr2 slot1
+	^address1 AC
+	^address2 WM)
+(<pre-cbset-rule8> ^props-epset-name kk-cs-read-prompt-store-count
+	^const <Q8>
+	^delta <delta_PA4_PA7_PA8_PA9>)
+
+(<Q7>  ^1 kk-cs-read-prompt-store-count ^2 last)
+(<epset-task-cs-read-prompt> ^delta <delta-rule7>)
+(<delta-rule7> ^op-name kk-cs-read-prompt-store-count
+	^const <Q7>)
+(<delta-rule7> ^prop <prop-C6>)
+
+(<Q6>  ^1 count-circles ^2 yes)
+(<epset-task-cs-read-prompt> ^delta <delta-rule6>)
+(<delta-rule6> ^op-name count-circles
+	^const <Q6>)
+(<delta-rule6> ^prop <prop-C6>)
+
+(<Q5>  ^1 prepare ^2 pending)
+(<epset-task-cs-read-prompt> ^delta <delta-rule5>)
+(<delta-rule5> ^op-name prepare
+	^const <Q5>)
+(<delta-rule5> ^prop <prop-C6>)
+
+(<epset-task-cs-read-prompt> ^props-epset-name cs-read-prompt)
+(<Q4>  ^1 idle ^2 pending)
+(<epset-task-cs-read-prompt> ^delta <delta-rule4>)
+(<delta-rule4> ^op-name idle
+	^const <Q4>)
+(<delta-rule4> ^prop <prop-C6>)
+(<prop-C6> ^name |_PC6|
+	^prop-type equality
+	^attr1 slot1
+	^attr2 2
+	^address1 V
+	^address2 props$const)
+
+
+(<Q3>  ^1 cs-read-prompt)
+(<epset-task-count-span> ^delta <delta-rule3>)
+(<delta-rule3> ^op-name cs-read-prompt
+	^const <Q3>)
+(<delta-rule3> ^prop <prop-C5>)
+(<prop-C5> ^name |_PC5|
+	^prop-type existence
+	^attr1 Gtop
+	^address1 G)
+
+
+(<Q2>  ^1 kk-count-span-init ^2 zero ^3 begin)
+(<delta_PA2> ^prop-apply true
+	^item-name |_PA2|
+	^op-name |_PA2|)
+(<cbset_PA2> ^props-cbset-name |_PA2|
+	^delta <delta-null_PA2>)
+(<delta-null_PA2> ^prop-apply true
+	^prop <prop-A2>)
+(<prop-A2> ^name |_PA2|
+	^prop-type add
+	^attr1 Gtop
+	^attr2 WM
+	^address1 G
+	^address2 props$rootstate)
+(<delta_PA3> ^prop-apply true
+	^item-name |_PA3|
+	^op-name |_PA3|)
+(<cbset_PA3> ^props-cbset-name |_PA3|
+	^delta <delta-null_PA3>)
+(<delta-null_PA3> ^prop-apply true
+	^prop <prop-A3>)
+(<prop-A3> ^name |_PA3|
+	^prop-type add
+	^attr1 slot1
+	^attr2 2
+	^address1 WM
+	^address2 props$const)
+(<delta_PA4> ^prop-apply true
+	^item-name |_PA4|
+	^op-name |_PA4|)
+(<cbset_PA4> ^props-cbset-name |_PA4|
+	^delta <delta-null_PA4>)
+(<delta-null_PA4> ^prop-apply true
+	^prop <prop-A4>)
+(<prop-A4> ^name |_PA4|
+	^prop-type add
+	^attr1 slot1
+	^attr2 3
+	^address1 AC
+	^address2 props$const)
+(<pre-cbset-rule2> ^props-epset-name kk-count-span-init
+	^const <Q2>
+	^delta <delta_PA2_PA3_PA4>)
+
+(<epset-task-count-span> ^props-epset-name count-span)
+(<Q1>  ^1 kk-count-span-init)
+(<epset-task-count-span> ^delta <delta-rule1>)
+(<delta-rule1> ^op-name kk-count-span-init
+	^const <Q1>)
+(<delta-rule1> ^prop <prop-C1>)
+(<prop-C1> ^name |_PC1|
+	^prop-type negation
+	^attr1 Gtop
+	^address1 G)
+
+
+}

@@ -1,0 +1,1378 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'KarbachKray_hier.lisp' INTO INTERMEDIATE PROP INSTRUCTIONS.
+#####
+
+# add-instr count-span
+# ;~ init
+pp {propose*kk*count-span*init
+	const1 kk-count-span-init
+	--
+	s.G.Gtop -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*count-span*init
+	const1 kk-count-span-init
+	const2 zero
+	const3 begin
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtop = s.WM
+	s.WM.slot1 = const2
+	s.AC.action.slot1 = const3
+}
+# add-instr count-span
+# ;~ read-prompt
+pp {propose*kk*count-span*read-prompt
+	const1 cs-read-prompt
+	--
+	s.G.Gtop 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr cs-read-prompt
+# ;~ idle
+pp {propose*kk*cs-read-prompt*idle
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr cs-read-prompt
+# ;~ prepare
+pp {propose*kk*cs-read-prompt*prepare
+	const1 prepare
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr cs-read-prompt
+# ;~ count-circles
+pp {propose*kk*cs-read-prompt*count-circles
+	const1 count-circles
+	const2 yes
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr cs-read-prompt
+# ;~ store-count
+pp {propose*kk*cs-read-prompt*store-count
+	const1 kk-cs-read-prompt-store-count
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-read-prompt*store-count
+	const1 kk-cs-read-prompt-store-count
+	const2 zero
+	const3 say
+	--
+	s.operator.name == const1
+-->
+	s.NW.wm.slot1 = const2
+	s.NW.wm.WMprev = s.WM
+	s.AC.action.slot1 = const3
+	s.AC.action.slot2 = s.WM.slot1
+}
+# add-instr cs-read-prompt
+# ;~ cs-report
+pp {propose*kk*cs-read-prompt*cs-report
+	const1 cs-report
+	const2 report
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr count-circles
+# ;~ ignore-color
+pp {propose*kk*count-circles*ignore-color
+	const1 kk-count-circles-ignore-color
+	const2 blue
+	--
+	s.V.slot2 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*count-circles*ignore-color
+	const1 kk-count-circles-ignore-color
+	const2 attend-next
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr count-circles
+# ;~ ignore-shape
+pp {propose*kk*count-circles*ignore-shape
+	const1 kk-count-circles-ignore-shape
+	const2 circle
+	--
+	s.V.slot3 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*count-circles*ignore-shape
+	const1 kk-count-circles-ignore-shape
+	const2 attend-next
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr count-circles
+# ;~ see-blue-circle
+pp {propose*kk*count-circles*see-blue-circle
+	const1 kk-count-circles-see-blue-circle
+	const2 blue
+	const3 circle
+	--
+	s.V.slot2 == const2
+	s.V.slot3 == const3
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*count-circles*see-blue-circle
+	const1 kk-count-circles-see-blue-circle
+	const2 count-fact
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.WM.slot1
+}
+# add-instr count-circles
+# ;~ update-count
+pp {propose*kk*count-circles*update-count
+	const1 kk-count-circles-update-count
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*count-circles*update-count
+	const1 kk-count-circles-update-count
+	const2 attend-next
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.AC.action.slot1 = const2
+	s.flags.clear-rt = const1
+}
+# add-instr cs-rehearse
+# ;~ start
+pp {propose*kk*cs-rehearse*start
+	const1 kk-cs-rehearse-start
+	--
+	s.smem.rt-result -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-rehearse*start
+	const1 kk-cs-rehearse-start
+	const2 retrieve
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+}
+# add-instr cs-rehearse
+# ;~ next
+pp {propose*kk*cs-rehearse*next
+	const1 kk-cs-rehearse-next
+	const2 error
+	--
+	s.smem.rt-result <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-rehearse*next
+	const1 kk-cs-rehearse-next
+	const2 wm-query
+	--
+	s.operator.name == const1
+-->
+	s.Q.wm-query.root = s.RT.RTid
+	s.Q.wm-query.q-type = const2
+}
+# add-instr cs-rehearse
+# ;~ restart
+pp {propose*kk*cs-rehearse*restart
+	const1 kk-cs-rehearse-restart
+	const2 error
+	--
+	s.smem.rt-result == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-rehearse*restart
+	const1 kk-cs-rehearse-restart
+	const2 retrieve
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+}
+# add-instr cs-report
+# ;~ start
+pp {propose*kk*cs-report*start
+	const1 kk-cs-report-start
+	--
+	s.smem.rt-result -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-report*start
+	const1 kk-cs-report-start
+	const2 retrieve
+	--
+	s.operator.name == const1
+-->
+	s.Q.retrieve.q-type = const2
+	s.Q.retrieve = s.G.Gtop
+}
+# add-instr cs-report
+# ;~ report
+pp {propose*kk*cs-report*report
+	const1 kk-cs-report-report
+	const2 error
+	const3 zero
+	--
+	s.smem.rt-result <> const2
+	s.RT.slot1 <> const3
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-report*report
+	const1 kk-cs-report-report
+	const2 wm-query
+	const3 report
+	--
+	s.operator.name == const1
+-->
+	s.Q.wm-query.root = s.RT.RTid
+	s.Q.wm-query.q-type = const2
+	s.AC.action.slot1 = const3
+	s.AC.action.slot2 = s.RT.slot1
+}
+# add-instr cs-report
+# ;~ finish
+pp {propose*kk*cs-report*finish
+	const1 kk-cs-report-finish
+	const2 zero
+	--
+	s.RT.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*cs-report*finish
+	const1 kk-cs-report-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr food-task
+# ;~ get-property
+pp {propose*kk*food-task*get-property
+	const1 kk-food-task-get-property
+	--
+	s.V.slot2 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*food-task*get-property
+	const1 kk-food-task-get-property
+	const2 get-property
+	const3 food-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+# add-instr food-task
+# ;~ get-key
+pp {propose*kk*food-task*get-key
+	const1 kk-food-task-get-key
+	--
+	s.V.slot2 
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*food-task*get-key
+	const1 kk-food-task-get-key
+	const2 mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr food-task
+# ;~ press-key
+pp {propose*kk*food-task*press-key
+	const1 kk-food-task-press-key
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*food-task*press-key
+	const1 kk-food-task-press-key
+	const2 press-key
+	const3 blankAB
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.WM.slot3 = s.WM.slot2
+	s.WM.slot2 = s.WM.slot1
+	s.WM.slot1 = const3
+	s.flags.clear-rt = const1
+}
+# add-instr size-task
+# ;~ get-property
+pp {propose*kk*size-task*get-property
+	const1 kk-size-task-get-property
+	--
+	s.V.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*size-task*get-property
+	const1 kk-size-task-get-property
+	const2 get-property
+	const3 size-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+# add-instr size-task
+# ;~ get-key
+pp {propose*kk*size-task*get-key
+	const1 kk-size-task-get-key
+	--
+	s.V.slot3 
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*size-task*get-key
+	const1 kk-size-task-get-key
+	const2 mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot3
+}
+# add-instr size-task
+# ;~ press-key
+pp {propose*kk*size-task*press-key
+	const1 kk-size-task-press-key
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*size-task*press-key
+	const1 kk-size-task-press-key
+	const2 press-key
+	const3 blankAB
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.WM.slot3 = s.WM.slot2
+	s.WM.slot2 = s.WM.slot1
+	s.WM.slot1 = const3
+	s.flags.clear-rt = const1
+}
+# add-instr single-task-A
+# ;~ init
+pp {propose*kk*single-task-A*init
+	const1 kk-single-task-A-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-A*init
+	const1 kk-single-task-A-init
+	const2 food-task
+	const3 blankAB
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const3
+	s.WM.slot3 = const3
+}
+# add-instr single-task-A
+# ;~ ready
+pp {propose*kk*single-task-A*ready
+	const1 kk-single-task-A-ready
+	const2 blankAB
+	--
+	s.WM.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-A*ready
+	const1 kk-single-task-A-ready
+	const2 food-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+}
+# add-instr single-task-A
+# ;~ idle
+pp {propose*kk*single-task-A*idle
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-A
+# ;~ food-task
+pp {propose*kk*single-task-A*food-task
+	const1 food-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-A
+# ;~ finish
+pp {propose*kk*single-task-A*finish
+	const1 kk-single-task-A-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-A*finish
+	const1 kk-single-task-A-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr single-task-B
+# ;~ init
+pp {propose*kk*single-task-B*init
+	const1 kk-single-task-B-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-B*init
+	const1 kk-single-task-B-init
+	const2 size-task
+	const3 blankAB
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const3
+	s.WM.slot3 = const3
+}
+# add-instr single-task-B
+# ;~ ready
+pp {propose*kk*single-task-B*ready
+	const1 kk-single-task-B-ready
+	const2 blankAB
+	--
+	s.WM.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-B*ready
+	const1 kk-single-task-B-ready
+	const2 size-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+}
+# add-instr single-task-B
+# ;~ idle
+pp {propose*kk*single-task-B*idle
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-B
+# ;~ size-task
+pp {propose*kk*single-task-B*size-task
+	const1 size-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-B
+# ;~ finish
+pp {propose*kk*single-task-B*finish
+	const1 kk-single-task-B-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-B*finish
+	const1 kk-single-task-B-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr task-switching-AB
+# ;~ init
+pp {propose*kk*task-switching-AB*init
+	const1 kk-task-switching-AB-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*task-switching-AB*init
+	const1 kk-task-switching-AB-init
+	const2 blankAB
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const2
+	s.WM.slot3 = const2
+}
+# add-instr task-switching-AB
+# ;~ food-task
+pp {propose*kk*task-switching-AB*food-task
+	const1 food-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-AB
+# ;~ size-task
+pp {propose*kk*task-switching-AB*size-task
+	const1 size-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-AB
+# ;~ choose-task
+pp {propose*kk*task-switching-AB*choose-task
+	const1 ABCD-choose-task
+	const2 yes
+	const3 blankAB
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-AB
+# ;~ prepare
+pp {propose*kk*task-switching-AB*prepare
+	const1 prepare
+	const2 last
+	const3 blankAB
+	--
+	s.V.slot1 != const2
+	s.WM.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-AB
+# ;~ idle
+pp {propose*kk*task-switching-AB*idle
+	const1 idle
+	const2 last
+	const3 blankAB
+	--
+	s.V.slot1 != const2
+	s.WM.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-AB
+# ;~ finish
+pp {propose*kk*task-switching-AB*finish
+	const1 kk-task-switching-AB-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*task-switching-AB*finish
+	const1 kk-task-switching-AB-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr transport-task
+# ;~ get-property
+pp {propose*kk*transport-task*get-property
+	const1 kk-transport-task-get-property
+	--
+	s.V.slot2 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*transport-task*get-property
+	const1 kk-transport-task-get-property
+	const2 get-property
+	const3 transport-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+# add-instr transport-task
+# ;~ get-key
+pp {propose*kk*transport-task*get-key
+	const1 kk-transport-task-get-key
+	--
+	s.V.slot2 
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*transport-task*get-key
+	const1 kk-transport-task-get-key
+	const2 mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr transport-task
+# ;~ press-key
+pp {propose*kk*transport-task*press-key
+	const1 kk-transport-task-press-key
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*transport-task*press-key
+	const1 kk-transport-task-press-key
+	const2 press-key
+	const3 blankCD
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.WM.slot3 = s.WM.slot2
+	s.WM.slot2 = s.WM.slot1
+	s.WM.slot1 = const3
+	s.flags.clear-rt = const1
+}
+# add-instr number-task
+# ;~ get-property
+pp {propose*kk*number-task*get-property
+	const1 kk-number-task-get-property
+	--
+	s.V.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*number-task*get-property
+	const1 kk-number-task-get-property
+	const2 get-property
+	const3 number-property
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = const3
+}
+# add-instr number-task
+# ;~ get-key
+pp {propose*kk*number-task*get-key
+	const1 kk-number-task-get-key
+	--
+	s.V.slot3 
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*number-task*get-key
+	const1 kk-number-task-get-key
+	const2 mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot3
+}
+# add-instr number-task
+# ;~ press-key
+pp {propose*kk*number-task*press-key
+	const1 kk-number-task-press-key
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*number-task*press-key
+	const1 kk-number-task-press-key
+	const2 press-key
+	const3 blankCD
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.WM.slot3 = s.WM.slot2
+	s.WM.slot2 = s.WM.slot1
+	s.WM.slot1 = const3
+	s.flags.clear-rt = const1
+}
+# add-instr single-task-C
+# ;~ init
+pp {propose*kk*single-task-C*init
+	const1 kk-single-task-C-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-C*init
+	const1 kk-single-task-C-init
+	const2 transport-task
+	const3 blankCD
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const3
+	s.WM.slot3 = const3
+}
+# add-instr single-task-C
+# ;~ ready
+pp {propose*kk*single-task-C*ready
+	const1 kk-single-task-C-ready
+	const2 blankCD
+	--
+	s.WM.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-C*ready
+	const1 kk-single-task-C-ready
+	const2 transport-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+}
+# add-instr single-task-C
+# ;~ idle
+pp {propose*kk*single-task-C*idle
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-C
+# ;~ transport-task
+pp {propose*kk*single-task-C*transport-task
+	const1 transport-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-C
+# ;~ finish
+pp {propose*kk*single-task-C*finish
+	const1 kk-single-task-C-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-C*finish
+	const1 kk-single-task-C-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr single-task-D
+# ;~ init
+pp {propose*kk*single-task-D*init
+	const1 kk-single-task-D-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-D*init
+	const1 kk-single-task-D-init
+	const2 number-task
+	const3 blankCD
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const3
+	s.WM.slot3 = const3
+}
+# add-instr single-task-D
+# ;~ ready
+pp {propose*kk*single-task-D*ready
+	const1 kk-single-task-D-ready
+	const2 blankCD
+	--
+	s.WM.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-D*ready
+	const1 kk-single-task-D-ready
+	const2 number-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+}
+# add-instr single-task-D
+# ;~ idle
+pp {propose*kk*single-task-D*idle
+	const1 idle
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-D
+# ;~ number-task
+pp {propose*kk*single-task-D*number-task
+	const1 number-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr single-task-D
+# ;~ finish
+pp {propose*kk*single-task-D*finish
+	const1 kk-single-task-D-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*single-task-D*finish
+	const1 kk-single-task-D-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr task-switching-CD
+# ;~ init
+pp {propose*kk*task-switching-CD*init
+	const1 kk-task-switching-CD-init
+	--
+	s.WM.slot1 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*task-switching-CD*init
+	const1 kk-task-switching-CD-init
+	const2 blankCD
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = const2
+	s.WM.slot2 = const2
+	s.WM.slot3 = const2
+}
+# add-instr task-switching-CD
+# ;~ transport-task
+pp {propose*kk*task-switching-CD*transport-task
+	const1 transport-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-CD
+# ;~ number-task
+pp {propose*kk*task-switching-CD*number-task
+	const1 number-task
+	const2 yes
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const1
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-CD
+# ;~ choose-task
+pp {propose*kk*task-switching-CD*choose-task
+	const1 ABCD-choose-task
+	const2 yes
+	const3 blankCD
+	--
+	s.V.slot1 == const2
+	s.WM.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-CD
+# ;~ prepare
+pp {propose*kk*task-switching-CD*prepare
+	const1 prepare
+	const2 last
+	const3 blankCD
+	--
+	s.V.slot1 != const2
+	s.WM.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr task-switching-CD
+# ;~ finish
+pp {propose*kk*task-switching-CD*finish
+	const1 kk-task-switching-CD-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*task-switching-CD*finish
+	const1 kk-task-switching-CD-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr ABCD-choose-task
+# ;~ repeat-same-task
+pp {propose*kk*ABCD-choose-task*repeat-same-task
+	const1 kk-ABCD-choose-task-repeat-same-task
+	--
+	s.WM.slot2 <> s.WM.slot3
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*ABCD-choose-task*repeat-same-task
+	const1 kk-ABCD-choose-task-repeat-same-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.WM.slot2
+	s.flags.clear-rt = const1
+}
+# add-instr ABCD-choose-task
+# ;~ retrieve-other-task
+pp {propose*kk*ABCD-choose-task*retrieve-other-task
+	const1 kk-ABCD-choose-task-retrieve-other-task
+	--
+	s.WM.slot2 == s.WM.slot3
+	s.RT.slot3 -
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*ABCD-choose-task*retrieve-other-task
+	const1 kk-ABCD-choose-task-retrieve-other-task
+	const2 other-task
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.WM.slot2
+}
+# add-instr ABCD-choose-task
+# ;~ set-task
+pp {propose*kk*ABCD-choose-task*set-task
+	const1 kk-ABCD-choose-task-set-task
+	--
+	s.RT.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*ABCD-choose-task*set-task
+	const1 kk-ABCD-choose-task-set-task
+	--
+	s.operator.name == const1
+-->
+	s.WM.slot1 = s.RT.slot3
+	s.flags.clear-rt = const1
+}
+# add-instr stroop
+# ;~ prepare
+pp {propose*kk*stroop*prepare
+	const1 prepare
+	const2 last
+	--
+	s.V.slot1 != const2
+	s.RT.slot2 != s.V.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop
+# ;~ idle
+pp {propose*kk*stroop*idle
+	const1 idle
+	const2 last
+	--
+	s.V.slot1 != const2
+	s.RT.slot2 != s.V.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop
+# ;~ say-correct
+pp {propose*kk*stroop*say-correct
+	const1 kk-stroop-say-correct
+	--
+	s.RT.slot2 == s.V.slot2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*stroop*say-correct
+	const1 kk-stroop-say-correct
+	const2 say
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+	s.AC.action.slot2 = s.RT.slot3
+	s.flags.clear-rt = const1
+}
+# add-instr stroop
+# ;~ finish
+pp {propose*kk*stroop*finish
+	const1 kk-stroop-finish
+	const2 last
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*stroop*finish
+	const1 kk-stroop-finish
+	const2 finish
+	--
+	s.operator.name == const1
+-->
+	s.G.Gtask = const2
+	s.flags.clear-rt = const1
+}
+# add-instr stroop-wrong-answer
+# ;~ redirect
+pp {propose*kk*stroop-wrong-answer*redirect
+	const1 stroop-answer
+	const2 stroop
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop-answer
+# ;~ wait
+pp {propose*kk*stroop-answer*wait
+	const1 idle
+	const2 yes
+	--
+	s.V.slot1 <> const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr stroop-answer
+# ;~ retrieve-color
+pp {propose*kk*stroop-answer*retrieve-color
+	const1 kk-stroop-answer-retrieve-color
+	--
+	s.V.slot2 
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*stroop-answer*retrieve-color
+	const1 kk-stroop-answer-retrieve-color
+	const2 s-mapping
+	const3 query
+	--
+	s.operator.name == const1
+-->
+	s.Q.query.q-type = const3
+	s.Q.query.slot1 = const2
+	s.Q.query.slot2 = s.V.slot2
+}
+# add-instr prepare
+# ;~ count-span
+pp {propose*kk*prepare*count-span
+	const1 cs-rehearse
+	const2 count-span
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr prepare
+# ;~ AB
+pp {propose*kk*prepare*AB
+	const1 ABCD-choose-task
+	const2 task-switching-AB
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr prepare
+# ;~ CD
+pp {propose*kk*prepare*CD
+	const1 ABCD-choose-task
+	const2 task-switching-CD
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr prepare
+# ;~ stroop
+pp {propose*kk*prepare*stroop
+	const1 stroop-answer
+	const2 stroop
+	--
+	s.V.task == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr idle
+# ;~ wait
+pp {propose*kk*idle*wait
+	const1 kk-idle-wait
+	const2 pending
+	--
+	s.V.slot1 == const2
+-->
+	s.const1 +
+	s.const1 =
+}
+pp {apply*kk*idle*wait
+	const1 kk-idle-wait
+	const2 wait
+	--
+	s.operator.name == const1
+-->
+	s.AC.action.slot1 = const2
+}
+# add-instr idle
+# ;~ AB-focus-task
+pp {propose*kk*idle*AB-focus-task
+	const1 ABCD-choose-task
+	const2 task-switching-AB
+	const3 yes
+	--
+	s.V.task == const2
+	s.V.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr idle
+# ;~ CD-focus-task
+pp {propose*kk*idle*CD-focus-task
+	const1 ABCD-choose-task
+	const2 task-switching-CD
+	const3 yes
+	--
+	s.V.task == const2
+	s.V.slot1 == const3
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr idle
+# ;~ focus-stroop-answer
+pp {propose*kk*idle*focus-stroop-answer
+	const1 stroop-answer
+	const2 stroop
+	--
+	s.V.task == const2
+	s.V.slot3 
+-->
+	s.const1 +
+	s.const1 =
+}
+# add-instr idle
+# ;~ wrong-stroop-answer
+pp {propose*kk*idle*wrong-stroop-answer
+	const1 stroop-wrong-answer
+	const2 stroop
+	const3 blue-word
+	--
+	s.V.task == const2
+	s.V.slot3 == const3
+-->
+	s.const1 +
+	s.const1 =
+}

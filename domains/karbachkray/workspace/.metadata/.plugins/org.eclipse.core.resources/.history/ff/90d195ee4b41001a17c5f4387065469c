@@ -1,0 +1,375 @@
+package edu.umich.eecs.soar.props.karbachkray;
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import edu.umich.eecs.soar.propsutil.PROPsEnvironment;
+import edu.umich.eecs.soar.propsutil.LearnConfig;
+
+/**
+ * This code replicates the lisp code written by Niels Taatgen for his Actransfer model of this task.
+ */
+public class KKWorld extends PROPsEnvironment {
+	/*
+	private int lastDC = 0, current_sample = 0;
+	private ETask etask;
+	
+	// We'll use the same numbers on the screen over and over again. The model will not notice.
+	private static final Map<String, Integer> inputs;
+	static {
+		Map<String, Integer> aMap = new HashMap<String, Integer>();
+		aMap.put("solid", 6);
+		aMap.put("algae", 2);
+		aMap.put("lime1", 3);
+		aMap.put("lime2", 5);
+		aMap.put("lime3", 1);
+		aMap.put("lime4", 9);
+		aMap.put("limemax", 2);
+		aMap.put("limemin", 1);
+		aMap.put("toxin1", 4);
+		aMap.put("toxin2", 8);
+		aMap.put("toxin3", 7);
+		aMap.put("toxin4", 2);
+		aMap.put("toxinmin", 2);
+		aMap.put("toxinmax", 8);
+		inputs = Collections.unmodifiableMap(aMap);
+	}*/
+	private static final ArrayList<String> baseNumStrings = new ArrayList<String>();
+	static {
+		baseNumStrings.add("zero"); baseNumStrings.add("one"); baseNumStrings.add("two"); baseNumStrings.add("three"); baseNumStrings.add("four"); 
+		baseNumStrings.add("five"); baseNumStrings.add("six"); baseNumStrings.add("seven"); baseNumStrings.add("eight"); baseNumStrings.add("nine");
+	}
+
+	private float task_reward = 0;
+	
+	private boolean inDebug = false;
+	private int numSamples = 1;
+
+	private String scheduledABCD = "nil";
+	
+	private CSTask csTask;
+	
+	KKWorld() {
+		String proj_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/karbachkray/";
+		String props_dir = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/PROPsAgent/";
+		//String proj_dir = "C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\domains\\karbachkray\\";
+		//String props_dir = "C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\PROPsAgent\\";
+
+		this.setAgentName("KKAgent");
+		this.setPropsDir(props_dir);
+		
+		this.setInstructionsFile(proj_dir + "kk_agent_instructions.soar");
+		this.setSoarAgentFile(proj_dir + "kk_agent.soar");
+		
+		this.setIOSize(2, 2);
+		
+		this.setUserAgentFiles(Arrays.asList("/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/lib_actransfer_prop3_interface.soar", 
+											 proj_dir + "kk_agent_smem.soar"));
+		//this.setUserAgentFiles(Arrays.asList("C:\\Users\\Bryan\\Documents\\GitHub_Bryan-Stearns\\PROPs\\domains\\lib_actransfer_interface.soar", 
+		//		 proj_dir + "kk_agent_smem.soar"));
+
+
+		csTask = new CSTask();
+	}
+
+	public void runKKExperiment(String taskName, int samples, ArrayList<LearnConfig> expList) {
+		numSamples = samples;
+		this.runExperiments(taskName, samples, expList);
+	}
+	
+	private void do_stroop(int day, String condition) {
+		this.setTask("stroop", "stroop");
+		this.setOutputFile("KK_stroop_l"+this.getLearnMode().toString()+"_s"+numSamples+".txt");
+		
+		for (int i=1; i<=4; ++i) {
+			// (init-task)
+			this.runAgent();
+			
+			this.printReports(String.format("STROOP %s %d %d ", condition, i, day));
+			this.clearReports();
+		}
+		
+	}
+	
+	private void initStroop() {
+		
+	}
+	
+	private void initCountSpan() {
+		csTask.init();
+	}
+	
+	private void initSingleTaskAB() {
+		
+	}
+	
+	private void setNewCountSpanTrial() {
+		csTask.setNewTrial();
+		this.scheduleInput(0.5, csTask.getNextSymbol());
+	}
+	
+	private ArrayList<String> toNumberStrings(ArrayList<Integer> numbers) {
+		ArrayList<String> retval = new ArrayList<String>();
+		for (int i : numbers) {
+			retval.add(baseNumStrings.get(i));
+		}
+		return retval;
+	}
+	
+	private int score_lists(List<String> l1, List<String> l2) {
+		int l1size = l1.size();
+		if (l1size == 0)
+			return 0;
+		
+		if (l1.get(0).equals(l2.get(0))) 
+			return 1 + score_lists(l1.subList(1, l1size), l2.subList(1, l2.size()));
+		
+		return score_lists(l1.subList(1, l1size), l2.subList(1, l2.size()));
+	}
+	
+	private void do_count_span() {
+		this.setTask("count-span", "count-span");
+		initCountSpan();
+		
+		for (ArrayList<Integer> x : csTask.trials) {
+			int l = x.size();
+			csTask.nums = x;
+			setNewCountSpanTrial();
+			
+			this.runAgent();
+			
+			//(clear-buffer 'goal)
+			// results.add(l, x, csTask.responses.length(), csTask.responses.toString())
+			int score = score_lists(Arrays.asList(csTask.responses.get(csTask.responses.size()-1)), toNumberStrings(x)); 
+			this.addReport(String.format("%d %d %d %.3f", l, csTask.responses.size(), score, score / l));
+			csTask.responses.clear();
+		}
+	}
+	
+	private double count_span_action(String action, String val2) {
+		double latency = 0.0;
+		
+		if (action.equals("say") || action.equals("report")) {
+			this.setReward(task_reward);
+		}
+		
+		if (action.equals("say")) {
+			if (csTask.nums.isEmpty()) {
+				this.setPerception(Arrays.asList("report"));
+			}
+			setNewCountSpanTrial();
+		}
+		else if (action.equals("attend-next")) {
+			latency = 0.15;
+			if (csTask.numbers.isEmpty()) {
+				this.setPerception(Arrays.asList("last"));
+			}
+			else {
+				this.setPerception(csTask.getNextSymbol());
+			}
+		}
+		else if (action.equals("suppress-pending")) {
+			if (this.getInput(0).equals("pending")) {
+				this.setPerception(Arrays.asList("waiting"));
+			}
+			latency = 0.0;
+		}
+		else if (action.equals("report")) {
+			csTask.responses.add(val2);
+			latency = 0.3;
+		}
+		
+		
+		return latency;
+	}
+	
+	@Override
+	protected void user_createAgent() {
+		/*lastDC = 0;*/
+	}
+
+	@Override
+	protected void user_doExperiment() {
+		List<String> conditions = new ArrayList<>(Arrays.asList("single", "switch"));
+		Map<String, String> aMap = new HashMap<String, String>();
+		aMap.put("A", "single-task-A");
+		aMap.put("B", "single-task-B");
+		aMap.put("AB", "task-switching-AB");
+		aMap.put("C", "single-task-C");
+		aMap.put("D", "single-task-D");
+		aMap.put("CD", "task-switching-CD");
+		
+		for (String cnd : conditions) {
+			if (!this.initAgent()) return;
+			
+			//// Day 1 ////
+			
+			// Count Span
+			do_count_span();
+			this.setOutputFile("KK_digitspan_l"+this.getLearnMode().toString()+"_s"+numSamples+".txt");
+			this.printReports(String.format("%d %s", 1, cnd));
+			this.clearReports();
+			
+			if (!this.initAgent()) return;
+			// Stroop
+			do_stroop(1, cnd);
+			
+
+			List<String> scheduleAB = new ArrayList<>(Arrays.asList("A","B","A","B","AB","AB","A","B","AB","AB","A","AB","AB","B","AB","AB","A","AB","AB","B","AB","AB"));
+
+			this.setOutputFile("KK_task-switching_l"+this.getLearnMode().toString()+"_s"+numSamples+".txt");
+			
+			for (String x : scheduleAB) {
+				scheduledABCD = x;
+				String tsk = aMap.get(x);
+				this.setTask(tsk, tsk);
+				//(init-task)
+				
+				this.runAgent();
+
+				this.printReports(String.format("%s %s", cnd, x));
+				this.clearReports();
+			}
+
+			if (!this.initAgent()) return;
+			
+			//// Day 2-5 ////
+			List<String> scheduleCD = (cnd.compareTo("single")==0) ? 
+						new ArrayList<>(Arrays.asList("C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D","C","D"))
+						: new ArrayList<>(Arrays.asList("CD","CD","CD","CD","DC","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD","CD"));
+
+			for (int day=2; day<=5; ++day) {	
+				for (String x : scheduleCD) {
+					scheduledABCD = x;
+					String tsk = aMap.get(x);
+					this.setTask(tsk, tsk);
+					// (init-task)
+					
+					this.runAgent();
+					// (clear-buffer 'goal)
+
+					this.printReports(String.format("%s %d", cnd, day, x));
+					this.clearReports();
+				}
+			}
+			
+			
+			//// Day 6 ////
+			
+			do_stroop(6, cnd);
+			do_count_span();
+			this.setOutputFile("KK_digitspan_l"+this.getLearnMode().toString()+"_s"+numSamples+".txt");
+			this.printReports(String.format("%d %s", 6, cnd));
+			this.clearReports();
+
+			for (String x : scheduleAB) {
+				scheduledABCD = x;
+				String tsk = aMap.get(x);
+				this.setTask(tsk, tsk);
+				
+				this.runAgent();
+
+				this.printReports(String.format("%s %s", cnd, x));
+				this.clearReports();
+			}
+
+			scheduledABCD = "nil";
+		}
+		
+	}
+
+	@Override
+	protected void user_outputListener(List<String> outputs) {
+		// Get the output
+		String action = outputs.get(0);
+		String val2 = outputs.get(1);
+
+		double latency = 0.0;
+
+		if (this.getTask().equals("count-span")) {
+			latency = count_span_action(action, val2);
+		}
+		else if (this.getTask().equals("stroop")) {
+			latency = stroop_action(action, val2);
+		}
+		else {
+			// Unknown task - do nothing
+		}
+		
+		this.addAgentLatency(secToMilli(latency));
+
+		/*
+		// Generate the corresponding input
+		int input2;
+		if (val1.compareTo("read") == 0) {
+			input2 = inputs.get(val2);
+			try {
+				this.setInput(0, val2);
+				this.setInput(1, input2);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (val2.equals("limemax") || val2.equals("limemin")
+					|| val2.equals("toxinmax") || val2.equals("toxinmin")) {
+				this.addAgentLatency(1000);
+			}
+			else {
+				this.addAgentLatency(300);
+			}
+		}
+		else if (val1.compareTo("enter") == 0) {
+			this.addAgentLatency(300);
+			// Clear inputs
+			this.clearPerception();
+			// Get the current number of chunks
+			int chunkCount = agent.ExecuteCommandLine("p -c").split("\n").length;
+			// Store the result
+			int DC = agent.GetDecisionCycleCounter();
+			//results.add(new Result(etask, val2, DC - lastDC, chunkCount));
+			this.addReport(String.format("%1$s \t%2$d \t%3$d \t%4$.3f \t%5$s \t%6$d \t%7$d",
+					this.getTask().toUpperCase(), etask.trial, etask.line, this.milliToSec(this.getElapsedTime() - etask.start), val2, (DC - lastDC), chunkCount, this.getCurrentSample()));
+			
+			lastDC = DC;
+			// Start next task
+			etask.line++;
+			etask.start = this.getElapsedTime();
+
+			System.out.println("# Enter " + val2 + " #");
+		}
+		*/
+
+	}
+
+	@Override
+	protected void user_agentStart() {
+		this.clearReports();
+	}
+	
+	@Override
+	protected void user_agentStop() {
+		/*
+		// Reset for next trial
+		etask.line = 1;
+		etask.trial++;
+		etask.start = this.getElapsedTime();
+		*/
+	}
+
+	@Override
+	protected void user_errorListener(String err) {
+		
+	}
+
+	@Override
+	protected void user_updateTask() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

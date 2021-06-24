@@ -30,8 +30,8 @@ plot_stroop_intfr <- function(ylims, dat1, dat1err) {
 }
 
 plot_stroop_single <- function(ylims, ys1a,ys1b, labs,titl, outpath) {
-  #x11(width=4,height=4)
-  png(outpath, width=2.5,height=4, units="in",res=300)
+  x11(width=4,height=4)
+  #png(outpath, width=2.5,height=4, units="in",res=300)
   par(lwd=2, mar=c(3,3,2,1), mgp=c(2,0.5,0), cex.lab=1.2)
   print(ys1a)
   #plot(2:3,ys1a[,1],ylim=ylims,type="b",xlab="",xaxt="n",xlim=c(1,6),ylab="Interference (ms)",main="Stroop")
@@ -44,7 +44,7 @@ plot_stroop_single <- function(ylims, ys1a,ys1b, labs,titl, outpath) {
   legend(1,.15*ylims[2],legend=c("No training","WM training"),pch=1:2,lty=1,bty="n")
   #title(main=paste("lr=",as.double(lr)*0.0001," dr=",as.double(dr)*0.001,sep=""))
   title(main=titl)
-  dev.off()
+  #dev.off()
 }
 
 plot_stroop_prepost <- function(ylims, ys1a,ys1b,ys2a,ys2b, labs) {
@@ -76,13 +76,13 @@ PLOT_L2 <- TRUE           # The case where chunking was turned on for instructio
 PLOT_L3 <- FALSE           # The case where chunking was turned on for the complete evaluation result (learns away instruction use)
 
 PLOT_SOURCE <- "PROPS"
-PLOT_SWEEP <- TRUE
+PLOT_SWEEP <- FALSE
 
 t <- "1"
 sample <- "_s4"
-subfolder <- "" # "sweep_20190325_states/"
+subfolder <- "sweep_20190325_states/"
 
-LR <- if (PLOT_SWEEP) str_pad(02*(1:4), 2, pad="0") else c("02")        # A range of learning-rates from 0.0025 to 0.02
+LR <- if (PLOT_SWEEP) str_pad(02*(1:4), 2, pad="0") else c("0200")        # A range of learning-rates from 0.0025 to 0.02
 DR <- if (PLOT_SWEEP) str_pad(775+25*(0:0), 3, pad="0") else c("775")   # A range of discount-rates from 0.7 to 0.8
 
 
@@ -105,7 +105,7 @@ plot_stroop_single(c(0,160), cbind(exp.stroop[1,], exp.stroop.se[1,]), cbind(exp
                     c("Pre","Post"), "Stroop - Human", paste(modelpath,"fig_stroop_human.png",sep=""))
 
 # Original Actransfer data
-prims_sdat <- read.table("/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/original/stroopChein.txt")
+prims_sdat <- read.table("/home/bryan/Actransfer/supplemental/Actransfer distribution/CheinMorrison/MyResults/stroopChein_noRT.txt")
 names(prims_sdat) <- c("task","condition","block","day","trial","type","correct","RT")
 prims_sres <- aggregate(prims_sdat$RT,list(day=prims_sdat$day,condition=prims_sdat$condition,type=prims_sdat$type),function(x) c(mean=mean(x), se=sd(x)/sqrt(length(x))))
 # Get the control and test interference data, as [{1,21},{mean,sd}]
@@ -148,36 +148,36 @@ for (lr in LR) {
 }
 
 # Non-rehearsal model Stroop data:
-sdatNR <- read.table(paste(modelpath,"stroopCheinNR",graphname,".dat",sep=""), fill=TRUE, 
-                    col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
-sresNR <- with(sdatNR,tapply(RT,list(day,condition,type),mean))
+#sdatNR <- read.table(paste(modelpath,"stroopCheinNR",graphname,".dat",sep=""), fill=TRUE, 
+#                    col.names = c("task","condition","block","day","trial","type","correct","RT","DC","FT","fetches","prepares"))
+#sresNR <- with(sdatNR,tapply(RT,list(day,condition,type),mean))
 
 
 
 # Rehearsal model VCWM data:
-vdat <- read.table(paste(modelpath,subfolder,"WMChein",graphname,".dat",sep=""), fill=TRUE, 
-                   col.names = c("day","span","correct","DC","FT","fetches","prepares"))
-vdat.m <- with(vdat[vdat$correct==1,],tapply(span,day,mean))
-#vdat.m <- with(vdat,tapply(span,day,mean))
+#vdat <- read.table(paste(modelpath,subfolder,"WMChein",graphname,".dat",sep=""), fill=TRUE, 
+#                   col.names = c("day","span","correct","DC","FT","fetches","prepares"))
+#vdat.m <- with(vdat[vdat$correct==1,],tapply(span,day,mean))
+##vdat.m <- with(vdat,tapply(span,day,mean))
 
 # Non-rehearsal model VCWM data:
-vdatNR <- read.table(paste(modelpath,subfolder,"WMCheinNR",graphname,".dat",sep=""), fill=TRUE, 
-                   col.names = c("day","span","correct","DC","FT","fetches","prepares"))
-vdatNR.m <- with(vdatNR[vdatNR$correct==1,],tapply(span,day,mean))
-#vdat.m <- with(vdat,tapply(span,day,mean))
+#vdatNR <- read.table(paste(modelpath,subfolder,"WMCheinNR",graphname,".dat",sep=""), fill=TRUE, 
+#                   col.names = c("day","span","correct","DC","FT","fetches","prepares"))
+#vdatNR.m <- with(vdatNR[vdatNR$correct==1,],tapply(span,day,mean))
+##vdat.m <- with(vdat,tapply(span,day,mean))
 
 
 # Plot just the human VCWM data (as it is in the paper)
-plot_wmspan(c(3,6), dada)
+#plot_wmspan(c(3,6), dada)
 
 # Plot just the human Stroop data (as it is in the paper)
 plot_stroop_intfr(c(0,160), exp.stroop, exp.stroop.se)
 
 # Plot the human and model VCWM data side by side
-plot_wmspan(c(1,7), dada, vdat.m, c("Data","Model"))
+#plot_wmspan(c(1,7), dada, vdat.m, c("Data","Model"))
 
 # Plot the rehearsal vs non-rehearsal models side by side
-plot_wmspan(c(1,7), vdat.m, vdatNR.m, c("Reactive model","Proactive model"))
+#plot_wmspan(c(1,7), vdat.m, vdatNR.m, c("Reactive model","Proactive model"))
 
 
 
@@ -186,6 +186,6 @@ plot_wmspan(c(1,7), vdat.m, vdatNR.m, c("Reactive model","Proactive model"))
 sres[,2,]-sres[,1,]
 
 # Plot interference (INCONGRUENT-CONGRUENT) in non-rehearsal vs rehearsal Stroop models
-plot_stroop_prepost(c(0,200), (sresNR[,1,2]-sresNR[,1,1])*1000, (sresNR[,2,2]-sresNR[,2,1])*1000, 
-                    (sres[,1,2]-sres[,1,1])*1000, (sres[,2,2]-sres[,2,1])*1000,
-                    c("Reactive\nPre","Reactive\nPost","Proactive\nPre","Proactive\nPost"))
+#plot_stroop_prepost(c(0,200), (sresNR[,1,2]-sresNR[,1,1])*1000, (sresNR[,2,2]-sresNR[,2,1])*1000, 
+#                    (sres[,1,2]-sres[,1,1])*1000, (sres[,2,2]-sres[,2,1])*1000,
+#                    c("Reactive\nPre","Reactive\nPost","Proactive\nPre","Proactive\nPost"))

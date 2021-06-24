@@ -1,0 +1,30 @@
+package edu.umich.eecs.soar.props.karbachkray;
+
+import java.util.ArrayList;
+import edu.umich.eecs.soar.propsutil.LearnConfig;
+
+public class SMLClient {
+	
+	public static void main(String[] args) {
+		
+		ArrayList<LearnConfig> expList = new ArrayList<LearnConfig>();
+		/*expList.add(new LearnConfig("12m", 1));
+		expList.add(new LearnConfig("12smc", 1));
+		expList.add(new LearnConfig("123m", 1));
+		expList.add(new LearnConfig("123smc", 1));*/
+		expList.add(new LearnConfig("2", 10));
+		//expList.add(new LearnConfig("123se", 10));
+
+		KKWorld world = new KKWorld();
+		
+		world.testStroop();
+		
+		world.setVerbose(false);
+		//world.runExperiments("kk_props", 21, expList);
+		
+		//world.setSavePercepts(true);
+		//world.runDebug("procedure-a","procedure-a", new LearnConfig("2", 2));
+
+	}
+
+}

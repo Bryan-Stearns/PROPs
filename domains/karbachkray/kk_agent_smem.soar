@@ -1,0 +1,71 @@
+ # SUPPLEMENTAL DECLARATIVE MEMORIES FOR KARBACHKRAY EXPERIMENT
+
+smem --add {
+ (<a1> ^isa fact ^slot1 count-fact ^slot2 zero ^slot3 one)
+ (<a2> ^isa fact ^slot1 count-fact ^slot2 one ^slot3 two)
+ (<a3> ^isa fact ^slot1 count-fact ^slot2 two ^slot3 three)
+ (<a4> ^isa fact ^slot1 count-fact ^slot2 three ^slot3 four)
+ (<a5> ^isa fact ^slot1 count-fact ^slot2 four ^slot3 five)
+ (<a6> ^isa fact ^slot1 count-fact ^slot2 five ^slot3 six)
+ (<a7> ^isa fact ^slot1 count-fact ^slot2 six ^slot3 seven)
+ (<a8> ^isa fact ^slot1 count-fact ^slot2 seven ^slot3 eight)
+ (<a9> ^isa fact ^slot1 count-fact ^slot2 eight ^slot3 nine)
+ (<a10> ^isa fact ^slot1 count-fact ^slot2 nine ^slot3 ten)
+ (<a11> ^isa fact ^slot1 count-fact ^slot2 ten ^slot3 eleven)
+ (<a12> ^isa fact ^slot1 count-fact ^slot2 eleven ^slot3 twelve)
+ (<a13> ^isa fact ^slot1 count-fact ^slot2 twelve ^slot3 thirteen)
+ (<a14> ^isa fact ^slot1 count-fact ^slot2 thirteen ^slot3 fourteen)
+ (<a15> ^isa fact ^slot1 count-fact ^slot2 fourteen ^slot3 fifteen)
+ (<a16> ^isa fact ^slot1 count-fact ^slot2 fifteen ^slot3 sixteen)
+ (<a17> ^isa fact ^slot1 count-fact ^slot2 sixteen ^slot3 seventeen)
+ (<a18> ^isa fact ^slot1 count-fact ^slot2 seventeen ^slot3 eighteen)
+ (<a19> ^isa fact ^slot1 count-fact ^slot2 eighteen ^slot3 nineteen)
+ (<a20> ^isa fact ^slot1 count-fact ^slot2 nineteen ^slot3 twenty)
+}
+
+# Single-task A
+smem --add {
+ (<a1> ^isa fact ^slot1 mapping ^slot2 vegetable ^slot3 s)
+ (<a2> ^isa fact ^slot1 mapping ^slot2 fruit ^slot3 k)
+}
+
+# Single-task B
+smem --add {
+ (<a1> ^isa fact ^slot1 mapping ^slot2 small ^slot3 s)
+ (<a2> ^isa fact ^slot1 mapping ^slot2 large ^slot3 k)
+}
+
+# Task-switching AB
+smem --add {
+ (<a0> ^isa fact ^slot1 other-task ^slot2 blankAB ^slot3 food-task)
+ (<a1> ^isa fact ^slot1 other-task ^slot2 food-task ^slot3 size-task)
+ (<a2> ^isa fact ^slot1 other-task ^slot2 size-task ^slot3 food-task)
+}
+
+# Single-task C
+smem --add {
+ (<a1> ^isa fact ^slot1 mapping ^slot2 plane ^slot3 s)
+ (<a2> ^isa fact ^slot1 mapping ^slot2 car ^slot3 k)
+}
+
+# Task-switching CD
+smem --add {
+ (<a0> ^isa fact ^slot1 other-task ^slot2 blankCD ^slot3 transport-task)
+ (<a1> ^isa fact ^slot1 other-task ^slot2 transport-task ^slot3 number-task)
+ (<a2> ^isa fact ^slot1 other-task ^slot2 number-task ^slot3 transport-task)
+}
+
+# Single-task D
+smem --add {
+ (<a1> ^isa fact ^slot1 mapping ^slot2 one ^slot3 s)
+ (<a2> ^isa fact ^slot1 mapping ^slot2 two ^slot3 k)
+}
+
+# Stroop
+smem --add {
+ (<a1> ^isa fact ^slot1 s-mapping ^slot2 red-word ^slot3 red-concept ^slot4 word-task)
+ (<a2> ^isa fact ^slot1 s-mapping ^slot2 blue-word ^slot3 blue-concept ^slot4 word-task)
+ (<a3> ^isa fact ^slot1 s-mapping ^slot2 red-color ^slot3 red-concept ^slot4 color-task)
+ (<a4> ^isa fact ^slot1 s-mapping ^slot2 blue-color ^slot3 blue-concept ^slot4 color-task)
+ (<a5> ^isa fact ^slot1 s-mapping ^slot2 train-word ^slot3 train-concept ^slot4 word-task)
+}

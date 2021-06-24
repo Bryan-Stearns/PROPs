@@ -186,9 +186,9 @@ def main():
     domain = 'elio_props'
     actions = ['enter']
     '''
-    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/'
-    fetchTimeLatenciesFile = "/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/editor_out2_X.dat"
-    domain = 'editors_props'
+    pathdir = '/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/results/known-fetch/'
+    fetchTimeLatenciesFile = None #"/home/bryan/Documents/GitHub_Bryan-Stearns/PROPs/domains/editors/editor_out2_X.dat"
+    domain = 'editors_prop3'
     actions = ['next-instruction']
     countOp = None
     '''
@@ -200,8 +200,8 @@ def main():
     '''
     
     # File name generation (can loop over different files)
-    conv_types = ['l1']
-    T = ['96']
+    conv_types = ['l2']
+    T = ['48']
     samples = ['2']
     param3 = [''] #['_lr0025','_lr0050','_lr0075','_lr0100','_lr0125','_lr0150','_lr0175','_lr0200']
     param4 = [''] #['_dr700','_dr725','_dr750','_dr775','_dr800']
@@ -212,7 +212,7 @@ def main():
                 for p4 in param4:
                     for sample in samples:
                         inpath = pathdir + 'verbose_' + domain + '_' + ctype + '_t' + t + p3 + p4 + '_s' + sample + '.dat'
-                        outpath = inpath[:-4] + "_X.dat"
+                        outpath = inpath[:-4] + "_Xtest.dat"
                         
                         # Take the agent trace output file, parse it, and create a new csv with the measured data
                         convertData(inpath, outpath, fetchTimeLatenciesFile, actions, countOp)

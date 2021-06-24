@@ -10,6 +10,8 @@ import edu.umich.eecs.soar.propsutil.PROPsEnvironment;
 
 
 public class EditorsWorld extends PROPsEnvironment {
+	//private int lastDC = 0;
+	
 	private static double STD_MOTOR_TIME = 0.25,
 						  STD_VISUAL_TIME = 0.25;
 
@@ -176,10 +178,13 @@ public class EditorsWorld extends PROPsEnvironment {
 			if (action.equals("next-instruction")) {
 				rep.state = "ll";
 				
+				//int DC = agent.GetDecisionCycleCounter();
+				
 				this.addReport(String.format("%1$s %2$d %3$s %4$d %5$-15s %6$.3f %7$.3f %8$.3f %9$.3f",
 						rep.taskSetName, rep.trialNum, this.getTask().toUpperCase(), rep.editNum,
 						rep.task.toUpperCase(), this.milliToSec(rep.ll), this.milliToSec(rep.mt), 
 						this.milliToSec(this.getElapsedTime()-rep.strt), rep.latencies));
+						//DC-lastDC));
 				
 				if (ed_task.edits.size() <= 1)
 					rep.task = "";
@@ -188,6 +193,8 @@ public class EditorsWorld extends PROPsEnvironment {
 				rep.strt = this.getElapsedTime();
 				rep.temp = this.getElapsedTime();		// NOTE: Not in Taatgen's script
 				rep.latencies = 0.0;
+				
+				//lastDC = DC;
 			}
 			break;
 		case "end":
@@ -357,6 +364,8 @@ public class EditorsWorld extends PROPsEnvironment {
 		//rep.strt = this.getElapsedTime();
 		vtarget_screen = true;
 		
+		//lastDC = 0;
+		
 		this.clearReports();
 	}
 
@@ -374,6 +383,7 @@ public class EditorsWorld extends PROPsEnvironment {
 			if (!this.initAgent())
 				break;
 			
+			//lastDC = 0;
 			int task_count = 0;
 			rep.taskSetName = sac.name;
 			

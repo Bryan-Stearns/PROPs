@@ -1,0 +1,1218 @@
+#####
+# THIS FILE TRANSLATES THE ACTRANSFER PRODUCTIONS
+# FROM 'KarbachKray_hier.lisp' INTO SOURCEABLE SOAR PRODUCTIONS.
+#####
+
+sp {propose*kk*count-span*init
+	(state <s> ^G <c1>)
+	(<c1> -^Gtop )
+	-->
+	(<o1> ^name kk-count-span-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*count-span*init
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<s> ^WM <c3>)
+	(<c3> ^slot1 <c4>)
+	(state <s> ^AC <c5>)
+	(<c1> ^name kk-count-span-init)
+	-->
+	(<c2> ^Gtop <c3>)
+	(<c3> ^slot1 zero)
+	(<c5> ^action <n1>)
+	(<n1> ^slot1 begin)
+	(<c3> ^slot1 <c4> -)
+}
+sp {propose*kk*count-span*read-prompt
+	(state <s> ^G <c1>)
+	(<c1> ^Gtop )
+	-->
+	(<o1> ^name const1 cs-read-prompt)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*cs-read-prompt*idle
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*cs-read-prompt*prepare
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*cs-read-prompt*count-circles
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 yes)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*cs-read-prompt*store-count
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-cs-read-prompt-store-count)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-read-prompt*store-count
+	(state <s> ^operator <c1>)
+	(state <s> ^NW <c2>)
+	(<s> ^WM <c3>)
+	(state <s> ^AC <c4>)
+	(<c3> ^slot1 <c5>)
+	(<c1> ^name kk-cs-read-prompt-store-count)
+	-->
+	(<c2> ^wm <n1>)
+	(<n1> ^slot1 zero)
+	(<n1> ^WMprev <c3>)
+	(<c4> ^action <n2>)
+	(<n2> ^slot1 say)
+	(<n2> ^slot2 <c5>)
+}
+sp {propose*kk*cs-read-prompt*cs-report
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 report)
+	-->
+	(<o1> ^name const2 report)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*count-circles*ignore-color
+	(state <s> ^V <c1>)
+	(<c1> ^slot2 <> blue)
+	-->
+	(<o1> ^name kk-count-circles-ignore-color)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*count-circles*ignore-color
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-count-circles-ignore-color)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 attend-next)
+}
+sp {propose*kk*count-circles*ignore-shape
+	(state <s> ^V <c1>)
+	(<c1> ^slot3 <> circle)
+	-->
+	(<o1> ^name kk-count-circles-ignore-shape)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*count-circles*ignore-shape
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-count-circles-ignore-shape)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 attend-next)
+}
+sp {propose*kk*count-circles*see-blue-circle
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot2 blue)
+	(<c1> ^slot3 circle)
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name kk-count-circles-see-blue-circle)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*count-circles*see-blue-circle
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^WM <c3>)
+	(<c3> ^slot1 <c4>)
+	(<c1> ^name kk-count-circles-see-blue-circle)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 count-fact)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*count-circles*update-count
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-count-circles-update-count)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*count-circles*update-count
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(<c2> ^slot1 <c5>)
+	(state <s> ^AC <c6>)
+	(state <s> ^flags <c7>)
+	(<c1> ^name kk-count-circles-update-count)
+	-->
+	(<c2> ^slot1 <c4>)
+	(<c6> ^action <n1>)
+	(<n1> ^slot1 attend-next)
+	(<c7> ^clear-rt const1)
+	(<c2> ^slot1 <c5> -)
+}
+sp {propose*kk*cs-rehearse*start
+	(state <s> ^smem <c1>)
+	(<c1> -^rt-result )
+	-->
+	(<o1> ^name kk-cs-rehearse-start)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-rehearse*start
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c1> ^name kk-cs-rehearse-start)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+}
+sp {propose*kk*cs-rehearse*next
+	(state <s> ^smem <c1>)
+	(<c1> ^rt-result <> error)
+	-->
+	(<o1> ^name kk-cs-rehearse-next)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-rehearse*next
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^RTid <c4>)
+	(<c1> ^name kk-cs-rehearse-next)
+	-->
+	(<c2> ^wm-query <n1>)
+	(<n1> ^root <c4>)
+	(<n1> ^q-type wm-query)
+}
+sp {propose*kk*cs-rehearse*restart
+	(state <s> ^smem <c1>)
+	(<c1> ^rt-result error)
+	-->
+	(<o1> ^name kk-cs-rehearse-restart)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-rehearse*restart
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c1> ^name kk-cs-rehearse-restart)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+}
+sp {propose*kk*cs-report*start
+	(state <s> ^smem <c1>)
+	(<c1> -^rt-result )
+	-->
+	(<o1> ^name kk-cs-report-start)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-report*start
+	(state <s> ^operator <c1>)
+	(state <s> ^Q.retrieve <c2>)
+	(state <s> ^Q <c3>)
+	(state <s> ^G <c4>)
+	(<c4> ^Gtop <c5>)
+	(<c1> ^name kk-cs-report-start)
+	-->
+	(<c2> ^q-type retrieve)
+	(<c3> ^retrieve <c5>)
+}
+sp {propose*kk*cs-report*report
+	(state <s> ^smem <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^rt-result <> error)
+	(<c2> ^slot1 <> zero)
+	-->
+	(<o1> ^name kk-cs-report-report)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-report*report
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^RTid <c4>)
+	(state <s> ^AC <c5>)
+	(<c3> ^slot1 <c6>)
+	(<c1> ^name kk-cs-report-report)
+	-->
+	(<c2> ^wm-query <n1>)
+	(<n1> ^root <c4>)
+	(<n1> ^q-type wm-query)
+	(<c5> ^action <n2>)
+	(<n2> ^slot1 report)
+	(<n2> ^slot2 <c6>)
+}
+sp {propose*kk*cs-report*finish
+	(state <s> ^RT <c1>)
+	(<c1> ^slot1 zero)
+	-->
+	(<o1> ^name kk-cs-report-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*cs-report*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-cs-report-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*food-task*get-property
+	(state <s> ^V <c1>)
+	(<c1> -^slot2 )
+	-->
+	(<o1> ^name kk-food-task-get-property)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*food-task*get-property
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-food-task-get-property)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 food-property)
+}
+sp {propose*kk*food-task*get-key
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot2 )
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name kk-food-task-get-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*food-task*get-key
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name kk-food-task-get-key)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*food-task*press-key
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-food-task-press-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*food-task*press-key
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^WM <c5>)
+	(<c5> ^slot2 <c6>)
+	(<c5> ^slot3 <c7>)
+	(<c5> ^slot1 <c8>)
+	(<c5> ^slot2 <c9>)
+	(<c5> ^slot1 <c10>)
+	(state <s> ^flags <c11>)
+	(<c1> ^name kk-food-task-press-key)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 press-key)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^slot3 <c6>)
+	(<c5> ^slot2 <c8>)
+	(<c5> ^slot1 blankAB)
+	(<c11> ^clear-rt const1)
+	(<c5> ^slot3 <c7> -)
+	(<c5> ^slot2 <c9> -)
+	(<c5> ^slot1 <c10> -)
+}
+sp {propose*kk*size-task*get-property
+	(state <s> ^V <c1>)
+	(<c1> -^slot3 )
+	-->
+	(<o1> ^name kk-size-task-get-property)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*size-task*get-property
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-size-task-get-property)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 size-property)
+}
+sp {propose*kk*size-task*get-key
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot3 )
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name kk-size-task-get-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*size-task*get-key
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot3 <c4>)
+	(<c1> ^name kk-size-task-get-key)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*size-task*press-key
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-size-task-press-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*size-task*press-key
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^WM <c5>)
+	(<c5> ^slot2 <c6>)
+	(<c5> ^slot3 <c7>)
+	(<c5> ^slot1 <c8>)
+	(<c5> ^slot2 <c9>)
+	(<c5> ^slot1 <c10>)
+	(state <s> ^flags <c11>)
+	(<c1> ^name kk-size-task-press-key)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 press-key)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^slot3 <c6>)
+	(<c5> ^slot2 <c8>)
+	(<c5> ^slot1 blankAB)
+	(<c11> ^clear-rt const1)
+	(<c5> ^slot3 <c7> -)
+	(<c5> ^slot2 <c9> -)
+	(<c5> ^slot1 <c10> -)
+}
+sp {propose*kk*single-task-A*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-single-task-A-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-A*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-single-task-A-init)
+	-->
+	(<c2> ^slot1 food-task)
+	(<c2> ^slot2 blankAB)
+	(<c2> ^slot3 blankAB)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*single-task-A*ready
+	(state <s> ^WM <c1>)
+	(<c1> ^slot1 blankAB)
+	-->
+	(<o1> ^name kk-single-task-A-ready)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-A*ready
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot1 <c3>)
+	(<c1> ^name kk-single-task-A-ready)
+	-->
+	(<c2> ^slot1 food-task)
+	(<c2> ^slot1 <c3> -)
+}
+sp {propose*kk*single-task-A*idle
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-A*food-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 food-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-A*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-single-task-A-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-A*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-single-task-A-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*single-task-B*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-single-task-B-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-B*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-single-task-B-init)
+	-->
+	(<c2> ^slot1 size-task)
+	(<c2> ^slot2 blankAB)
+	(<c2> ^slot3 blankAB)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*single-task-B*ready
+	(state <s> ^WM <c1>)
+	(<c1> ^slot1 blankAB)
+	-->
+	(<o1> ^name kk-single-task-B-ready)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-B*ready
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot1 <c3>)
+	(<c1> ^name kk-single-task-B-ready)
+	-->
+	(<c2> ^slot1 size-task)
+	(<c2> ^slot1 <c3> -)
+}
+sp {propose*kk*single-task-B*idle
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-B*size-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 size-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-B*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-single-task-B-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-B*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-single-task-B-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*task-switching-AB*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-task-switching-AB-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*task-switching-AB*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-task-switching-AB-init)
+	-->
+	(<c2> ^slot1 blankAB)
+	(<c2> ^slot2 blankAB)
+	(<c2> ^slot3 blankAB)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*task-switching-AB*food-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 food-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-AB*size-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 size-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-AB*choose-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 blankAB)
+	-->
+	(<o1> ^name const3 blankAB)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-AB*prepare
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> -^slot1 last)
+	(<c2> ^slot1 blankAB)
+	-->
+	(<o1> ^name const3 blankAB)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-AB*idle
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> -^slot1 last)
+	(<c2> ^slot1 blankAB)
+	-->
+	(<o1> ^name const3 blankAB)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-AB*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-task-switching-AB-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*task-switching-AB*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-task-switching-AB-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*transport-task*get-property
+	(state <s> ^V <c1>)
+	(<c1> -^slot2 )
+	-->
+	(<o1> ^name kk-transport-task-get-property)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*transport-task*get-property
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-transport-task-get-property)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 transport-property)
+}
+sp {propose*kk*transport-task*get-key
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot2 )
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name kk-transport-task-get-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*transport-task*get-key
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name kk-transport-task-get-key)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*transport-task*press-key
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-transport-task-press-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*transport-task*press-key
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^WM <c5>)
+	(<c5> ^slot2 <c6>)
+	(<c5> ^slot3 <c7>)
+	(<c5> ^slot1 <c8>)
+	(<c5> ^slot2 <c9>)
+	(<c5> ^slot1 <c10>)
+	(state <s> ^flags <c11>)
+	(<c1> ^name kk-transport-task-press-key)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 press-key)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^slot3 <c6>)
+	(<c5> ^slot2 <c8>)
+	(<c5> ^slot1 blankCD)
+	(<c11> ^clear-rt const1)
+	(<c5> ^slot3 <c7> -)
+	(<c5> ^slot2 <c9> -)
+	(<c5> ^slot1 <c10> -)
+}
+sp {propose*kk*number-task*get-property
+	(state <s> ^V <c1>)
+	(<c1> -^slot3 )
+	-->
+	(<o1> ^name kk-number-task-get-property)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*number-task*get-property
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-number-task-get-property)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 get-property)
+	(<n1> ^slot2 number-property)
+}
+sp {propose*kk*number-task*get-key
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot3 )
+	(<c2> -^slot3 )
+	-->
+	(<o1> ^name kk-number-task-get-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*number-task*get-key
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot3 <c4>)
+	(<c1> ^name kk-number-task-get-key)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*number-task*press-key
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-number-task-press-key)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*number-task*press-key
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^WM <c5>)
+	(<c5> ^slot2 <c6>)
+	(<c5> ^slot3 <c7>)
+	(<c5> ^slot1 <c8>)
+	(<c5> ^slot2 <c9>)
+	(<c5> ^slot1 <c10>)
+	(state <s> ^flags <c11>)
+	(<c1> ^name kk-number-task-press-key)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 press-key)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^slot3 <c6>)
+	(<c5> ^slot2 <c8>)
+	(<c5> ^slot1 blankCD)
+	(<c11> ^clear-rt const1)
+	(<c5> ^slot3 <c7> -)
+	(<c5> ^slot2 <c9> -)
+	(<c5> ^slot1 <c10> -)
+}
+sp {propose*kk*single-task-C*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-single-task-C-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-C*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-single-task-C-init)
+	-->
+	(<c2> ^slot1 transport-task)
+	(<c2> ^slot2 blankCD)
+	(<c2> ^slot3 blankCD)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*single-task-C*ready
+	(state <s> ^WM <c1>)
+	(<c1> ^slot1 blankCD)
+	-->
+	(<o1> ^name kk-single-task-C-ready)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-C*ready
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot1 <c3>)
+	(<c1> ^name kk-single-task-C-ready)
+	-->
+	(<c2> ^slot1 transport-task)
+	(<c2> ^slot1 <c3> -)
+}
+sp {propose*kk*single-task-C*idle
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-C*transport-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 transport-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-C*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-single-task-C-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-C*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-single-task-C-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*single-task-D*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-single-task-D-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-D*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-single-task-D-init)
+	-->
+	(<c2> ^slot1 number-task)
+	(<c2> ^slot2 blankCD)
+	(<c2> ^slot3 blankCD)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*single-task-D*ready
+	(state <s> ^WM <c1>)
+	(<c1> ^slot1 blankCD)
+	-->
+	(<o1> ^name kk-single-task-D-ready)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-D*ready
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot1 <c3>)
+	(<c1> ^name kk-single-task-D-ready)
+	-->
+	(<c2> ^slot1 number-task)
+	(<c2> ^slot1 <c3> -)
+}
+sp {propose*kk*single-task-D*idle
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name const2 pending)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-D*number-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 number-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*single-task-D*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-single-task-D-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*single-task-D*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-single-task-D-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*task-switching-CD*init
+	(state <s> ^WM <c1>)
+	(<c1> -^slot1 )
+	-->
+	(<o1> ^name kk-task-switching-CD-init)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*task-switching-CD*init
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot3 <c4>)
+	(<c1> ^name kk-task-switching-CD-init)
+	-->
+	(<c2> ^slot1 blankCD)
+	(<c2> ^slot2 blankCD)
+	(<c2> ^slot3 blankCD)
+	(<c2> ^slot2 <c3> -)
+	(<c2> ^slot3 <c4> -)
+}
+sp {propose*kk*task-switching-CD*transport-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 transport-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-CD*number-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 number-task)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-CD*choose-task
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> ^slot1 yes)
+	(<c2> ^slot1 blankCD)
+	-->
+	(<o1> ^name const3 blankCD)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-CD*prepare
+	(state <s> ^V <c1>)
+	(state <s> ^WM <c2>)
+	(<c1> -^slot1 last)
+	(<c2> ^slot1 blankCD)
+	-->
+	(<o1> ^name const3 blankCD)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*task-switching-CD*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-task-switching-CD-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*task-switching-CD*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-task-switching-CD-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*ABCD-choose-task*repeat-same-task
+	(state <s> ^WM <c1>)
+	(<c1> ^slot3 <c2>)
+	(state <s> ^RT <c3>)
+	(<c1> ^slot2 <> <c2>)
+	(<c3> -^slot3 )
+	-->
+	(<o1> ^name kk-ABCD-choose-task-repeat-same-task)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*ABCD-choose-task*repeat-same-task
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c2> ^slot1 <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name kk-ABCD-choose-task-repeat-same-task)
+	-->
+	(<c2> ^slot1 <c3>)
+	(<c5> ^clear-rt const1)
+	(<c2> ^slot1 <c4> -)
+}
+sp {propose*kk*ABCD-choose-task*retrieve-other-task
+	(state <s> ^WM <c1>)
+	(<c1> ^slot3 <c2>)
+	(state <s> ^RT <c3>)
+	(<c1> ^slot2 <c2>)
+	(<c3> -^slot3 )
+	-->
+	(<o1> ^name kk-ABCD-choose-task-retrieve-other-task)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*ABCD-choose-task*retrieve-other-task
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^WM <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name kk-ABCD-choose-task-retrieve-other-task)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 other-task)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*ABCD-choose-task*set-task
+	(state <s> ^RT <c1>)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name kk-ABCD-choose-task-set-task)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*ABCD-choose-task*set-task
+	(state <s> ^operator <c1>)
+	(state <s> ^WM <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(<c2> ^slot1 <c5>)
+	(state <s> ^flags <c6>)
+	(<c1> ^name kk-ABCD-choose-task-set-task)
+	-->
+	(<c2> ^slot1 <c4>)
+	(<c6> ^clear-rt const1)
+	(<c2> ^slot1 <c5> -)
+}
+sp {propose*kk*stroop*prepare
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot2 <c3>)
+	(<c1> -^slot1 last)
+	(<c2> -^slot2 <c3>)
+	-->
+	(<o1> ^name const2 last)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*stroop*idle
+	(state <s> ^V <c1>)
+	(state <s> ^RT <c2>)
+	(<c1> ^slot2 <c3>)
+	(<c1> -^slot1 last)
+	(<c2> -^slot2 <c3>)
+	-->
+	(<o1> ^name const2 last)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*stroop*say-correct
+	(state <s> ^RT <c1>)
+	(state <s> ^V <c2>)
+	(<c2> ^slot2 <c3>)
+	(<c1> ^slot2 <c3>)
+	-->
+	(<o1> ^name kk-stroop-say-correct)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*stroop*say-correct
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(state <s> ^RT <c3>)
+	(<c3> ^slot3 <c4>)
+	(state <s> ^flags <c5>)
+	(<c1> ^name kk-stroop-say-correct)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 say)
+	(<n1> ^slot2 <c4>)
+	(<c5> ^clear-rt const1)
+}
+sp {propose*kk*stroop*finish
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 last)
+	-->
+	(<o1> ^name kk-stroop-finish)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*stroop*finish
+	(state <s> ^operator <c1>)
+	(state <s> ^G <c2>)
+	(<c2> ^Gtask <c3>)
+	(state <s> ^flags <c4>)
+	(<c1> ^name kk-stroop-finish)
+	-->
+	(<c2> ^Gtask finish)
+	(<c4> ^clear-rt const1)
+	(<c2> ^Gtask <c3> -)
+}
+sp {propose*kk*stroop-wrong-answer*redirect
+	(state <s> ^V <c1>)
+	(<c1> ^task stroop)
+	-->
+	(<o1> ^name const2 stroop)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*stroop-answer*wait
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 <> yes)
+	-->
+	(<o1> ^name const2 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*stroop-answer*retrieve-color
+	(state <s> ^V <c1>)
+	(<c1> ^slot2 )
+	-->
+	(<o1> ^name kk-stroop-answer-retrieve-color)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*stroop-answer*retrieve-color
+	(state <s> ^operator <c1>)
+	(state <s> ^Q <c2>)
+	(state <s> ^V <c3>)
+	(<c3> ^slot2 <c4>)
+	(<c1> ^name kk-stroop-answer-retrieve-color)
+	-->
+	(<c2> ^query <n1>)
+	(<n1> ^q-type query)
+	(<n1> ^slot1 s-mapping)
+	(<n1> ^slot2 <c4>)
+}
+sp {propose*kk*prepare*count-span
+	(state <s> ^V <c1>)
+	(<c1> ^task count-span)
+	-->
+	(<o1> ^name const2 count-span)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*prepare*AB
+	(state <s> ^V <c1>)
+	(<c1> ^task task-switching-AB)
+	-->
+	(<o1> ^name const2 task-switching-AB)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*prepare*CD
+	(state <s> ^V <c1>)
+	(<c1> ^task task-switching-CD)
+	-->
+	(<o1> ^name const2 task-switching-CD)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*prepare*stroop
+	(state <s> ^V <c1>)
+	(<c1> ^task stroop)
+	-->
+	(<o1> ^name const2 stroop)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*idle*wait
+	(state <s> ^V <c1>)
+	(<c1> ^slot1 pending)
+	-->
+	(<o1> ^name kk-idle-wait)
+	(<s> ^operator <o1> + =)
+}
+sp {apply*kk*idle*wait
+	(state <s> ^operator <c1>)
+	(state <s> ^AC <c2>)
+	(<c1> ^name kk-idle-wait)
+	-->
+	(<c2> ^action <n1>)
+	(<n1> ^slot1 wait)
+}
+sp {propose*kk*idle*AB-focus-task
+	(state <s> ^V <c1>)
+	(<c1> ^task task-switching-AB)
+	(<c1> ^slot1 yes)
+	-->
+	(<o1> ^name const3 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*idle*CD-focus-task
+	(state <s> ^V <c1>)
+	(<c1> ^task task-switching-CD)
+	(<c1> ^slot1 yes)
+	-->
+	(<o1> ^name const3 yes)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*idle*focus-stroop-answer
+	(state <s> ^V <c1>)
+	(<c1> ^task stroop)
+	(<c1> ^slot3 )
+	-->
+	(<o1> ^name const2 stroop)
+	(<s> ^operator <o1> + =)
+}
+sp {propose*kk*idle*wrong-stroop-answer
+	(state <s> ^V <c1>)
+	(<c1> ^task stroop)
+	(<c1> ^slot3 blue-word)
+	-->
+	(<o1> ^name const3 blue-word)
+	(<s> ^operator <o1> + =)
+}

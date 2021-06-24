@@ -36,7 +36,7 @@ source props_epsets.soar
 source props_primitives.soar
 source props_apply_buffer.soar
 source props_auto_addressing.soar
-#source props_rl.soar
+source props_rl.soar
 #source props_prohibit_list.soar
 
 multi-attributes condition 4
